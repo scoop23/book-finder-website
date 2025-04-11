@@ -5,6 +5,9 @@
 }
 
 @theme {
+  --font-inter : Inter, sans-serif;
+
+
   --color-primary-orange: #F89F5B;
   --color-primary-pink: #E53F71;
   --color-secondary-brown : #432C1E;
@@ -15,8 +18,13 @@
   --color-primary-bakerchocolate: #6C3A17;
   --color-primary-richgold:#9A4123;
   --color-primary-dessertsand: #EDC0A9;
+  --color-primary-solitude: #F5F6F8;
+  --color-primary-graychateau: #949DA6;
+  --color-primary-blackrock : #343844;
+  --color-primary-goldenbrown: #A16D19;
+  --color-primary-liver: #544B50;
 }
 
 body{
-  background-color: var(--color-primary-richgold);
+  background-color: var(--color-primary-blackrock);
 }
