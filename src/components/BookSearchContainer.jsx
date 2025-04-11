@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import SearchBar from './SearchBar'
 import '../App.css'
 import BookResults from './BookResults';
-import { FaBeer , FaSearch } from 'react-icons/fa';
+
 
 const apiKey = import.meta.env.VITE_BOOK_API_KEY;
 
