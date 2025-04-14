@@ -4,8 +4,7 @@ import { animate } from 'motion';
 
 
 const SearchBar = ({ value , onValueChange }) => {
-  console.log(value)
-
+  
   
   function handleClickSearch() {
     const input = document.querySelector('.input-search');

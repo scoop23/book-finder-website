@@ -3,6 +3,22 @@ import SearchBar from './SearchBar'
 import '../App.css'
 import BookResults from './BookResults';
 
+async function fetchBookByAuthor(apiKey, searchText, setBookData) {
+  const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${searchText}&key=${apiKey}`);
+  const data = await response.json();
+  setBookData(data);
+}
+
+async function fetchBookByTitle(apiKey, searchText, setBookData) {
+  const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${searchText}&key=${apiKey}`)
+
+  try{
+    const data = await response.json();
+    setBookData(data);
+  } catch(err) {
+    console.log("An Error Occured: ", err);
+  }
+}
 
 const apiKey = import.meta.env.VITE_BOOK_API_KEY;
 
@@ -10,25 +26,13 @@ const BookSearchContainer = () => {
   const [searchText , setSearchText] = useState('');
   const [bookData , setBookData] = useState({})
 
-  async function fetchBookByAuthor(apiKey, searchText) {
-    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${searchText}&key=${apiKey}`);
-    const data = await response.json();
-    setBookData(data);
-  }
-
-  async function fetchBookByTitle(apiKey, searchText) {
-    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=intitle:${searchText}&key=${apiKey}`);
-    const data = await response.json();
-    setBookData(data);
-  }
-
-  console.log(bookData?.items); 
+  
   
   useEffect(() => {
     const delay = setTimeout(() => {
       if(searchText.trim() != '') {
-        fetchBookByAuthor(apiKey , searchText);
-        fetchBookByTitle(apiKey, searchText);
+        // fetchBookByAuthor(apiKey, searchText);
+        fetchBookByTitle(apiKey, searchText, setBookData);
       }
     }, 600);
     
@@ -44,8 +48,8 @@ const BookSearchContainer = () => {
         value={searchText}
         onValueChange={setSearchText}
         />
-        <div className='inner-book-result-container p-2'>
-            <BookResults />  
+        <div className='inner-book-result-container p-2 min-w-[1204px] flex'> 
+            <BookResults data={bookData} />  
         </div>
       </div>
     </div>
