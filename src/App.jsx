@@ -3,7 +3,7 @@ import BookSearchContainer from './components/BookSearchContainer'
 
 const App = () => {
   return (
-    <div>
+    <div className='p-[40px]'>
       <BookSearchContainer/>
     </div>
   )
