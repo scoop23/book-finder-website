@@ -25,7 +25,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
             <span className='text-[13px] block '>by {author3}</span> 
           </span>
           
-          <div className='description2 text-[15px] p-2 bg-primary-indochine rounded-2xl max-h-[115px] font-winky overflow-hidden '>
+          <div className='description2 text-[15px] p-2  rounded-2xl max-h-[115px] font-winky overflow-hidden '>
             {bookDescription3}
           </div>
       </div>
@@ -39,7 +39,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
             <span className='text-[13px] block '>by {author2}</span> 
           </span>
           
-          <div className='description3 text-[15px] p-2 bg-primary-indochine rounded-2xl max-h-[115px] font-winky overflow-hidden '>
+          <div className='description3 text-[15px] p-2  rounded-2xl max-h-[115px] font-winky overflow-hidden '>
             {bookDescription2}
           </div>
       </div>
@@ -49,14 +49,14 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
   return (
     <div className='right-main-sidebar flex flex-col gap-5 '>
         <div className='right-sidebar text-black p-6 font-inter text-[100px] w-[700px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
-        <div className='pic-div-b2 max-h-[220px]'>
+        <div className='pic-div-b2 max-h-[220px] justify-center flex'>
           <img src={`${imglink2}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
         </div>
           <Book2Info />
         </div>
 
         <div className='right-sidebar p-6 font-inter text-[100px] w-[700px] h-[200px] text-black bg-primary-dutch-white flex rounded-2xl gap-2'>
-        <img src={`${imglink3}`} alt=""  className='min-w-[100px] rounded-2xl ring-1 pic-div-b3 max-h-[200px]'/>
+        <img src={`${imglink3}`} alt=""  className='justify-center flex min-w-[100px] rounded-2xl ring-1 pic-div-b3 max-h-[200px]'/>
           <Book3Info />
         </div>
 
@@ -70,7 +70,7 @@ const LeftSideBar = ({ topOneBook }) => {
   const title = topOneBook?.volumeInfo?.title;
   const imglink = topOneBook?.volumeInfo?.imageLinks?.thumbnail;
   const bookDescription = topOneBook?.volumeInfo?.description;
-  const author = topOneBook?.volumeInfo?.authors[0];
+  const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
 
 
   const Infos = () => {
@@ -80,7 +80,7 @@ const LeftSideBar = ({ topOneBook }) => {
             <span className='text-[13px] block '>by {author}</span> 
           </span>
           
-          <div className='description text-[15px] p-2 bg-primary-indochine rounded-2xl max-h-[115px] font-winky overflow-hidden '>
+          <div className='description text-[15px] p-2  rounded-2xl max-h-[115px] font-winky overflow-hidden '>
             {bookDescription}
           </div>
       </div>
@@ -88,9 +88,9 @@ const LeftSideBar = ({ topOneBook }) => {
   }
 
   return (
-    <div className='sidebar p-3  font-inter text-2xl max-w-[900px] h-[420px] text-black bg-primary-dutch-white rounded-2xl '>
+    <div className=' sidebar p-3  font-inter text-2xl max-w-[900px] h-[420px] text-black bg-primary-dutch-white rounded-2xl '>
       <div className='main-content-div flex justify-center gap-4 p-4 min-h-[400px]'>
-        <div className='pic-div max-h-[220px]'>
+        <div className='pic-div max-h-[220px] justify-center flex'>
           <img src={`${imglink}`} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
         </div>
         <Infos />
@@ -114,7 +114,7 @@ const BookResults = ({ data }) => {
 
 
   return (
-    <div className='main-bar flex gap-8  min-w-full '>
+    <div className='main-bar flex gap-8  min-w-full items-center justify-center'>
       <LeftSideBar topOneBook={topOneBook}/>
       <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
     </div>

@@ -30,7 +30,7 @@ const BookSearchContainer = () => {
         value={searchText}
         onValueChange={setSearchText}
         />
-        <div className='inner-book-result-container p-2 min-w-full flex'> 
+        <div className='inner-book-result-container p-2 min-w-full flex items-center justify-center'> 
             <BookResults data={bookData} />  
         </div>
       </div>
