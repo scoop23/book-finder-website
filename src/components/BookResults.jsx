@@ -20,7 +20,7 @@ const LeftSideBar = ({ topOneBook }) => {
   const title = topOneBook?.volumeInfo?.title;
   const imglink = topOneBook?.volumeInfo?.imageLinks?.thumbnail;
   const bookDescription = topOneBook?.volumeInfo?.description;
-  
+  let hey = '';
   const Infos = () => {
     return(
       <div className='content-info flex flex-col gap-2 '>
