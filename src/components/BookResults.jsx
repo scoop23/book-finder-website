@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { FaStar } from 'react-icons/fa';
+import BookResultsGrid from './BookResultsGrid';
 
 const RightSideBar = ({ topTwoBook , topThreeBook }) => {
 
@@ -35,7 +36,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
   const Book3Info = () => {
     return(
       <div className='content-info3 flex flex-col gap-2 min-w-[430px] max-h-[220px] items-baseline'>
-          <span className='title3 text-[20px] p-2 flex flex-col gap-2'>{title2}
+          <span className='title3 text-[20px] p-2 flex flex-col gap-2 overflow-hidden'>{title2}
             <span className='text-[13px] block '>by {author2}</span> 
           </span>
           
@@ -88,7 +89,7 @@ const LeftSideBar = ({ topOneBook }) => {
   }
 
   return (
-    <div className=' sidebar p-3  font-inter text-2xl max-w-[900px] h-[420px] text-black bg-primary-dutch-white rounded-2xl '>
+    <div className=' sidebar p-3 font-inter text-2xl max-w-[900px] h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
       <div className='main-content-div flex justify-center gap-4 p-4 min-h-[400px]'>
         <div className='pic-div max-h-[220px] justify-center flex'>
           <img src={`${imglink}`} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
@@ -104,19 +105,26 @@ const BookResults = ({ data }) => {
   let topOneBook;
   let topTwoBook;
   let topThreeBook;
-
+  let remainingBooks;
+  let page;
+  
   if(data.items) {
-    topBooks = data.items.slice(0,3)
+    topBooks = data.items.slice(0,3);
     topOneBook = topBooks[0];
     topTwoBook = topBooks[1];
     topThreeBook = topBooks[2];
+    remainingBooks = data.items.slice(3,1);
   }
 
 
   return (
-    <div className='main-bar flex gap-8  min-w-full items-center justify-center'>
-      <LeftSideBar topOneBook={topOneBook}/>
-      <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
+    <div className='main-content flex flex-col gap-6'>
+      <div className='main-bar flex gap-8 min-w-full items-center justify-center'>
+        <LeftSideBar topOneBook={topOneBook}/>
+        <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
+        
+      </div>
+      <BookResultsGrid data={data}/>
     </div>
   );
 }
