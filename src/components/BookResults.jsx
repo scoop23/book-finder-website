@@ -117,13 +117,15 @@ const BookResults = ({ data }) => {
   }
 
 
+
   return (
-    <div className='main-content flex flex-col gap-6'>
+    <div className='main-content text-white flex flex-col gap-6 items-center'>
       <div className='main-bar flex gap-8 min-w-full items-center justify-center'>
         <LeftSideBar topOneBook={topOneBook}/>
         <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
         
       </div>
+      <button className='page-btn border max-w-[100px] p-2 rounded-2xl cursor-pointer hover:bg-gray-500 transition-all duration-250'>page</button>
       <BookResultsGrid data={data}/>
     </div>
   );
