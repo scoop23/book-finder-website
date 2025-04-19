@@ -76,7 +76,7 @@ const LeftSideBar = ({ topOneBook }) => {
 
   const Infos = () => {
     return(
-      <div className='content-info flex flex-col gap-2 min-w-[430px] max-h-[220px] items-baseline'>
+      <div className='content-info flex flex-col gap-2 max-w-[430px] max-h-[220px] items-baseline'>
           <span className='title text-[20px] p-2 flex flex-col gap-2'>{title}
             <span className='text-[13px] block '>by {author}</span> 
           </span>
