@@ -3,8 +3,14 @@ import BookCard from './BookCard';
 
 const BookResultsGrid = () => {
   return (
-    <div className='flex'>
-      <div className='grid grid-cols-4'>
+    <div className='flex justify-center'>
+      <div className='grid grid-cols-4 gap-12'>
+        <BookCard />
+        <BookCard />
+        <BookCard />
+        <BookCard />
+        <BookCard />
+        <BookCard />
         <BookCard />
         <BookCard />
       </div>
