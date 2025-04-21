@@ -81,7 +81,7 @@ const LeftSideBar = ({ topOneBook }) => {
             <span className='text-[13px] block '>by {author}</span> 
           </span>
           
-          <div className='description text-[15px] p-2  rounded-2xl max-h-[115px] font-winky overflow-hidden '>
+          <div className='description text-[15px] p-2  rounded-2xl max-h-[220px] font-winky overflow-hidden '>
             {bookDescription}
           </div>
       </div>
@@ -89,7 +89,7 @@ const LeftSideBar = ({ topOneBook }) => {
   }
 
   return (
-    <div className=' sidebar p-3 font-inter text-2xl max-w-[900px] h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
+    <div className='sidebar p-3 font-inter text-2xl max-w-[900px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
       <div className='main-content-div flex justify-center gap-4 p-4 min-h-[400px]'>
         <div className='pic-div max-h-[220px] justify-center flex'>
           <img src={`${imglink}`} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
@@ -106,14 +106,14 @@ const BookResults = ({ data }) => {
   let topTwoBook;
   let topThreeBook;
   let remainingBooks;
-  let page;
+  
   
   if(data.items) {
-    topBooks = data.items.slice(0,3);
+    topBooks = data.items?.slice(0,3);
     topOneBook = topBooks[0];
     topTwoBook = topBooks[1];
     topThreeBook = topBooks[2];
-    remainingBooks = data.items.slice(3,1);
+    
   }
 
 
@@ -125,8 +125,8 @@ const BookResults = ({ data }) => {
         <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
         
       </div>
-      <button className='page-btn border max-w-[100px] p-2 rounded-2xl cursor-pointer hover:bg-gray-500 transition-all duration-250'>page</button>
-      <BookResultsGrid data={data}/>
+      <button className='page-btn border max-w-[100px] p-2 rounded-2xl cursor-pointer hover:bg-gray-500 transition-all duration-250'>PAGE</button>
+      <BookResultsGrid data={remainingBooks}/>
     </div>
   );
 }
