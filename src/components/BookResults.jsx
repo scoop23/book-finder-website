@@ -108,6 +108,7 @@ const BookResults = ({ data }) => {
   let remainingBooks;
   
   
+  
   if(data.items) {
     topBooks = data.items?.slice(0,3);
     topOneBook = topBooks[0];
@@ -125,7 +126,7 @@ const BookResults = ({ data }) => {
         <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
         
       </div>
-      <button className='page-btn border max-w-[100px] p-2 rounded-2xl cursor-pointer hover:bg-gray-500 transition-all duration-250'>PAGE</button>
+      <button className='page-btn border max-w-[100px] p-2 rounded-2xl cursor-pointer hover:bg-gray-500 transition-all duration-250'>PAGE {}</button>
       <BookResultsGrid data={remainingBooks}/>
     </div>
   );
