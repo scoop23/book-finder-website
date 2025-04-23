@@ -1,18 +1,14 @@
 import React from 'react'
 import BookCard from './BookCard';
 
-const BookResultsGrid = () => {
+const BookResultsGrid = ({ remainingBooks }) => {
+  // remainingBooks = an array of data.items;
   return (
     <div className='flex justify-center'>
-      <div className='grid grid-cols-4 gap-12 gap-y-8'>
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
+      <div className='grid grid-cols-4 gap-12 gap-y-8 max-w-[1380px]'>
+        {remainingBooks.map((book , index) => (
+          <BookCard key={index} bookData={book}/>
+        ))}
       </div>
     </div>
   )

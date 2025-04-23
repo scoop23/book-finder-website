@@ -16,18 +16,16 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
   const bookDescription3 = book3VolumeInfo?.description || 'NA';
   const author3 = book3VolumeInfo?.authors?.[0] || 'NA';
   const imglink3 = book3VolumeInfo?.imagelinks?.thumbnail || book3VolumeInfo?.imageLinks?.smallThumbnail;
-  console.log(imglink3)
-  console.log(book3VolumeInfo)
 
   const Book2Info = () => {
     return (
       <div className='content-info2 flex flex-col gap-2 min-w-[430px] max-h-[220px] items-baseline'>
-          <span className='title2 text-[20px] p-2 flex flex-col gap-2'>{title3}
-            <span className='text-[13px] block '>by {author3}</span> 
+          <span className='title2 max-h-[200px] text-[20px] p-2 flex flex-col gap-2'>{title2}
+            <span className='text-[13px] block '>by {author2}</span> 
           </span>
           
           <div className='description2 text-[15px] p-2  rounded-2xl max-h-[115px] font-winky overflow-hidden '>
-            {bookDescription3}
+            {bookDescription2}
           </div>
       </div>
     )
@@ -36,12 +34,12 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
   const Book3Info = () => {
     return(
       <div className='content-info3 flex flex-col gap-2 min-w-[430px] max-h-[220px] items-baseline'>
-          <span className='title3 text-[20px] p-2 flex flex-col gap-2 overflow-hidden'>{title2}
-            <span className='text-[13px] block '>by {author2}</span> 
+          <span className='title3 max-h-[200px] text-[20px] p-2 flex flex-col gap-2'>{title3}
+            <span className='text-[13px] block '>by {author3}</span> 
           </span>
           
           <div className='description3 text-[15px] p-2  rounded-2xl max-h-[115px] font-winky overflow-hidden '>
-            {bookDescription2}
+            {bookDescription3}
           </div>
       </div>
     )
@@ -100,34 +98,22 @@ const LeftSideBar = ({ topOneBook }) => {
   )
 }
 
-const BookResults = ({ data }) => {
-  let topBooks;
-  let topOneBook;
-  let topTwoBook;
-  let topThreeBook;
-  let remainingBooks;
-  
-  
-  
-  if(data.items) {
-    topBooks = data.items?.slice(0,3);
-    topOneBook = topBooks[0];
-    topTwoBook = topBooks[1];
-    topThreeBook = topBooks[2];
-    
-  }
-
-
+const BookResults = ({ data }) => { 
+  const topBooks = data.items?.slice(0, 3); // ?. - safety check data.items if it exists
+  const topOneBook = topBooks?.[0];
+  const topTwoBook = topBooks?.[1];
+  const topThreeBook = topBooks?.[2];
+  const remainingBooks = data.items?.slice(3) || []; // start at index 4
 
   return (
-    <div className='main-content text-white flex flex-col gap-6 items-center'>
+    <div className='main-content text-black flex flex-col gap-6 items-center'>
       <div className='main-bar flex gap-8 min-w-full items-center justify-center'>
         <LeftSideBar topOneBook={topOneBook}/>
         <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
         
       </div>
       <button className='page-btn border max-w-[100px] p-2 rounded-2xl cursor-pointer hover:bg-gray-500 transition-all duration-250'>PAGE {}</button>
-      <BookResultsGrid data={remainingBooks}/>
+      <BookResultsGrid remainingBooks={remainingBooks} />
     </div>
   );
 }
