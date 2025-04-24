@@ -8,7 +8,6 @@ const BookSearchContainer = () => {
   const [searchText , setSearchText] = useState('');
   const [bookData , setBookData] = useState({});
   const [bookApi] = useState(new BookApi(import.meta.env.VITE_BOOK_API_KEY));
-
   
   useEffect(() => {
     const delay = setTimeout(() => {
