@@ -54,8 +54,8 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
       <motion.div
         // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
-        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[600px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
-        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[600px]'>
+        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
+        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink2}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
           </div>
@@ -66,8 +66,8 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
       </motion.div>
       <motion.div
       >
-        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[600px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
-        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[600px]'>
+        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
+        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink3}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
           </div>
@@ -87,7 +87,7 @@ const LeftSideBar = ({topOneBook}) => {
   const bookDescription = topOneBook?.volumeInfo?.description || "No Description";
   const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
 
-  console.log(dataVolumeInfo);
+  if(!dataVolumeInfo) return "No Book"
   const control = useAnimation();
 
   const AdditonalInfos = () => {
