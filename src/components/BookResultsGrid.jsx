@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BookCard from './BookCard';
+
 
 const BookResultsGrid = ({ remainingBooks }) => {
   // remainingBooks = an array of data.items;

@@ -1,20 +1,23 @@
-import React from 'react'
+// import { animate , delay, stagger } from 'motion';
+import React, { useEffect, useRef } from 'react'
 
 const BookCard = ({ bookData }) => {
-
-  // console.log(bookData?.volumeInfo?.title);
-  const data = bookData.volumeInfo;
+  
+  const data = bookData?.volumeInfo;
   const { title, imageLinks } = data;
-
-  return (
+  
+  return (  
     <div className='main-bookcard-content'>
       <div className='content-container rounded-3xl bg-primary-dutch-white max-w-[309px] min-h-[300px]'>
         {/* TODO : ADD CONTENT FOR CARD */}
-        <div className='main-content-card flex p-5 max-h-[150px]'>
+        <div className='main-content-card flex p-5 max-h-[150px] max-w-[309px]'>
           <div className='inner-content flex gap-2'>
             <div className='content flex gap-5'>
-              <img className='rounded-2xl ' src={`${imageLinks.thumbnail || 'No Image'}`} />
-              <span>{title}</span>
+              { imageLinks?.thumbnail ? (
+                <img className='image rounded-2xl' src={imageLinks.thumbnail} />
+              ) : (<div> NO IMAGE </div>)
+              }
+              <span className='title font-bold'>{title}</span>
             </div>
           </div>    
         </div>
