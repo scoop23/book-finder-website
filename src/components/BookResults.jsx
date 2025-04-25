@@ -54,8 +54,8 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
       <motion.div
         // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
-        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[700px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
-        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[800px]'>
+        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[600px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
+        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[600px]'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink2}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
           </div>
@@ -64,12 +64,10 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
         </div>
         
       </motion.div>
-
       <motion.div
-        
       >
-        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[700px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
-        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[700px]'>
+        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[600px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
+        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[600px]'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink3}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
           </div>
@@ -77,7 +75,6 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
           </div>
         </div>
       </motion.div>
-
     </div>
   );
 }
@@ -125,7 +122,7 @@ const LeftSideBar = ({topOneBook}) => {
     <motion.div
     
     >
-      <div className='sidebar p-3 font-inter text-2xl max-w-[900px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
+      <div className='sidebar p-3 font-inter text-2xl max-w-[700px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
           <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl'>
             <div className='pic-div max-h-[220px] justify-center flex'>
@@ -149,8 +146,8 @@ const BookResults = ({ data }) => {
   const remainingBooks = data.items?.slice(3) || []; // start at index 4
 
   return (
-    <div className='main-content text-black flex flex-col gap-6 items-center'>
-      <div className='main-bar flex gap-8 min-w-full items-center justify-center'>
+    <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px]'>
+      <div className='main-bar flex gap-8 max-w-[1300px] items-center justify-center'>
         <LeftSideBar topOneBook={topOneBook}/>
         <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
         
