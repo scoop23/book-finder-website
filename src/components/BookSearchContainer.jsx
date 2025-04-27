@@ -25,6 +25,7 @@ const BookSearchContainer = () => {
   }, [searchText]);
 
   
+  // TODO: WILL ADD A LANDING/START PAGE?
   
   return (
     <>
@@ -37,11 +38,6 @@ const BookSearchContainer = () => {
 
           {bookData && (<div className='inner-book-result-container p-2 min-w-full flex items-center justify-center'> 
             <BookResults data={bookData} />
-              {/* {!isLoading ? (
-                <BookResults data={bookData} />  
-              ) : (
-                <Loading />
-              )} */}
           </div>)}
 
 

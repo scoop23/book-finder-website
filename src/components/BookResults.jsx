@@ -4,7 +4,7 @@ import BookResultsGrid from './BookResultsGrid';
 import { motion , useAnimation } from 'motion/react';
 import { LuStar } from 'react-icons/lu';
 
-
+// TODO : ADD ANIMATIONS
 
 
 const RightSideBar = ({ topTwoBook , topThreeBook }) => {
@@ -54,7 +54,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
       <motion.div
         // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
-        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
+        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
         <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink2}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
@@ -66,7 +66,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
       </motion.div>
       <motion.div
       >
-        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2'>
+        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
         <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink3}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
@@ -87,7 +87,7 @@ const LeftSideBar = ({topOneBook}) => {
   const bookDescription = topOneBook?.volumeInfo?.description || "No Description";
   const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
 
-  if(!dataVolumeInfo) return "No Book"
+  if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
   const control = useAnimation();
 
   const AdditonalInfos = () => {
@@ -95,7 +95,7 @@ const LeftSideBar = ({topOneBook}) => {
     return (
       <div className='flex second-content text-[15px] justify-center h-[100px] items-center'>
         
-        <button className='see-more-btn border bg-primary-indochine rounded-3xl p-2 max-h-[40px]'><a href={`${dataVolumeInfo.infoLink}`}> See More </a></button>
+        <button className='see-more-btn bg-primary-indochine rounded-3xl p-2 max-h-[40px]'><a href={`${dataVolumeInfo.infoLink}`}> See More </a></button>
 
       </div>
     )
@@ -122,7 +122,7 @@ const LeftSideBar = ({topOneBook}) => {
     <motion.div
     
     >
-      <div className='sidebar p-3 font-inter text-2xl max-w-[700px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
+      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar p-3 font-inter text-2xl max-w-[700px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
           <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl'>
             <div className='pic-div max-h-[220px] justify-center flex'>
