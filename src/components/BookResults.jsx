@@ -24,7 +24,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
   const Book2Info = () => {
     return (
       <div className='content-info2 flex flex-col gap-2 min-w-[430px] max-h-[220px] items-baseline'>
-          <span className='title2 max-h-[200px] text-[20px] p-1 flex flex-col gap-2'>{title2}
+          <span className='font-avenir title2 max-h-[200px] text-[20px] p-1 flex flex-col gap-2'>{title2}
             <span className='text-[13px] block '>by {author2}</span> 
           </span>
           
@@ -38,7 +38,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
   const Book3Info = () => {
     return(
       <div className='content-info3 flex flex-col gap-2 min-w-[430px] max-h-[220px] items-baseline'>
-          <span className='title3 max-h-[200px] text-[20px] p-1 flex flex-col gap-2'>{title3}
+          <span className='font-avenir title3 max-h-[200px] text-[20px] p-1 flex flex-col gap-2'>{title3}
             <span className='text-[13px] block '>by {author3}</span> 
           </span>
           
@@ -55,7 +55,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
         // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
         <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
-        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
+        <div className='flex gap-3 shadow-custom3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink2}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
           </div>
@@ -67,7 +67,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
       <motion.div
       >
         <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
-        <div className='flex gap-3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
+        <div className='flex gap-3 shadow-custom3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink3}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
           </div>
@@ -95,7 +95,7 @@ const LeftSideBar = ({topOneBook}) => {
     return (
       <div className='flex second-content text-[15px] justify-center h-[100px] items-center'>
         
-        <button className='see-more-btn bg-primary-indochine rounded-3xl p-2 max-h-[40px]'><a href={`${dataVolumeInfo.infoLink}`}> See More </a></button>
+        <button className='see-more-btn shadow-custom2 bg-primary-indochine rounded-3xl p-2 max-h-[40px]'><a href={`${dataVolumeInfo.infoLink}`}> See More </a></button>
 
       </div>
     )
@@ -104,7 +104,7 @@ const LeftSideBar = ({topOneBook}) => {
   const Infos = () => {
     return(
         <div className='content-info flex flex-col gap-2 max-w-[430px] max-h-[220px] items-baseline'>
-            <span className='title text-[20px] p-2 flex flex-col gap-2'>{title}
+            <span className='title text-[20px] p-2 flex flex-col gap-2 font-avenir'>{title}
               <span className='text-[13px] block '>by {author}</span>
               <span className='text-[13px] block'> Published Date: {dataVolumeInfo.publishedDate} </span> 
               <span className='text-[13px] block'>Page Count: {dataVolumeInfo.pageCount}</span>
@@ -124,7 +124,7 @@ const LeftSideBar = ({topOneBook}) => {
     >
       <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar p-3 font-inter text-2xl max-w-[700px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
-          <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl'>
+          <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl shadow-custom3'>
             <div className='pic-div max-h-[220px] justify-center flex'>
               <img src={`${imglink}`} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
             </div>

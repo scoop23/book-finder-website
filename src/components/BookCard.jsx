@@ -7,10 +7,10 @@ const BookCard = ({ bookData }) => {
 
   const data = bookData?.volumeInfo;
   const { title, imageLinks , description,  publishedDate} = data;
-  animate(".main-bookcard-content" , )
+
   return (  
     <div className='main-bookcard-content max-h-[300px]'>
-      <div className='content-container rounded-3xl bg-primary-dutch-white max-w-[309px] h-[300px] flex flex-col shadow-custom shadow-primary-bakerchocolate'>
+      <div className='content-container rounded-3xl bg-primary-dutch-white max-w-[309px] h-[300px] flex flex-col shadow-custom3'>
         {/* TODO : ADD CONTENT FOR CARD */}
 
         <div className='bookcard-content flex flex-col p-1 justify-center items-center'>
@@ -30,7 +30,7 @@ const BookCard = ({ bookData }) => {
             </div>  
           </div>
 
-          <div className='sub-content bg-primary-bakerchocolate w-[250px] h-[120px] rounded-3xl'>
+          <div className='sub-content bg-primary-goldenbrown w-[250px] h-[120px] rounded-3xl'>
             
           </div>
         </div>
