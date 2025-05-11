@@ -5,6 +5,9 @@ import { animate } from 'motion';
 
 const SearchBar = ({ value , onValueChange }) => {
   
+  function onLoadAnimate() {
+    
+  }
   
   function handleClickSearch() {
     const input = document.querySelector('.input-search');
@@ -31,7 +34,10 @@ const SearchBar = ({ value , onValueChange }) => {
           className={`input-search hidden w-0 rounded-2xl outline-0 font-inter`}
           type="text" 
           value={value}
-          onChange={(e) => onValueChange(e.target.value)}
+          onChange={(e) => {
+            onValueChange(e.target.value)
+
+          }}
           placeholder='Search for books..'
           />
           <div className='click-search' onClick={() => handleClickSearch()}>

@@ -9,14 +9,14 @@ const BookSearchContainer = () => {
   const [searchText , setSearchText] = useState('');
   const [bookData , setBookData] = useState(null);
   const [bookApi] = useState(new BookApi(import.meta.env.VITE_BOOK_API_KEY));
-  const [isLoading , setIsloading] = useState(true);
+  // const [isLoading , setIsloading] = useState(true);
   
   useEffect(() => {
     const delay = setTimeout(() => {
       if(searchText.trim() != '') {
-        setIsloading(true);
+        
         // fetchBookByAuthor(apiKey, searchText);
-        bookApi.fetchBookByTitle(searchText, setBookData , setIsloading);
+        bookApi.fetchBookByTitle(searchText, setBookData);
       }
     }, 600);
     

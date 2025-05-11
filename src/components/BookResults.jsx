@@ -1,9 +1,11 @@
 import React, { forwardRef, useEffect , useRef } from 'react'
 import { FaStar } from 'react-icons/fa';
 import BookResultsGrid from './BookResultsGrid';
-import { motion , useAnimation } from 'motion/react';
+import { motion , useAnimation, useForceUpdate } from 'motion/react';
 import { LuStar } from 'react-icons/lu';
-
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MotionPathPlugin } from 'gsap/all';  
 // TODO : ADD ANIMATIONS
 
 
@@ -49,6 +51,31 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
     )
   }
 
+  useEffect(() => {
+    const tlRightSideBar = gsap.timeline();
+    if(book2VolumeInfo && book3VolumeInfo) {
+      tlRightSideBar.fromTo(
+        ".right-sidebar",
+        {
+          x : 250,
+          opacity: 0,
+          ease: "power1.inOut",
+          filter : "blur(5px)"
+        },
+        {
+          x : 0,
+          opacity : 1,
+          filter: "blur(0px)",
+          duration: 0.8, 
+        }
+      )
+    }
+
+
+
+  } , [book2VolumeInfo, book3VolumeInfo])
+
+
   return (
     <div className='right-main-sidebar flex flex-col gap-5 '>
       <motion.div
@@ -79,6 +106,8 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
   );
 }
 
+
+
 const LeftSideBar = ({topOneBook}) => {
   // const { title } = topOneBook.volumeInfo;
   const dataVolumeInfo = topOneBook?.volumeInfo;
@@ -88,7 +117,34 @@ const LeftSideBar = ({topOneBook}) => {
   const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
 
   if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
-  const control = useAnimation();
+
+  useEffect(() => {
+  const tl = gsap.timeline();
+    if(dataVolumeInfo) {
+
+      tl.fromTo(
+        ".sidebar",
+        { // first instance
+          opacity: 0,
+          x: -200,
+          ease : "power1.inOut",
+          filter : "blur(5px)",
+        },
+        { // end instance
+          opacity:1,
+          x: 0,
+          duration: 0.8,
+          ease: "power1.inOut",
+          filter : "blur(0px)",
+        }
+      );
+
+    } 
+    return(() => {
+      tl.kill();
+    })
+    
+  }, [dataVolumeInfo])
 
   const AdditonalInfos = () => {
     // Still thinking what to put here :)
