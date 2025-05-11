@@ -66,13 +66,15 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
           x : 0,
           opacity : 1,
           filter: "blur(0px)",
-          duration: 0.8, 
+          duration: 0.5,
+          stagger: 0.2,
         }
       )
     }
 
-
-
+    return(() => {
+      tlRightSideBar.kill();
+    });
   } , [book2VolumeInfo, book3VolumeInfo])
 
 
@@ -133,7 +135,7 @@ const LeftSideBar = ({topOneBook}) => {
         { // end instance
           opacity:1,
           x: 0,
-          duration: 0.8,
+          duration: 0.5,
           ease: "power1.inOut",
           filter : "blur(0px)",
         }
