@@ -6,7 +6,10 @@ import { LuStar } from 'react-icons/lu';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/all';  
-// TODO : ADD ANIMATIONS
+
+
+// TODO : ADD ANIMATIONS *Update - only did for the top books
+
 
 
 const RightSideBar = ({ topTwoBook , topThreeBook }) => {
@@ -153,7 +156,7 @@ const LeftSideBar = ({topOneBook}) => {
     return (
       <div className='flex second-content text-[15px] justify-center h-[100px] items-center'>
         
-        <button className='see-more-btn shadow-custom2 bg-primary-indochine rounded-3xl p-2 max-h-[40px]'><a href={`${dataVolumeInfo.infoLink}`}> See More </a></button>
+        <button className='see-more-btn shadow-custom2 bg-primary-indochine rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:shadow-2xl hover:-translate-y-3 duration-500 transition-all'><a className='' href={`${dataVolumeInfo.infoLink}`}>See More</a></button>
 
       </div>
     )

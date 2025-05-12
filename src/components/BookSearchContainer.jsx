@@ -4,6 +4,7 @@ import '../App.css'
 import BookResults from './BookResults';
 import BookApi from './BookApi';
 import Loading from './Loading';
+import MainPage from './MainPage';
 
 const BookSearchContainer = () => {
   const [searchText , setSearchText] = useState('');
@@ -36,9 +37,13 @@ const BookSearchContainer = () => {
           onValueChange={setSearchText}
           />
 
-          {bookData && (<div className='inner-book-result-container p-2 min-w-full flex items-center justify-center'> 
+          {bookData ? (<div className='inner-book-result-container p-2 min-w-full flex items-center justify-center'> 
             <BookResults data={bookData} />
-          </div>)}
+          </div>) : (
+            <>
+              <MainPage />
+            </>
+          )}
 
 
         </div>
