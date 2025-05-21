@@ -87,7 +87,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
         // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
         <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
-        <div className='flex gap-3 shadow-custom3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
+        <div className='flex first-content gap-3 bg-primary-graychateau p-4 rounded-4xl  hover:shadow-custom3 hover:-translate-2 transition-all duration-200'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink2}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
           </div>
@@ -99,7 +99,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
       <motion.div
       >
         <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
-        <div className='flex gap-3 shadow-custom3 bg-primary-graychateau p-2 rounded-2xl max-w-[570px]'>
+        <div className='flex first-content gap-3 bg-primary-graychateau p-4 rounded-4xl  hover:shadow-custom3 hover:-translate-2 transition-all duration-200'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={`${imglink3}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
           </div>
@@ -180,12 +180,9 @@ const LeftSideBar = ({topOneBook}) => {
   }
 
   return (
-    <motion.div
-    
-    >
       <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar p-3 font-inter text-2xl max-w-[700px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
-          <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl shadow-custom3'>
+          <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl shadow-2xs hover:shadow-custom3 hover:-translate-2 transition-all duration-200'>
             <div className='pic-div max-h-[220px] justify-center flex'>
               <img src={`${imglink}`} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
             </div>
@@ -194,7 +191,6 @@ const LeftSideBar = ({topOneBook}) => {
           <AdditonalInfos />
         </div>
       </div>
-    </motion.div>
   )
 };
 
@@ -205,6 +201,7 @@ const BookResults = ({ data }) => {
   const topTwoBook = topBooks?.[1];
   const topThreeBook = topBooks?.[2];
   const remainingBooks = data.items?.slice(3) || []; // start at index 4
+  console.log(topBooks)
 
   return (
     <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px]'>

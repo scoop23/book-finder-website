@@ -30,7 +30,7 @@ const BookCard = ({ bookData }) => {
             </div>  
           </div>
 
-          <div className='sub-content bg-primary-goldenbrown w-[250px] h-[120px] rounded-3xl'>
+          <div className='sub-content w-[250px] h-[120px] rounded-3xl'>
             
           </div>
         </div>
