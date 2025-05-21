@@ -1,5 +1,6 @@
 import React from 'react'
 import BookSearchContainer from './components/BookSearchContainer'
+import './App.css'
 
 const App = () => {
   return (

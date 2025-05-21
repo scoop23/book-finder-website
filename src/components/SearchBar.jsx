@@ -3,12 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 import { animate } from 'motion';
 
 
-const SearchBar = ({ value , onValueChange }) => {
-  
-  function onLoadAnimate() {
-    
-  }
-  
+const SearchBar = ({ value , onValueChange }) => {  
   function handleClickSearch() {
     const input = document.querySelector('.input-search');
   
