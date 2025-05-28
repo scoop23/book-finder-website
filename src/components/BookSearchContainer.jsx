@@ -10,12 +10,20 @@ import axios from 'axios';
 
 const BookSearchContainer = () => {
   const [searchText , setSearchText] = useState('');
+  const [searchType , setSearchType] = useState('');
   const [bookData , setBookData] = useState(null);
-  const [bookApi] = useState(new BookApi());
+  console.log(searchType)
+  // const [bookApi] = useState(new BookApi());
   // const [isLoading , setIsloading] = useState(true);
 
   const fetchBookByAuthor = async (searchText) => {
-    const response = await axios.get(`http://localhost:8080/api/search?q=${searchText}`);
+    const response = await axios.get(`http://localhost:8080/api/search-author?q=${searchText}`);
+    const data = response.data;
+    setBookData(data);
+  }
+
+  const fetchBookByTitle = async (searchText) => {
+    const response = await axios.get(`http://localhost:8080/api/search-title?q=${searchText}`);
     const data = response.data;
     setBookData(data);
   }
@@ -23,16 +31,21 @@ const BookSearchContainer = () => {
   useEffect(() => {
     const delay = setTimeout(() => {
       if(searchText.trim() != '') {
-        
+
+        if(searchType === '') { 
+          fetchBookByAuthor(searchText) // for now default to author
+        } else if(searchType === 'title') {
+          fetchBookByTitle(searchText);
+        } else {
+          console.error("hey hey hey")
+        }
+        // debouncing 
         // fetchBookByAuthor(apiKey, searchText);
         // bookApi.fetchBookByTitle(searchText, setBookData);
-        fetchBookByAuthor(searchText); // moved to backend for security
-
+        // fetchBookByAuthor(searchText); // moved to backend for security
       }
-    }, 1000);
-    
-    return () => clearTimeout(delay); // cleanup
-    
+    }, 600);
+    return () => clearTimeout(delay); // cleanup debounce
   }, [searchText]);
   
   // TODO: WILL ADD A LANDING/START PAGE?
@@ -44,6 +57,7 @@ const BookSearchContainer = () => {
           <SearchBar 
           value={searchText}
           onValueChange={setSearchText}
+          setSearchType={setSearchType}
           />
           {bookData ? (<div className='inner-book-result-container p-2 min-w-full flex items-center justify-center'> 
             <BookResults data={bookData} />

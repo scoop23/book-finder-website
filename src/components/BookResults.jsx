@@ -155,9 +155,7 @@ const LeftSideBar = ({topOneBook}) => {
     // Still thinking what to put here :)
     return (
       <div className='flex second-content text-[15px] justify-center h-[100px] items-center'>
-        
-        <button className='see-more-btn shadow-custom2 bg-primary-indochine rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:shadow-2xl hover:-translate-y-3 duration-500 transition-all'><a className='' href={`${dataVolumeInfo.infoLink}`}>See More</a></button>
-
+        <button className='see-more-btn bg-primary-indochine rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:-translate-y-1 duration-500 transition-all hover:shadow-2xl'><a className='' href={`${dataVolumeInfo.infoLink}`}>See More</a></button>
       </div>
     )
   }
@@ -201,7 +199,6 @@ const BookResults = ({ data }) => {
   const topTwoBook = topBooks?.[1];
   const topThreeBook = topBooks?.[2];
   const remainingBooks = data.items?.slice(3) || []; // start at index 4
-  console.log(topBooks)
 
   return (
     <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px]'>
