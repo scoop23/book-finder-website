@@ -151,7 +151,7 @@ const LeftSideBar = ({topOneBook}) => {
     
   }, [dataVolumeInfo])
 
-  const AdditonalInfos = () => {
+  const AdditionalInfos = () => {
     // Still thinking what to put here :)
     return (
       <div className='flex second-content text-[15px] justify-center h-[100px] items-center'>
@@ -186,7 +186,7 @@ const LeftSideBar = ({topOneBook}) => {
             </div>
             <Infos />
           </div>
-          <AdditonalInfos />
+          <AdditionalInfos />
         </div>
       </div>
   )
@@ -199,16 +199,25 @@ const BookResults = ({ data }) => {
   const topTwoBook = topBooks?.[1];
   const topThreeBook = topBooks?.[2];
   const remainingBooks = data.items?.slice(3) || []; // start at index 4
-
+  console.log(data)
   return (
     <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px]'>
-      <div className='main-bar flex gap-8 max-w-[1300px] items-center justify-center'>
-        <LeftSideBar topOneBook={topOneBook}/>
-        <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
-        
-      </div>
-      <button className='page-btn border max-w-[100px] p-2 rounded-2xl cursor-pointer hover:bg-gray-500 transition-all duration-250'>PAGE {}</button>
-      <BookResultsGrid remainingBooks={remainingBooks} />
+      {!data.items?.length ? (
+        <div className='no-data-books'>
+          No Books Found!
+        </div>
+      ) : (
+        <>
+        <div className='main-bar flex gap-8 max-w-[1300px] items-center justify-center'>
+          <LeftSideBar topOneBook={topOneBook}/>
+          <RightSideBar topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
+        </div>
+
+        <button className='page-btn border max-w-[100px] p-2 rounded-2xl cursor-pointer hover:bg-gray-500 transition-all duration-250'>PAGE</button>
+
+        <BookResultsGrid remainingBooks={remainingBooks} />
+      </>
+      ) }
     </div>
   );
 }

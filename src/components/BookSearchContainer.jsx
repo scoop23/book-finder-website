@@ -31,11 +31,12 @@ const BookSearchContainer = () => {
   useEffect(() => {
     const delay = setTimeout(() => {
       if(searchText.trim() != '') {
-
         if(searchType === '') { 
           fetchBookByAuthor(searchText) // for now default to author
         } else if(searchType === 'title') {
           fetchBookByTitle(searchText);
+        } else if(searchType === 'author'){
+          fetchBookByAuthor(searchText) // for now default to author
         } else {
           console.error("hey hey hey")
         }
@@ -46,13 +47,13 @@ const BookSearchContainer = () => {
       }
     }, 600);
     return () => clearTimeout(delay); // cleanup debounce
-  }, [searchText]);
+  }, [searchText, searchType]);
   
   // TODO: WILL ADD A LANDING/START PAGE?
   
   return (
     <>
-      <div className='main-container flex flex-col justify-center items-center w-full h-screen gap-2'>
+      <div className='main-container flex flex-col justify-center items-center w-full h-screen gap-4'>
         <div className='inner-main min-w-[1600px] min-h-[800px] rounded-[10px] items-center'>
           <SearchBar 
           value={searchText}
