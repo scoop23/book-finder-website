@@ -6,7 +6,7 @@ import { LuStar } from 'react-icons/lu';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/all';  
-
+import bookImage from '../assets/book_empty.png';
 
 // TODO : ADD ANIMATIONS *Update - only did for the top books
 
@@ -89,7 +89,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
         <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
         <div className='flex first-content gap-3 bg-primary-graychateau p-4 rounded-4xl  hover:shadow-custom3 hover:-translate-2 transition-all duration-200'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
-            <img src={`${imglink2}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
+            <img src={imglink2 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>
           </div>
             <Book2Info />
           </div>
@@ -101,7 +101,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
         <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
         <div className='flex first-content gap-3 bg-primary-graychateau p-4 rounded-4xl  hover:shadow-custom3 hover:-translate-2 transition-all duration-200'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
-            <img src={`${imglink3}`} alt=""  className='min-w-[100px] rounded-2xl ring-1'/>
+            <img src={imglink3 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>
           </div>
             <Book3Info />
           </div>
@@ -181,8 +181,8 @@ const LeftSideBar = ({topOneBook}) => {
       <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar p-3 font-inter text-2xl max-w-[700px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
           <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl shadow-2xs hover:shadow-custom3 hover:-translate-2 transition-all duration-200'>
-            <div className='pic-div max-h-[220px] justify-center flex'>
-              <img src={`${imglink}`} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
+            <div className='pic-div max-h-[220px] justify-center flex object-cover'>
+              <img src={imglink || bookImage} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
             </div>
             <Infos />
           </div>

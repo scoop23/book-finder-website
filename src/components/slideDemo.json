@@ -1,0 +1,34 @@
+{
+  "slideData" : [
+    {
+      "src" : "http://books.google.com/books/content?id=-6V7CgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "alt" : "Image 1",
+      "title" : "Title"
+    },
+    {
+      "src" : "http://books.google.com/books/content?id=4eLUnQEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      "alt" : "Image 2",
+      "title" : "Title"
+    },
+    {
+      "src" : "http://books.google.com/books/content?id=-6V7CgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "alt" : "Image 1",
+      "title" : "Title"
+    },
+    {
+      "src" : "http://books.google.com/books/content?id=-6V7CgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "alt" : "Image 1",
+      "title" : "Title"
+    },
+    {
+      "src" : "http://books.google.com/books/content?id=-6V7CgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "alt" : "Image 1",
+      "title" : "Title"
+    },
+    {
+      "src" : "http://books.google.com/books/content?id=-6V7CgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+      "alt" : "Image 1",
+      "title" : "Title"
+    }
+  ]
+}

@@ -12,7 +12,7 @@ const BookSearchContainer = () => {
   const [searchText , setSearchText] = useState('');
   const [searchType , setSearchType] = useState('');
   const [bookData , setBookData] = useState(null);
-  console.log(searchType)
+  console.log(bookData)
   // const [bookApi] = useState(new BookApi());
   // const [isLoading , setIsloading] = useState(true);
 
