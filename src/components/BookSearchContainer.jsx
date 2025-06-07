@@ -53,8 +53,8 @@ const BookSearchContainer = () => {
   
   return (
     <>
-      <div className='main-container flex flex-col justify-center items-center w-full h-screen gap-4'>
-        <div className='inner-main min-w-[1600px] min-h-[800px] rounded-[10px] items-center'>
+      <div className='main-container flex flex-col justify-center items-center w-full h-full gap-4'>
+        <div className="inner-main w-full max-w-[1280px] min-h-[800px] rounded-[10px] mx-auto p-4">
           <SearchBar 
           value={searchText}
           onValueChange={setSearchText}

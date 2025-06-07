@@ -15,7 +15,7 @@ const MainPage = () => {
         <span className='p-[20px] font-avenir'>User</span> */}
       </div>
 
-      <div className='main-page-wrapper max-w-[1600px] flex justify-center'>
+      <div className='main-page-wrapper max-w-[1280px] h-[800px] flex justify-center'>
         <div className='main-page flex max-w-[1600px] flex-col gap-8'>
 
           <div className='inner-main-page flex flex-row max-w-[1300px] gap-4'>
