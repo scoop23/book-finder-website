@@ -3,7 +3,7 @@ import { FaSearch , FaHome } from 'react-icons/fa';
 import { animate } from 'motion';
 import { useElementScroll } from 'motion/react';
 
-const SearchBar = ({ value , onValueChange, setSearchType }) => {  
+const SearchBar = ({ value , onValueChange, setSearchType , searchType}) => {  
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
@@ -33,36 +33,73 @@ function buttonSearchTitle() {
   }
 
   if (!clickedSearchTitle) {
-    setSearchType("title");
+
+    setSearchType((type) => {
+      const array = [...type]
+      array[0] = 'title'
+      return array
+    });
     setClickedSearchTitle(true)
+    
     element.classList.remove("hover:bg-amber-50", "hover:text-black");
     element.classList.add("bg-amber-50", "text-black", "hover:bg-primary-ebony-clay", "hover:text-amber-100");
   } else {
-    setSearchType("");
+    setSearchType(searchType.filter(type => type !== 'title'));
     setClickedSearchTitle(false)
+
     element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
     element.classList.add("hover:bg-amber-50" , "text-amber-100");
   }
 }
 
+// ADD ANIMATION WHEN CLICKED/ENTER
+async function searchBarAnimation() {
+  
+}
+
 function buttonSearchAuthor() {
   const element = searchAuthor.current
 
+  const inputAuthorName = () => {
+    return(
+      <div>
+        <input
+        className={`input-search hidden w-0 rounded-2xl outline-0 font-inter p-4`}
+        type="text"
+        defaultValue={""}
+        onKeyDown={(e) => {
+          if(e.key === 'Enter'){
+            onValueChange(e.target.value);
+          }
+        }}
+        placeholder='Author Name..'
+        />
+      </div>
+    )
+  }
+  
   if(!element) {
     console.log("No ", element)
   }
 
   if(!clickedSearchAuthor) {
-    setSearchType("author")
+    setSearchType((type) => {
+      const array = [...type]
+      array[1] = 'author'
+      return array
+    });
     setClickedSearchAuthor(true)
+
     element.classList.remove("hover:bg-amber-50" , "hover:text-black")
     element.classList.add("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
   } else {
-    setSearchType("")
+    setSearchType(searchType.filter(type => type !== 'author'))
     setClickedSearchAuthor(false)
+
     element.classList.remove("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
     element.classList.add("hover:bg-amber-50" , "hover:text-black")
   }
+
 
 }
 
