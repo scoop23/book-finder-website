@@ -1,8 +1,8 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
-import Carousel from './Carousel';
-
+import CarouselA from '../components/carousels/CarouselA';
+import CarouselB from '../components/carousels/CarouselB';
 
 const MainPage = () => {
   
@@ -15,23 +15,24 @@ const MainPage = () => {
         <span className='p-[20px] font-avenir'>User</span> */}
       </div>
 
-      <div className='main-page-wrapper max-w-[1280px] h-[800px] flex justify-center'>
-        <div className='main-page flex max-w-[1600px] flex-col gap-8'>
+      <div className='main-page-wrapper max-w-[1380px] h-[800px] flex justify-center'>
+        <div className='main-page flex max-w-[1200px] flex-col gap-8'>
 
           <div className='inner-main-page flex flex-row max-w-[1300px] gap-4'>
-            <div className='card shadow-2xl border-primary-dutch-white max-w-[480px] h-[400px] rounded-[10px] border-1 grow-0'>
-              <Carousel />
+            <div className='card shadow-2xl border-primary-dutch-white max-w-[480px] h-[400px] rounded-[10px] border-1 grow-0 bg-primary-blackrock'>
+              <CarouselA />
             </div>
-            <div className='card shadow-2xl border-primary-dutch-white min-w-[480px] h-[400px] rounded-[10px] border-1 grow'>
+            <div className='card shadow-2xl border-primary-dutch-white h-[400px] rounded-[10px] border-1 grow bg-primary-blackrock'>
+              <CarouselB />
             </div>
           </div>
 
           <div className='inner-main-page flex flex-row max-w-[1300px] gap-4'>
-            <div className='card shadow-2xl border-primary-dutch-white border-1  min-w-[600px] h-[300px] rounded-[10px] grow'>
+            <div className='card shadow-2xl border-primary-dutch-white border-1  min-w-[600px] h-[300px] rounded-[10px] grow bg-primary-blackrock'>
             </div>
-            <div className='card shadow-2xl border-primary-dutch-white border-1  w-[600px] h-[300px] rounded-[10px] grow-0'>
+            <div className='card shadow-2xl border-primary-dutch-white border-1  w-[600px] h-[300px] rounded-[10px] grow-0 bg-primary-blackrock'>
             </div>
-            <div className='card shadow-2xl border-primary-dutch-white border-1  w-[600px] h-[300px] rounded-[10px] grow-0'>
+            <div className='card shadow-2xl border-primary-dutch-white border-1  w-[600px] h-[300px] rounded-[10px] grow-0 bg-primary-blackrock'>
             </div>
           </div>
           

@@ -155,7 +155,7 @@ const LeftSideBar = ({topOneBook}) => {
     // Still thinking what to put here :)
     return (
       <div className='flex second-content text-[15px] justify-center h-[100px] items-center'>
-        <button className='see-more-btn bg-primary-indochine rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:-translate-y-1 duration-500 transition-all hover:shadow-2xl'><a className='' href={`${dataVolumeInfo.infoLink}`}>See More</a></button>
+        <button className='see-more-btn bg-primary-indochine rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:-translate-y-1 duration-200 transition-all hover:shadow-2xl'><a className='' href={`${dataVolumeInfo.infoLink}`}>See More</a></button>
       </div>
     )
   }
