@@ -6,17 +6,18 @@ import { useElementScroll } from 'motion/react';
 const SearchBar = ({ value , onValueChange, setSearchType }) => {  
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
-
+  const searchAuthor = useRef()
   const searchTitle = useRef();
+  
   function handleClickSearch() {
     const input = document.querySelector('.input-search');
   
     if(input.classList.contains('hidden')) {
       input.classList.remove('hidden');
       input.classList.add('inline-block');
-      animate(input, { width: ['0px','200px'], duration: 0.5 });
+      animate(input, { width: ['0px','200px'], duration: 1 });
     } else {
-      animate(input, { width: ['200px', '0px'] , duration: 0.5 }).finished.then(() => { // can also be used as a promise
+      animate(input, { width: ['200px', '0px'] , duration: 1 }).finished.then(() => { // can also be used as a promise
         input.classList.remove('inline-block');
         input.classList.add('hidden');
       })
@@ -31,7 +32,6 @@ function buttonSearchTitle() {
     return;
   }
 
-
   if (!clickedSearchTitle) {
     setSearchType("title");
     setClickedSearchTitle(true)
@@ -45,6 +45,27 @@ function buttonSearchTitle() {
   }
 }
 
+function buttonSearchAuthor() {
+  const element = searchAuthor.current
+
+  if(!element) {
+    console.log("No ", element)
+  }
+
+  if(!clickedSearchAuthor) {
+    setSearchType("author")
+    setClickedSearchAuthor(true)
+    element.classList.remove("hover:bg-amber-50" , "hover:text-black")
+    element.classList.add("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
+  } else {
+    setSearchType("")
+    setClickedSearchAuthor(false)
+    element.classList.remove("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
+    element.classList.add("hover:bg-amber-50" , "hover:text-black")
+  }
+
+}
+
   return (
     <div className='search-bar-wrapper flex flex-col'>
       
@@ -56,7 +77,7 @@ function buttonSearchTitle() {
           onClick={() => buttonSearchTitle()} ref={searchTitle}>Search By Title</button>
 
           <button className='search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-winky cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
-          onClick={() => setSearchType("author")}>Search by Author</button>
+          onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Search by Author</button>
 
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px]'>
               <input

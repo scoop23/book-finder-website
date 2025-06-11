@@ -10,9 +10,9 @@ import axios from 'axios';
 
 const BookSearchContainer = () => {
   const [searchText , setSearchText] = useState('');
-  const [searchType , setSearchType] = useState('');
+  const [searchType , setSearchType] = useState([]);
   const [bookData , setBookData] = useState(null);
-  console.log(bookData)
+  console.log(searchType)
   // const [bookApi] = useState(new BookApi());
   // const [isLoading , setIsloading] = useState(true);
 
@@ -20,6 +20,12 @@ const BookSearchContainer = () => {
     const response = await axios.get(`http://localhost:8080/api/search-author?q=${searchText}`);
     const data = response.data;
     setBookData(data);
+  }
+
+  const fetchBookByAuthorAndTitle = async (searchType) => {
+    const response = await axios.get(`http://localhost:8080/api/search-author-title?p1=${searchType[0]}&p2=${searchType[1]}`);
+    const data = response.data
+    setBookData(data)
   }
 
   const fetchBookByTitle = async (searchText) => {
@@ -30,22 +36,18 @@ const BookSearchContainer = () => {
 
   useEffect(() => {
     const delay = setTimeout(() => {
-      if(searchText.trim() != '') {
-        if(searchType === '') { 
-          fetchBookByAuthor(searchText) // for now default to author
-        } else if(searchType === 'title') {
-          fetchBookByTitle(searchText);
-        } else if(searchType === 'author'){
-          fetchBookByAuthor(searchText) // for now default to author
-        } else {
-          console.error("hey hey hey")
+      if(searchType.length === 0) {
+        if(searchText.trim === '') {
+          if(searchType === 'author') {
+            fetchBookByAuthor(searchText);
+          } else if (searchType === 'title') {
+            fetchBookByTitle(searchText);
+          }
         }
-        // debouncing 
-        // fetchBookByAuthor(apiKey, searchText);
-        // bookApi.fetchBookByTitle(searchText, setBookData);
-        // fetchBookByAuthor(searchText); // moved to backend for security
+      } else {
+        fetchBookByAuthorAndTitle(searchType);
       }
-    }, 600);
+    }, 500);
     return () => clearTimeout(delay); // cleanup debounce
   }, [searchText, searchType]);
   
