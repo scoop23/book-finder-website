@@ -10,7 +10,8 @@ import axios from 'axios';
 
 const BookSearchContainer = () => {
   const [searchText , setSearchText] = useState('');
-  const [searchType , setSearchType] = useState(new Array(2).fill(null));
+  const [author , setAuthor] = useState('');
+  const [searchType , setSearchType] = useState([null, null]);
   const [bookData , setBookData] = useState(null);
   console.log(searchType)
   console.log(searchText.trim())
@@ -25,7 +26,7 @@ const BookSearchContainer = () => {
   }
 
   const fetchBookByAuthorWithTitle = async (searchType, searchText) => {
-    const response = await axios.get(`http://localhost:8080/api/search-author-title?p1=${searchText}&p2=${searchType[1]}`);
+    const response = await axios.get(`http://localhost:8080/api/search-author-title?p1=${searchText}&p2=${author}`);
     const data = response.data
     setBookData(data)
   }
@@ -58,7 +59,7 @@ const BookSearchContainer = () => {
       }
     }, 500);
     return () => clearTimeout(delay); // cleanup debounce
-  }, [searchText, searchType]);
+  }, [searchText, searchType, author]);
   
   // TODO: WILL ADD A LANDING/START PAGE?
   
@@ -71,6 +72,7 @@ const BookSearchContainer = () => {
           onValueChange={setSearchText}
           setSearchType={setSearchType}
           searchType={searchType}
+          setAuthor={setAuthor}
           />
           {bookData ? (<div className='inner-book-result-container p-2 min-w-full flex items-center justify-center'> 
             <BookResults data={bookData} />
