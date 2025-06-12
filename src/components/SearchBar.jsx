@@ -2,18 +2,21 @@ import React, { useEffect, useRef, useState } from 'react'
 import { FaSearch , FaHome } from 'react-icons/fa';
 import { animate } from 'motion';
 import { useElementScroll } from 'motion/react';
+import  SearchAuthor  from './SearchAuthor.jsx'
 
-const SearchBar = ({ value , onValueChange, setSearchType }) => {  
+const SearchBar = ({ value , onValueChange, setSearchType , searchType, setAuthor}) => {  
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
-
+  const searchAuthor = useRef()
   const searchTitle = useRef();
+  
   function handleClickSearch() {
     const input = document.querySelector('.input-search');
   
     if(input.classList.contains('hidden')) {
       input.classList.remove('hidden');
       input.classList.add('inline-block');
+     
       animate(input, { width: ['0px','200px'], duration: 0.5 });
     } else {
       animate(input, { width: ['200px', '0px'] , duration: 0.5 }).finished.then(() => { // can also be used as a promise
@@ -31,17 +34,55 @@ function buttonSearchTitle() {
     return;
   }
 
-
   if (!clickedSearchTitle) {
-    setSearchType("title");
+
+    setSearchType((type) => {
+      const array = [...type]
+      array[0] = 'title'
+      return array
+    });
     setClickedSearchTitle(true)
+    
     element.classList.remove("hover:bg-amber-50", "hover:text-black");
     element.classList.add("bg-amber-50", "text-black", "hover:bg-primary-ebony-clay", "hover:text-amber-100");
   } else {
-    setSearchType("");
+    setSearchType(prev => prev.map(type => type === 'title' ? null : type));
+
     setClickedSearchTitle(false)
+
     element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
     element.classList.add("hover:bg-amber-50" , "text-amber-100");
+  }
+}
+
+// ADD ANIMATION WHEN CLICKED/ENTER
+async function searchBarAnimation() {
+  
+}
+
+function buttonSearchAuthor() {
+  const element = searchAuthor.current
+  
+  if(!element) {
+    console.log("No ", element)
+  }
+
+  if(!clickedSearchAuthor) {
+    setSearchType((type) => {
+      const array = [...type]
+      array[1] = 'author'
+      return array
+    });
+    setClickedSearchAuthor(true)
+
+    element.classList.remove("hover:bg-amber-50" , "hover:text-black")
+    element.classList.add("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
+  } else {
+    setSearchType(prev => prev.map(type => type === 'author' ? null : type));
+    setClickedSearchAuthor(false)
+
+    element.classList.remove("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
+    element.classList.add("hover:bg-amber-50" , "hover:text-black")
   }
 }
 
@@ -50,17 +91,26 @@ function buttonSearchTitle() {
       
       <div className='outer-search-bar-container p-[20px] max-w-full min-h-[20px] flex justify-between gap-2 '>
         <button className='home-button flex flex-row gap-2 items-center rounded-4xl p-8 border-1 h-[70px] text-amber-100 hover:text-black hover:bg-amber-50 duration-250 transition-all cursor-pointer'><FaHome /></button>
-        <div className='flex gap-2'>
+
+        <div className='flex gap-2 buttons-wrapper'>
 
           <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-winky cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
           onClick={() => buttonSearchTitle()} ref={searchTitle}>Search By Title</button>
 
+          {searchType.includes("author") && searchType.includes("title")
+          ?
+          (<SearchAuthor setAuthor={setAuthor} setSearchType={setSearchType} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to work
+          : 
+          (
+          <>
           <button className='search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-winky cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
-          onClick={() => setSearchType("author")}>Search by Author</button>
-
-            <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px]'>
+          onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Search by Author</button>
+          </>
+          )
+          }
+            <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
               <input
-              className={`input-search hidden w-0 rounded-2xl outline-0 font-inter p-4`}
+              className={`input-search hidden w-0 rounded-2xl outline-0 font-winky`}
               type="text"
               defaultValue={""}
               onKeyDown={(e) => {
@@ -68,9 +118,9 @@ function buttonSearchTitle() {
                   onValueChange(e.target.value);
                 }
               }}
-              placeholder='Search for books..'
+              placeholder={`${searchType.includes("author") && searchType.includes("title") ? "Search Title of Book.. " : "Author/Title a Book.. "}`}
               />
-              <div className='click-search w-[40] h-[40] p-3 cursor-pointer' onClick={() => handleClickSearch()}>
+              <div className='click-search w-[40] h-[40] p-2 cursor-pointer' onClick={() => handleClickSearch()}>
                 <FaSearch />
               </div>
             </div>
