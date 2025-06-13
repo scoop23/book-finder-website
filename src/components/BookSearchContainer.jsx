@@ -42,25 +42,28 @@ const BookSearchContainer = () => {
       if(searchType.includes(null)) {
         if(searchText.trim() !== '') {
           if(searchType[1] === 'author') {
-            console.log("hey1")
+            console.log("Fetching Titles with authorname")
             fetchBookByAuthor(searchText);
           } else if (searchType[0] === 'title') {
-            console.log("hey")
+            console.log("Fetching titles with titlename")
             fetchBookByTitle(searchText);
           }
         }
       } else if(
         searchType.length === 2 &&
-        searchType[0] &&
+        searchType[0] && searchType[1] &&
         searchText.trim() !== ''
       ) {
-        console.log("heyheyhey")
+        console.log("Fetching titles with matching authorname")
         fetchBookByAuthorWithTitle(searchType, searchText);
       }
     }, 500);
     return () => clearTimeout(delay); // cleanup debounce
   }, [searchText, searchType, author]);
-  
+  // debouncing 
+  // fetchBookByAuthor(apiKey, searchText);
+  // bookApi.fetchBookByTitle(searchText, setBookData);
+  // fetchBookByAuthor(searchText); // moved to backend for security
   // TODO: WILL ADD A LANDING/START PAGE?
   
   return (
