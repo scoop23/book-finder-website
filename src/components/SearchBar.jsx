@@ -51,7 +51,7 @@ function buttonSearchTitle() {
     setClickedSearchTitle(false)
 
     element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
-    element.classList.add("hover:bg-amber-50" , "text-amber-100");
+    element.classList.add("hover:bg-amber-50" , "hover:text-black");
   }
 }
 
