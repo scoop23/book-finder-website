@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -16,6 +16,19 @@ const CarouselA = () => {
     console.log(index)
   }
 
+  useEffect(() => {
+    const stop = setInterval(() => {
+      setIndex(prev => {
+        if(prev < slides.length - 3) {
+          return prev + 1
+        } else if (prev === 3){
+          return prev = 1
+        }
+      })
+    }, 2000);
+    return () => clearInterval(stop);
+  }, [slides.length]);
+
   function prevMove() {
     if(index > 0) {
       setIndex(prev => prev - 1)
@@ -32,7 +45,7 @@ const CarouselA = () => {
             <div className='carousel flex flex-row items-center'>
               <IoIosArrowBack color='' onClick={() => prevMove()} size={40} className='cursor-pointer'/> {/* Left Arrow */}
                   <div className='w-[400px] overflow-hidden rounded-2xl '>
-                    <div className='flex flex-row gap-4 transition-all duration-400' style={{transform : `translateX(-${index * 140}px)`}}> {/* based on the index it moves times 140px */}
+                    <div className='flex flex-row gap-4 transition-all duration-400' style={{transform : `translateX(-${index * 140}px)`, transition : `0.3s ease`}}> {/* based on the index it moves times 140px horizontally */}
 
                       {slides.map((slide, idx) => (
                         <div key={idx} className='flex flex-col justify-center items-center text-primary-dessertsand'>
