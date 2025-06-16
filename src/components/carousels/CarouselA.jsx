@@ -41,7 +41,7 @@ const CarouselA = () => {
       <div className='carousel-main'>
         <div className='carousel max-w-[480px] h-[400px] flex flex-row gap-2 justify-baseline items-center'>
           <div className='inner-carousel-wrapper flex flex-col justify-center items-center gap-8 w-[480px]'>
-            <span className='text-primary-dutch-white font-avenir bg-zinc-700 p-2 rounded-2xl shadow-custom border-1 border-primary-dessertsand'>Top Popular Books</span>
+            <span className='text-zinc-300 font-avenir bg-zinc-700 p-2 rounded-2xl shadow-custom border-1'>Top Popular Books</span>
             <div className='carousel flex flex-row items-center'>
               <IoIosArrowBack color='' onClick={() => prevMove()} size={40} className='cursor-pointer'/> {/* Left Arrow */}
                   <div className='w-[400px] overflow-hidden rounded-2xl ' draggable={false}>

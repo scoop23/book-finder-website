@@ -1,11 +1,11 @@
-import React from 'react'
-import slideData from '../slideDemo.json'
+import React, { use } from 'react'
 import { useState } from 'react'
+import CarouselBCard from './CarouselBCard.jsx'
+import slideData from '../slideDemo.json';
 
 const CarouselB = () => {
   const [index, setIndex] = useState(null)
-
-  
+  const [data] = useState(slideData.slideData)
 
   return (
     <div className='carousel-b-wrapper flex justify-center flex-col items-baseline font-avenir text-zinc-100 '>
@@ -23,11 +23,15 @@ const CarouselB = () => {
             <div className='genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5'>Adventure</div>
           </div>
 
-          <div className='carouselB-wrapper flex overflow-hidden w-[900px] h-[250px] items-center justify-center'>
-            <div className='flex gap-14 carouselB-main' style={{}}>
-              <div className='carouselB-card w-[500px] h-[220px] bg-zinc-800 rounded-[20px] hover:shadow-custom2 hover:-translate-y-1.5 duration-400 shadow-primary-myblue flex flex-col'>
-                <div className='flex'> </div  >
-                <div className='flex title'> </div>
+          <div className='carouselB-wrapper flex overflow-hidden w-[900px] h-[250px] items-center justify-baseline'>
+            <div className='flex gap-30 carouselB-main' style={{}}>
+              {
+                data.map(demo => (
+                  <>
+                    <CarouselBCard data={demo}/> 
+                  </>
+                ))
+              }
               </div>
               {/* <div className='carouselB-card w-[500px] h-[220px] bg-zinc-800 rounded-[20px] hover:shadow-custom2 hover:-translate-y-1.5 duration-400 shadow-zinc-600 flex'>
               </div> */}
@@ -38,7 +42,6 @@ const CarouselB = () => {
           
         </div>
       </div>
-    </div>
   )
 }
 
