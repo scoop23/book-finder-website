@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/all';  
 import bookImage from '../assets/book_empty.png';
+import GenreTags from './GenreTags';
 
 // TODO : ADD ANIMATIONS *Update - only did for the top books
 
@@ -29,11 +30,11 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
   const Book2Info = () => {
     return (
       <div className='content-info2 flex flex-col gap-2 min-w-[430px] max-h-[220px] items-baseline'>
-          <span className='font-avenir title2 max-h-[200px] text-[20px] p-1 flex flex-col gap-2'>{title2}
+          <span className='font-satoshi title2 max-h-[200px] text-[20px] p-1 flex flex-col gap-2'>{title2}
             <span className='text-[13px] block '>by {author2}</span> 
           </span>
           
-          <div className='description2 text-[15px] p-2  rounded-2xl max-h-[115px] font-winky overflow-hidden '>
+          <div className='description2 text-[15px] p-2  rounded-2xl max-h-[115px] overflow-hidden '>
             {bookDescription2}
           </div>
       </div>
@@ -43,11 +44,11 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
   const Book3Info = () => {
     return(
       <div className='content-info3 flex flex-col gap-2 min-w-[430px] max-h-[220px] items-baseline'>
-          <span className='font-avenir title3 max-h-[200px] text-[20px] p-1 flex flex-col gap-2'>{title3}
+          <span className='font-satoshi title3 max-h-[200px] text-[20px] p-1 flex flex-col gap-2'>{title3}
             <span className='text-[13px] block '>by {author3}</span> 
           </span>
           
-          <div className='description3 text-[15px] p-2  rounded-2xl max-h-[115px] font-winky overflow-hidden '>
+          <div className='description3 text-[15px] p-2  rounded-2xl max-h-[115px] overflow-hidden '>
             {bookDescription3}
           </div>
       </div>
@@ -86,7 +87,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
       <motion.div
         // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
-        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
+        <div className='right-sidebar text-black p-4 font-satoshi text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
         <div className='flex first-content gap-3 bg-primary-graychateau p-4 rounded-4xl  hover:shadow-custom3 hover:-translate-2 transition-all duration-200'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={imglink2 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>
@@ -98,7 +99,7 @@ const RightSideBar = ({ topTwoBook , topThreeBook }) => {
       </motion.div>
       <motion.div
       >
-        <div className='right-sidebar text-black p-4 font-inter text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
+        <div className='right-sidebar text-black p-4 font-satoshi text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
         <div className='flex first-content gap-3 bg-primary-graychateau p-4 rounded-4xl  hover:shadow-custom3 hover:-translate-2 transition-all duration-200'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={imglink3 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>
@@ -120,6 +121,9 @@ const LeftSideBar = ({topOneBook}) => {
   const imglink = topOneBook?.volumeInfo?.imageLinks?.thumbnail;
   const bookDescription = topOneBook?.volumeInfo?.description || "No Description";
   const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
+  const genre = topOneBook?.volumeInfo?.categories || []
+
+  console.log(genre)
 
   if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
 
@@ -162,15 +166,25 @@ const LeftSideBar = ({topOneBook}) => {
 
   const Infos = () => {
     return(
-        <div className='content-info flex flex-col gap-2 max-w-[430px] max-h-[220px] items-baseline'>
-            <span className='title text-[20px] p-2 flex flex-col gap-2 font-avenir'>{title}
+        <div className='content-info-wrapper flex flex-col gap-2 max-w-[430px] max-h-[220px] items-baseline'>
+            <span className='content-info text-[20px] p-2 flex flex-col gap-2 font-satoshi'>
+              <div className='flex justify-between w-[400px]'>{title}
+                <div className='flex justify-center'>
+                  {
+                    genre.map(genre => (
+                      <GenreTags genre={genre}/>
+                    ))
+                  }
+                </div>
+              </div>
+              
               <span className='text-[13px] block '>by {author}</span>
               <span className='text-[13px] block'> Published Date: {dataVolumeInfo.publishedDate} </span> 
               <span className='text-[13px] block'>Page Count: {dataVolumeInfo.pageCount}</span>
               {/* <div className='text-[13px'></div> */}
             </span>
             
-            <div className='description text-[15px] p-2  rounded-2xl max-h-[220px] font-winky overflow-hidden '>
+            <div className='description text-[15px] p-2  rounded-2xl max-h-[220px] font-satoshi overflow-hidden '>
               {bookDescription}
             </div>
         </div>
@@ -178,7 +192,7 @@ const LeftSideBar = ({topOneBook}) => {
   }
 
   return (
-      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar p-3 font-inter text-2xl max-w-[700px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
+      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar p-3 font-satoshi text-2xl max-w-[700px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
           <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl shadow-2xs hover:shadow-custom3 hover:-translate-2 transition-all duration-200'>
             <div className='pic-div max-h-[220px] justify-center flex object-cover'>
@@ -199,7 +213,21 @@ const BookResults = ({ data }) => {
   const topTwoBook = topBooks?.[1];
   const topThreeBook = topBooks?.[2];
   const remainingBooks = data.items?.slice(3) || []; // start at index 4
-  console.log(data)
+  // const genreSet = new Set()
+  
+  // data.items.forEach(item => {
+  //   const categories = item?.volumeInfo?.categories || [];
+  //   categories.forEach(category => genreSet.add(category));
+  // });
+
+  // const genreArr = Array.from(genreSet)
+  // console.log(genreArr)
+
+//  for (let i = 0; i < data.items.length; i++) {
+//   const categories = data.items[i]?.volumeInfo?.categories || [];
+//   categories.forEach(category => console.log(category));
+// }
+
   return (
     <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px]'>
       {!data.items?.length ? (
