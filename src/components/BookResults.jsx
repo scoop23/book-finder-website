@@ -122,7 +122,7 @@ const LeftSideBar = ({topOneBook}) => {
   const bookDescription = topOneBook?.volumeInfo?.description || "No Description";
   const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
   const genre = topOneBook?.volumeInfo?.categories || []
-
+  console.log(dataVolumeInfo)
   console.log(genre)
 
   if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
@@ -171,8 +171,10 @@ const LeftSideBar = ({topOneBook}) => {
               <div className='flex justify-between w-[400px]'>{title}
                 <div className='flex justify-center'>
                   {
-                    genre.map(genre => (
-                      <GenreTags genre={genre}/>
+                    genre.map((genre , index) => (
+                      <div key={index}> 
+                       <GenreTags genre={genre}/>
+                      </div>
                     ))
                   }
                 </div>
