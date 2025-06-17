@@ -13,8 +13,7 @@ const BookSearchContainer = () => {
   const [author , setAuthor] = useState('');
   const [searchType , setSearchType] = useState([null, null]);
   const [bookData , setBookData] = useState(null);
-  console.log(searchType)
-  console.log(searchText.trim())
+  
   
   // const [bookApi] = useState(new BookApi());
   // const [isLoading , setIsloading] = useState(true);
@@ -92,3 +91,4 @@ const BookSearchContainer = () => {
 }
 
 export default BookSearchContainer;
+

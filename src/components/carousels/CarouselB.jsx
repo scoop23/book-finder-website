@@ -6,9 +6,12 @@ import slideData from '../slideDemo.json';
 const CarouselB = () => {
   const [index, setIndex] = useState(null)
   const [data] = useState(slideData.slideData)
+  
+  function nextIndex() {
 
+  }
   return (
-    <div className='carousel-b-wrapper flex justify-center flex-col items-baseline font-avenir text-zinc-100 '>
+    <div className='carousel-b-wrapper flex justify-center flex-col items-baseline font-satoshi text-zinc-100 '>
       {/* <span className=''>Genres</span> */}
       <div className='carousel-b-main w-[700px] h-[400px] flex items-center justify-center'>
         
@@ -23,13 +26,13 @@ const CarouselB = () => {
             <div className='genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5'>Adventure</div>
           </div>
 
-          <div className='carouselB-wrapper flex overflow-hidden w-[900px] h-[250px] items-center justify-baseline'>
+          <div className='carouselB-wrapper flex  w-[500px] h-[250px] items-center justify-baseline'>
             <div className='flex gap-30 carouselB-main' style={{}}>
               {
-                data.map(demo => (
-                  <>
+                data.map((demo , index) => (
+                  <div key={index}>
                     <CarouselBCard data={demo}/> 
-                  </>
+                  </div>
                 ))
               }
               </div>

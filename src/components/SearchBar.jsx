@@ -94,7 +94,7 @@ function buttonSearchAuthor() {
 
         <div className='flex gap-2 buttons-wrapper'>
 
-          <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-winky cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
+          <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
           onClick={() => buttonSearchTitle()} ref={searchTitle}>Search By Title</button>
 
           {searchType.includes("author") && searchType.includes("title")
@@ -103,14 +103,14 @@ function buttonSearchAuthor() {
           : 
           (
           <>
-          <button className='search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-winky cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
+          <button className='search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
           onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Search by Author</button>
           </>
           )
           }
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
               <input
-              className={`input-search hidden w-0 rounded-2xl outline-0 font-winky`}
+              className={`input-search hidden w-0 rounded-2xl outline-0 font-satoshi`}
               type="text"
               defaultValue={""}
               onKeyDown={(e) => {
