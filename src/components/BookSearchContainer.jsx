@@ -6,6 +6,24 @@ import BookApi from './BookApi';
 import Loading from './Loading';
 import MainPage from './MainPage';
 import axios from 'axios';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router";
+import ReactDOM from "react-dom/client";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <div>Hello World</div>,
+  },
+]);
+
+const root = document.getElementById("root");
+
+ReactDOM.createRoot(root).render(
+  <RouterProvider router={router} />
+);
 
 
 const BookSearchContainer = () => {
@@ -13,7 +31,7 @@ const BookSearchContainer = () => {
   const [author , setAuthor] = useState('');
   const [searchType , setSearchType] = useState([null, null]);
   const [bookData , setBookData] = useState(null);
-  
+
   
   // const [bookApi] = useState(new BookApi());
   // const [isLoading , setIsloading] = useState(true);

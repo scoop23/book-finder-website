@@ -24,7 +24,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
   const author3 = book3VolumeInfo?.authors?.[0] || 'NA';
   const imglink3 = book3VolumeInfo?.imagelinks?.thumbnail || book3VolumeInfo?.imageLinks?.smallThumbnail;
   const genre3 = book3VolumeInfo?.categories || [];
-
+  
   const Book2Info = () => {
     return (
       <div className='content-info2 flex flex-col w-[430px] max-h-[220px] items-baseline'>
@@ -33,13 +33,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
                 {title2}
               <div className='flex justify-center '>
                 {
-                  genre2.map((genre , index) => {
-                    return (
-                      <div key={index}> 
-                        <GenreTags genre={genre}/>
-                      </div>
-                    )
-                  })
+                  <GenreTags genre={genre2}/>
                 }    
               </div> 
             </div>
@@ -65,13 +59,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
               {title3}
             <div className='flex justify-center '>
               {
-                genre3.map((genre , index) => {
-                  return (
-                    <div key={index}> 
-                      <GenreTags genre={genre}/>
-                    </div>
-                  )
-                })
+                <GenreTags genre={genre3} />
               }    
             </div> 
           </div>

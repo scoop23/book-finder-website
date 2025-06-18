@@ -10,12 +10,12 @@ const CarouselBCard = ({ data }) => {
         <div className='flex'></div>
         
         <div className='flex flex-row content-wrapper gap-4'>
-          <img className='p-2 rounded-2xl' src={data.src}></img>
+          <img className='p-2 rounded-2xl select-none' src={data.src}></img>
 
           <div className='content-info flex flex-col items-start overflow-hidden gap-2'>
             <div className='card-header flex justify-between'>
               <p className='title pt-2 line-clamp-2 break-words text-zinc-400 text-[20px]'>{data.title || "N/A"}</p>
-    
+              
               
             </div>
             <p className='text-[16px] line-clamp-4 break-words pr-4 '>{data.description}</p>

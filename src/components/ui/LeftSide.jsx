@@ -17,10 +17,7 @@ const LeftSide = ({topOneBook}) => {
   const bookDescription = topOneBook?.volumeInfo?.description || "No Description";
   const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
   const genre = topOneBook?.volumeInfo?.categories || []
-  console.log(dataVolumeInfo)
-  console.log(genre)
-
-  if(!genre) return "Unknown Genre"
+  
   if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
 
   useEffect(() => {
@@ -64,14 +61,13 @@ const LeftSide = ({topOneBook}) => {
     return(
         <div className='content-info-wrapper flex flex-col gap-2 max-w-[430px] max-h-[220px] items-baseline'>
             <span className='content-info text-[20px] p-2 flex flex-col gap-2 font-satoshi'>
-              <div className='flex justify-between w-[400px]'>{title}
+              <div className='flex justify-between w-[400px]'>
+                {title}
                 <div className='flex justify-center'>
                   {
-                    genre.map((genre , index) => (
-                      <div key={index}> 
-                       <GenreTags genre={genre}/>
-                      </div>
-                    ))
+                    <div>
+                      <GenreTags genre={genre}/>
+                    </div> 
                   }
                 </div>
               </div>
