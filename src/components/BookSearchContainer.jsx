@@ -6,24 +6,7 @@ import BookApi from './BookApi';
 import Loading from './Loading';
 import MainPage from './MainPage';
 import axios from 'axios';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router";
-import ReactDOM from "react-dom/client";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <div>Hello World</div>,
-  },
-]);
-
-const root = document.getElementById("root");
-
-ReactDOM.createRoot(root).render(
-  <RouterProvider router={router} />
-);
 
 
 const BookSearchContainer = () => {
