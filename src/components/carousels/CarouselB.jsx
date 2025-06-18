@@ -10,6 +10,11 @@ const CarouselB = () => {
   function nextIndex() {
 
   }
+
+  function prevIndex() {
+
+  }
+  
   return (
     <div className='carousel-b-wrapper flex justify-center flex-col items-baseline font-satoshi text-zinc-100 '>
       {/* <span className=''>Genres</span> */}
