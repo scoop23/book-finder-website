@@ -17,7 +17,7 @@ const BookSearchContainer = () => {
 
   
   // const [bookApi] = useState(new BookApi());
-  // const [isLoading , setIsloading] = useState(true);
+  const [isLoading , setIsloading] = useState(false);
 
   const fetchBookByAuthor = async (searchText) => {
     const response = await axios.get(`http://localhost:8080/api/search-author?q=${searchText}`);
@@ -57,7 +57,7 @@ const BookSearchContainer = () => {
         console.log("Fetching titles with matching authorname")
         fetchBookByAuthorWithTitle(searchType, searchText);
       }
-    }, 500);
+    }, 1000);
     return () => clearTimeout(delay); // cleanup debounce
   }, [searchText, searchType, author]);
   // debouncing 

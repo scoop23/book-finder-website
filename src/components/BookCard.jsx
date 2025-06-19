@@ -32,7 +32,7 @@ const BookCard = ({ bookData }) => {
             </p>
           </div>
 
-          <button><a src='#'>See More</a></button>
+          <button><a href='#'>See More</a></button>
         </div>
       </div>
     </div>

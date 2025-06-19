@@ -24,17 +24,17 @@ const genresTags = {
     "technology & engineering" : "bg-[#ed7802]",
     "drama" : "bg-[#9ae346]" ,
     "business & economics" : "bg-[#ccf516]",
-    "performing arts" : "bg-[#186dd6]"
+    "performing arts" : "bg-[#186dd6]",
+    "juvenile nonfiction" : "bg-[#b61dd1]",
+    "demonology" : "bg-[#d10a4d]"
   }
   
 const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
   const genreArray = Array.isArray(genre) ? genre : typeof(genre) === 'string' ? [genre] : []
   
-  // we check first if its an array then if true return the genre of which we assume as an 
-  // array, then if not check the type of genre if its a string then convert it to an array 
-  // else not return an array
+  /* we check first if its an array then if true return the genre of which we assume as an array, then if not check the type of genre if its a string then convert it to an array else not return an array */
   return (
-    <div className=''>
+    <div className='flex gap-2'>
       {
         genreArray.length > 0 ? (
           genreArray.map((genreName , index) => {
@@ -42,7 +42,7 @@ const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
           const tagStyle = genresTags[lowerCasedGenre] || "bg-gray-400";
 
           return (
-            <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-2 text-[12px] font-satoshi max-h-[90px] shadow-custom4-first-content text-center w-[130px]`}>
+            <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-2 text-[12px] font-satoshi max-h-[90px] shadow-custom4-first-content text-center max-w-[130px]`}>
               {genreName}
             </div>
           )
