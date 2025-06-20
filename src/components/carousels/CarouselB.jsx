@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import CarouselBCard from './CarouselBCard.jsx'
 import slideData from '../slideDemo.json';
-
+import CircleDot from '../icons/CircleDot.jsx'
 const CarouselB = () => {
   const [index, setIndex] = useState(0)
   const [data] = useState(slideData.slideData)
@@ -28,7 +28,7 @@ const CarouselB = () => {
       <div className='carousel-b-main-wrapper w-[700px] h-[400px] flex items-center justify-center'>
         
         <div className='carousel-b w-[650px] h-[350px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-2'>
-
+        {/* prev tailwind config - w-[650px] h-[350px] */}
         {/* why am i 'raw-doggin' animations when i can use keyframes */}
           <div className='genre-tags-wrapper flex gap-4 w-[490px] flex-wrap h-[24px]'>
             <div className='genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center '>Romance</div>
@@ -39,8 +39,8 @@ const CarouselB = () => {
           </div>
 
         <div className='flex gap-3 items-center'>
-          <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400' onClick={() => prevIndex()}>prev</button>
-          <div className='carouselB-main flex  w-[510px] h-[250px] overflow-hidden  items-center '>
+          {/* <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400 cursor-pointer' onClick={() => prevIndex()}>prev</button> */}
+          <div className='carouselB-main flex  w-[520px] h-[250px] overflow-hidden  items-center '>
               <div className='flex gap-30 carouselB-main' style={{ transform: `translateX(-${index * 619}px)`, transition : `0.4s ease`, transformStyle : `preserve-3d`}}>
                 {
                   data.map((demo , index) => (
@@ -53,8 +53,18 @@ const CarouselB = () => {
               {/* <div className='carouselB-card w-[500px] h-[220px] bg-zinc-800 rounded-[20px] hover:shadow-custom2 hover:-translate-y-1.5 duration-400 shadow-zinc-600 flex'>
               </div> */} 
           </div>
-          <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400' onClick={() => nextIndex()}>next</button>
+          {/* <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400 cursor-pointer' onClick={() => nextIndex()}>next</button> */}
         </div>
+        <div className='flex'>
+          {
+            data.map((_, i) => (
+              <button
+              
+              />
+            ))
+          }
+        </div>
+        
       </div>
           
           
