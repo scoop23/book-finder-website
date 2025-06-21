@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CarouselBCard from './CarouselBCard.jsx'
 import slideData from '../slideDemo.json';
-import CircleDot from '../icons/CircleDot.jsx'
+import CodexDotCircle from '../icons/CodexDotCircle.jsx'
 const CarouselB = () => {
   const [index, setIndex] = useState(0)
   const [data] = useState(slideData.slideData)
@@ -14,6 +14,20 @@ const CarouselB = () => {
       setIndex(0);
     }
   }
+
+  useEffect(() => {
+    const delay = setInterval(() => {
+      setIndex(prev => {
+        if(prev < data.length - 1) {
+          return prev + 1
+        } else {
+          return prev = 0
+        }
+      })
+    }, 5000);
+
+    return () => clearInterval(delay)
+  })
 
   function prevIndex() {
     if(index > 0) {
@@ -59,8 +73,12 @@ const CarouselB = () => {
           {
             data.map((_, i) => (
               <button
-              
-              />
+                key={i}
+                onClick={() => setIndex(i)}
+                className='dot cursor-pointer'
+              >
+                <CodexDotCircle active={i === index}/>
+              </button>
             ))
           }
         </div>
