@@ -1,11 +1,15 @@
-import React from 'react'
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { useState } from 'react'
 import CarouselA from '../components/carousels/CarouselA';
 import CarouselB from '../components/carousels/CarouselB';
 
-const MainPage = ({  }) => {
-  
+
+const MainPage = ({ data }) => {
+
+  useEffect(() => {
+
+  }, [data])
+
   return (
     <div className='main-page-outer-wrapper flex flex-col gap-4'>
 

@@ -41,7 +41,7 @@ const CarouselB = () => {
       {/* <span className=''>Genres</span> */}
       <div className='carousel-b-main-wrapper w-[700px] h-[400px] flex items-center justify-center'>
         
-        <div className='carousel-b w-[650px] h-[350px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-2'>
+        <div className='carousel-b w-[650px] h-[370px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-2'>
         {/* prev tailwind config - w-[650px] h-[350px] */}
         {/* why am i 'raw-doggin' animations when i can use keyframes */}
           <div className='genre-tags-wrapper flex gap-4 w-[490px] flex-wrap h-[24px]'>
