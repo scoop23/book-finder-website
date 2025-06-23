@@ -17,7 +17,7 @@ const CarouselBCard = ({ data }) => {
             <div className='card-header flex justify-between'>
               <div className='content-title-header flex justify-between w-[320px]'>
                 <p className='title pt-2 line-clamp-2 break-words text-zinc-400 text-[20px]'>{data.title || "N/A"}</p>
-                <div className='flex'>
+                <div className='flex '>
                   <GenreTags genre={["Romance" , "Drama"]}/>
                 </div>
               </div>
@@ -25,7 +25,7 @@ const CarouselBCard = ({ data }) => {
               
               
             </div>
-            <p className='text-[16px] line-clamp-4 break-words pr-4 '>{data.description}</p>
+            <p className='text-[14px] line-clamp-4 break-words pr-4 '>{data.description}</p>
           </div>
         </div>
       </div>

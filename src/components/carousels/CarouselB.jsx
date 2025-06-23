@@ -52,10 +52,24 @@ const CarouselB = () => {
             <div className='genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5'>Adventure</div>
           </div>
 
-        <div className='flex gap-3 items-center'>
+        
+        <div className='flex gap-4 w-[550px] items-center justify-between'>
+         <div className='bar w-[10px] h-[200px] bg-zinc-900 z-10 rounded-lg' 
+          style={{
+            boxShadow : "0 0 20px 20px rgba(24, 24, 27,3)"
+          }}
+          ></div>
+
           {/* <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400 cursor-pointer' onClick={() => prevIndex()}>prev</button> */}
-          <div className='carouselB-main flex  w-[520px] h-[250px] overflow-hidden  items-center '>
-              <div className='flex gap-30 carouselB-main' style={{ transform: `translateX(-${index * 619}px)`, transition : `0.4s ease`, transformStyle : `preserve-3d`}}>
+          <div className='carouselB-main flex  w-[500px] h-[250px] overflow-hidden  items-center '>
+              <div className='flex gap-[80px] carouselB-main' style=
+              {
+                { 
+                  transform: `translateX(-${index * 565}px)`,
+                  transition : `0.4s ease`,
+                  transformStyle : `preserve-3d`
+                }
+              }>
                 {
                   data.map((demo , index) => (
                     <div key={index}>
@@ -68,7 +82,13 @@ const CarouselB = () => {
               </div> */} 
           </div>
           {/* <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400 cursor-pointer' onClick={() => nextIndex()}>next</button> */}
+          <div className='bar w-[10px] h-[200px] bg-zinc-900 z-10 rounded-lg' 
+          style={{
+            boxShadow : "0 0 25px 20px rgba(24, 24, 27,3)"
+          }}
+          ></div>
         </div>
+        
         <div className='flex'>
           {
             data.map((_, i) => (
@@ -84,8 +104,6 @@ const CarouselB = () => {
         </div>
         
       </div>
-          
-          
     </div>
   </div>
   )

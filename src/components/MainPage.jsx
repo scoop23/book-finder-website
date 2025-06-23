@@ -22,7 +22,7 @@ const MainPage = ({ data }) => {
         <div className='main-page flex max-w-[1200px] flex-col gap-8'>
 
           <div className='inner-main-page flex flex-row max-w-[1300px] gap-4'>
-            <div className='card shadow-2xl border-zinc-400 max-w-[480px] h-[400px] rounded-[10px] border-1 grow-0 bg-primary-blackrock'>
+            <div className='card shadow-2xl border-zinc-400 min-w-[500px] h-[400px] rounded-[10px] border-1 grow-0 bg-primary-blackrock'>
               <CarouselA />
             </div>
             <div className='card shadow-2xl border-zinc-400 h-[400px] rounded-[10px] border-1 grow bg-primary-blackrock'>

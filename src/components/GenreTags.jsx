@@ -26,7 +26,8 @@ const genresTags = {
     "business & economics" : "bg-[#ccf516]",
     "performing arts" : "bg-[#186dd6]",
     "juvenile nonfiction" : "bg-[#b61dd1]",
-    "demonology" : "bg-[#d10a4d]"
+    "demonology" : "bg-[#d10a4d]",
+    "russian fiction" : "bg-[#a6db1f]"
   }
   
 const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
