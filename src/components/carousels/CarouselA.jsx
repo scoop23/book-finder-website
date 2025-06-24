@@ -89,7 +89,7 @@ const CarouselA = () => {
         <div className='carousel max-w-[470px] h-[400px] flex flex-row gap-2 justify-center items-center'>
           <div className='inner-carousel-wrapper flex flex-col justify-center items-center gap-8 w-[480px]'>
             <span className='text-zinc-300 font-satoshi bg-zinc-700 p-2 rounded-2xl shadow-custom border-1'>Top Popular Books</span>
-            <div className='carousel flex flex-row items-center max-w-[480px] h-[270px] bg-zinc-900 rounded-2xl p-1.5 border-zinc-600 border-1' ref={carRef} onMouseEnter={handleHover} onMouseLeave={handleOnLeave}>
+            <div className='carousel flex flex-row items-center w-[480px] h-[270px] bg-zinc-900 rounded-2xl p-1.5 border-zinc-600 border-1' ref={carRef} onMouseEnter={handleHover} onMouseLeave={handleOnLeave}>
               <MaterialSymbolsArrowCircleLeftRounded color='' onClick={() => prevMove()} className='cursor-pointer p-[4px]' ref={leftIcon}/> {/* Left Arrow */}
                   <div className='w-[400px] overflow-hidden rounded-2xl ' draggable={false}>
                     <div className='flex flex-row gap-4 transition-all duration-400' ref={sliderRef}> {/* based on the index it moves times 140px horizontally */}

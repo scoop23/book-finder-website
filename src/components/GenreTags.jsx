@@ -41,7 +41,6 @@ const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
           genreArray.map((genreName , index) => {
           const lowerCasedGenre = genreName?.toLowerCase();
           const tagStyle = genresTags[lowerCasedGenre] || "bg-gray-400";
-
           return (
             <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-2 text-[12px] font-satoshi max-h-[90px] shadow-custom4-first-content text-center max-w-[130px]`}>
               {genreName}

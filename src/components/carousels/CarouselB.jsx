@@ -2,12 +2,21 @@ import { useEffect, useState } from 'react'
 import CarouselBCard from './CarouselBCard.jsx'
 import slideData from '../slideDemo.json';
 import CodexDotCircle from '../icons/CodexDotCircle.jsx'
+
+
+
+
 const CarouselB = () => {
   const [index, setIndex] = useState(0)
   const [data] = useState(slideData.slideData)
-  
+
+  // VALUE CONSTANTS FOR THE CAROUSEL
+  // DIDNT use UseRef() as the carousel cards width not dynamic yet.
+  const CARDWIDTH = 500; // in px
+  const CONTAINERWIDTH = 525;
+  const GAP = 80;
+
   function nextIndex() {
-    console.log(index)
     if(index < data.length) {
       setIndex(prev => prev + 1);
     } else {
@@ -15,13 +24,15 @@ const CarouselB = () => {
     }
   }
 
-  useEffect(() => {
+  useEffect(() => { // useEffect runs after mount
     const delay = setInterval(() => {
       setIndex(prev => {
         if(prev < data.length - 1) {
-          return prev + 1
+          console.log(index)
+          return prev + 1;         
         } else {
-          return prev = 0
+          console.log(index)
+          return prev = 0; // start again at 0 which the components will 'react' to the state of the index .. see what i did there.,
         }
       })
     }, 5000);
@@ -52,20 +63,23 @@ const CarouselB = () => {
             <div className='genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5'>Adventure</div>
           </div>
 
-        
-        <div className='flex gap-4 w-[550px] items-center justify-between'>
-         <div className='bar w-[10px] h-[200px] bg-zinc-900 z-10 rounded-lg' 
-          style={{
-            boxShadow : "0 0 20px 20px rgba(24, 24, 27,3)"
-          }}
+        <div className='flex gap-4 w-[600px] items-center justify-center-safe'>
+          <div className='bar w-[10px] h-[200px] bg-zinc-900 z-10 rounded-lg' 
+            style={{
+              boxShadow : "0 0 25px 20px rgba(24, 24, 27,3)"
+            }}
           ></div>
 
           {/* <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400 cursor-pointer' onClick={() => prevIndex()}>prev</button> */}
-          <div className='carouselB-main flex  w-[500px] h-[250px] overflow-hidden  items-center '>
+          <div className='carouselB-main flex  w-[525px] h-[250px] overflow-hidden  items-center '>
               <div className='flex gap-[80px] carouselB-main' style=
               {
                 { 
-                  transform: `translateX(-${index * 565}px)`,
+                  transform: `translateX(-${Math.max(0 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) / 2)}px)`, 
+                  // formula i looked up on the internet quite good but the first index is still not centered.
+                  // used math.max. because, when the index is 0 for example (500 + 80) * 0 = 0 and - (525 - 500) / 2) would be
+                  // -12.5 and if you insert it in the translateX css it would be (-(-12.5px)) and in turn would be +12.5 
+                  // which would shift the carousel to the right and disregard the 0 index card right?
                   transition : `0.4s ease`,
                   transformStyle : `preserve-3d`
                 }
