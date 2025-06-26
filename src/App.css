@@ -9,6 +9,11 @@
   box-sizing: border-box;
 }
 
+:root {
+  --font-monday: 'Monday Feelings';
+  --font-fasthin : "Fasthin";
+}
+
 .first-content {
   box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.3);
 }
@@ -32,7 +37,6 @@
   --shadow-custom3: -7px 13px 5px -3px rgba(0,0,0,0.2);
   --shadow-custom: -18px 20px 25px -16px rgba(0, 0, 0, 0.58);
   --shadow-custom2: 0px 10px 15px -3px rgba(0,0,0,0.1);
-  --font-monday : Monday Feelings;
   --font-inter : Inter, sans-serif;
   --font-winky : Winky Rough;
   --font-avenir : Avenir Next LT Pro;
@@ -58,6 +62,24 @@
 
 body{
   background-color: var(--color-primary-ebony-clay);
+}
+
+.font-monday {
+  font-family: var(--font-monday), sans-serif;
+}
+
+.font-fasthin {
+  font-family: var(--font-fasthin);
+}
+
+@font-face {
+  font-family: Monday Feelings; 
+  src: url("../public/fonts/MondayFeelings-7BD2l.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: Fasthin;
+  src: url("../public/fonts/FasthinRegular-9MWOZ.ttf") format('truetype');
 }
 
 @theme inline {
