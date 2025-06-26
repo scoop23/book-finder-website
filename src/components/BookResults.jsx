@@ -40,7 +40,7 @@ const BookResults = ({ data }) => {
         </div>
       ) : (
         <>
-        <div className='main-bar flex gap-8 max-w-[1300px] items-center justify-center'>
+        <div className='main-bar flex gap-4 max-w-[1300px] items-center justify-center '>
           <LeftSide topOneBook={topOneBook}/>
           <RightSide topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
         </div>

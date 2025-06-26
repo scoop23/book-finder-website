@@ -2,6 +2,7 @@ import { use, useEffect } from 'react';
 import { useState } from 'react'
 import CarouselA from '../components/carousels/CarouselA';
 import CarouselB from '../components/carousels/CarouselB';
+import Quotes from './ui/Quotes';
 
 
 const MainPage = ({ data }) => {
@@ -32,6 +33,7 @@ const MainPage = ({ data }) => {
 
           <div className='inner-main-page flex flex-row max-w-[1300px] gap-4 items-center'>
             <div className='card shadow-2xl border-zinc-400 border-1  min-w-[600px] h-[300px] rounded-[10px] grow bg-primary-blackrock'>
+              <Quotes />
             </div>
             <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-[10px] grow-0 bg-primary-blackrock'>
             </div>

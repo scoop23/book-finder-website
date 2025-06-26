@@ -21,13 +21,13 @@ const BookCard = ({ bookData }) => {
 
             <div className="content-info flex flex-col justify-between text-sm w-full overflow-hidden">
               <span className="title font-bold line-clamp-2 break-words">{title}</span>
-              <div className="text-xs text-gray-600">Published: {publishedDate || 'N/A'}</div>
+              <div className="text-xs text-gray-900 font-satoshi">Published: {publishedDate || 'N/A'}</div>
             </div>
           </div>
 
           {/* Description Section */}
           <div className="sub-content w-full h-[110px] bg-white bg-opacity-40 rounded-2xl p-2 overflow-hidden">
-            <p className="text-xs text-gray-800 line-clamp-5 break-words">
+            <p className="font-satoshi text-xs text-gray-800 line-clamp-5 break-words">
               {description || 'No description available.'}
             </p>
           </div>

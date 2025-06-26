@@ -2,7 +2,6 @@ import React, { use, useEffect, useState } from 'react'
 import SearchBar from './SearchBar'
 import '../App.css'
 import BookResults from './BookResults';
-import BookApi from './BookApi';
 import Loading from './Loading';
 import MainPage from './MainPage';
 import axios from 'axios';
@@ -77,7 +76,7 @@ const BookSearchContainer = () => {
           searchType={searchType}
           setAuthor={setAuthor}
           />
-          {bookData ? (<div className='inner-book-result-container p-2 min-w-full flex items-center justify-center'> 
+          {bookData ? (<div className='inner-book-result-container p-2 min-w-full flex items-center max-w-[1280px] justify-center'> 
             <BookResults data={bookData} />
           </div>) : (
             <>
