@@ -10,7 +10,7 @@ const Quotes = () => {
         <div className="quotes-inner bg-zinc-900 w-[560px] h-[250px] rounded-2xl border-1 border-zinc-600 flex gap-2">
           <div className="flex items-center justify-center gap-5 w-full">
             
-            <div className="the-quote text-zinc-400 font-fasthin text-[25px] font-semibold line-clamp-3 p-2 max-w-[320px]">
+            <div className="the-quote text-zinc-400 font-fasthin text-[25px] font-normal line-clamp-3 p-2 max-w-[320px]">
               "Simplicity is the ultimate sophistication"
             </div>
 
