@@ -13,6 +13,7 @@ const BookSearchContainer = () => {
   const [author , setAuthor] = useState('');
   const [searchType , setSearchType] = useState([null, null]);
   const [bookData , setBookData] = useState(null);
+  const [quoteData, setQuoteData] = useState(null);
 
   
   // const [bookApi] = useState(new BookApi());
@@ -36,6 +37,13 @@ const BookSearchContainer = () => {
     setBookData(data);
   }
 
+  // find free api for quotes
+  const fetchQuotes = async () => {
+    const response = await axios.get(`http://localhost:8080/api/quotes/random`);
+    const data = response.data
+    return data;
+  }
+  
   useEffect(() => {
     const delay = setTimeout(() => {
       if(searchType.includes(null)) {
@@ -59,12 +67,26 @@ const BookSearchContainer = () => {
     }, 1000);
     return () => clearTimeout(delay); // cleanup debounce
   }, [searchText, searchType, author]);
+
+  useEffect(() => {
+    const getQuote = async () => {
+      try {
+        const response = await fetchQuotes();
+        if(response && response.length > 0) {
+          setQuoteData(response)
+        }
+      } catch (e) { 
+        console.error("Error Fetching Quotes" , e);
+      }
+    };
+
+    getQuote();
+  }, [])
   // debouncing 
   // fetchBookByAuthor(apiKey, searchText);
   // bookApi.fetchBookByTitle(searchText, setBookData);
   // fetchBookByAuthor(searchText); // moved to backend for security
   // TODO: WILL ADD A LANDING/START PAGE?
-  
   return (
     <>
       <div className='main-container flex flex-col justify-center items-center w-full h-full gap-4'>
@@ -76,13 +98,18 @@ const BookSearchContainer = () => {
           searchType={searchType}
           setAuthor={setAuthor}
           />
-          {bookData ? (<div className='inner-book-result-container p-2 min-w-full flex items-center max-w-[1280px] justify-center'> 
-            <BookResults data={bookData} />
-          </div>) : (
+          {bookData ? (
+            <div className='inner-book-result-container p-2 min-w-full flex items-center max-w-[1280px] justify-center'> 
+              <BookResults data={bookData} />
+            </div>
+          ) : quoteData ? (
+            <MainPage data={bookData} quoteData={quoteData} />
+          ) : (
             <>
-              <MainPage />
+              <Loading />
             </>
           )}
+
         </div>
       </div>
     </>

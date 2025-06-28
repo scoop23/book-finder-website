@@ -3,14 +3,11 @@ import { useState } from 'react'
 import CarouselA from '../components/carousels/CarouselA';
 import CarouselB from '../components/carousels/CarouselB';
 import Quotes from './ui/Quotes';
+import Loading from './Loading';
 
 
-const MainPage = ({ data }) => {
-
-  useEffect(() => {
-
-  }, [data])
-
+const MainPage = ({ data , quoteData }) => {
+  
   return (
     <div className='main-page-outer-wrapper flex flex-col gap-4'>
 
@@ -33,7 +30,7 @@ const MainPage = ({ data }) => {
 
           <div className='inner-main-page flex flex-row max-w-[1300px] gap-4 items-center'>
             <div className='card shadow-2xl border-zinc-400 border-1  min-w-[600px] h-[300px] rounded-[10px] grow bg-primary-blackrock'>
-              <Quotes />
+              <Quotes quoteData={quoteData}/>
             </div>
             <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-[10px] grow-0 bg-primary-blackrock'>
             </div>

@@ -26,10 +26,8 @@ const CarouselB = () => {
     const delay = setInterval(() => {
       setIndex((prev) => {
         if (prev < data.length - 1) {
-          console.log(index);
           return prev + 1;
         } else {
-          console.log(index);
           return (prev = 0); // start again at 0 which the components will 'react' to the state of the index .. see what i did there.,
         }
       });
@@ -41,7 +39,6 @@ const CarouselB = () => {
   function prevIndex() {
     if (index > 0) {
       setIndex((prev) => prev - 1);
-      console.log(index);
     }
   }
 
