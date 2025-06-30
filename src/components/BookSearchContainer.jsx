@@ -6,8 +6,6 @@ import Loading from './Loading';
 import MainPage from './MainPage';
 import axios from 'axios';
 
-
-
 const BookSearchContainer = () => {
   const [searchText , setSearchText] = useState('');
   const [author , setAuthor] = useState('');
@@ -15,7 +13,6 @@ const BookSearchContainer = () => {
   const [bookData , setBookData] = useState(null);
   const [quoteData, setQuoteData] = useState(null);
 
-  
   // const [bookApi] = useState(new BookApi());
   const [isLoading , setIsloading] = useState(false);
 

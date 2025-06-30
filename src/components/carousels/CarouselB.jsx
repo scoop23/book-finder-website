@@ -1,11 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef} from "react";
 import CarouselBCard from "./CarouselBCard.jsx";
 import slideData from "../slideDemo.json";
 import CodexDotCircle from "../icons/CodexDotCircle.jsx";
+import gsap from 'gsap';
+
+import CSSPlugin from "gsap/CSSPlugin";
+
+gsap.registerPlugin(CSSPlugin);
 
 const CarouselB = () => {
   const [index, setIndex] = useState(0);
   const [data] = useState(slideData.slideData);
+  const carouselSlider = useRef();
 
   // VALUE CONSTANTS FOR THE CAROUSEL
   // DIDNT use UseRef() as the carousel cards width not dynamic yet.
@@ -13,14 +19,9 @@ const CarouselB = () => {
   const CONTAINERWIDTH = 525;
   const GAP = 80;
 
-  function nextIndex() {
-    if (index < data.length) {
-      setIndex((prev) => prev + 1);
-    } else {
-      setIndex(0);
-    }
-  }
+  const shift = Math.max(0 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
 
+  console.log(shift)
   useEffect(() => {
     // useEffect runs after mount
     const delay = setInterval(() => {
@@ -36,11 +37,21 @@ const CarouselB = () => {
     return () => clearInterval(delay);
   });
 
-  function prevIndex() {
-    if (index > 0) {
-      setIndex((prev) => prev - 1);
-    }
-  }
+  useEffect(() => {
+    const tl = gsap.timeline()
+    if(carouselSlider.current) {
+      gsap.to(carouselSlider.current, {
+        duration : 0.8,
+        x : -shift,
+        ease : "expo.inOut"
+        // formula i looked up on the internet quite good but the first index is still not centered.
+        // used math.max. because, when the index is 0 for example (500 + 80) * 0 = 0 and - (525 - 500) / 2) would be
+        // -12.5 and if you insert it in the translateX css it would be (-(-12.5px)) and in turn would be +12.5
+        // which would shift the carousel to the right and disregard the 0 index card right?
+      })
+      console.log(carouselSlider.current)
+    } 
+  })
 
   return (
     <div className="carousel-b-outer-wrapper flex justify-center font-satoshi text-zinc-100 ">
@@ -68,36 +79,42 @@ const CarouselB = () => {
           </div>
 
           <div className="flex gap-4 w-[600px] items-center justify-center-safe">
-            <div
-              className="bar w-[10px] h-[200px] bg-zinc-900 z-10 rounded-lg"
+            <div className="bar w-[10px] h-[200px] bg-zinc-900 z-10 rounded-lg"
               style={{
-                boxShadow: "0 0 25px 20px rgba(24, 24, 27,3)",
+                boxShadow: "0 0 40px 20px rgba(24, 24, 27, 0.7)",
               }}
             ></div>
 
             {/* <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400 cursor-pointer' onClick={() => prevIndex()}>prev</button> */}
-            <div className="carouselB-main flex  w-[525px] h-[250px] overflow-hidden  items-center ">
+            <div className="carouselB-main flex  w-[525px] h-[250px] overflow-hidden  items-center " style={{
+              boxShadow: `inset 20px 0 20px rgba(24, 24, 27,3),     /* left */
+                          inset -20px 0 20px rgba(24, 24, 27,3),    /* right */
+                          inset 0 0 10px rgba(0, 0, 0, 1)         /* center */`,
+            }}>
               <div
                 className="flex gap-[80px] carouselB-main"
-                style={{
-                  transform: `translateX(-${Math.max(
-                    0,
-                    (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) / 2
-                  )}px)`,
-                  // formula i looked up on the internet quite good but the first index is still not centered.
-                  // used math.max. because, when the index is 0 for example (500 + 80) * 0 = 0 and - (525 - 500) / 2) would be
-                  // -12.5 and if you insert it in the translateX css it would be (-(-12.5px)) and in turn would be +12.5
-                  // which would shift the carousel to the right and disregard the 0 index card right?
-                  transition: `0.4s ease`,
-                  transformStyle: `preserve-3d`,
-                }}
+                // style={{
+                //   transform: `translateX(-${Math.max(
+                //     0,
+                //     (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) / 2
+                //   )}px)`,
+                //   // formula i looked up on the internet quite good but the first index is still not centered.
+                //   // used math.max. because, when the index is 0 for example (500 + 80) * 0 = 0 and - (525 - 500) / 2) would be
+                //   // -12.5 and if you insert it in the translateX css it would be (-(-12.5px)) and in turn would be +12.5
+                //   // which would shift the carousel to the right and disregard the 0 index card right?
+                //   transition: `0.4s ease`,
+                //   transformStyle: `preserve-3d`,
+                // }}
+                ref={carouselSlider}
               >
+                
                 {data.map((demo, index) => (
                   <div key={index}>
                     <CarouselBCard data={demo} />
                   </div>
                 ))}
               </div>
+              
               {/* <div className='carouselB-card w-[500px] h-[220px] bg-zinc-800 rounded-[20px] hover:shadow-custom2 hover:-translate-y-1.5 duration-400 shadow-zinc-600 flex'>
               </div> */}
             </div>

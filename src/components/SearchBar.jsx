@@ -95,18 +95,18 @@ function buttonSearchAuthor() {
         <div className='flex gap-2 buttons-wrapper'>
 
           <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
-          onClick={() => buttonSearchTitle()} ref={searchTitle}>Search By Title</button>
+          onClick={() => buttonSearchTitle()} ref={searchTitle}>Title Search</button>
 
           {searchType.includes("author") && searchType.includes("title")
-          ?
-          (<SearchAuthor setAuthor={setAuthor} setSearchType={setSearchType} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to work
+            ? // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
+            (<SearchAuthor setAuthor={setAuthor} setSearchType={setSearchType} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to works
           : 
-          (
-          <>
-          <button className='search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
-          onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Search by Author</button>
-          </>
-          )
+            (
+            <>
+            <button className='search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
+            onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Author Search</button>
+            </>
+            )
           }
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
               <input

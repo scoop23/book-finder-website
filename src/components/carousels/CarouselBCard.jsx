@@ -3,8 +3,6 @@ import GenreTags from '../GenreTags'
 
 const CarouselBCard = ({ data }) => {
 
-
-
   return (
     <>
       <div className='font-satoshi carouselB-card w-[500px] h-[220px] bg-zinc-800 rounded-[20px] hover:shadow-custom2 hover:-translate-y-1.5 duration-400 shadow-primary-myblue flex flex-col justify-center'>
@@ -21,8 +19,6 @@ const CarouselBCard = ({ data }) => {
                   <GenreTags genre={["Romance" , "Drama"]}/>
                 </div>
               </div>
-              
-              
               
             </div>
             <p className='text-[14px] line-clamp-4 break-words pr-4 '>{data.description}</p>

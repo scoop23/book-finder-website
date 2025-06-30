@@ -4,7 +4,7 @@ import './App.css'
 
 const App = () => {
   return (
-    <div className='p-[40px]'>
+    <div className='p-[10px]'>
       <BookSearchContainer/>
     </div>
   )
