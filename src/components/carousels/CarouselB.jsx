@@ -57,9 +57,8 @@ const CarouselB = () => {
     <div className="carousel-b-outer-wrapper flex justify-center font-satoshi text-zinc-100 ">
       {/* <span className=''>Genres</span> */}
       <div className="carousel-b-main-wrapper w-[700px] h-[400px] flex items-center justify-center">
-        <div className="carousel-b w-[650px] h-[370px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-2">
+        <div className="carousel-b w-[650px] h-[370px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-3.5">
           {/* prev tailwind config - w-[650px] h-[350px] */}
-          {/* why am i 'raw-doggin' animations when i can use keyframes */}
           <div className="genre-tags-wrapper flex gap-4 w-[490px] flex-wrap h-[24px]">
             <div className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center ">
               Romance
@@ -81,7 +80,7 @@ const CarouselB = () => {
           <div className="flex gap-4 w-[600px] items-center justify-center-safe">
             <div className="bar w-[10px] h-[200px] bg-zinc-900 z-10 rounded-lg"
               style={{
-                boxShadow: "0 0 40px 20px rgba(24, 24, 27, 0.7)",
+                boxShadow: "0 0 25px 20px rgba(24, 24, 27, 3)",
               }}
             ></div>
 

@@ -5,9 +5,6 @@ import bookImage from '../assets/book_empty.png';
 const BookCard = ({ bookData }) => {
   const data = bookData?.volumeInfo;
   const { title, imageLinks, description, publishedDate, authors } = data;
-
-  console.log(data)
-
   return (
     <div className="main-bookcard-content max-h-[300px]">
       <div className="content-container rounded-3xl bg-primary-dutch-white max-w-[309px] h-[300px] flex flex-col shadow-custom3 overflow-hidden">
@@ -24,11 +21,16 @@ const BookCard = ({ bookData }) => {
             <div className="content-info flex flex-col justify-between text-sm w-full overflow-hidden">
               {/* will make authors a dropdown button or a hover then the user will see all the author/s */}
               <span className="title font-bold line-clamp-2 break-words">{title}</span>
-              <div className="text-xs text-gray-900 font-satoshi">Authors: {authors.map(author => (
-                <div>
-                  {author}
-                </div>
-              ))}</div>
+              <div className="text-xs text-gray-900 font-satoshi">Authors: 
+                {authors ? authors.map(author => (
+                  <div>
+                    {author}
+                  </div>
+                )) : (
+                  <div>
+                    Unknown Author
+                  </div>
+                )}</div>
               <div className="text-xs text-gray-900 font-satoshi">Published: {publishedDate || 'N/A'}</div>
             </div>
           </div>

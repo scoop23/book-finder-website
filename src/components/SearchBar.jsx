@@ -41,6 +41,7 @@ function buttonSearchTitle() {
       array[0] = 'title'
       return array
     });
+    
     setClickedSearchTitle(true)
     
     element.classList.remove("hover:bg-amber-50", "hover:text-black");
@@ -110,7 +111,7 @@ function buttonSearchAuthor() {
           }
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
               <input
-              className={`input-search hidden w-0 rounded-2xl outline-0 font-satoshi`}
+              className={`input-search hidden w-0 rounded-2xl outline-0 font-winky`}
               type="text"
               defaultValue={""}
               onKeyDown={(e) => {

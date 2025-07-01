@@ -1,56 +1,40 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { use, useEffect, useReducer, useState } from 'react'
 import SearchBar from './SearchBar'
 import '../App.css'
 import BookResults from './BookResults';
 import Loading from './Loading';
 import MainPage from './MainPage';
 import axios from 'axios';
+import {
+  fetchBookByAuthor,
+  fetchBookByTitle,
+  fetchBookByAuthorWithTitle,
+  fetchQuotes
+} from './api/AccessToApi';
+
+// TODO: DISPLAY THE DATA ON THE CAROUSELS
 
 const BookSearchContainer = () => {
+
   const [searchText , setSearchText] = useState('');
   const [author , setAuthor] = useState('');
   const [searchType , setSearchType] = useState([null, null]);
   const [bookData , setBookData] = useState(null);
   const [quoteData, setQuoteData] = useState(null);
-
-  // const [bookApi] = useState(new BookApi());
   const [isLoading , setIsloading] = useState(false);
+  const [mainPageData , setMainPageData] = useState(null);
+  // const [bookApi] = useState(new BookApi());
 
-  const fetchBookByAuthor = async (searchText) => {
-    const response = await axios.get(`http://localhost:8080/api/search-author?q=${searchText}`);
-    const data = response.data;
-    setBookData(data);
-  }
-
-  const fetchBookByAuthorWithTitle = async (searchType, searchText) => {
-    const response = await axios.get(`http://localhost:8080/api/search-author-title?p1=${searchText}&p2=${author}`);
-    const data = response.data
-    setBookData(data)
-  }
-
-  const fetchBookByTitle = async (searchText) => {
-    const response = await axios.get(`http://localhost:8080/api/search-title?q=${searchText}`);
-    const data = response.data;
-    setBookData(data);
-  }
-
-  // find free api for quotes
-  const fetchQuotes = async () => {
-    const response = await axios.get(`http://localhost:8080/api/quotes/random`);
-    const data = response.data
-    return data;
-  }
-  
   useEffect(() => {
-    const delay = setTimeout(() => {
+    const delay = setTimeout(async () => {
       if(searchType.includes(null)) {
         if(searchText.trim() !== '') {
           if(searchType[1] === 'author') {
             console.log("Fetching Titles with authorname")
-            fetchBookByAuthor(searchText);
+            setBookData(await fetchBookByAuthor(searchText));
           } else if (searchType[0] === 'title') {
             console.log("Fetching titles with titlename")
-            fetchBookByTitle(searchText);
+            setBookData(await fetchBookByTitle(searchText));
           }
         }
       } else if(
@@ -59,7 +43,7 @@ const BookSearchContainer = () => {
         searchText.trim() !== ''
       ) {
         console.log("Fetching titles with matching authorname")
-        fetchBookByAuthorWithTitle(searchType, searchText);
+        setBookData(await fetchBookByAuthorWithTitle(author, searchText));
       }
     }, 1000);
     return () => clearTimeout(delay); // cleanup debounce
@@ -79,21 +63,23 @@ const BookSearchContainer = () => {
 
     getQuote();
   }, [])
+
   // debouncing 
   // fetchBookByAuthor(apiKey, searchText);
   // bookApi.fetchBookByTitle(searchText, setBookData);
   // fetchBookByAuthor(searchText); // moved to backend for security
   // TODO: WILL ADD A LANDING/START PAGE?
+
   return (
     <>
       <div className='main-container flex flex-col justify-center items-center w-full h-full gap-4'>
         <div className="inner-main w-full max-w-[1280px] min-h-[800px] rounded-[10px] mx-auto p-4">
           <SearchBar 
-          value={searchText}
-          onValueChange={setSearchText}
-          setSearchType={setSearchType}
-          searchType={searchType}
-          setAuthor={setAuthor}
+            value={searchText}
+            onValueChange={setSearchText}
+            setSearchType={setSearchType}
+            searchType={searchType}
+            setAuthor={setAuthor}
           />
           {bookData ? (
             <div className='inner-book-result-container p-2 min-w-full flex items-center max-w-[1280px] justify-center'> 
