@@ -22,7 +22,7 @@ const SearchAuthor = ({setAuthor , dispatch , state, setClickedSearchAuthor}) =>
       defaultValue={""}
       onKeyDown={(e) => {
         if(e.key === 'Enter'){
-          dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : e.target.value }})
+          dispatch({ type : "SET_AUTHOR_TEXT" , payload : e.target.value })
         }
       }}
       />

@@ -26,39 +26,16 @@ const BookSearchContainer = () => {
   };
 
   function reducer(state, action) {
-    switch (action.type) {
-      case "SET_SEARCH_TEXT": {
-        return {
-          ...state,
-          searchText: action.payload,
-        };
-      }
-      case "SET_AUTHOR_TEXT": {
-        return {
-          ...state,
-          author: action.payload,
-        };
-      }
+    switch (action.type) {              //copy the whole state // 
+      case "SET_SEARCH_TEXT": { return {...state, searchText: action.payload,}; }
+      case "SET_AUTHOR_TEXT": { return {...state, author: action.payload,}; }
       case "SET_SEARCH_TYPE": {
         const newType = [...state.searchType]; // create a copy of the searchType
         newType[action.payload.index] = action.payload.value; // then update the value depending on the payload
-        return {
-          ...state,
-          searchType : newType, // return the new values in the state
-        }
-      }
-      case "SET_BOOK_DATA" : {
-        return {
-          ...state,
-          bookData : action.payload
-        }
-      }
-      case "SET_QUOTE_DATA" : {
-        return {
-          ...state,
-          quoteData : action.payload
-        }
-      }
+        return { ...state, searchType : newType,} // return the new values in the state
+      } 
+      case "SET_BOOK_DATA" : { return { ...state, bookData : action.payload}; }
+      case "SET_QUOTE_DATA" : { return {...state, quoteData : action.payload}; }
     }
   }
 
@@ -128,9 +105,8 @@ const BookSearchContainer = () => {
       <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4">
         <div className="inner-main w-full max-w-[1280px] min-h-[800px] rounded-[10px] mx-auto p-4">
           <SearchBar
-            value={state.searchText}
-            dispatch={dispatch}
-            state={state}
+            dispatch={dispatch} // send useReducer dispatch
+            state={state} // the state
           />
           {state.bookData ? (
             <div className="inner-book-result-container p-2 min-w-full flex items-center max-w-[1280px] justify-center">

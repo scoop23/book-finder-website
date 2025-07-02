@@ -4,7 +4,7 @@ import { animate } from 'motion';
 import { useElementScroll } from 'motion/react';
 import  SearchAuthor  from './SearchAuthor.jsx'
 
-const SearchBar = ({ value , dispatch , state , setAuthor}) => {  
+const SearchBar = ({ dispatch , state , setAuthor}) => {  
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()

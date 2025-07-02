@@ -7,7 +7,8 @@ import Loading from './Loading';
 
 
 const MainPage = ({ data , quoteData }) => {
-  
+
+ 
   return (
     <div className='main-page-outer-wrapper flex flex-col gap-4'>
 
