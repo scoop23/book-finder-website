@@ -6,9 +6,10 @@ import { CodexCross } from './icons/CodexCross'
 
 
 // USED THE STATES OF THE PARENT TO CHANGE THE BUTTONS
-const SearchAuthor = ({setAuthor , setSearchType, setClickedSearchAuthor}) => {
+const SearchAuthor = ({setAuthor , dispatch , state, setClickedSearchAuthor}) => {
   function resetAuthor() {
-    setSearchType(types => types.map(type => type === 'author' ? null : type))
+    // setSearchType(types => types.map(type => type === 'author' ? null : type))
+    dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : null }})
     setClickedSearchAuthor(false)
   }
 
@@ -21,7 +22,7 @@ const SearchAuthor = ({setAuthor , setSearchType, setClickedSearchAuthor}) => {
       defaultValue={""}
       onKeyDown={(e) => {
         if(e.key === 'Enter'){
-          setAuthor(e.target.value)
+          dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : e.target.value }})
         }
       }}
       />

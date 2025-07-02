@@ -4,12 +4,17 @@ import { animate } from 'motion';
 import { useElementScroll } from 'motion/react';
 import  SearchAuthor  from './SearchAuthor.jsx'
 
-const SearchBar = ({ value , onValueChange, setSearchType , searchType, setAuthor}) => {  
+const SearchBar = ({ value , dispatch , state , setAuthor}) => {  
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
   const searchTitle = useRef();
-  
+
+  const { 
+    searchType 
+  } = state; // get the state 
+
+  console.log(searchType)
   function handleClickSearch() {
     const input = document.querySelector('.input-search');
   
@@ -36,18 +41,22 @@ function buttonSearchTitle() {
 
   if (!clickedSearchTitle) {
 
-    setSearchType((type) => {
-      const array = [...type]
-      array[0] = 'title'
-      return array
-    });
+    // setSearchType((type) => {
+    //   const array = [...type]
+    //   array[0] = 'title'
+    //   return array
+    // });
+
+    dispatch({ type : 'SET_SEARCH_TYPE', payload : {index : 0, value : 'title'}})
     
     setClickedSearchTitle(true)
     
     element.classList.remove("hover:bg-amber-50", "hover:text-black");
     element.classList.add("bg-amber-50", "text-black", "hover:bg-primary-ebony-clay", "hover:text-amber-100");
   } else {
-    setSearchType(prev => prev.map(type => type === 'title' ? null : type));
+
+    // setSearchType(prev => prev.map(type => type === 'title' ? null : type));
+    dispatch({ type: 'SET_SEARCH_TYPE', payload: { index: 0, value: null } });
 
     setClickedSearchTitle(false)
 
@@ -69,18 +78,23 @@ function buttonSearchAuthor() {
   }
 
   if(!clickedSearchAuthor) {
-    setSearchType((type) => {
-      const array = [...type]
-      array[1] = 'author'
-      return array
-    });
-    setClickedSearchAuthor(true)
+
+    // setSearchType((type) => {
+    //   const array = [...type]
+    //   array[1] = 'author'
+    //   return array
+    // });
+
+    dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1 , value : "author"} })
+    setClickedSearchAuthor(true);
 
     element.classList.remove("hover:bg-amber-50" , "hover:text-black")
     element.classList.add("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
   } else {
-    setSearchType(prev => prev.map(type => type === 'author' ? null : type));
-    setClickedSearchAuthor(false)
+
+    // setSearchType(prev => prev.map(type => type === 'author' ? null : type));
+    dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 0, value : null} })
+    setClickedSearchAuthor(false); 
 
     element.classList.remove("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
     element.classList.add("hover:bg-amber-50" , "hover:text-black")
@@ -100,8 +114,8 @@ function buttonSearchAuthor() {
 
           {searchType.includes("author") && searchType.includes("title")
             ? // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
-            (<SearchAuthor setAuthor={setAuthor} setSearchType={setSearchType} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to works
-          : 
+            (<SearchAuthor setAuthor={setAuthor} dispatch={dispatch} state={state} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to works
+            : 
             (
             <>
             <button className='search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
@@ -116,7 +130,7 @@ function buttonSearchAuthor() {
               defaultValue={""}
               onKeyDown={(e) => {
                 if(e.key === 'Enter'){
-                  onValueChange(e.target.value);
+                  dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value })
                 }
               }}
               placeholder={`${searchType.includes("author") && searchType.includes("title") ? "Search Title of Book.. " : "Author/Title a Book.. "}`}

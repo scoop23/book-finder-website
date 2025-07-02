@@ -4,11 +4,11 @@ import Loading from "../Loading";
 const Quotes = ({ quoteData }) => {
   // get quotes from an api
   // display quotes from famous authors
-  if(quoteData) {
-    console.log(quoteData[0])
-  } else {
-    console.log("Not exist yet")
-  }
+  // if(quoteData) {
+  //   console.log(quoteData[0])
+  // } else {
+  //   console.log("Not exist yet")
+  // }
   const {q , a} = quoteData[0];
 
   return (
@@ -29,6 +29,7 @@ const Quotes = ({ quoteData }) => {
             </div>
           </div>
         {/* quote card */}
+        
         </div>
       </div>
     </div>
