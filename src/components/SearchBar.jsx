@@ -130,7 +130,7 @@ function buttonSearchAuthor() {
           {!(searchType.includes("title") && searchType.includes("author")) &&
             // opposite of when author and title search are active
             <> 
-              <button className={`${ clickedSearchAuthor ? 'hover:bg-primary-ebony-clay text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black '}search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg text-amber-100`}
+              <button className={`${ clickedSearchAuthor ? 'hover:bg-primary-ebony-clay text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'} search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg `}
               onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Author Search</button> 
             </>
           }
