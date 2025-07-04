@@ -6,7 +6,7 @@ import { CodexCross } from './icons/CodexCross'
 
 
 // USED THE STATES OF THE PARENT TO CHANGE THE BUTTONS
-const SearchAuthor = ({setAuthor , dispatch , state, setClickedSearchAuthor}) => {
+const SearchAuthor = ({ dispatch , state, setClickedSearchAuthor}) => {
   function resetAuthor() {
     // setSearchType(types => types.map(type => type === 'author' ? null : type))
     dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : null }})

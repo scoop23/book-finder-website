@@ -21,7 +21,7 @@ const CarouselB = () => {
 
   const shift = Math.max(0 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
 
-  console.log(shift)
+  // console.log(shift)
   useEffect(() => {
     // useEffect runs after mount
     const delay = setInterval(() => {
@@ -49,7 +49,7 @@ const CarouselB = () => {
         // -12.5 and if you insert it in the translateX css it would be (-(-12.5px)) and in turn would be +12.5
         // which would shift the carousel to the right and disregard the 0 index card right?
       })
-      // console.log(carouselSlider.current)
+      // console.log(carouselSlider.current)  
     } 
   })
 

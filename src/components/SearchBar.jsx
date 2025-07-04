@@ -4,11 +4,12 @@ import { animate } from 'motion';
 import { useElementScroll } from 'motion/react';
 import  SearchAuthor  from './SearchAuthor.jsx'
 
-const SearchBar = ({ dispatch , state , setAuthor}) => {  
+const SearchBar = ({ dispatch , state }) => {  
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
   const searchTitle = useRef();
+
 
   const { 
     searchType 
@@ -31,6 +32,21 @@ const SearchBar = ({ dispatch , state , setAuthor}) => {
     }
   }
 
+  useEffect(() => {
+  if (searchType.includes("author")) {
+    setClickedSearchAuthor(true);
+  } else {
+    setClickedSearchAuthor(false);
+  }
+
+  if (searchType.includes("title")) {
+    setClickedSearchTitle(true);
+  } else {
+    setClickedSearchTitle(false);
+  }
+}, [searchType]);
+
+
 function buttonSearchTitle() {
   const element = searchTitle.current;
 
@@ -47,14 +63,13 @@ function buttonSearchTitle() {
     //   return array
     // });
 
-    dispatch({ type : 'SET_SEARCH_TYPE', payload : {index : 0, value : 'title'}})
-    
-    setClickedSearchTitle(true)
+    dispatch({ type : 'SET_SEARCH_TYPE', payload : {index : 0, value : 'title'}});
+    setClickedSearchTitle(true);
     
     element.classList.remove("hover:bg-amber-50", "hover:text-black");
     element.classList.add("bg-amber-50", "text-black", "hover:bg-primary-ebony-clay", "hover:text-amber-100");
-  } else {
 
+  } else {
     // setSearchType(prev => prev.map(type => type === 'title' ? null : type));
     dispatch({ type: 'SET_SEARCH_TYPE', payload: { index: 0, value: null } });
 
@@ -88,16 +103,16 @@ function buttonSearchAuthor() {
     dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1 , value : "author"} })
     setClickedSearchAuthor(true);
 
-    element.classList.remove("hover:bg-amber-50" , "hover:text-black")
-    element.classList.add("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
+    // element.classList.remove("hover:bg-amber-50" , "hover:text-black")
+    // element.classList.add("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
   } else {
 
     // setSearchType(prev => prev.map(type => type === 'author' ? null : type));
-    dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 0, value : null} })
+    dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : null} })
     setClickedSearchAuthor(false); 
 
-    element.classList.remove("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
-    element.classList.add("hover:bg-amber-50" , "hover:text-black")
+    // element.classList.remove("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
+    // element.classList.add("hover:bg-amber-50" , "hover:text-black")
   }
 }
 
@@ -112,17 +127,19 @@ function buttonSearchAuthor() {
           <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
           onClick={() => buttonSearchTitle()} ref={searchTitle}>Title Search</button>
 
-          {searchType.includes("author") && searchType.includes("title")
-            ? // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
-            (<SearchAuthor setAuthor={setAuthor} dispatch={dispatch} state={state} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to works
-            : 
-            (
-            <>
-            <button className='search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
-            onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Author Search</button>
+          {!(searchType.includes("title") && searchType.includes("author")) &&
+            // opposite of when author and title search are active
+            <> 
+              <button className={`${ clickedSearchAuthor ? 'hover:bg-primary-ebony-clay text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black '}search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg text-amber-100`}
+              onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Author Search</button> 
             </>
-            )
           }
+          
+          {searchType.includes("author") && searchType.includes("title")
+            && // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
+            (<SearchAuthor dispatch={dispatch} state={state} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to works
+          }
+
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
               <input
               className={`input-search hidden w-0 rounded-2xl outline-0 font-winky`}

@@ -26,7 +26,7 @@ const BookSearchContainer = () => {
   };
 
   function reducer(state, action) {
-    switch (action.type) {              //copy the whole state // 
+    switch (action.type) {              //copy the whole state 
       case "SET_SEARCH_TEXT": { return {...state, searchText: action.payload,}; }
       case "SET_AUTHOR_TEXT": { return {...state, author: action.payload,}; }
       case "SET_SEARCH_TYPE": {

@@ -4,6 +4,7 @@ import CarouselA from '../components/carousels/CarouselA';
 import CarouselB from '../components/carousels/CarouselB';
 import Quotes from './ui/Quotes';
 import Loading from './Loading';
+import SurpriseMe from './SurpriseMe';
 
 
 const MainPage = ({ data , quoteData }) => {
@@ -34,6 +35,7 @@ const MainPage = ({ data , quoteData }) => {
               <Quotes quoteData={quoteData}/>
             </div>
             <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-[10px] grow-0 bg-primary-blackrock'>
+              <SurpriseMe />
             </div>
             <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-[10px] grow-0 bg-primary-blackrock'>
             </div>
