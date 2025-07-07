@@ -57,7 +57,7 @@ const CarouselB = () => {
     <div className="carousel-b-outer-wrapper flex justify-center font-satoshi text-zinc-100 ">
       {/* <span className=''>Genres</span> */}
       <div className="carousel-b-main-wrapper w-[700px] h-[400px] flex items-center justify-center">
-        <div className="carousel-b w-[650px] h-[370px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-3.5">
+        <div className="carousel-b w-[650px] h-[365px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-3.5">
           {/* prev tailwind config - w-[650px] h-[350px] */}
           <div className="genre-tags-wrapper flex gap-4 w-[490px] flex-wrap h-[24px]">
             <div className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center ">

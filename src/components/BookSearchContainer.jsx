@@ -103,7 +103,7 @@ const BookSearchContainer = () => {
   return (
     <>
       <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4">
-        <div className="inner-main w-full max-w-[1280px] min-h-[800px] rounded-[10px] mx-auto p-4">
+        <div className="inner-main w-full max-w-[1280px] min-h-[780px] rounded-[10px] mx-auto p-4">
           <SearchBar
             dispatch={dispatch} // send useReducer dispatch
             state={state} // the state
