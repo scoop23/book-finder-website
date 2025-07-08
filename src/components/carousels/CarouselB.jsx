@@ -21,7 +21,6 @@ const CarouselB = () => {
 
   const shift = Math.max(0 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
 
-  // console.log(shift)
   useEffect(() => {
     // useEffect runs after mount
     const delay = setInterval(() => {

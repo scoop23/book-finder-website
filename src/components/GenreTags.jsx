@@ -39,7 +39,7 @@ const genresTags = {
     "law" : "bg-[#5920f5]",
     "hysteria" : "bg-[#f54e20]",
     "industrial management" : "bg-[#bd5437]"
-  } // hardcoded subjects. is there a way to get all the subjects/genre using the   google books api?
+  } // hardcoded subjects. is there a way to get all the subjects/genre using the google books api?
   
 const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
   const genreArray = Array.isArray(genre) ? genre : typeof(genre) === 'string' ? [genre] : []
