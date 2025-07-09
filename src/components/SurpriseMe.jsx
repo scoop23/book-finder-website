@@ -74,15 +74,15 @@ const SurpriseMe = () => {
     particlesArray.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x , p.y , p.radius ,0 ,Math.PI * 2);
-      ctx.fillStyle = `rgba(120,40,20,${p.alpha})`;
+      ctx.fillStyle = `rgba(180,40,20,${p.alpha})`;
       ctx.fill();
 
-      p.x += p.vx
-      p.y += p.vy
-      p.alpha -= 0.01
+      p.x += p.vx;
+      p.y += p.vy;
+      p.alpha -= 0.01;
     });
 
-    particlesArray = particlesArray.filter(p => p.alpha > 0);
+    particlesArray = particlesArray.filter(p => p.alpha > 0); // only pulls out the particles that alphas greater than 0
   }
 
   function onMouseEnterCanvas() {
@@ -97,7 +97,7 @@ const SurpriseMe = () => {
     setStopId(id);
   }
 
-  function onMouseLeaveCanvas() {
+  function onMouseLeaveCanvas() {    
     clearInterval(stopId);
   }
 
@@ -105,9 +105,6 @@ const SurpriseMe = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d")
 
-    // function animate() {
-    
-    // }
     function animate() {
       drawParticles(ctx, canvas);
       requestAnimationFrame(animate); 
@@ -120,7 +117,7 @@ const SurpriseMe = () => {
     <div className='surprise-me-wrapper h-full'>
       <div className='surprise-me-main flex justify-center items-center h-full flex-col gap-2'>
 
-        <div className='text-white font-avenir'>Hottest Books</div>
+        <div className='text-white font-avenir'>Have no idea what to read?</div>
 
         <div className='surprise-me bg-zinc-900 w-[250px] h-[230px] rounded-2xl border-1 border-zinc-400'>
 
