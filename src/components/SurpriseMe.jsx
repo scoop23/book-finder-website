@@ -1,37 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
 import gsap from 'gsap';
 
 const SurpriseMe = () => {
-  const clickMeRef = useRef();
-  const canvasRef = useRef();
-  function hoverClickMe() {
-    const tl = gsap.timeline()
-    if(clickMeRef.current) {
-      tl.to(clickMeRef.current, {
-        duration : 0.5,
-        opacity : 1,  
-      })
-    }
-  }
-  
+  // ignore this 
   // ---------------------------------------------------
   // get the width and height for boundaries
   // 10 is padding
+  // persona 5 textbox
   const outerBoxFn = (sizeW, sizeH) => `
-      M 31.7 3.1
+      M 31.7 20
       L ${sizeW - 10} 0
       L ${sizeW - 23} ${sizeH}
-      L 0 ${sizeH - 8}
+      L 5 ${sizeH - 12}
       Z
   `;
 
-
+  const innerBoxFn = (sizeW, sizeH) => `
+      M 33 23
+      L ${sizeW - 20} 5
+      L ${sizeW - 29} ${sizeH - 5}
+      L 10 ${sizeH - 15}
+      Z
+  `
   function SvgExample({ sizeWidth, sizeHeight }) {
-    
-
     const outerD = outerBoxFn(sizeWidth , sizeHeight)
-
+    const innerD = innerBoxFn(sizeWidth , sizeHeight)
     return (
       <svg className='absolute' viewBox='0 0 300 300' width="230" height="200">
         
@@ -41,54 +35,102 @@ const SurpriseMe = () => {
             fill="white"
           /> */}
         <path
-          className="inner-box"
+          className="outer-box"
           d={outerD}
-          fill="black"
+          fill="white"
         />
-
-        
+        <path 
+          className='inner-box'
+          d={innerD}
+          fill='black'
+        />
       </svg>
     );
   }
   // ---------------------------------------------------
 
-  function onClickMe() {
-    let particle = []
-    function createParticle() {
-      return{
-        x : Math.random() * canvas.width,
-        y : Math.random(),
-      }
+  // i used useRef for react to remember but not re-render everytime something changes
+  const SurpriseMeWrapper = useRef();
+  const canvasRef = useRef();
+  const clickMeRef = useRef();
+  const particleRef = useRef([]);
+  const [stopId , setStopId] = useState(null);
+
+  function createParticle(canvas) {
+    return {
+      x : Math.random() * canvas.width, // start from a random position inside the canvas width
+      y : canvas.height, // start height of the canvas 
+      radius : Math.random() * 10 + 5, // random radius
+      vx : (Math.random() - 0.5) * 2, // random horizontal velocity
+      vy : Math.random() * - 2 - 1, // random vertical velocity
+      alpha : 1  
     }
-
-
+    
   }
 
-  function offHover() {
-    const tl = gsap.timeline()
-    if(clickMeRef.current) {
-      tl.to(clickMeRef.current, {
-        duration : 0.5,
-        opacity : 0,  
-      })
-    }
+  function drawParticles(ctx, canvas) {
+    let particlesArray = particleRef.current;
+    ctx.clearRect(0,0, canvas.width , canvas.height);
+    particlesArray.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x , p.y , p.radius ,0 ,Math.PI * 2);
+      ctx.fillStyle = `rgba(120,40,20,${p.alpha})`;
+      ctx.fill();
+
+      p.x += p.vx
+      p.y += p.vy
+      p.alpha -= 0.01
+    });
+
+    particlesArray = particlesArray.filter(p => p.alpha > 0);
   }
-  
+
+  function onMouseEnterCanvas() {
+    const particleArray = particleRef.current;
+    const canvas = canvasRef.current;
+    
+    const id = setInterval(() => {
+      particleArray.push(createParticle(canvas))
+      console.log(particleArray)
+    }, 40);
+
+    setStopId(id);
+  }
+
+  function onMouseLeaveCanvas() {
+    clearInterval(stopId);
+  }
+
   useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d")
 
+    // function animate() {
+    
+    // }
+    function animate() {
+      drawParticles(ctx, canvas);
+      requestAnimationFrame(animate); 
+    }
+
+    animate();
   }, [])
 
   return (
     <div className='surprise-me-wrapper h-full'>
-      <div className='surprise-me-main flex justify-center items-center h-full'>
-        <div className='surprise-me bg-zinc-900 w-[250px] h-[265px] rounded-2xl border-1 border-zinc-400'>
-          <div className='inner-main flex w-full h-full justify-center items-center cursor-pointer relative' onMouseEnter={hoverClickMe} onMouseLeave={offHover}>
+      <div className='surprise-me-main flex justify-center items-center h-full flex-col gap-2'>
 
-            <canvas ref={canvasRef} id='my-canvas' className='absolute' width={250} height={260}></canvas>
+        <div className='text-white font-avenir'>Hottest Books</div>
 
-            <SvgExample sizeWidth={200} sizeHeight={100}/>
+        <div className='surprise-me bg-zinc-900 w-[250px] h-[230px] rounded-2xl border-1 border-zinc-400'>
 
-            <div className='click-me text-white text-[30px] opacity-0 ' draggable={false} ref={clickMeRef}>
+          <div className='inner-main flex w-full h-full justify-center items-center cursor-pointer relative' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
+
+            <canvas ref={canvasRef} id='my-canvas' className='absolute' width={250} height={230}></canvas>
+
+            {/* <SvgExample sizeWidth={200} sizeHeight={100}/> */}
+
+            <div className='click-me text-white text-[30px] opacity-0 hover:opacity-100 duration-500' draggable={false} ref={clickMeRef}>
               Click me!
             </div>
 
