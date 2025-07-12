@@ -66,7 +66,7 @@ const LeftSide = ({topOneBook}) => {
     return(
         <div className='content-info-wrapper flex flex-col gap-2 max-w-[430px] max-h-[220px] items-baseline'>
             <span className='content-info text-[20px] p-2 flex flex-col gap-2 font-satoshi'>
-              <div className='flex justify-between w-[400px] '>
+              <div className='flex justify-between w-[400px] gap-2'>
                 <div className='line-clamp-3'>{title}</div>
                 <div className='flex justify-center'>
                   {

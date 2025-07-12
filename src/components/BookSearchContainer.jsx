@@ -13,6 +13,8 @@ import {
 } from "./api/AccessToApi";
 
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
+// TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
+
 
 const BookSearchContainer = () => {
   const STATE = {
@@ -38,7 +40,6 @@ const BookSearchContainer = () => {
       case "SET_QUOTE_DATA" : { return {...state, quoteData : action.payload}; }
     }
   }
-
   const [state, dispatch] = useReducer(reducer, STATE);
 
   // const [searchText, setSearchText] = useState("");

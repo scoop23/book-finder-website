@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
 import gsap from 'gsap';
 
-const SurpriseMe = () => {
+const SurpriseMe = ({ randomBookData }) => {
   // ignore this 
   // ---------------------------------------------------
   // get the width and height for boundaries
@@ -55,12 +55,13 @@ const SurpriseMe = () => {
   const clickMeRef = useRef();
   const particleRef = useRef([]);
   const [stopId , setStopId] = useState(null);
+  const [randomBook , setRandomBook] = useState(null)
 
   function createParticle(canvas) {
     return {
       x : Math.random() * canvas.width, // start from a random position inside the canvas width
-      y : canvas.height, // start height of the canvas 
-      radius : Math.random() * 10 + 5, // random radius
+      y : canvas.height, // start at the height of the canvas 
+      radius : Math.random() * 1 + 3, // random radius
       vx : (Math.random() - 0.5) * 2, // random horizontal velocity
       vy : Math.random() * - 2 - 1, // random vertical velocity
       alpha : 1  
@@ -74,8 +75,15 @@ const SurpriseMe = () => {
     particlesArray.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x , p.y , p.radius ,0 ,Math.PI * 2);
-      ctx.fillStyle = `rgba(180,40,20,${p.alpha})`;
+      ctx.fillStyle = `rgba(255,40,20,${p.alpha})`;
       ctx.fill();
+      ctx.shadowColor = "orange"
+      ctx.shadowBlur = 20
+      ctx.shadowOffSetX = 0
+      ctx.shadowOffSetY = 0
+      
+
+      
 
       p.x += p.vx;
       p.y += p.vy;
@@ -88,17 +96,48 @@ const SurpriseMe = () => {
   function onMouseEnterCanvas() {
     const particleArray = particleRef.current;
     const canvas = canvasRef.current;
+    const wrapper = SurpriseMeWrapper.current;
+    const clickMe = clickMeRef.current; 
+
+    if(clickMe) {
+      gsap.to(clickMe ,{
+        duration : 0.3,
+        opacity : 1,
+      })
+    }
     
+    
+
     const id = setInterval(() => {
       particleArray.push(createParticle(canvas))
       console.log(particleArray)
-    }, 40);
+    }, 50);
 
     setStopId(id);
   }
 
-  function onMouseLeaveCanvas() {    
+  function onMouseLeaveCanvas() {
+    const clickMe = clickMeRef.current
+    if(clickMe) {
+        gsap.to(clickMe ,{
+        duration : 0.3,
+        opacity : 0,
+      })
+    }
+    
+
     clearInterval(stopId);
+  }
+
+  function onClick() {
+    const wrapper = SurpriseMeWrapper.current;
+    if(wrapper) {
+      gsap.to(wrapper , {
+        backgroundColor : "white",
+        duration : 1,
+      });
+      
+    } 
   }
 
   useEffect(() => {
@@ -127,7 +166,7 @@ const SurpriseMe = () => {
 
             {/* <SvgExample sizeWidth={200} sizeHeight={100}/> */}
 
-            <div className='click-me text-white text-[30px] opacity-0 hover:opacity-100 duration-500' draggable={false} ref={clickMeRef}>
+            <div className='click-me text-white text-[30px] opacity-0  duration-500 select-none' draggable={false} ref={clickMeRef}>
               Click me!
             </div>
 

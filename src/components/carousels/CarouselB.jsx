@@ -8,10 +8,12 @@ import CSSPlugin from "gsap/CSSPlugin";
 
 gsap.registerPlugin(CSSPlugin);
 
-const CarouselB = () => {
+const CarouselB = ({ carouselBBookData }) => {
   const [index, setIndex] = useState(0);
   const [data] = useState(slideData.slideData);
   const carouselSlider = useRef();
+  const [bookData , setBookData] = useState({})
+
 
   // VALUE CONSTANTS FOR THE CAROUSEL
   // DIDNT use UseRef() as the carousel cards width not dynamic yet.
@@ -37,7 +39,6 @@ const CarouselB = () => {
   });
 
   useEffect(() => {
-    const tl = gsap.timeline()
     if(carouselSlider.current) {
       gsap.to(carouselSlider.current, {
         duration : 0.8,
