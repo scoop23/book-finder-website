@@ -14,7 +14,7 @@ const Quotes = ({ quoteData }) => {
   return (
     <div className="quotes-main flex w-full h-full">
       <div className="quotes-wrapper flex justify-center items-center w-full">
-        <div className="quotes-inner bg-zinc-900 w-[560px] h-[250px] rounded-2xl border-1 border-zinc-600 flex gap-2">
+        <div className="quotes-inner bg-zinc-900 w-[565px] h-[265px] rounded-2xl border-1 border-zinc-600 flex gap-2">
 
         {/* make this carouselLike */}
         {/* quote card */}

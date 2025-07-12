@@ -31,7 +31,7 @@ const BookResults = ({ data }) => {
 //   const categories = data.items[i]?.volumeInfo?.categories || [];
 //   categories.forEach(category => console.log(category));
 // }
-
+  console.log(remainingBooks)
   return (
     <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px]'>
       {!data.items?.length ? (

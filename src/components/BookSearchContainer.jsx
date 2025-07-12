@@ -13,6 +13,8 @@ import {
 } from "./api/AccessToApi";
 
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
+// TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
+
 
 const BookSearchContainer = () => {
   const STATE = {
@@ -38,7 +40,6 @@ const BookSearchContainer = () => {
       case "SET_QUOTE_DATA" : { return {...state, quoteData : action.payload}; }
     }
   }
-
   const [state, dispatch] = useReducer(reducer, STATE);
 
   // const [searchText, setSearchText] = useState("");
@@ -103,7 +104,7 @@ const BookSearchContainer = () => {
   return (
     <>
       <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4">
-        <div className="inner-main w-full max-w-[1280px] min-h-[800px] rounded-[10px] mx-auto p-4">
+        <div className="inner-main w-full max-w-[1280px] min-h-[780px] rounded-[10px] mx-auto p-4">
           <SearchBar
             dispatch={dispatch} // send useReducer dispatch
             state={state} // the state

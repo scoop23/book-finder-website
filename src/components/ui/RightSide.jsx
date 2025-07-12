@@ -30,7 +30,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
       <div className='content-info2 flex flex-col w-[430px] max-h-[220px] items-baseline'>
           <div className='flex justify-between w-[430px]'>
             <div className='font-satoshi title2 max-h-[200px] text-[20px] p-1 flex break-words w-[430px] justify-between '>
-                {title2}
+                <div className='line-clamp-3'>{title2}</div>
               <div className='flex justify-center '>
                 {
                   <GenreTags genre={genre2}/>
@@ -56,7 +56,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
     <div className='content-info3 flex flex-col min-w-[430px] max-h-[220px] items-baseline'>
       <div className='flex justify-between w-[430px]'>
           <div className='font-satoshi title2 max-h-[200px] text-[20px] p-1 flex break-words w-[430px] justify-between '>
-              {title3}
+              <div className='line-clamp-2'>{title3}</div>
             <div className='flex justify-center '>
               {
                 <GenreTags genre={genre3} />

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const genresTags = {
+export const genresTags = {
     "fiction" : "bg-green-400",
     "romance" : "bg-red-400",
     "science" : "bg-violet-400",
@@ -38,8 +38,14 @@ const genresTags = {
     "young adult fiction" : "bg-[#a9e815]",
     "law" : "bg-[#5920f5]",
     "hysteria" : "bg-[#f54e20]",
-    "industrial management" : "bg-[#bd5437]"
-  } // hardcoded subjects. is there a way to get all the subjects/genre using the   google books api?
+    "industrial management" : "bg-[#bd5437]",
+    "true crime" : "bg-[#b5052e]",
+    "men" : "bg-[#4253ed]",
+    "adventure and adventurers" : "bg-[#e7eb15]",
+    "poetry" : "bg-[#eb6434]",
+    "body, mind & spirit" : "bg-[#8034eb]",
+    "computers" : "bg-[#2642bf]"
+  } // hardcoded subjects. is there a way to get all the subjects/genre using the google books api?
   
 const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
   const genreArray = Array.isArray(genre) ? genre : typeof(genre) === 'string' ? [genre] : []
@@ -68,4 +74,4 @@ const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
 };
 
 
-export default GenreTags
+export default GenreTags;
