@@ -3,17 +3,15 @@ import CarouselBCard from "./CarouselBCard.jsx";
 import slideData from "../slideDemo.json";
 import CodexDotCircle from "../icons/CodexDotCircle.jsx";
 import gsap from 'gsap';
-
+import genres from "../../constants/genres.jsx";
 import CSSPlugin from "gsap/CSSPlugin";
 
 gsap.registerPlugin(CSSPlugin);
 
-const CarouselB = ({ carouselBBookData }) => {
+const CarouselB = ({ state , dispatch }) => {
   const [index, setIndex] = useState(0);
   const [data] = useState(slideData.slideData);
   const carouselSlider = useRef();
-  const [bookData , setBookData] = useState({})
-
 
   // VALUE CONSTANTS FOR THE CAROUSEL
   // DIDNT use UseRef() as the carousel cards width not dynamic yet.
@@ -22,6 +20,33 @@ const CarouselB = ({ carouselBBookData }) => {
   const GAP = 80;
 
   const shift = Math.max(0 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
+
+  const myGenres = Object.keys(genres) // get keys
+  const availableGenres = myGenres.slice(0,5); // get 6 genres
+  const myCapitalizedGenres = availableGenres.map(g => {
+    const capitalizedG = g[0].toUpperCase() + g.slice(1)
+    for (let i = 0 ; i < capitalizedG.length; i++) {
+      if(capitalizedG[i] === ' ') {
+        const noSpace = capitalizedG.split(' ')
+        return noSpace
+      }
+    }
+    return capitalizedG;
+  }) // capitalize
+
+  function genreClick(genre) {
+    let temp = ''
+    let modGenre = ''
+    if(Array.isArray(genre)) {
+      temp = genre.join(' ');
+      modGenre = temp.toLowerCase();
+    } else {
+      modGenre = genre.toLowerCase();
+    }
+    const genreColor = genres[modGenre]; // will use someday
+    console.log(genreColor)
+    dispatch({ type : "SET_GENRE"  , payload : genre});
+  }
 
   useEffect(() => {
     // useEffect runs after mount
@@ -59,11 +84,28 @@ const CarouselB = ({ carouselBBookData }) => {
       <div className="carousel-b-main-wrapper w-[700px] h-[400px] flex items-center justify-center">
         <div className="carousel-b w-[650px] h-[365px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-3.5">
           {/* prev tailwind config - w-[650px] h-[350px] */}
+
           <div className="genre-tags-wrapper flex gap-4 w-[490px] flex-wrap h-[24px]">
-            <div className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center ">
-              Romance
-            </div>
-            <div className="genre-tag w-[70px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
+            {
+              myCapitalizedGenres.map(genre => {
+                let theGenre = ''
+                if(Array.isArray(genre)) {
+                  theGenre = genre[0]
+                } else {
+                  theGenre = genre
+                }
+                return (
+                <div
+                className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center"
+                onClick={() => genreClick(genre)}
+                >
+                  {theGenre}
+                </div>
+                )
+              })
+            }
+            
+            {/* <div className="genre-tag w-[70px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
               Fiction
             </div>
             <div className="genre-tag w-[100px] h-[24px]  rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
@@ -75,6 +117,10 @@ const CarouselB = ({ carouselBBookData }) => {
             <div className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
               Adventure
             </div>
+            <div className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
+              Adventure
+            </div>
+             */}
           </div>
 
           <div className="flex gap-4 w-[600px] items-center justify-center-safe">

@@ -10,11 +10,11 @@ import {
   fetchBookByTitle,
   fetchBookByAuthorWithTitle,
   fetchQuotes,
+  getGenre
 } from "./api/AccessToApi";
 
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
-
 
 const BookSearchContainer = () => {
   const STATE = {
@@ -25,6 +25,8 @@ const BookSearchContainer = () => {
     quoteData: null,
     isLoading: false,
     mainPageData: null,
+    genreData : {},
+    genreTag : "",
   };
 
   function reducer(state, action) {
@@ -38,18 +40,11 @@ const BookSearchContainer = () => {
       } 
       case "SET_BOOK_DATA" : { return { ...state, bookData : action.payload}; }
       case "SET_QUOTE_DATA" : { return {...state, quoteData : action.payload}; }
+      case "SET_GENRE_DATA" : { return {...state, genreData : action.payload}; }
+      case "SET_GENRE" : { return {...state , genreTag : action.payload}; }
     }
   }
-  const [state, dispatch] = useReducer(reducer, STATE);
-
-  // const [searchText, setSearchText] = useState("");
-  // const [author, setAuthor] = useState("");
-  // const [searchType, setSearchType] = useState([null, null]);
-  // const [bookData, setBookData] = useState(null);
-  // const [quoteData, setQuoteData] = useState(null);
-  // const [isLoading, setIsloading] = useState(false);
-  // const [mainPageData, setMainPageData] = useState(null);
-  // const [bookApi] = useState(new BookApi());
+  const [state, dispatch] = useReducer(reducer, STATE); //usereducer
 
   useEffect(() => {
     const delay = setTimeout(async () => {
@@ -66,6 +61,7 @@ const BookSearchContainer = () => {
           }
         }
       } else if (
+        // Basically if the searchType arr is full
         state.searchType.length === 2 &&
         state.searchType[0] &&
         state.searchType[1] &&
@@ -77,7 +73,7 @@ const BookSearchContainer = () => {
       }
     }, 1000);
     return () => clearTimeout(delay); // cleanup debounce
-  }, [state.searchText, state.searchType, state.author]);
+  }, [state.searchText, state.searchType, state.author]); 
 
   useEffect(() => {
     const getQuote = async () => {
@@ -91,7 +87,6 @@ const BookSearchContainer = () => {
         console.error("Error Fetching Quotes", e);
       }
     };
-
     getQuote();
   }, []);
 
@@ -114,7 +109,7 @@ const BookSearchContainer = () => {
               <BookResults data={state.bookData} />
             </div>
           ) : state.quoteData ? (
-              <MainPage data={state.bookData} quoteData={state.quoteData} />
+              <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
           ) : (
             <>
               <Loading />
