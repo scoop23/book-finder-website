@@ -57,6 +57,8 @@ const SurpriseMe = ({ randomBookData }) => {
   const [stopId , setStopId] = useState(null);
   const [randomBook , setRandomBook] = useState(null)
 
+  
+
   function createParticle(canvas) {
     return {
       x : Math.random() * canvas.width, // start from a random position inside the canvas width

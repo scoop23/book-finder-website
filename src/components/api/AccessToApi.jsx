@@ -27,3 +27,16 @@ export const fetchQuotes = async () => {
   const response = await axios.get(`http://localhost:8080/api/quotes/random`);
   return response.data;
 };
+
+export const getGenre = async (genre) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/genre/${genre}`);
+
+    return response.data;
+  } catch(err) {
+    if(err.response) {
+      console.error("Data, ", err.response.data)
+      console.error("Status, ", err.response.status)
+    }
+  }
+}
