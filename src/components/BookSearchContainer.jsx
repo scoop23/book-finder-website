@@ -90,6 +90,32 @@ const BookSearchContainer = () => {
     getQuote();
   }, []);
 
+  useEffect(() => {
+    const getGenreFromAPI = async () => {
+      try {
+        if(state.genreData) {
+          const response = await getGenre(state.genreTag);
+          console.log(response);
+        } else {
+          return;
+        }
+      } catch(err) {
+        if(err.response) {
+          console.error("Data: ", err.response.data);
+          console.error("Status: ", err.response.status);
+        }
+      }
+    }
+
+    const intervalId = setInterval(() => {
+      getGenreFromAPI();
+    }, 500);
+
+    
+
+    return () => clearInterval(intervalId)
+  }, [state.genreTag])
+
   // debouncing
   // fetchBookByAuthor(apiKey, searchText);
   // bookApi.fetchBookByTitle(searchText, setBookData);

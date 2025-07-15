@@ -16,8 +16,8 @@ const CarouselB = ({ state , dispatch }) => {
   // VALUE CONSTANTS FOR THE CAROUSEL
   // DIDNT use UseRef() as the carousel cards width not dynamic yet.
   const CARDWIDTH = 500; // in px
-  const CONTAINERWIDTH = 525;
-  const GAP = 80;
+  const CONTAINERWIDTH = 525; // in px
+  const GAP = 80;// in px
 
   const shift = Math.max(0 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
 
@@ -69,6 +69,11 @@ const CarouselB = ({ state , dispatch }) => {
         duration : 0.8,
         x : -shift,
         ease : "expo.inOut"
+        // style={{
+                //   transform: `translateX(-${Math.max(
+                //     0,
+                //     (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) / 2
+                //   )}px)`,
         // formula i looked up on the internet quite good but the first index is still not centered.
         // used math.max. because, when the index is 0 for example (500 + 80) * 0 = 0 and - (525 - 500) / 2) would be
         // -12.5 and if you insert it in the translateX css it would be (-(-12.5px)) and in turn would be +12.5
@@ -104,23 +109,6 @@ const CarouselB = ({ state , dispatch }) => {
                 )
               })
             }
-            
-            {/* <div className="genre-tag w-[70px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
-              Fiction
-            </div>
-            <div className="genre-tag w-[100px] h-[24px]  rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
-              Non Fiction
-            </div>
-            <div className="genre-tag w-[70px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
-              Drama
-            </div>
-            <div className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
-              Adventure
-            </div>
-            <div className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer text-[13px] text-center flex justify-center items-center p-0.5">
-              Adventure
-            </div>
-             */}
           </div>
 
           <div className="flex gap-4 w-[600px] items-center justify-center-safe">
@@ -131,31 +119,18 @@ const CarouselB = ({ state , dispatch }) => {
             ></div>
 
             {/* <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400 cursor-pointer' onClick={() => prevIndex()}>prev</button> */}
-            <div className="carouselB-main flex  w-[525px] h-[250px] overflow-hidden  items-center " style={{
+            <div className={`carouselB-main flex  w-[${CONTAINERWIDTH}px] h-[250px] overflow-hidden  items-center `} style={{
               boxShadow: `inset 20px 0 20px rgba(24, 24, 27,3),     /* left */
                           inset -20px 0 20px rgba(24, 24, 27,3),    /* right */
                           inset 0 0 10px rgba(0, 0, 0, 1)         /* center */`,
             }}>
               <div
-                className="flex gap-[80px] carouselB-main"
-                // style={{
-                //   transform: `translateX(-${Math.max(
-                //     0,
-                //     (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) / 2
-                //   )}px)`,
-                //   // formula i looked up on the internet quite good but the first index is still not centered.
-                //   // used math.max. because, when the index is 0 for example (500 + 80) * 0 = 0 and - (525 - 500) / 2) would be
-                //   // -12.5 and if you insert it in the translateX css it would be (-(-12.5px)) and in turn would be +12.5
-                //   // which would shift the carousel to the right and disregard the 0 index card right?
-                //   transition: `0.4s ease`,
-                //   transformStyle: `preserve-3d`,
-                // }}
+                className={`flex gap-[${GAP}px] carouselB-main`}
                 ref={carouselSlider}
               >
-                
                 {data.map((demo, index) => (
                   <div key={index}>
-                    <CarouselBCard data={demo} />
+                    <CarouselBCard data={demo} CARDWIDTH={CARDWIDTH}/>
                   </div>
                 ))}
               </div>

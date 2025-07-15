@@ -11,27 +11,15 @@ import GenreTags from './GenreTags';
 import LeftSide from './ui/LeftSide.jsx'
 import RightSide from './ui/RightSide.jsx';
 
-const BookResults = ({ data }) => { 
-  const topBooks = data.items?.slice(0, 3); // ?. - safety check data.items if it exists
-  const topOneBook = topBooks?.[0];
-  const topTwoBook = topBooks?.[1];
-  const topThreeBook = topBooks?.[2];
-  const remainingBooks = data.items?.slice(3) || []; // start at index 4
-  // const genreSet = new Set()
+const BookResults = ({ data }) => {
   
-  // data.items.forEach(item => {
-  //   const categories = item?.volumeInfo?.categories || [];
-  //   categories.forEach(category => genreSet.add(category));
-  // });
-
-  // const genreArr = Array.from(genreSet)
-  // console.log(genreArr)
-
-//  for (let i = 0; i < data.items.length; i++) {
-//   const categories = data.items[i]?.volumeInfo?.categories || [];
-//   categories.forEach(category => console.log(category));
-// }
-  console.log(remainingBooks)
+  const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en")
+  console.log(filteredLanguage)
+  const entopBooks = filteredLanguage?.slice(0, 3); // ?. - safety check data.items if it exists
+  const topOneBook = entopBooks?.[0];
+  const topTwoBook = entopBooks?.[1];
+  const topThreeBook = entopBooks?.[2];
+  const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
   return (
     <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px]'>
       {!data.items?.length ? (

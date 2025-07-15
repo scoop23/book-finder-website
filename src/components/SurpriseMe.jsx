@@ -57,8 +57,6 @@ const SurpriseMe = ({ randomBookData }) => {
   const [stopId , setStopId] = useState(null);
   const [randomBook , setRandomBook] = useState(null)
 
-  
-
   function createParticle(canvas) {
     return {
       x : Math.random() * canvas.width, // start from a random position inside the canvas width
@@ -68,7 +66,6 @@ const SurpriseMe = ({ randomBookData }) => {
       vy : Math.random() * - 2 - 1, // random vertical velocity
       alpha : 1  
     }
-    
   }
 
   function drawParticles(ctx, canvas) {
@@ -84,9 +81,6 @@ const SurpriseMe = ({ randomBookData }) => {
       ctx.shadowOffSetX = 0
       ctx.shadowOffSetY = 0
       
-
-      
-
       p.x += p.vx;
       p.y += p.vy;
       p.alpha -= 0.01;
@@ -108,8 +102,6 @@ const SurpriseMe = ({ randomBookData }) => {
       })
     }
     
-    
-
     const id = setInterval(() => {
       particleArray.push(createParticle(canvas))
       console.log(particleArray)
@@ -126,19 +118,18 @@ const SurpriseMe = ({ randomBookData }) => {
         opacity : 0,
       })
     }
-    
 
     clearInterval(stopId);
   }
 
   function onClick() {
     const wrapper = SurpriseMeWrapper.current;
+    
     if(wrapper) {
       gsap.to(wrapper , {
         backgroundColor : "white",
         duration : 1,
       });
-      
     } 
   }
 

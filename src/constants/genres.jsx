@@ -42,7 +42,12 @@ const genres = {
     "adventure and adventurers" : "bg-[#e7eb15]",
     "poetry" : "bg-[#eb6434]",
     "body, mind & spirit" : "bg-[#8034eb]",
-    "computers" : "bg-[#2642bf]"
+    "computers" : "bg-[#2642bf]",
+    "literary criticism" : "bg-[#59b25b]",
+    "science fiction comic books, strips, etc" : "bg-[#b42f28]",
+    "england" : "bg-[#d22c3a]",
+    "transportation" : "bg-[#d2e06c]",
+    "greek language" : "bg-[#2a8bdc]"
   } // hardcoded subjects. is there a way to get all the subjects/genre using the google books api?
 
 export default genres;

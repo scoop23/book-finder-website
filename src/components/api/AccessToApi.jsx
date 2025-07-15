@@ -29,8 +29,13 @@ export const fetchQuotes = async () => {
 };
 
 export const getGenre = async (genre) => {
+
+  if(!genre) {
+    return;
+  }
+
   try {
-    const response = await axios.get(`http://localhost:8080/api/genre/${genre}`);
+    const response = await axios.get(`http://localhost:8080/api/genres/${genre}`);
 
     return response.data;
   } catch(err) {
