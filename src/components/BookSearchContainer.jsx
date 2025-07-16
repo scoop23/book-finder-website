@@ -12,6 +12,7 @@ import {
   fetchQuotes,
   getGenre
 } from "./api/AccessToApi";
+import { circInOut } from "motion";
 
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
@@ -25,8 +26,8 @@ const BookSearchContainer = () => {
     quoteData: null,
     isLoading: false,
     mainPageData: null,
-    genreData : {},
-    genreTag : "",
+    genreData : [],
+    genreTag : "Fiction", // default to fiction 
   };
 
   function reducer(state, action) {
@@ -81,7 +82,6 @@ const BookSearchContainer = () => {
         const response = await fetchQuotes();
         if (response && response.length > 0) {
           dispatch({ type : "SET_QUOTE_DATA" , payload : response })
-          // setQuoteData(response);
         }
       } catch (e) {
         console.error("Error Fetching Quotes", e);
@@ -93,12 +93,8 @@ const BookSearchContainer = () => {
   useEffect(() => {
     const getGenreFromAPI = async () => {
       try {
-        if(state.genreData) {
-          const response = await getGenre(state.genreTag);
-          console.log(response);
-        } else {
-          return;
-        }
+        const response = await getGenre(state.genreTag);
+        dispatch({ type : "SET_GENRE_DATA" ,  payload : response});
       } catch(err) {
         if(err.response) {
           console.error("Data: ", err.response.data);
@@ -106,14 +102,8 @@ const BookSearchContainer = () => {
         }
       }
     }
-
-    const intervalId = setInterval(() => {
-      getGenreFromAPI();
-    }, 500);
-
     
-
-    return () => clearInterval(intervalId)
+    getGenreFromAPI();
   }, [state.genreTag])
 
   // debouncing

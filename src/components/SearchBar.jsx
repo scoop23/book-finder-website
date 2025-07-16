@@ -15,7 +15,6 @@ const SearchBar = ({ dispatch , state }) => {
     searchType 
   } = state; // get the state 
 
-  console.log(searchType)
   function handleClickSearch() {
     const input = document.querySelector('.input-search');
   

@@ -12,9 +12,7 @@ import LeftSide from './ui/LeftSide.jsx'
 import RightSide from './ui/RightSide.jsx';
 
 const BookResults = ({ data }) => {
-  
   const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en")
-  console.log(filteredLanguage)
   const entopBooks = filteredLanguage?.slice(0, 3); // ?. - safety check data.items if it exists
   const topOneBook = entopBooks?.[0];
   const topTwoBook = entopBooks?.[1];

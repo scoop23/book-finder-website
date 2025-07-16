@@ -13,7 +13,7 @@ const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
           const tagStyle = genres[lowerCasedGenre] || "bg-gray-400";
 
           return (
-            <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-2 text-[12px] font-satoshi max-h-[40px] shadow-custom4-first-content text-center max-w-[130px] flex items-center`}>
+            <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-2 text-[12px] font-satoshi max-h-[40px] shadow-custom4-first-content text-center max-w-[150px] flex items-center`}>
               {genreName}
             </div>
           )

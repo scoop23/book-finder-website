@@ -4,13 +4,11 @@ import slideData from "../slideDemo.json";
 import CodexDotCircle from "../icons/CodexDotCircle.jsx";
 import gsap from 'gsap';
 import genres from "../../constants/genres.jsx";
-import CSSPlugin from "gsap/CSSPlugin";
-
-gsap.registerPlugin(CSSPlugin);
+import Loading from "../Loading.jsx";
 
 const CarouselB = ({ state , dispatch }) => {
   const [index, setIndex] = useState(0);
-  const [data] = useState(slideData.slideData);
+  const [genreColor, setGenreColor] = useState('');
   const carouselSlider = useRef();
 
   // VALUE CONSTANTS FOR THE CAROUSEL
@@ -18,9 +16,7 @@ const CarouselB = ({ state , dispatch }) => {
   const CARDWIDTH = 500; // in px
   const CONTAINERWIDTH = 525; // in px
   const GAP = 80;// in px
-
   const shift = Math.max(0 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
-
   const myGenres = Object.keys(genres) // get keys
   const availableGenres = myGenres.slice(0,5); // get 6 genres
   const myCapitalizedGenres = availableGenres.map(g => {
@@ -43,8 +39,8 @@ const CarouselB = ({ state , dispatch }) => {
     } else {
       modGenre = genre.toLowerCase();
     }
-    const genreColor = genres[modGenre]; // will use someday
-    console.log(genreColor)
+    const genreColorHex = genres[modGenre]; // will use someday
+    setGenreColor(genreColorHex);
     dispatch({ type : "SET_GENRE"  , payload : genre});
   }
 
@@ -52,7 +48,7 @@ const CarouselB = ({ state , dispatch }) => {
     // useEffect runs after mount
     const delay = setInterval(() => {
       setIndex((prev) => {
-        if (prev < data.length - 1) {
+        if (prev < state.genreData?.items?.length - 1) {
           return prev + 1;
         } else {
           return (prev = 0); // start again at 0 which the components will 'react' to the state of the index .. see what i did there.,
@@ -79,17 +75,15 @@ const CarouselB = ({ state , dispatch }) => {
         // -12.5 and if you insert it in the translateX css it would be (-(-12.5px)) and in turn would be +12.5
         // which would shift the carousel to the right and disregard the 0 index card right?
       })
-      // console.log(carouselSlider.current)  
-    } 
+    }
   })
-
+  
   return (
     <div className="carousel-b-outer-wrapper flex justify-center font-satoshi text-zinc-100 ">
       {/* <span className=''>Genres</span> */}
       <div className="carousel-b-main-wrapper w-[700px] h-[400px] flex items-center justify-center">
         <div className="carousel-b w-[650px] h-[365px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-3.5">
           {/* prev tailwind config - w-[650px] h-[350px] */}
-
           <div className="genre-tags-wrapper flex gap-4 w-[490px] flex-wrap h-[24px]">
             {
               myCapitalizedGenres.map(genre => {
@@ -117,29 +111,36 @@ const CarouselB = ({ state , dispatch }) => {
                 boxShadow: "0 0 25px 20px rgba(24, 24, 27, 3)",
               }}
             ></div>
-
-            {/* <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400 cursor-pointer' onClick={() => prevIndex()}>prev</button> */}
-            <div className={`carouselB-main flex  w-[${CONTAINERWIDTH}px] h-[250px] overflow-hidden  items-center `} style={{
+            <div className={`carouselB-main flex h-[250px] overflow-hidden  items-center `} style={{
               boxShadow: `inset 20px 0 20px rgba(24, 24, 27,3),     /* left */
                           inset -20px 0 20px rgba(24, 24, 27,3),    /* right */
                           inset 0 0 10px rgba(0, 0, 0, 1)         /* center */`,
-            }}>
+              width : `${CONTAINERWIDTH}px`
+            }}> {/* moved constants to  */}
+
+            { 
+            state.genreData.items ? (
               <div
-                className={`flex gap-[${GAP}px] carouselB-main`}
+                className={`flex carouselB-main`}
                 ref={carouselSlider}
+                style={{
+                  gap : `${GAP}px`
+                }}
               >
-                {data.map((demo, index) => (
+                {state.genreData?.items?.map((data, index) => (
                   <div key={index}>
-                    <CarouselBCard data={demo} CARDWIDTH={CARDWIDTH}/>
+                    <CarouselBCard data={data} CARDWIDTH={CARDWIDTH}/>
                   </div>
                 ))}
               </div>
-              
-              {/* <div className='carouselB-card w-[500px] h-[220px] bg-zinc-800 rounded-[20px] hover:shadow-custom2 hover:-translate-y-1.5 duration-400 shadow-zinc-600 flex'>
-              </div> */}
-            </div>
-            {/* <button className='h-[30px] p-2 flex items-center rounded-[40px] bg-zinc-400 cursor-pointer' onClick={() => nextIndex()}>next</button> */}
-            <div
+              ) : (
+                <div>
+                 <Loading/>
+                </div>
+              )
+            } 
+          </div>
+          <div
               className="bar w-[10px] h-[200px] bg-zinc-900 z-10 rounded-lg"
               style={{
                 boxShadow: "0 0 25px 20px rgba(24, 24, 27,3)",
@@ -148,7 +149,7 @@ const CarouselB = ({ state , dispatch }) => {
           </div>
 
           <div className="flex">
-            {data.map((_, i) => (
+            {state.genreData?.items?.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setIndex(i)}
