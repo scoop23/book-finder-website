@@ -10,6 +10,17 @@ const CarouselB = ({ state , dispatch }) => {
   const [index, setIndex] = useState(0);
   const [genreColor, setGenreColor] = useState('');
   const carouselSlider = useRef();
+  const [genreData , setGenreData] = useState([])
+  const [remainData , setRemainData] = useState([])
+  
+  useEffect(() => {
+    if(state.genreData.items) {
+      const temp = state.genreData.items.slice(0,6);
+      setGenreData(temp);
+      setRemainData(state.genreData.items.slice(7));
+    }
+
+  }, [state.genreData])
 
   // VALUE CONSTANTS FOR THE CAROUSEL
   // DIDNT use UseRef() as the carousel cards width not dynamic yet.
@@ -48,7 +59,7 @@ const CarouselB = ({ state , dispatch }) => {
     // useEffect runs after mount
     const delay = setInterval(() => {
       setIndex((prev) => {
-        if (prev < state.genreData?.items?.length - 1) {
+        if (prev < genreData.length - 1) {
           return prev + 1;
         } else {
           return (prev = 0); // start again at 0 which the components will 'react' to the state of the index .. see what i did there.,
@@ -77,32 +88,33 @@ const CarouselB = ({ state , dispatch }) => {
       })
     }
   })
-  
+
+  const genre = () => {
+    return myCapitalizedGenres.map(genre => {
+      let theGenre = ''
+      if(Array.isArray(genre)) {
+        theGenre = genre[0]
+      } else {
+        theGenre = genre
+      }
+
+      return (
+      <div
+      className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center"
+      onClick={() => genreClick(genre)}
+      >
+        {theGenre}
+      </div>
+      )
+    })
+  }
+
   return (
     <div className="carousel-b-outer-wrapper flex justify-center font-satoshi text-zinc-100 ">
-      {/* <span className=''>Genres</span> */}
       <div className="carousel-b-main-wrapper w-[700px] h-[400px] flex items-center justify-center">
         <div className="carousel-b w-[650px] h-[365px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-3.5">
-          {/* prev tailwind config - w-[650px] h-[350px] */}
           <div className="genre-tags-wrapper flex gap-4 w-[490px] flex-wrap h-[24px]">
-            {
-              myCapitalizedGenres.map(genre => {
-                let theGenre = ''
-                if(Array.isArray(genre)) {
-                  theGenre = genre[0]
-                } else {
-                  theGenre = genre
-                }
-                return (
-                <div
-                className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center"
-                onClick={() => genreClick(genre)}
-                >
-                  {theGenre}
-                </div>
-                )
-              })
-            }
+            {genre()}
           </div>
 
           <div className="flex gap-4 w-[600px] items-center justify-center-safe">
@@ -119,7 +131,7 @@ const CarouselB = ({ state , dispatch }) => {
             }}> {/* moved constants to  */}
 
             { 
-            state.genreData.items ? (
+            genreData ? (
               <div
                 className={`flex carouselB-main`}
                 ref={carouselSlider}
@@ -127,14 +139,14 @@ const CarouselB = ({ state , dispatch }) => {
                   gap : `${GAP}px`
                 }}
               >
-                {state.genreData?.items?.map((data, index) => (
+                {genreData.map((data, index) => (
                   <div key={index}>
                     <CarouselBCard data={data} CARDWIDTH={CARDWIDTH}/>
                   </div>
                 ))}
               </div>
               ) : (
-                <div>
+                <div className="w-full h-full">
                  <Loading/>
                 </div>
               )
@@ -149,7 +161,7 @@ const CarouselB = ({ state , dispatch }) => {
           </div>
 
           <div className="flex">
-            {state.genreData?.items?.map((_, i) => (
+            {genreData.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setIndex(i)}
