@@ -1,3 +1,5 @@
+// .. MAIN 
+
 import React, { use, useEffect, useReducer, useState } from "react";
 import SearchBar from "./SearchBar";
 import "../App.css";

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef} from "react";
+import { useEffect, useState, useRef, use} from "react";
 import CarouselBCard from "./CarouselBCard.jsx";
 import slideData from "../slideDemo.json";
 import CodexDotCircle from "../icons/CodexDotCircle.jsx";
@@ -10,8 +10,9 @@ const CarouselB = ({ state , dispatch }) => {
   const [index, setIndex] = useState(0);
   const [genreColor, setGenreColor] = useState('');
   const carouselSlider = useRef();
-  const [genreData , setGenreData] = useState([])
-  const [remainData , setRemainData] = useState([])
+  const [genreData , setGenreData] = useState([]);
+  const [remainData , setRemainData] = useState([]);
+  const clearID = useRef(null);  
   
   useEffect(() => {
     if(state.genreData.items) {
@@ -55,20 +56,38 @@ const CarouselB = ({ state , dispatch }) => {
     dispatch({ type : "SET_GENRE"  , payload : genre});
   }
 
+  function whileHover() {
+    clearInterval(clearID.current);
+    console.log("clearing ", clearID.current)
+  }
+  
+  function offHoverCard() {
+    if(clearID.current){
+      clearInterval(clearID.current);
+      clearID.current = null;
+      console.log("cleared interval on hover");
+    }
+
+    clearID.current = setInterval(() => {
+      setIndex((prev) => (prev < genreData.length - 1) ? prev + 1 : 0);
+    }, 1500);
+  }
+
   useEffect(() => {
     // useEffect runs after mount
-    const delay = setInterval(() => {
+    clearID.current = setInterval(() => {
       setIndex((prev) => {
         if (prev < genreData.length - 1) {
           return prev + 1;
         } else {
-          return (prev = 0); // start again at 0 which the components will 'react' to the state of the index .. see what i did there.,
+          return 0 // start again at 0 which the components will 'react' to the state of the index .. see what i did there.,
         }
       });
-    }, 5000);
+    }, 1500);
 
-    return () => clearInterval(delay);
-  });
+    return () => clearInterval(clearID.current);
+  }, [genreData]);
+
 
   useEffect(() => {
     if(carouselSlider.current) {
@@ -141,7 +160,7 @@ const CarouselB = ({ state , dispatch }) => {
               >
                 {genreData.map((data, index) => (
                   <div key={index}>
-                    <CarouselBCard data={data} CARDWIDTH={CARDWIDTH}/>
+                    <CarouselBCard data={data} CARDWIDTH={CARDWIDTH} whileHover={whileHover} offHoverCard={offHoverCard}/>
                   </div>
                 ))}
               </div>
