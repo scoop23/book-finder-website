@@ -1,10 +1,12 @@
-import React, { useRef } from 'react'
+import React, { forwardRef, useRef } from 'react'
 import GenreTags from '../GenreTags'
 import bookImage from '../../assets/book_empty.png';
 import gsap from 'gsap'
 import TablerArrowBadgeRightFilled from '../ui/arrow-badge-right-filled.jsx'
-const CarouselBCard = ({ data, CARDWIDTH, whileHover, offHoverCard}) => {
-  const { imageLinks, title, description, categories} = data?.volumeInfo;
+
+
+const CarouselBCard = forwardRef(({ data, CARDWIDTH, whileHover, offHoverCard, genreColor} , ref) => {
+  const { imageLinks, title, description, categories} = data?.volumeInfo || [];
   const seeMoreBtnRef = useRef();
   const iconRef = useRef();
 
@@ -39,20 +41,19 @@ const CarouselBCard = ({ data, CARDWIDTH, whileHover, offHoverCard}) => {
       })
     }
   }
-
-  
+ // hover:shadow-custom2 hover:-translate-y-1.5 duration-400
   
   return (
     <>
-      <div className="font-satoshi carouselB-card h-[220px] bg-zinc-800 rounded-[20px] hover:shadow-custom2 hover:-translate-y-1.5 duration-400 shadow-primary-myblue flex flex-col justify-center"
+      <div className={`font-satoshi carouselB-card h-[220px] bg-zinc-800 rounded-[20px]  flex flex-col justify-center `}
       style={{
-        width : `${CARDWIDTH}px`
-      }} onMouseEnter={whileHover} onMouseLeave={offHoverCard}>
+        width : `${CARDWIDTH}px`,
+      }} onMouseEnter={whileHover} onMouseLeave={offHoverCard} ref={ref}>
         <div className='flex'></div>
         
         <div className='flex flex-row content-wrapper gap-4 p-2 pb-2 max-h-full'>
           <img className='rounded-2xl select-none ' style={{ width : '128px', height : '196px' }} src={imageLinks?.smallThumbnail || bookImage}></img> {/* 128x196 or 210 */}
-          <div className='content-info flex flex-col items-start overflow-hidden gap-2 justify-between w-full'>
+          <div className='content-info flex flex-col items-start overflow-hidden justify-between w-full h-full'>
 
             <div className='content-title-description-wrapper flex flex-col gap-2 w-full'>
               <div className='card-header flex justify-between w-full'>
@@ -97,6 +98,6 @@ const CarouselBCard = ({ data, CARDWIDTH, whileHover, offHoverCard}) => {
       </div>
     </>
   )
-}
+});
 
 export default CarouselBCard

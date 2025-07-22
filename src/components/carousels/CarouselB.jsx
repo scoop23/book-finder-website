@@ -1,6 +1,5 @@
-import { useEffect, useState, useRef, use} from "react";
+import { useEffect, useState, useRef} from "react";
 import CarouselBCard from "./CarouselBCard.jsx";
-import slideData from "../slideDemo.json";
 import CodexDotCircle from "../icons/CodexDotCircle.jsx";
 import gsap from 'gsap';
 import genres from "../../constants/genres.jsx";
@@ -13,6 +12,9 @@ const CarouselB = ({ state , dispatch }) => {
   const [genreData , setGenreData] = useState([]);
   const [remainData , setRemainData] = useState([]);
   const clearID = useRef(null);  
+
+
+  const carouselCardRef = useRef([]); // created an array of refs because a single ref can only store 1 dom node, and base on the index State it will pass in the right ref for the carouselCard, so that each card can have a refs. and in turn will have access to the individual DOM
   
   useEffect(() => {
     if(state.genreData.items) {
@@ -56,12 +58,36 @@ const CarouselB = ({ state , dispatch }) => {
     dispatch({ type : "SET_GENRE"  , payload : genre});
   }
 
+  // get the hex value of the constant
+  const hex = genreColor.replace('bg-' , '');
+  const someHex = hex.replace('[' , '');
+  const someHex2 = someHex.replace(']' , '');
+
   function whileHover() {
+    if(carouselCardRef.current[index]) { // animate at what index is the ref
+      gsap.to(carouselCardRef.current[index] , {
+        boxShadow : `0px 10px 15px -3px ${someHex2}`,
+        duration : 0.4,
+        y : -10,
+        ease : "power2.inOut"
+      })
+    }
+
     clearInterval(clearID.current);
     console.log("clearing ", clearID.current)
   }
   
   function offHoverCard() {
+
+    if(carouselCardRef.current[index]) {
+      gsap.to(carouselCardRef.current[index] , {
+        boxShadow : `0px 0px 0px 0px ${someHex2}`,
+        duration : 0.4,
+        y : 0,
+        ease : "power2.inOut"
+      })
+    }
+
     if(clearID.current){
       clearInterval(clearID.current);
       clearID.current = null;
@@ -83,7 +109,7 @@ const CarouselB = ({ state , dispatch }) => {
           return 0 // start again at 0 which the components will 'react' to the state of the index .. see what i did there.,
         }
       });
-    }, 1500);
+    }, 5000);
 
     return () => clearInterval(clearID.current);
   }, [genreData]);
@@ -160,7 +186,14 @@ const CarouselB = ({ state , dispatch }) => {
               >
                 {genreData.map((data, index) => (
                   <div key={index}>
-                    <CarouselBCard data={data} CARDWIDTH={CARDWIDTH} whileHover={whileHover} offHoverCard={offHoverCard}/>
+                    <CarouselBCard 
+                    data={data} 
+                    CARDWIDTH={CARDWIDTH} 
+                    whileHover={whileHover} 
+                    offHoverCard={offHoverCard} 
+                    genreColor={genreColor} 
+                    ref={(el) => (carouselCardRef.current[index] = el)} // 
+                    />
                   </div>
                 ))}
               </div>

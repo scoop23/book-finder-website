@@ -1,12 +1,11 @@
 // .. MAIN 
 
-import React, { use, useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import SearchBar from "./SearchBar";
 import "../App.css";
 import BookResults from "./BookResults";
 import Loading from "./Loading";
 import MainPage from "./MainPage";
-import axios from "axios";
 import {
   fetchBookByAuthor,
   fetchBookByTitle,
@@ -14,7 +13,6 @@ import {
   fetchQuotes,
   getGenre
 } from "./api/AccessToApi";
-import { circInOut } from "motion";
 
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
