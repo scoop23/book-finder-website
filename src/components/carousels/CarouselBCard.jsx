@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import GenreTags from '../GenreTags'
 import bookImage from '../../assets/book_empty.png';
 import gsap from 'gsap'
