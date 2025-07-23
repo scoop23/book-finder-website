@@ -2,8 +2,9 @@ import { useEffect, useState, useRef} from "react";
 import CarouselBCard from "./CarouselBCard.jsx";
 import CodexDotCircle from "../icons/CodexDotCircle.jsx";
 import gsap from 'gsap';
-import genres from "../../constants/genres.jsx";
+import genres, { toHex } from "../../constants/genres.jsx";
 import Loading from "../Loading.jsx";
+import CarouselGenres from "./CarouselGenres.jsx";
 
 const CarouselB = ({ state , dispatch }) => {
   const [index, setIndex] = useState(0);
@@ -31,42 +32,16 @@ const CarouselB = ({ state , dispatch }) => {
   const CONTAINERWIDTH = 525; // in px
   const GAP = 80;// in px
   const shift = Math.max(0 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
-  const myGenres = Object.keys(genres) // get keys
-  const availableGenres = myGenres.slice(0,5); // get 6 genres
-  const myCapitalizedGenres = availableGenres.map(g => {
-    const capitalizedG = g[0].toUpperCase() + g.slice(1)
-    for (let i = 0 ; i < capitalizedG.length; i++) {
-      if(capitalizedG[i] === ' ') {
-        const noSpace = capitalizedG.split(' ')
-        return noSpace
-      }
-    }
-    return capitalizedG;
-  }) // capitalize
-
-  function genreClick(genre) {
-    let temp = ''
-    let modGenre = ''
-    if(Array.isArray(genre)) {
-      temp = genre.join(' ');
-      modGenre = temp.toLowerCase();
-    } else {
-      modGenre = genre.toLowerCase();
-    }
-    const genreColorHex = genres[modGenre]; // will use someday
-    setGenreColor(genreColorHex);
-    dispatch({ type : "SET_GENRE"  , payload : genre});
-  }
 
   // get the hex value of the constant
-  const hex = genreColor.replace('bg-' , '');
-  const someHex = hex.replace('[' , '');
-  const someHex2 = someHex.replace(']' , '');
+
+  const hexColor = toHex(genreColor);
+  
 
   function whileHover() {
     if(carouselCardRef.current[index]) { // animate at what index is the ref
       gsap.to(carouselCardRef.current[index] , {
-        boxShadow : `0px 10px 15px -3px ${someHex2}`,
+        boxShadow : `0px 10px 15px -3px ${hexColor}`,
         duration : 0.4,
         y : -10,
         ease : "power1.out"
@@ -80,7 +55,7 @@ const CarouselB = ({ state , dispatch }) => {
   function offHoverCard() {
     if(carouselCardRef.current[index]) {
       gsap.to(carouselCardRef.current[index] , {
-        boxShadow : `0px 0px 0px 0px ${someHex2}`,
+        boxShadow : `0px 0px 0px 0px ${hexColor}`,
         duration : 0.4,
         y : 0,
         ease : "power1.out"
@@ -133,33 +108,12 @@ const CarouselB = ({ state , dispatch }) => {
     }
   })
 
-  const genre = () => {
-    return myCapitalizedGenres.map((genre) => {
-      let theGenre = ''
-      if(Array.isArray(genre)) {
-        theGenre = genre[0]
-      } else {
-        theGenre = genre
-      }
-      
-
-      return (
-      <div 
-      className={`genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center hover:-${someHex2}`}
-      onClick={() => genreClick(genre)}
-      >
-        {theGenre}
-      </div>
-      )
-    })
-  }
-
   return (
     <div className="carousel-b-outer-wrapper flex justify-center font-satoshi text-zinc-100 ">
       <div className="carousel-b-main-wrapper w-[700px] h-[400px] flex items-center justify-center">
         <div className="carousel-b w-[650px] h-[365px] bg-zinc-900 rounded-2xl border-1 border-zinc-600 flex flex-col justify-center items-center gap-3.5">
           <div className="genre-tags-wrapper flex gap-4 w-[490px] flex-wrap h-[24px]">
-            {genre()}
+            <CarouselGenres genres={genres} dispatch={dispatch} setGenreColor={setGenreColor}/>
           </div>
 
           <div className="flex gap-4 w-[600px] items-center justify-center-safe">
