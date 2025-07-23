@@ -51,7 +51,6 @@ const genres = {
 } // hardcoded subjects. is there a way to get all the subjects/genre using the google books api?
 
 export function toHex(genreColor) {
-  console.log(genreColor);
   const hex = genreColor.replace('bg-' , ''); 
   const someHex = hex.replace('[' , '');
   const someHex2 = someHex.replace(']' , '');

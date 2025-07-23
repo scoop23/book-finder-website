@@ -28,7 +28,6 @@ const CarouselA = ({ carouselBookData }) => {
     if (index < slides.length - 3) {
       setIndex((prev) => prev + 1);
     }
-    console.log(index);
   }
 
   // useEffect(() => {

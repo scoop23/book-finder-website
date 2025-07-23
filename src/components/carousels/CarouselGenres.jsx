@@ -1,7 +1,6 @@
-import genres, { toHex } from "../../constants/genres.jsx";
+import { toHex } from "../../constants/genres.jsx";
 import { useRef } from "react";
 import gsap from "gsap";
-import test from "node:test";
 
 const CarouselGenres = ({ genres, dispatch, setGenreColor}) => {
   const arrGenreCardRef = useRef([]);
