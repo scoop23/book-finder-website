@@ -55,7 +55,7 @@ const SurpriseMe = ({ randomBookData }) => {
   const clickMeRef = useRef();
   const particleRef = useRef([]);
   const [stopId , setStopId] = useState(null);
-  const [randomBook , setRandomBook] = useState(null)
+  const [randomBook , setRandomBook] = useState([])
 
   function createParticle(canvas) {
     return {

@@ -5,7 +5,7 @@ import gsap from 'gsap'
 import TablerArrowBadgeRightFilled from '../ui/arrow-badge-right-filled.jsx'
 
 
-const CarouselBCard = forwardRef(({ data, CARDWIDTH, whileHover, offHoverCard, genreColor} , ref) => {
+const CarouselBCard = forwardRef(({ data, CARDWIDTH, whileHover, offHoverCard} , ref) => {
   const { imageLinks, title, description, categories} = data?.volumeInfo || [];
   const seeMoreBtnRef = useRef();
   const iconRef = useRef();

@@ -7,10 +7,10 @@ import Loading from "../Loading.jsx";
 
 const CarouselB = ({ state , dispatch }) => {
   const [index, setIndex] = useState(0);
-  const [genreColor, setGenreColor] = useState('');
+  const [genreColor, setGenreColor] = useState('bg-[#2ab50b]');
   const carouselSlider = useRef();
   const [genreData , setGenreData] = useState([]);
-  const [remainData , setRemainData] = useState([]);
+  // const [remainData , setRemainData] = useState([]);
   const clearID = useRef(null);  
 
 
@@ -20,7 +20,7 @@ const CarouselB = ({ state , dispatch }) => {
     if(state.genreData.items) {
       const temp = state.genreData.items.slice(0,6);
       setGenreData(temp);
-      setRemainData(state.genreData.items.slice(7));
+      // setRemainData(state.genreData.items.slice(7));
     }
 
   }, [state.genreData])
@@ -69,7 +69,7 @@ const CarouselB = ({ state , dispatch }) => {
         boxShadow : `0px 10px 15px -3px ${someHex2}`,
         duration : 0.4,
         y : -10,
-        ease : "power2.inOut"
+        ease : "power1.out"
       })
     }
 
@@ -78,13 +78,12 @@ const CarouselB = ({ state , dispatch }) => {
   }
   
   function offHoverCard() {
-
     if(carouselCardRef.current[index]) {
       gsap.to(carouselCardRef.current[index] , {
         boxShadow : `0px 0px 0px 0px ${someHex2}`,
         duration : 0.4,
         y : 0,
-        ease : "power2.inOut"
+        ease : "power1.out"
       })
     }
 
@@ -96,7 +95,7 @@ const CarouselB = ({ state , dispatch }) => {
 
     clearID.current = setInterval(() => {
       setIndex((prev) => (prev < genreData.length - 1) ? prev + 1 : 0);
-    }, 1500);
+    }, 5000);
   }
 
   useEffect(() => {
@@ -135,17 +134,18 @@ const CarouselB = ({ state , dispatch }) => {
   })
 
   const genre = () => {
-    return myCapitalizedGenres.map(genre => {
+    return myCapitalizedGenres.map((genre) => {
       let theGenre = ''
       if(Array.isArray(genre)) {
         theGenre = genre[0]
       } else {
         theGenre = genre
       }
+      
 
       return (
-      <div
-      className="genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center"
+      <div 
+      className={`genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center hover:-${someHex2}`}
       onClick={() => genreClick(genre)}
       >
         {theGenre}
@@ -190,8 +190,7 @@ const CarouselB = ({ state , dispatch }) => {
                     data={data} 
                     CARDWIDTH={CARDWIDTH} 
                     whileHover={whileHover} 
-                    offHoverCard={offHoverCard} 
-                    genreColor={genreColor} 
+                    offHoverCard={offHoverCard}
                     ref={(el) => (carouselCardRef.current[index] = el)} // 
                     />
                   </div>

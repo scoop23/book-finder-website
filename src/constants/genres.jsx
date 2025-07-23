@@ -3,7 +3,7 @@ const genres = {
     "romance" : "bg-[#eb3452]",
     "science" : "bg-[#9129ba]",
     "history" : "bg-[#baa929]",
-    "adventure stories" : "bg-[#9b21a6]",
+    "adventure stories" : "bg-[#221fcf]",
     "social science" : "bg-violet-600", 
     "religion" : "bg-primary-richgold",
     "mythology" : "bg-primary-dessertsand",
