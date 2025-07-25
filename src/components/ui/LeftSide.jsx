@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect , useRef } from 'react'
+import React, { useEffect } from 'react'
 import { FaStar } from 'react-icons/fa';
 import { LuStar } from 'react-icons/lu';
 import BookResultsGrid from '../../components/BookResultsGrid';
@@ -18,9 +18,10 @@ const LeftSide = ({topOneBook}) => {
   const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
   const genre = topOneBook?.volumeInfo?.categories || []
   
-  if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
 
   useEffect(() => {
+  if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
+
   const tl = gsap.timeline();
     if(dataVolumeInfo) {
 

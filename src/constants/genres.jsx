@@ -1,61 +1,11 @@
-const genres = {
-  "fiction" : "bg-[#2ab50b]",
-  "romance" : "bg-[#eb3452]",
-  "science" : "bg-[#9129ba]",
-  "history" : "bg-[#baa929]",
-  "adventure stories" : "bg-[#221fcf]",
-  "social science" : "bg-violet-600", 
-  "religion" : "bg-primary-richgold",
-  "mythology" : "bg-primary-dessertsand",
-  "philosophy" : "bg-gray-500",
-  "artists' books" : "bg-pink-400",
-  "children's encyclopedias and dictionaries" : "bg-yellow-800",
-  "comics & graphic novels" : "bg-primary-liver",
-  "unknown genre" : "bg-gray-300",
-  "games & activities" : "bg-primary-goldenbrown",
-  "biography & autobiography" : "bg-violet-700",
-  "juvenile fiction" : "bg-red-300",
-  "readers" : "bg-[#1c62c9]",
-  "sand dunes" : "bg-[#78d12a]",
-  "mathematics" : "bg-[#de218c]",
-  "family & relationships" : "bg-[#de7c21]",
-  "technology & engineering" : "bg-[#ed7802]",
-  "drama" : "bg-[#9ae346]" ,
-  "business & economics" : "bg-[#ccf516]",
-  "performing arts" : "bg-[#186dd6]",
-  "juvenile nonfiction" : "bg-[#b61dd1]",
-  "demonology" : "bg-[#d10a4d]",
-  "russian fiction" : "bg-[#a6db1f]",
-  "art" : "bg-[#75500f]",
-  "education" : "bg-[#74e84a]",
-  "psychology" : "bg-[#8cabdb]",
-  "humor" : "bg-[#eeff00]",
-  "children's stories" : "bg-[#e32a1e]",
-  "detective and mystery stories" : "bg-[#5336eb]",
-  "bible" : "bg-[#b6e632]",
-  "young adult fiction" : "bg-[#a9e815]",
-  "law" : "bg-[#5920f5]",
-  "hysteria" : "bg-[#f54e20]",
-  "industrial management" : "bg-[#bd5437]",
-  "true crime" : "bg-[#b5052e]",
-  "men" : "bg-[#4253ed]",
-  "adventure and adventurers" : "bg-[#a1981b]",
-  "poetry" : "bg-[#eb6434]",
-  "body, mind & spirit" : "bg-[#8034eb]",
-  "computers" : "bg-[#2642bf]",
-  "literary criticism" : "bg-[#59b25b]",
-  "science fiction comic books, strips, etc" : "bg-[#b42f28]",
-  "england" : "bg-[#d22c3a]",
-  "transportation" : "bg-[#d2e06c]",
-  "greek language" : "bg-[#2a8bdc]"
-} // hardcoded subjects. is there a way to get all the subjects/genre using the google books api?
-
+import genres from './genres.json';
+ // hardcoded subjects. is there a way to get all the subjects/genre using the google books api?
+ // there is no possible way..
 export function toHex(genreColor) {
   const hex = genreColor.replace('bg-' , ''); 
   const someHex = hex.replace('[' , '');
   const someHex2 = someHex.replace(']' , '');
   return someHex2
 }
-
 
 export default genres;
