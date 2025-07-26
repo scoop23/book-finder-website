@@ -7,7 +7,7 @@ import { MotionPathPlugin } from 'gsap/all';
 import bookImage from '../../assets/book_empty.png';
 import GenreTags from '../../components/GenreTags';
 import BookResultsGrid from '../../components/BookResultsGrid';
-
+import { motion } from 'framer-motion';
 const RightSide = ({ topTwoBook , topThreeBook }) => {
   
   const book2VolumeInfo = topTwoBook?.volumeInfo;
