@@ -1,5 +1,3 @@
-import { use, useEffect } from 'react';
-import { useState } from 'react'
 import CarouselA from '../components/carousels/CarouselA';
 import CarouselB from '../components/carousels/CarouselB';
 import Quotes from './ui/Quotes';
@@ -9,8 +7,6 @@ import SurpriseMe from './SurpriseMe';
 
 const MainPage = ({ data , quoteData, state , dispatch }) => {
 
-  
-  
   return (
     <div className='main-page-outer-wrapper flex flex-col gap-4'>
 

@@ -1,12 +1,8 @@
-import React, { forwardRef, useEffect , useRef } from 'react'
 import { FaStar } from 'react-icons/fa';
 import BookResultsGrid from './BookResultsGrid';
-import { motion , useAnimation, useForceUpdate } from 'motion/react';
 import { LuStar } from 'react-icons/lu';
-import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/all';  
-import bookImage from '../assets/book_empty.png';
 import GenreTags from './GenreTags';
 import LeftSide from './ui/LeftSide.jsx'
 import RightSide from './ui/RightSide.jsx';

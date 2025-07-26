@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaSearch , FaHome } from 'react-icons/fa';
 import { animate } from 'motion';
-import { useElementScroll } from 'motion/react';
 import  SearchAuthor  from './SearchAuthor.jsx'
 
 const SearchBar = ({ dispatch , state }) => {  
@@ -13,7 +12,7 @@ const SearchBar = ({ dispatch , state }) => {
 
   const { 
     searchType 
-  } = state; // get the state 
+  } = state; // get the state destructuring
 
   function handleClickSearch() {
     const input = document.querySelector('.input-search');
@@ -80,7 +79,7 @@ function buttonSearchTitle() {
 }
 
 // ADD ANIMATION WHEN CLICKED/ENTER
-async function searchBarAnimation() {
+function searchBarAnimation() {
   
 }
 

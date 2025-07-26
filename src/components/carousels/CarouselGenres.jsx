@@ -1,4 +1,4 @@
-import { toHex } from "../../constants/genres.jsx";
+import { toHex } from "../../../../shared/constants/genres.jsx";
 import { useRef } from "react";
 import gsap from "gsap";
 

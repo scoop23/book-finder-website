@@ -1,4 +1,3 @@
-import { animate } from 'motion';
 import React from 'react';
 import bookImage from '../assets/book_empty.png';
 

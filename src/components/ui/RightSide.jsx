@@ -1,7 +1,6 @@
-import React, { forwardRef, useEffect , useRef } from 'react'
+import React, { useEffect } from 'react'
 import { FaStar } from 'react-icons/fa';
 import { LuStar } from 'react-icons/lu';
-import { motion , useAnimation, useForceUpdate } from 'motion/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/all';  

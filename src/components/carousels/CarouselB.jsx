@@ -2,7 +2,8 @@ import { useEffect, useState, useRef} from "react";
 import CarouselBCard from "./CarouselBCard.jsx";
 import CodexDotCircle from "../icons/CodexDotCircle.jsx";
 import gsap from 'gsap';
-import genres, { toHex } from "../../constants/genres.jsx";
+import genres from "../../../../shared/constants/genres.json";
+import {toHex} from "../../../../shared/constants/genres.jsx";
 import Loading from "../Loading.jsx";
 import CarouselGenres from "./CarouselGenres.jsx";
 
