@@ -9,7 +9,7 @@ import CSSPlugin from "gsap/CSSPlugin";
 
 gsap.registerPlugin(CSSPlugin);
 
-const CarouselA = ({ carouselBookData }) => {
+const CarouselA = ({ state , dispatch }) => {
   const [index, setIndex] = useState(0);
   const [slides] = useState(slideData.slideData);
   const rightIcon = useRef();

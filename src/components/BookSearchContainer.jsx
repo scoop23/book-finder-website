@@ -13,6 +13,7 @@ import {
   fetchQuotes,
   getGenre
 } from "./api/AccessToApi";
+import CarouselA from "./carousels/CarouselA";
 
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
@@ -27,7 +28,8 @@ const BookSearchContainer = () => {
     isLoading: false,
     mainPageData: null,
     genreData : [],
-    genreTag : "Fiction", // default to fiction 
+    genreTag : "Fiction", // default to fiction
+    carouselAData : []
   };
 
   function reducer(state, action) {
@@ -43,6 +45,7 @@ const BookSearchContainer = () => {
       case "SET_QUOTE_DATA" : { return {...state, quoteData : action.payload}; }
       case "SET_GENRE_DATA" : { return {...state, genreData : action.payload}; }
       case "SET_GENRE" : { return {...state , genreTag : action.payload}; }
+      case "SET_CAROUSELA_DATA" : { return {...state , carouselAData : action.payload};}
     }
   }
   const [state, dispatch] = useReducer(reducer, STATE); //usereducer

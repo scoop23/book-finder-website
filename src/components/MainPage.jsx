@@ -5,7 +5,7 @@ import Loading from './Loading';
 import SurpriseMe from './SurpriseMe';
 
 
-const MainPage = ({ data , quoteData, state , dispatch }) => {
+const MainPage = ({ quoteData, state , dispatch }) => {
 
   return (
     <div className='main-page-outer-wrapper flex flex-col gap-4'>
@@ -20,7 +20,7 @@ const MainPage = ({ data , quoteData, state , dispatch }) => {
 
           <div className='inner-main-page flex flex-row max-w-[1300px] gap-4 items-center'>
             <div className='card shadow-2xl border-zinc-400 min-w-[500px] h-[400px] rounded-2xl border-1 grow-0 bg-primary-blackrock'>
-              <CarouselA />
+              <CarouselA state={state} dispatch={dispatch}/>
             </div>
             <div className='card shadow-2xl border-zinc-400 max-w-[685px] h-[400px] rounded-2xl border-1 grow bg-primary-blackrock'>
               <CarouselB state={state} dispatch={dispatch}/>
