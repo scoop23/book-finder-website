@@ -47,6 +47,10 @@ const CarouselA = ({ state }) => {
     }
   }
 
+  function onHoverTitle() {
+    
+  }
+
   // useEffect(() => {
   //   gsap.set([leftIcon.current , rightIcon.current] , {opacity : 0})
   //   const stop = setInterval(() => {
@@ -140,13 +144,13 @@ const CarouselA = ({ state }) => {
                     return (
                     <div
                       key={idx}
-                      className="flex flex-col justify-center items-center text-primary-dessertsand"
+                      className="flex flex-col justify-center items-center text-primary-dessertsand gap-2"
                     >
                       <img
                         src={smallThumbnail}
-                        className="max-w-[120px] rounded-[10px] object-cover h-fit border-1 border-primary-blackrock"
+                        className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock "
                       />
-                      <span className="text-[12px]">{title}</span>
+                      <span className="text-[12px] line-clamp-1">{title}</span>
                     </div>
                     )
                   })}
