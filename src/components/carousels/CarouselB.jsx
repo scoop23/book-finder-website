@@ -32,8 +32,8 @@ const CarouselB = ({ state , dispatch }) => {
   const CARDWIDTH = 500; // in px
   const CONTAINERWIDTH = 525; // in px
   const GAP = 80;// in px
-  const shift = Math.max(0 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
-
+  const shift = Math.max(-25 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
+  // if the 2nd argument is less than 0 it will default to -25
   // get the hex value of the constant
 
   const hexColor = toHex(genreColor);

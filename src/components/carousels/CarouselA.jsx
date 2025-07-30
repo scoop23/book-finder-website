@@ -6,10 +6,11 @@ import { MaterialSymbolsArrowCircleRight } from "../icons/MaterialSymbolsArrowCi
 import gsap from "gsap";
 import slideData from "../slideDemo.json";
 import CSSPlugin from "gsap/CSSPlugin";
+import book_empty from '../../assets/book_empty.png'
 
 gsap.registerPlugin(CSSPlugin);
 
-const CarouselA = ({ state , dispatch }) => {
+const CarouselA = ({ state }) => {
   const [index, setIndex] = useState(0);
   const [slides] = useState(slideData.slideData);
   const rightIcon = useRef();
@@ -17,6 +18,22 @@ const CarouselA = ({ state , dispatch }) => {
   const carRef = useRef();
   const sliderRef = useRef();
   const [isHovering, setIsHovering] = useState(false);
+  
+  const [carouselData, setCarouselData] = useState([]);
+  
+  // if(state.carouselAData) {
+  //     state.carouselAData?.items?.forEach(e => {
+  //     console.log(e?.volumeInfo?.title)
+  //   });
+  // }
+
+  useEffect(() => {
+    if(state.carouselAData) {
+      setCarouselData(state.carouselAData);
+      console.log(carouselData?.items)
+    } 
+
+  }, [state.carouselAData, carouselData])
 
   function prevMove() {
     if (index > 0) {
@@ -104,7 +121,7 @@ const CarouselA = ({ state , dispatch }) => {
               />{" "}
               {/* Left Arrow */}
               <div
-                className="w-[400px] overflow-hidden rounded-2xl "
+                className="w-[400px] overflow-hidden rounded-2xl"
                 draggable={false}
               >
                 <div
@@ -113,18 +130,26 @@ const CarouselA = ({ state , dispatch }) => {
                 >
                   {" "}
                   {/* based on the index it moves times 140px horizontally */}
-                  {slides.map((slide, idx) => (
+                  {carouselData?.items?.map((slide, idx) => {
+                    console.log(slide.volumeInfo.title)
+                    const { smallThumbnail } = slide.volumeInfo?.imageLinks || book_empty;
+                    const title = slide.volumeInfo.title;
+                    
+
+                    console.log(title.length)
+                    return (
                     <div
                       key={idx}
                       className="flex flex-col justify-center items-center text-primary-dessertsand"
                     >
                       <img
-                        src={slide.src}
-                        className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock"
+                        src={smallThumbnail}
+                        className="max-w-[120px] rounded-[10px] object-cover h-fit border-1 border-primary-blackrock"
                       />
-                      <span>{slide.title}</span>
+                      <span className="text-[12px]">{title}</span>
                     </div>
-                  ))}
+                    )
+                  })}
                 </div>
               </div>
               <MaterialSymbolsArrowCircleRight

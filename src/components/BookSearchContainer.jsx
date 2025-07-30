@@ -11,11 +11,12 @@ import {
   fetchBookByTitle,
   fetchBookByAuthorWithTitle,
   fetchQuotes,
-  getGenre
+  getGenre,
+  fetchRandomBook
 } from "./api/AccessToApi";
 import CarouselA from "./carousels/CarouselA";
 
-// TODO: DISPLAY THE DATA ON THE CAROUSELS
+// TODO: DISPLAY THE DATA ON T  HE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
 
 const BookSearchContainer = () => {
@@ -90,7 +91,18 @@ const BookSearchContainer = () => {
         console.error("Error Fetching Quotes", e);
       }
     };
+
+    const getRandomBook = async () => {
+      try {
+        const response = await fetchRandomBook();
+        dispatch({ type : "SET_CAROUSELA_DATA" , payload : response })
+      } catch(err) {
+        console.error("Error Fetching Quotes", err);
+      }
+    }
+
     getQuote();
+    getRandomBook()
   }, []);
 
   useEffect(() => {

@@ -45,3 +45,16 @@ export const getGenre = async (genre) => {
     }
   }
 }
+
+export const fetchRandomBook = async () => {
+  try {
+    const response = await axios.get("http://localhost:8080/api/random-book");
+
+    return response.data;
+  } catch(err) {
+    if(err.response) {
+      console.error("Data, ", err.response.data)
+      console.error("Status, ", err.response.status)
+    }
+  }
+}
