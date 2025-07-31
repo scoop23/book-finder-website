@@ -18,6 +18,8 @@ const CarouselA = ({ state }) => {
   const carRef = useRef();
   const sliderRef = useRef();
   const [isHovering, setIsHovering] = useState(false);
+  const titleRef = useRef();
+  const [isTitleHovering, setIsTitleHovering] = useState(false);
   
   const [carouselData, setCarouselData] = useState([]);
   
@@ -30,7 +32,6 @@ const CarouselA = ({ state }) => {
   useEffect(() => {
     if(state.carouselAData) {
       setCarouselData(state.carouselAData);
-      console.log(carouselData?.items)
     } 
 
   }, [state.carouselAData, carouselData])
@@ -47,10 +48,33 @@ const CarouselA = ({ state }) => {
     }
   }
 
-  function onHoverTitle() {
-    
+  function titleMessageHover(){
+    setIsTitleHovering(true);
   }
 
+  function titleMessageOffHover(){
+    setIsTitleHovering(false);
+  }
+
+  console.log(isTitleHovering);
+
+  const onHoverTitle = ()  => {
+    if(titleRef.current) {
+      const title = titleRef.current.innerHTML;
+      return (
+        <div className="absolute w-[100px] h-[100px] bg-amber-100">
+          {title}
+        </div>
+      )
+    }
+
+    return(
+      <div className="absolute w-[100px] h-[100px] bg-amber-100">
+        No Title
+      </div>
+    )
+  }
+  
   // useEffect(() => {
   //   gsap.set([leftIcon.current , rightIcon.current] , {opacity : 0})
   //   const stop = setInterval(() => {
@@ -135,12 +159,9 @@ const CarouselA = ({ state }) => {
                   {" "}
                   {/* based on the index it moves times 140px horizontally */}
                   {carouselData?.items?.map((slide, idx) => {
-                    console.log(slide.volumeInfo.title)
                     const { smallThumbnail } = slide.volumeInfo?.imageLinks || book_empty;
                     const title = slide.volumeInfo.title;
                     
-
-                    console.log(title.length)
                     return (
                     <div
                       key={idx}
@@ -150,7 +171,21 @@ const CarouselA = ({ state }) => {
                         src={smallThumbnail}
                         className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock "
                       />
-                      <span className="text-[12px] line-clamp-1">{title}</span>
+                      <span 
+                        className="text-[12px] line-clamp-1" 
+                        ref={titleRef} 
+                        onMouseEnter={(e) => titleMessageHover(e)}
+                        onMouseLeave={() => titleMessageOffHover()}>
+                          {title}
+                      </span>
+                      {isTitleHovering && 
+                        (
+                        <div className="absolute w-[100px] h-[100px] bg-amber-100">
+                          No Title
+                        </div>
+                        )
+                      }
+                      
                     </div>
                     )
                   })}
