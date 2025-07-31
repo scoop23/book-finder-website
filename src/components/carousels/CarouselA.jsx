@@ -6,7 +6,7 @@ import { MaterialSymbolsArrowCircleRight } from "../icons/MaterialSymbolsArrowCi
 import gsap from "gsap";
 import slideData from "../slideDemo.json";
 import CSSPlugin from "gsap/CSSPlugin";
-import book_empty from '../../assets/book_empty.png'
+import CarouselACard from "./CarouselACard";
 
 gsap.registerPlugin(CSSPlugin);
 
@@ -18,9 +18,7 @@ const CarouselA = ({ state }) => {
   const carRef = useRef();
   const sliderRef = useRef();
   const [isHovering, setIsHovering] = useState(false);
-  const titleRef = useRef();
-  const [isTitleHovering, setIsTitleHovering] = useState(false);
-  
+  const titleRefArray = useRef([]);
   const [carouselData, setCarouselData] = useState([]);
   
   // if(state.carouselAData) {
@@ -48,32 +46,22 @@ const CarouselA = ({ state }) => {
     }
   }
 
-  function titleMessageHover(){
-    setIsTitleHovering(true);
-  }
+  // const onHoverTitle = ()  => {
+  //   if(titleRef.current) {
+  //     const title = titleRef.current.innerHTML;
+  //     return (
+  //       <div className="absolute w-[100px] h-[100px] bg-amber-100">
+  //         {title}
+  //       </div>
+  //     )
+  //   }
 
-  function titleMessageOffHover(){
-    setIsTitleHovering(false);
-  }
-
-  console.log(isTitleHovering);
-
-  const onHoverTitle = ()  => {
-    if(titleRef.current) {
-      const title = titleRef.current.innerHTML;
-      return (
-        <div className="absolute w-[100px] h-[100px] bg-amber-100">
-          {title}
-        </div>
-      )
-    }
-
-    return(
-      <div className="absolute w-[100px] h-[100px] bg-amber-100">
-        No Title
-      </div>
-    )
-  }
+  //   return(
+  //     <div className="absolute w-[100px] h-[100px] bg-amber-100">
+  //       No Title
+  //     </div>
+  //   )
+  // }
   
   // useEffect(() => {
   //   gsap.set([leftIcon.current , rightIcon.current] , {opacity : 0})
@@ -148,49 +136,27 @@ const CarouselA = ({ state }) => {
                 ref={leftIcon}
               />{" "}
               {/* Left Arrow */}
-              <div
-                className="w-[400px] overflow-hidden rounded-2xl"
-                draggable={false}
-              >
-                <div
-                  className="flex flex-row gap-4 transition-all duration-400"
-                  ref={sliderRef}
-                >
-                  {" "}
+              
+              <div className="carouselA-outer-wrapper w-[400px] overflow-hidden rounded-2xl" draggable={false}>
+                <div className="carouselA-main-wrapper flex flex-row gap-4 transition-all duration-400" ref={sliderRef}>
+                  
                   {/* based on the index it moves times 140px horizontally */}
-                  {carouselData?.items?.map((slide, idx) => {
-                    const { smallThumbnail } = slide.volumeInfo?.imageLinks || book_empty;
-                    const title = slide.volumeInfo.title;
-                    
-                    return (
-                    <div
-                      key={idx}
-                      className="flex flex-col justify-center items-center text-primary-dessertsand gap-2"
-                    >
-                      <img
-                        src={smallThumbnail}
-                        className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock "
+                  {/* CARDS */}
+                  
+                  {
+                    carouselData?.items?.map((data , index) => (
+                      <CarouselACard 
+                        data={data}
+                        ref={(element) => titleRefArray.current[index] = element}
+                        // for each 'element' in the ref which will the the parent will send on the child 
+                        // store it on a ref array and set it at that index
                       />
-                      <span 
-                        className="text-[12px] line-clamp-1" 
-                        ref={titleRef} 
-                        onMouseEnter={(e) => titleMessageHover(e)}
-                        onMouseLeave={() => titleMessageOffHover()}>
-                          {title}
-                      </span>
-                      {isTitleHovering && 
-                        (
-                        <div className="absolute w-[100px] h-[100px] bg-amber-100">
-                          No Title
-                        </div>
-                        )
-                      }
-                      
-                    </div>
-                    )
-                  })}
+                    ))
+                  }
+                  
                 </div>
               </div>
+
               <MaterialSymbolsArrowCircleRight
                 onClick={() => nextMove()}
                 size={40}
