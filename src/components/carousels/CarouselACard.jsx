@@ -1,19 +1,44 @@
-import React, { forwardRef, useState, useRef} from 'react'
+import React, { forwardRef, useState, useRef, useEffect} from 'react'
 import book_empty from '../../assets/book_empty.png'
 import gsap from 'gsap';
+
 const CarouselACard = forwardRef(({data} ,ref) => {
+  const [posX, setPosX] = useState(0);
+  const [posY, setPosY] = useState(0);
 
   const { smallThumbnail } = data.volumeInfo?.imageLinks || book_empty;
   const title = data.volumeInfo.title;
   const [isHovering , setIsHovering] = useState(false);
   const titleRef = useRef();
 
-  function titleMessageHover() {
+  function titleMessageHover(e) {
+    setPosX(e.clientX);
+    setPosY(e.clientY);
     setIsHovering(true)
   }
 
   function titleMessageOffHover() {
     setIsHovering(false)
+  }
+
+  useEffect(() => {
+      if(titleRef.current) {
+        gsap.fromTo(titleRef.current , {
+          x : 0,
+          y : 0
+        }, {
+          x : posX,
+          y : posY
+        })
+      }
+  }, [posX ,posY])
+
+  const hoverTitle = () => {
+    return(
+      <div className="absolute w-fit h-fit bg-amber-100 text-[15px] z-10 p-2" ref={titleRef}>
+        {title}
+      </div>
+    )
   }
 
   return (
@@ -27,16 +52,12 @@ const CarouselACard = forwardRef(({data} ,ref) => {
         />
         <span 
           className="text-[12px] line-clamp-1"  
-          onMouseEnter={() => titleMessageHover()}
+          onMouseEnter={(e) => titleMessageHover(e)}
           onMouseLeave={() => titleMessageOffHover()}>
             {title}
         </span>
         {
-          isHovering && (
-            <div className="absolute w-[200px] h-[50px] bg-amber-100 text-[15px]" ref={titleRef}>
-             {title}
-            </div>
-          )
+          isHovering && hoverTitle()
         }
       </div>
   )
