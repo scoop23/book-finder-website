@@ -3,18 +3,30 @@ import book_empty from '../../assets/book_empty.png'
 import gsap from 'gsap';
 
 const CarouselACard = forwardRef(({data} ,ref) => {
-  const [posX, setPosX] = useState(0);
-  const [posY, setPosY] = useState(0);
+  const [titleRec , setTitleRect] = useState({ top : 0, left : 0 })
 
   const { smallThumbnail } = data.volumeInfo?.imageLinks || book_empty;
   const title = data.volumeInfo.title;
   const [isHovering , setIsHovering] = useState(false);
-  const titleRef = useRef();
+  const rectTitleContainer = useRef();
+  const titleMessageRef = useRef();
 
-  function titleMessageHover(e) {
-    setPosX(e.clientX);
-    setPosY(e.clientY);
+  function titleMessageHover() {
+    if(!rectTitleContainer.current) {
+      console.log("rectTitleContainer doesnt exist.")
+      return;
+    }
+
+    
+    const titleRectangle = rectTitleContainer.current.getBoundingClientRect();
+    setTitleRect({
+      top : titleRectangle.top - 30,
+      left : titleRectangle.left
+    });
     setIsHovering(true)
+    console.log(titleRec.top)
+    console.log(titleRec.left)
+    
   }
 
   function titleMessageOffHover() {
@@ -22,20 +34,19 @@ const CarouselACard = forwardRef(({data} ,ref) => {
   }
 
   useEffect(() => {
-      if(titleRef.current) {
-        gsap.fromTo(titleRef.current , {
+      if(titleMessageRef.current && isHovering) {
+        gsap.from(titleMessageRef.current , {
           x : 0,
-          y : 0
-        }, {
-          x : posX,
-          y : posY
+          y : 200,
+          opacity : 0,
+          duration : 1
         })
-      }
-  }, [posX ,posY])
+      } 
+  })
 
   const hoverTitle = () => {
     return(
-      <div className="absolute w-fit h-fit bg-amber-100 text-[15px] z-10 p-2" ref={titleRef}>
+      <div className="fixed w-fit h-fit bg-amber-100 text-[15px] text-black z-10 p-2 rounded-2xl border-2" ref={titleMessageRef}>
         {title}
       </div>
     )
@@ -51,9 +62,10 @@ const CarouselACard = forwardRef(({data} ,ref) => {
           className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock "
         />
         <span 
-          className="text-[12px] line-clamp-1"  
+          className="text-[15px] line-clamp-1 cursor-pointer"  
           onMouseEnter={(e) => titleMessageHover(e)}
-          onMouseLeave={() => titleMessageOffHover()}>
+          onMouseLeave={() => titleMessageOffHover()}
+          ref={rectTitleContainer}>
             {title}
         </span>
         {
