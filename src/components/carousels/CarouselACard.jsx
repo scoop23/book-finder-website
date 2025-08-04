@@ -19,34 +19,37 @@ const CarouselACard = forwardRef(({data} ,ref) => {
 
     
     const titleRectangle = rectTitleContainer.current.getBoundingClientRect();
+    console.log(titleRectangle)
     setTitleRect({
       top : titleRectangle.top - 30,
       left : titleRectangle.left
     });
-    setIsHovering(true)
-    console.log(titleRec.top)
-    console.log(titleRec.left)
-    
+    setIsHovering(true);
   }
 
   function titleMessageOffHover() {
-    setIsHovering(false)
+      setIsHovering(false)
   }
 
   useEffect(() => {
-      if(titleMessageRef.current && isHovering) {
-        gsap.from(titleMessageRef.current , {
-          x : 0,
-          y : 200,
-          opacity : 0,
-          duration : 1
-        })
-      } 
-  })
+    if (titleMessageRef.current && isHovering) {
+      gsap.to(titleMessageRef.current, {
+        opacity: 1,
+        y : -30,
+        duration: 1
+      });
+    }
+  }, [isHovering, titleRec.top]);
+
+
 
   const hoverTitle = () => {
     return(
-      <div className="fixed w-fit h-fit bg-amber-100 text-[15px] text-black z-10 p-2 rounded-2xl border-2" ref={titleMessageRef}>
+      <div className="fixed w-fit h-fit bg-amber-100 text-[12px] text-black z-10 p-1.5 rounded-2xl border-2" ref={titleMessageRef}
+      style={{
+        opacity : 0,
+        bottom : 20
+      }}>
         {title}
       </div>
     )
@@ -58,12 +61,12 @@ const CarouselACard = forwardRef(({data} ,ref) => {
       ref={ref}
       >
         <img
-          src={smallThumbnail}
+          src={smallThumbnail || book_empty}
           className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock "
         />
         <span 
-          className="text-[15px] line-clamp-1 cursor-pointer"  
-          onMouseEnter={(e) => titleMessageHover(e)}
+          className="title text-[15px] line-clamp-1 cursor-pointer"  
+          onMouseEnter={() => titleMessageHover()}
           onMouseLeave={() => titleMessageOffHover()}
           ref={rectTitleContainer}>
             {title}
