@@ -137,7 +137,7 @@ const CarouselA = ({ state }) => {
               />{" "}
               {/* Left Arrow */}
               
-              <div className="carouselA-outer-wrapper w-[400px] overflow-hidden rounded-2xl" draggable={false}>
+              <div className="carouselA-outer-wrapper w-[400px] overflow-hidden rounded-2xl z-1" draggable={false}>
                 <div className="carouselA-main-wrapper flex flex-row gap-4 transition-all duration-400" ref={sliderRef}>
                   
                   {/* based on the index it moves times 140px horizontally */}
