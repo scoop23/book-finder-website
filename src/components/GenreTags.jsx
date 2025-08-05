@@ -12,7 +12,10 @@ const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
           genreArray.map((genreName , index) => {
           const lowerCasedGenre = genreName?.toLowerCase();
           const tagStyle = genres[lowerCasedGenre] || "bg-gray-400";
-          const styleHex = toHex(tagStyle) || "#808080";
+          let styleHex;
+          if(tagStyle) {
+            styleHex = toHex(tagStyle) || "#808080";
+          }
           
           return (
             <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-2 text-[12px] font-satoshi max-h-[40px] shadow-custom4-first-content text-center max-w-[150px] flex items-center`} style={{

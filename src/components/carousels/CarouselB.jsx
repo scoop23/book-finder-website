@@ -32,7 +32,7 @@ const CarouselB = ({ state , dispatch }) => {
   const CARDWIDTH = 500; // in px
   const CONTAINERWIDTH = 525; // in px
   const GAP = 80;// in px
-  const shift = Math.max(-25 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) /2)
+  const shift = Math.max(-25 , (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) / 2)
   // if the 2nd argument is less than 0 it will default to -25
   // get the hex value of the constant
 
@@ -97,10 +97,10 @@ const CarouselB = ({ state , dispatch }) => {
         x : -shift,
         ease : "expo.inOut"
         // style={{
-                //   transform: `translateX(-${Math.max(
-                //     0,
-                //     (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) / 2
-                //   )}px)`,
+        //   transform: `translateX(-${Math.max(
+        //     0,
+        //     (CARDWIDTH + GAP) * index - (CONTAINERWIDTH - CARDWIDTH) / 2
+        //   )}px)`,
         // formula i looked up on the internet quite good but the first index is still not centered.
         // used math.max. because, when the index is 0 for example (500 + 80) * 0 = 0 and - (525 - 500) / 2) would be
         // -12.5 and if you insert it in the translateX css it would be (-(-12.5px)) and in turn would be +12.5
@@ -118,7 +118,7 @@ const CarouselB = ({ state , dispatch }) => {
           </div>
 
           <div className="flex gap-4 w-[600px] items-center justify-center-safe">
-            <div className="bar w-[10px] h-[200px] bg-zinc-900 z-10 rounded-lg"
+            <div className="bar w-[10px] h-[200px] bg-zinc-900 z-1 rounded-lg"
               style={{
                 boxShadow: "0 0 25px 20px rgba(24, 24, 27, 3)",
               }}
