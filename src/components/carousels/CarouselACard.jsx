@@ -32,6 +32,7 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
         y : 0,
         duration : 0.2,
         opacity : 0,
+        scale : 1,
         onComplete: () => {
           setIsHovering(false)
         }
@@ -51,6 +52,7 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
       gsap.set(tooltip , { left });
       gsap.to(tooltip , {
         y : -15,
+        scale : 1.25,
         duration : 0.5,
         opacity : 1
       })
@@ -60,7 +62,7 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
 
   const hoverTitle = () => {
     return createPortal(
-      <div className="fixed w-fit h-fit bg-amber-100 text-[11px] text-black z-2 p-1.5 rounded-2xl border-2 " ref={titleMessageRef}
+      <div className="fixed w-fit h-fit bg-amber-100 text-[11px] text-black z-2 p-1.5 rounded-2xl border-2" ref={titleMessageRef}
       style={{
         opacity : 0,
         left : titleRec.left,
@@ -82,7 +84,7 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
           className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock"
         />
         <span 
-          className="title text-[12px] line-clamp-1 cursor-pointer "  
+          className="title text-[12px] line-clamp-1 cursor-pointer px-2 py-1"  
           onMouseEnter={() => titleMessageHover()}
           onMouseLeave={() => titleMessageOffHover()}
           ref={rectTitleContainer}>

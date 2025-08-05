@@ -92,7 +92,6 @@ const SurpriseMe = ({ randomBookData }) => {
   function onMouseEnterCanvas() {
     const particleArray = particleRef.current;
     const canvas = canvasRef.current;
-    const wrapper = SurpriseMeWrapper.current;
     const clickMe = clickMeRef.current; 
 
     if(clickMe) {
