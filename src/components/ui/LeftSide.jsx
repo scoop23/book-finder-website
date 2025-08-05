@@ -79,7 +79,7 @@ const LeftSide = ({topOneBook}) => {
               </div>
               
               <span className='text-[13px] block '>by {author}</span>
-              <span className='text-[13px] block'> Published Date: {dataVolumeInfo.publishedDate} </span> 
+              <span className='text-[13px] block'> Published Date: {dataVolumeInfo?.publishedDate || "No Published Date"}</span> 
               <span className='text-[13px] block'>Page Count: {dataVolumeInfo.pageCount}</span>
               {/* <div className='text-[13px'></div> */}
             </span>

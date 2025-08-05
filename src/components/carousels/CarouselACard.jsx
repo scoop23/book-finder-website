@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import book_empty from '../../assets/book_empty.png'
 import gsap from 'gsap';
 
-const CarouselACard = forwardRef(({data} ,ref) => {
+const CarouselACard = forwardRef(({ data } ,ref) => {
   const [titleRec , setTitleRect] = useState({ top : 0, left : 0 })
 
   const { smallThumbnail } = data.volumeInfo?.imageLinks || book_empty;
@@ -27,7 +27,18 @@ const CarouselACard = forwardRef(({data} ,ref) => {
   }
 
   function titleMessageOffHover() {
-      setIsHovering(false)
+    if(titleMessageRef.current && isHovering) {
+      gsap.to(titleMessageRef.current, {
+        y : 0,
+        duration : 0.2,
+        opacity : 0,
+        onComplete: () => {
+          setIsHovering(false)
+        }
+      });
+    } else {
+      console.error("Ref doesn't exist.")
+    }
   }
 
   useEffect(() => {
@@ -39,19 +50,17 @@ const CarouselACard = forwardRef(({data} ,ref) => {
 
       gsap.set(tooltip , { left });
       gsap.to(tooltip , {
-        y : -25,
+        y : -15,
         duration : 0.5,
         opacity : 1
       })
-
     }
+
   }, [isHovering, titleRec.top, titleRec]);
-
-
 
   const hoverTitle = () => {
     return createPortal(
-      <div className="fixed w-fit h-fit bg-amber-100 text-[12px] text-black z-2 p-1.5 rounded-2xl border-2 " ref={titleMessageRef}
+      <div className="fixed w-fit h-fit bg-amber-100 text-[11px] text-black z-2 p-1.5 rounded-2xl border-2 " ref={titleMessageRef}
       style={{
         opacity : 0,
         left : titleRec.left,
@@ -73,7 +82,7 @@ const CarouselACard = forwardRef(({data} ,ref) => {
           className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock"
         />
         <span 
-          className="title text-[15px] line-clamp-1 cursor-pointer"  
+          className="title text-[12px] line-clamp-1 cursor-pointer "  
           onMouseEnter={() => titleMessageHover()}
           onMouseLeave={() => titleMessageOffHover()}
           ref={rectTitleContainer}>
