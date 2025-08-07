@@ -56,7 +56,7 @@ const SurpriseMe = ({ randomBookData }) => {
   const clickMeRef = useRef();
   const particleRef = useRef([]);
   const [stopId , setStopId] = useState(null);
-  const [randomBook , setRandomBook] = useState([])
+  const [randomBook , setRandomBook] = useState([]);
 
   function createParticle(canvas) {
     return {
@@ -104,8 +104,8 @@ const SurpriseMe = ({ randomBookData }) => {
 
     if(stopId) {
       return;
-    }
-    
+    } // return if hovered again
+
     const id = setInterval(() => {
       particleArray.push(createParticle(canvas))
     }, 50);
@@ -132,7 +132,7 @@ const SurpriseMe = ({ randomBookData }) => {
       gsap.to(wrapper , {
         backgroundColor : "white",
         duration : 1,
-        borderRadius : '16px',
+        borderRadius : '15px',
         onComplete : () => {
           clearInterval(stopId);
           setTimeout(() => {
@@ -147,7 +147,7 @@ const SurpriseMe = ({ randomBookData }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d")
+    const ctx = canvas.getContext("2d");
 
     function animate() {
       drawParticles(ctx, canvas);
@@ -166,7 +166,7 @@ const SurpriseMe = ({ randomBookData }) => {
         <div className='surprise-me bg-zinc-900 w-[250px] h-[230px] rounded-2xl border-1 border-zinc-400'>
 
           <div className='inner-main flex w-full h-full justify-center items-center cursor-pointer relative' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
-
+            
             <canvas ref={canvasRef} id='my-canvas' className='absolute' width={250} height={230} onClick={() => onClick()}></canvas>
 
             {/* <SvgExample sizeWidth={200} sizeHeight={100}/> */}

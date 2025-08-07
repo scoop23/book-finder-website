@@ -30,7 +30,8 @@ const BookSearchContainer = () => {
     mainPageData: null,
     genreData : [],
     genreTag : "Fiction", // default to fiction
-    carouselAData : []
+    carouselAData : [],
+    randomBook : null
   };
 
   function reducer(state, action) {
@@ -47,6 +48,7 @@ const BookSearchContainer = () => {
       case "SET_GENRE_DATA" : { return {...state, genreData : action.payload}; }
       case "SET_GENRE" : { return {...state , genreTag : action.payload}; }
       case "SET_CAROUSELA_DATA" : { return {...state , carouselAData : action.payload};}
+      case "SET_RANDOM_BOOK" : { return {...state , randomBook : action.payload}; }
     }
   }
   const [state, dispatch] = useReducer(reducer, STATE); //usereducer
