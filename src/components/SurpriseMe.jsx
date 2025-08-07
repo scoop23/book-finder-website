@@ -101,12 +101,14 @@ const SurpriseMe = ({ randomBookData }) => {
         opacity : 1,
       })
     }
+
+    if(stopId) {
+      return;
+    }
     
     const id = setInterval(() => {
       particleArray.push(createParticle(canvas))
-      console.log(particleArray)
     }, 50);
-
     setStopId(id);
   }
 
@@ -132,14 +134,12 @@ const SurpriseMe = ({ randomBookData }) => {
         duration : 1,
         borderRadius : '16px',
         onComplete : () => {
+          clearInterval(stopId);
           setTimeout(() => {
-            clearInterval(stopId);
-            setTimeout(() => {
-              gsap.to(canvas, {
-                visibility : 'hidden'
-              })
-            }, 300)
-          }, 500);
+            gsap.to(canvas, {
+              visibility : 'hidden'
+            });
+          }, 500)
         }
       });
     }

@@ -75,6 +75,7 @@ const CarouselGenres = ({ genres, dispatch, setGenreColor}) => {
       ref={(el) => (arrGenreCardRef.current[index] = el)}
       onMouseEnter={() => onHover(index , lowerCasedGenre)}
       onMouseLeave={() => offHover(index , lowerCasedGenre)}
+      key={index}
       >
         {theGenre}
       </div>
