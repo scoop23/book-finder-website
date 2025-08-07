@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 
 const SurpriseMe = ({ randomBookData }) => {
+  
   // ignore this 
   // ---------------------------------------------------
   // get the width and height for boundaries
@@ -122,14 +123,26 @@ const SurpriseMe = ({ randomBookData }) => {
   }
 
   function onClick() {
+    const canvas = canvasRef.current;
     const wrapper = SurpriseMeWrapper.current;
-    
-    if(wrapper) {
+    console.log(wrapper , " Clicked.")
+    if(wrapper && canvas) {
       gsap.to(wrapper , {
         backgroundColor : "white",
         duration : 1,
+        borderRadius : '16px',
+        onComplete : () => {
+          setTimeout(() => {
+            clearInterval(stopId);
+            setTimeout(() => {
+              gsap.to(canvas, {
+                visibility : 'hidden'
+              })
+            }, 300)
+          }, 500);
+        }
       });
-    } 
+    }
   }
 
   useEffect(() => {
@@ -154,7 +167,7 @@ const SurpriseMe = ({ randomBookData }) => {
 
           <div className='inner-main flex w-full h-full justify-center items-center cursor-pointer relative' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
 
-            <canvas ref={canvasRef} id='my-canvas' className='absolute' width={250} height={230}></canvas>
+            <canvas ref={canvasRef} id='my-canvas' className='absolute' width={250} height={230} onClick={() => onClick()}></canvas>
 
             {/* <SvgExample sizeWidth={200} sizeHeight={100}/> */}
 

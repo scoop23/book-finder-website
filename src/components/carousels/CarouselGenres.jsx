@@ -69,15 +69,15 @@ const CarouselGenres = ({ genres, dispatch, setGenreColor}) => {
     
 
     return (
-    <div 
-    className={`genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center`}
-    onClick={() => genreClick(genre)}
-    ref={(el) => (arrGenreCardRef.current[index] = el)}
-    onMouseEnter={() => onHover(index , lowerCasedGenre)}
-    onMouseLeave={() => offHover(index , lowerCasedGenre)}
-    >
-      {theGenre}
-    </div>
+      <div 
+      className={`genre-tag w-[80px] h-[24px] rounded-4xl bg-zinc-600 text-zinc-300 cursor-pointer p-0.5 text-[13px] text-center flex justify-center items-center`}
+      onClick={() => genreClick(genre)}
+      ref={(el) => (arrGenreCardRef.current[index] = el)}
+      onMouseEnter={() => onHover(index , lowerCasedGenre)}
+      onMouseLeave={() => offHover(index , lowerCasedGenre)}
+      >
+        {theGenre}
+      </div>
     )
   })
 }

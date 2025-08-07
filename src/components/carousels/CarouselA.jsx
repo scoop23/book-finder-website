@@ -145,12 +145,14 @@ const CarouselA = ({ state }) => {
                   
                   {
                     carouselData?.items?.map((data , index) => (
-                      <CarouselACard 
-                        data={data}
-                        ref={(element) => titleRefArray.current[index] = element}
-                        // for each 'element' in the ref which will the the parent will send on the child 
-                        // store it on a ref array and set it at that index
-                      />
+                      <div key={index}>
+                        <CarouselACard 
+                          data={data}
+                          ref={(element) => titleRefArray.current[index] = element}
+                          // for each 'element' in the ref which will the the parent will send on the child 
+                          // store it on a ref array and set it at that index
+                        />
+                      </div>
                     ))
                   }
                   

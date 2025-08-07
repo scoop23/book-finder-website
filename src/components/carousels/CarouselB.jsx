@@ -50,7 +50,7 @@ const CarouselB = ({ state , dispatch }) => {
     }
 
     clearInterval(clearID.current);
-    console.log("clearing ", clearID.current)
+    // console.log("clearing ", clearID.current)
   }
   
   function offHoverCard() {
@@ -66,7 +66,7 @@ const CarouselB = ({ state , dispatch }) => {
     if(clearID.current){
       clearInterval(clearID.current);
       clearID.current = null;
-      console.log("cleared interval on hover");
+      // console.log("cleared interval on hover");
     }
 
     clearID.current = setInterval(() => {

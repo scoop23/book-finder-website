@@ -10,7 +10,7 @@ const Quotes = ({ quoteData }) => {
   //   console.log("Not exist yet")
   // }
   const {q , a} = quoteData[0];
-
+  
   return (
     <div className="quotes-main flex w-full h-full">
       <div className="quotes-wrapper flex justify-center items-center w-full">
@@ -24,7 +24,8 @@ const Quotes = ({ quoteData }) => {
             </div>
 
             <div className="flex flex-col justify-center items-center gap-2">
-              <img src={"../public/pictures/leonardo.jpg"} className="w-[150px] rounded-2xl"/>
+              <img src={`${import.meta.env.BASE_URL}/pictures/leonardo.jpg`} className="w-[150px] rounded-2xl"/>
+              {/* import.meta.env.BASE_URL gets the points to the ../public or /book-finder-website/ */}
               <span className="author-name font-satoshi text-zinc-400 cursor-pointer text-[15px]" draggable={false} >{a}</span>
             </div>
           </div>
