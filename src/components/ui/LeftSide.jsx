@@ -51,7 +51,7 @@ const LeftSide = ({topOneBook}) => {
 
 
   function onHover() {
-
+    
   }
 
   const AdditionalInfos = () => {

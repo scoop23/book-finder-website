@@ -5,7 +5,6 @@ import gsap from 'gsap';
 
 const CarouselACard = forwardRef(({ data } ,ref) => {
   const [titleRec , setTitleRect] = useState({ top : 0, left : 0 })
-
   const { smallThumbnail } = data.volumeInfo?.imageLinks || book_empty;
   const title = data.volumeInfo.title;
   const [isHovering , setIsHovering] = useState(false);
@@ -84,7 +83,7 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
           className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock"
         />
         <span 
-          className="title text-[12px] line-clamp-1 cursor-pointer px-2 py-1"  
+          className="title text-[11px] line-clamp-1 cursor-pointer px-2 py-1"  
           onMouseEnter={() => titleMessageHover()}
           onMouseLeave={() => titleMessageOffHover()}
           ref={rectTitleContainer}>

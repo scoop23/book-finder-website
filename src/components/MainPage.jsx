@@ -6,7 +6,7 @@ import SurpriseMe from './SurpriseMe';
 
 
 const MainPage = ({ quoteData, state , dispatch }) => {
-
+  
   return (
     <div className='main-page-outer-wrapper flex flex-col gap-4'>
 
@@ -32,7 +32,7 @@ const MainPage = ({ quoteData, state , dispatch }) => {
               <Quotes quoteData={quoteData}/>
             </div>
             <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-2xl grow-0 bg-primary-blackrock'>
-              <SurpriseMe />
+              <SurpriseMe state={state} dispatch={dispatch}/>
             </div>
             <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-2xl grow-0 bg-primary-blackrock'>
             </div>

@@ -28,11 +28,18 @@ const CarouselA = ({ state }) => {
   // }
 
   useEffect(() => {
-    if(state.carouselAData) {
-      setCarouselData(state.carouselAData);
-    } 
-
-  }, [state.carouselAData, carouselData])
+    try {
+        if(state.carouselAData) {
+        const firstSixBooks = state.carouselAData?.items.slice(0,6);
+        setCarouselData(firstSixBooks);
+      } 
+    } catch(err) {
+      if(err.response) {
+        console.error("Data: " , err.response.data);
+        console.error("Status: " , err.response.status);
+      }
+    }
+  }, [state.carouselAData])
 
   function prevMove() {
     if (index > 0) {
@@ -144,7 +151,7 @@ const CarouselA = ({ state }) => {
                   {/* CARDS */}
                   
                   {
-                    carouselData?.items?.map((data , index) => (
+                    carouselData?.map((data , index) => (
                       <div key={index}>
                         <CarouselACard 
                           data={data}

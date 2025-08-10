@@ -9,10 +9,17 @@ export const fetchBookByAuthor = async (searchText) => {
 };
 
 export const fetchBookByAuthorWithTitle = async (author, searchText) => {
-  const response = await axios.get(
-    `http://localhost:8080/api/search-author-title?p1=${searchText}&p2=${author}`
-  );
-  return response.data;
+  try {
+    const response = await axios.get(`http://localhost:8080/api/search-author-title?p1=${searchText}&p2=${author}`);
+    return response.data;
+  } catch(error) {
+    if(error.response) {
+      console.error("Data: " , error.response.data);
+      console.error("Status: " , error.response.status);
+      return;
+    }
+    return;
+  }  
 };
 
 export const fetchBookByTitle = async (searchText) => {

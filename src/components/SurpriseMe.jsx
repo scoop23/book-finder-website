@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
 import gsap from 'gsap';
+import book_empty from '../assets/book_empty.png';
 
-const SurpriseMe = ({ randomBookData }) => {
-  
+const SurpriseMe = ({ state , dispatch }) => {
   // ignore this 
   // ---------------------------------------------------
   // get the width and height for boundaries
@@ -56,17 +56,23 @@ const SurpriseMe = ({ randomBookData }) => {
   const clickMeRef = useRef();
   const particleRef = useRef([]);
   const [stopId , setStopId] = useState(null);
+  const [isClicked, setIsClicked] = useState(false);
+  const youShouldReadRef = useRef()
   const [randomBook , setRandomBook] = useState([]);
 
   function createParticle(canvas) {
-    return {
+    const particle = {
       x : Math.random() * canvas.width, // start from a random position inside the canvas width
       y : canvas.height, // start at the height of the canvas 
       radius : Math.random() * 1 + 3, // random radius
       vx : (Math.random() - 0.5) * 2, // random horizontal velocity
-      vy : Math.random() * - 2 - 1, // random vertical velocity
-      alpha : 1  
+      vy : -(Math.random() * 0.8) * 3, // random vertical velocity negative because negative nums are upwards
+      alpha : 2,
+      lifetime : 100,
+      maxLifetime : 200
     }
+    particle.vy *= 0.5;
+    return particle;
   }
 
   function drawParticles(ctx, canvas) {
@@ -85,6 +91,7 @@ const SurpriseMe = ({ randomBookData }) => {
       p.x += p.vx;
       p.y += p.vy;
       p.alpha -= 0.01;
+
     });
 
     particlesArray = particlesArray.filter(p => p.alpha > 0); // only pulls out the particles that alphas greater than 0
@@ -102,13 +109,13 @@ const SurpriseMe = ({ randomBookData }) => {
       })
     }
 
-    if(stopId) {
+    if(stopId && isClicked) {
       return;
     } // return if hovered again
 
     const id = setInterval(() => {
-      particleArray.push(createParticle(canvas))
-    }, 50);
+      particleArray.push(createParticle(canvas)); // while mouse is hovering push createdParticles with random positions
+    }, 30);
     setStopId(id);
   }
 
@@ -127,6 +134,8 @@ const SurpriseMe = ({ randomBookData }) => {
   function onClick() {
     const canvas = canvasRef.current;
     const wrapper = SurpriseMeWrapper.current;
+    const youShouldReadText = youShouldReadRef.current;
+    setIsClicked(true);
     console.log(wrapper , " Clicked.")
     if(wrapper && canvas) {
       gsap.to(wrapper , {
@@ -150,12 +159,21 @@ const SurpriseMe = ({ randomBookData }) => {
     const ctx = canvas.getContext("2d");
 
     function animate() {
-      drawParticles(ctx, canvas);
+      drawParticles(ctx, canvas); // renders every particles in the array and remove particles below opacity of 0. all the while reducing its alpha value
       requestAnimationFrame(animate); 
     }
 
     animate();
   }, [])
+
+  useEffect(() => {
+    if(state.carouselAData){
+        setRandomBook(state.carouselAData?.items?.[7]);
+    }
+  }, [state.carouselAData])
+
+  const image = randomBook?.volumeInfo?.imageLinks?.smallThumbnail || book_empty;
+  
 
   return (
     <div className='surprise-me-wrapper h-full'>
@@ -165,12 +183,20 @@ const SurpriseMe = ({ randomBookData }) => {
 
         <div className='surprise-me bg-zinc-900 w-[250px] h-[230px] rounded-2xl border-1 border-zinc-400'>
 
-          <div className='inner-main flex w-full h-full justify-center items-center cursor-pointer relative' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
-            
-            <canvas ref={canvasRef} id='my-canvas' className='absolute' width={250} height={230} onClick={() => onClick()}></canvas>
-
+          <div className='inner-main flex flex-col w-full h-full justify-center items-center cursor-pointer relative' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
+            <canvas ref={canvasRef} id='my-canvas' className='absolute rounded-2xl' width={245} height={229} onClick={() => onClick()}></canvas>
             {/* <SvgExample sizeWidth={200} sizeHeight={100}/> */}
-
+            <div className='you-should-read absolute top-15 opacity-0' ref={youShouldReadRef}>
+              You Should Read
+            </div> 
+            { isClicked && 
+              <div className='the-surprise-book'>
+                <img 
+                src={image}
+                className='rounded-2xl opacity-0'
+                />
+              </div>
+            }
             <div className='click-me text-white text-[30px] opacity-0  duration-500 select-none' draggable={false} ref={clickMeRef}>
               Click me!
             </div>
