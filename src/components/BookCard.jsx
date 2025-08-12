@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { useState } from 'react';
 import bookImage from '../assets/book_empty.png';
 
-const BookCard = ({ bookData }) => {
+const BookCard = forwardRef(({ bookData } , ref) => {
   const data = bookData?.volumeInfo;
   const { title, imageLinks, description, publishedDate, authors } = data;
   const [isHovering, setIsHovering] = useState(false);
 
+  function hoverSeeMoreButton(){
+    
+  }
 
   return (
 
@@ -66,11 +69,13 @@ const BookCard = ({ bookData }) => {
             </p>
           </div>
 
-          <button className='rounded-2xl p-2 bg-primary-indochine shadow-2xl'><a href='#'>See More</a></button>
+          <button 
+          className='rounded-2xl p-2 bg-primary-indochine shadow-2xl cursor-pointer'
+          ref={ref}><a href='#'>See More</a></button>
         </div>
       </div>
     </div>
   );
-};
+});
 
 export default BookCard;
