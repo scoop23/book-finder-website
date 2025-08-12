@@ -3,14 +3,14 @@ import axios from "axios";
 
 export const fetchBookByAuthor = async (searchText) => {
   const response = await axios.get(
-    `http://localhost:8080/api/search-author?q=${searchText}`
+    `http://localhost:8080/search/author?q=${searchText}`
   );
   return response.data;
 };
 
 export const fetchBookByAuthorWithTitle = async (author, searchText) => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/search-author-title?p1=${searchText}&p2=${author}`);
+    const response = await axios.get(`http://localhost:8080/search/author-title?p1=${searchText}&p2=${author}`);
     return response.data;
   } catch(error) {
     if(error.response) {
@@ -24,14 +24,14 @@ export const fetchBookByAuthorWithTitle = async (author, searchText) => {
 
 export const fetchBookByTitle = async (searchText) => {
   const response = await axios.get(
-    `http://localhost:8080/api/search-title?q=${searchText}`
+    `http://localhost:8080/search/title?q=${searchText}`
   );
   return response.data;
 };
 
 // find free api for quotes
 export const fetchQuotes = async () => {
-  const response = await axios.get(`http://localhost:8080/api/quotes/random`);
+  const response = await axios.get(`http://localhost:8080/random/random-quote`);
   return response.data;
 };
 
@@ -42,7 +42,7 @@ export const getGenre = async (genre) => {
   }
 
   try {
-    const response = await axios.get(`http://localhost:8080/api/genres/${genre}`);
+    const response = await axios.get(`http://localhost:8080/genres/${genre}`);
 
     return response.data;
   } catch(err) {
@@ -55,7 +55,7 @@ export const getGenre = async (genre) => {
 
 export const fetchRandomBook = async () => {
   try {
-    const response = await axios.get("http://localhost:8080/api/random-book");
+    const response = await axios.get("http://localhost:8080/random/random-books");
 
     return response.data;
   } catch(err) {

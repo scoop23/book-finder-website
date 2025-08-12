@@ -59,6 +59,7 @@ const SurpriseMe = ({ state , dispatch }) => {
   const [isClicked, setIsClicked] = useState(false);
   const youShouldReadRef = useRef()
   const [randomBook , setRandomBook] = useState([]);
+  const bookImageRef = useRef();
 
   function createParticle(canvas) {
     const particle = {
@@ -81,6 +82,7 @@ const SurpriseMe = ({ state , dispatch }) => {
     particlesArray.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x , p.y , p.radius ,0 ,Math.PI * 2);
+      // ctx.rect(p.x , p.y , 30 ,20);
       ctx.fillStyle = `rgba(255,40,20,${p.alpha})`;
       ctx.fill();
       ctx.shadowColor = "orange"
@@ -104,7 +106,7 @@ const SurpriseMe = ({ state , dispatch }) => {
 
     if(clickMe) {
       gsap.to(clickMe ,{
-        duration : 0.3,
+        duration : 0.2,
         opacity : 1,
       })
     }
@@ -123,8 +125,8 @@ const SurpriseMe = ({ state , dispatch }) => {
     const clickMe = clickMeRef.current
     if(clickMe) {
         gsap.to(clickMe ,{
-        duration : 0.3,
-        opacity : 0,
+        duration : 0.2,
+        opacity : 0
       })
     }
 
@@ -132,13 +134,24 @@ const SurpriseMe = ({ state , dispatch }) => {
   }
 
   function onClick() {
+    const tl = gsap.timeline();
     const canvas = canvasRef.current;
     const wrapper = SurpriseMeWrapper.current;
+    const clickMe = clickMeRef.current;
     const youShouldReadText = youShouldReadRef.current;
-    setIsClicked(true);
-    console.log(wrapper , " Clicked.")
+
+
+    setTimeout(() => {
+      setIsClicked(true);
+    }, 500)  
+    gsap.to(clickMe , {
+      duration : 0.1,
+      opacity : 0,
+    })
+
+
     if(wrapper && canvas) {
-      gsap.to(wrapper , {
+      tl.to(wrapper , {
         backgroundColor : "white",
         duration : 1,
         borderRadius : '15px',
@@ -146,7 +159,7 @@ const SurpriseMe = ({ state , dispatch }) => {
           clearInterval(stopId);
           setTimeout(() => {
             gsap.to(canvas, {
-              visibility : 'hidden'
+              visibility : 'hidden',
             });
           }, 500)
         }
@@ -189,14 +202,17 @@ const SurpriseMe = ({ state , dispatch }) => {
             <div className='you-should-read absolute top-15 opacity-0' ref={youShouldReadRef}>
               You Should Read
             </div> 
+
             { isClicked && 
               <div className='the-surprise-book'>
                 <img 
                 src={image}
-                className='rounded-2xl opacity-0'
+                className='rounded-2xl'
+                ref={bookImageRef}
                 />
               </div>
             }
+            
             <div className='click-me text-white text-[30px] opacity-0  duration-500 select-none' draggable={false} ref={clickMeRef}>
               Click me!
             </div>
