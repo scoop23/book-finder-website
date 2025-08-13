@@ -138,7 +138,6 @@ const SurpriseMe = ({ state , dispatch }) => {
     const canvas = canvasRef.current;
     const wrapper = SurpriseMeWrapper.current;
     const clickMe = clickMeRef.current;
-    const youShouldReadText = youShouldReadRef.current;
 
 
     setTimeout(() => {
@@ -157,6 +156,9 @@ const SurpriseMe = ({ state , dispatch }) => {
         borderRadius : '15px',
         onComplete : () => {
           clearInterval(stopId);
+          gsap.to(clickMe, {
+            visibility : 'hidden'
+          })
           setTimeout(() => {
             gsap.to(canvas, {
               visibility : 'hidden',
@@ -185,6 +187,21 @@ const SurpriseMe = ({ state , dispatch }) => {
     }
   }, [state.carouselAData])
 
+  useEffect(() => {
+    const tl = gsap.timeline();
+      if(youShouldReadRef.current && isClicked) {
+        tl.to(youShouldReadRef.current, {
+          duration : 1,
+          opacity : 1,
+          y : -56,
+        }).to(bookImageRef.current , {
+          opacity : 1,
+          y : -60,
+          border : '1px solid black'
+        })
+      }
+  })
+
   const image = randomBook?.volumeInfo?.imageLinks?.smallThumbnail || book_empty;
   
 
@@ -196,10 +213,10 @@ const SurpriseMe = ({ state , dispatch }) => {
 
         <div className='surprise-me bg-zinc-900 w-[250px] h-[230px] rounded-2xl border-1 border-zinc-400'>
 
-          <div className='inner-main flex flex-col w-full h-full justify-center items-center cursor-pointer relative' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
+          <div className='inner-main flex flex-col w-full h-full justify-center items-center cursor-pointer relative ' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
             <canvas ref={canvasRef} id='my-canvas' className='absolute rounded-2xl' width={245} height={229} onClick={() => onClick()}></canvas>
             {/* <SvgExample sizeWidth={200} sizeHeight={100}/> */}
-            <div className='you-should-read absolute top-15 opacity-0' ref={youShouldReadRef}>
+            <div className='you-should-read absolute top-15 opacity-0 ' ref={youShouldReadRef}>
               You Should Read
             </div> 
 
@@ -207,7 +224,7 @@ const SurpriseMe = ({ state , dispatch }) => {
               <div className='the-surprise-book'>
                 <img 
                 src={image}
-                className='rounded-2xl'
+                className='rounded-2xl opacity-0 absolute left-15 max-h-[190px]'
                 ref={bookImageRef}
                 />
               </div>

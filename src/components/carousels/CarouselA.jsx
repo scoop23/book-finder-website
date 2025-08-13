@@ -20,12 +20,6 @@ const CarouselA = ({ state }) => {
   const [isHovering, setIsHovering] = useState(false);
   const titleRefArray = useRef([]);
   const [carouselData, setCarouselData] = useState([]);
-  
-  // if(state.carouselAData) {
-  //     state.carouselAData?.items?.forEach(e => {
-  //     console.log(e?.volumeInfo?.title)
-  //   });
-  // }
 
   useEffect(() => {
     try {

@@ -126,7 +126,7 @@ const CarouselB = ({ state , dispatch }) => {
             <div className={`carouselB-main flex h-[250px] overflow-hidden  items-center `} style={{
               boxShadow: `inset 20px 0 20px rgba(24, 24, 27,3),     /* left */
                           inset -20px 0 20px rgba(24, 24, 27,3),    /* right */
-                          inset 0 0 10px rgba(0, 0, 0, 1)         /* center */`,
+                          inset 0 0 15px rgba(0, 0, 0, 1)         /* center */`,
               width : `${CONTAINERWIDTH}px`
             }}> {/* moved constants to  */}
 

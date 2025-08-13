@@ -25,7 +25,6 @@ const BookCard = forwardRef(({ bookData } , ref) => {
               />
             </div>
 
-
             <div className="content-info flex flex-col justify-between text-sm w-full overflow-hidden">
               {/* will make authors a dropdown button or a hover then the user will see all the author/s */}
               <span className="title font-bold line-clamp-2 break-words">{title}</span>

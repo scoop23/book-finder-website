@@ -16,7 +16,7 @@ import {
 } from "./api/AccessToApi";
 import CarouselA from "./carousels/CarouselA";
 
-// TODO: DISPLAY THE DATA ON T  HE CAROUSELS
+// TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
 
 const BookSearchContainer = () => {
@@ -129,9 +129,11 @@ const BookSearchContainer = () => {
   // fetchBookByAuthor(searchText); // moved to backend for security
   // TODO: WILL ADD A LANDING/START PAGE?
 
+  
+
   return (
     <>
-      <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4">
+      <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4 ">
         <div className="inner-main w-full max-w-[1280px] min-h-[780px] rounded-[10px] mx-auto p-4">
           <SearchBar
             dispatch={dispatch} // send useReducer dispatch

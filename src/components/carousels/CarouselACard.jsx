@@ -11,7 +11,7 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
   const rectTitleContainer = useRef();
   const titleMessageRef = useRef();
 
-  function titleMessageHover() {
+  function titleMessageOnHover() {
     if(!rectTitleContainer.current) {
       console.log("rectTitleContainer doesnt exist.")
       return;
@@ -72,6 +72,8 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
       document.body
     )
   }
+  
+  
 
   return (
     <div
@@ -84,14 +86,19 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
         />
         <span 
           className="title text-[11px] line-clamp-1 cursor-pointer px-2 py-1"  
-          onMouseEnter={() => titleMessageHover()}
-          onMouseLeave={() => titleMessageOffHover()}
+          onMouseEnter={() => titleMessageOnHover()}
+          onMouseLeave={() => {
+            // console.log('Mouse leave triggered. Moving to:', e.relatedTarget);
+            // console.log('Is tooltip?', titleMessageRef.current?.contains(e.relatedTarget));
+              titleMessageOffHover();
+          }}
           ref={rectTitleContainer}>
             {title}
-        </span>
-        {
+          {
           isHovering && hoverTitle()
-        }
+          }
+        </span>
+        
       </div>
   )
 })
