@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
 import gsap from 'gsap';
 import book_empty from '../assets/book_empty.png';
+import { createPortal } from 'react-dom';
 
 const SurpriseMe = ({ state , dispatch }) => {
   // ignore this 
@@ -60,6 +61,10 @@ const SurpriseMe = ({ state , dispatch }) => {
   const youShouldReadRef = useRef()
   const [randomBook , setRandomBook] = useState([]);
   const bookImageRef = useRef();
+  const [isImageHovered , setIsImageHovered] = useState(false);
+  const [recPosition , setRecPosition] = useState({ x : 0 , y : 0})
+  const tooltipRef = useRef();
+  const surpriseBookRef = useRef();
 
   function createParticle(canvas) {
     const particle = {
@@ -200,10 +205,72 @@ const SurpriseMe = ({ state , dispatch }) => {
           border : '1px solid black'
         })
       }
-  })
+  }, [isClicked])
 
   const image = randomBook?.volumeInfo?.imageLinks?.smallThumbnail || book_empty;
+  const title = randomBook?.volumeInfo?.title || "N/A";
   
+  const toolTip = () => {
+    return createPortal(
+      <div className='surprise-me-tooltip text-black bg-primary-dutch-white line-clamp-1 opacity-0 max-w-[900px] p-[5px] rounded-2xl border-1' ref={tooltipRef}
+      style={{
+        position : "absolute",
+        left : recPosition.x,
+        top : recPosition.y - 30
+      }}>
+        {title}
+      </div>,
+      document.body
+    )
+  }
+
+  function onImageHover() {
+    if(!bookImageRef.current) {
+     return;
+    }
+    setIsImageHovered(true);
+    const rectOfWrapper = SurpriseMeWrapper.current.getBoundingClientRect();
+    setRecPosition({
+      x : rectOfWrapper.left + (rectOfWrapper.width / 2) + window.scrollX, 
+      // set the left edge to the middle of the wrapper by adding half the width of the surpriseMeWrapper
+      y : rectOfWrapper.y + window.scrollY
+    })
+    console.log(rectOfWrapper.left + " plus " + rectOfWrapper.width / 2 + " is equals to: " + recPosition.x)
+    gsap.killTweensOf(tooltipRef.current);
+  }
+
+  function onImageLeave() {
+    if(tooltipRef.current) {
+        gsap.killTweensOf(tooltipRef.current); // before doing anything kill remaining tweens 
+        gsap.to(tooltipRef.current, {
+        duration : 0.5,
+        opacity : 0,
+        y : 0,
+        onComplete : () => {
+          setIsImageHovered(false);
+        }
+      })
+    }
+  }
+
+  useEffect(() => {
+    if(tooltipRef.current && isImageHovered) {
+      const widthOfTooltip = tooltipRef.current.getBoundingClientRect().width; // get the width of the tooltip
+      const middlePoint = recPosition.x;
+      const left = middlePoint - (widthOfTooltip / 2);
+
+      console.log("Now pointing to " + middlePoint + "px which is the middle of the wrapper " + "then we subtract it to half the width of the tooltip which is " + left);
+      gsap.set(tooltipRef.current ,{ left });
+
+      gsap.to(tooltipRef.current, {
+        opacity : 1,
+        duration : 0.5,
+        y : -10
+      })
+      // subtract the middle point which is the recPosition.x or the const left to the
+      // half the width of the tooltip to center the tooltip beneath the surpriseWrapper
+    }
+  });
 
   return (
     <div className='surprise-me-wrapper h-full'>
@@ -213,7 +280,7 @@ const SurpriseMe = ({ state , dispatch }) => {
 
         <div className='surprise-me bg-zinc-900 w-[250px] h-[230px] rounded-2xl border-1 border-zinc-400'>
 
-          <div className='inner-main flex flex-col w-full h-full justify-center items-center cursor-pointer relative ' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
+          <div className='inner-main flex flex-col w-full h-full justify-center items-center cursor-pointer relative' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
             <canvas ref={canvasRef} id='my-canvas' className='absolute rounded-2xl' width={245} height={229} onClick={() => onClick()}></canvas>
             {/* <SvgExample sizeWidth={200} sizeHeight={100}/> */}
             <div className='you-should-read absolute top-15 opacity-0 ' ref={youShouldReadRef}>
@@ -221,12 +288,18 @@ const SurpriseMe = ({ state , dispatch }) => {
             </div> 
 
             { isClicked && 
-              <div className='the-surprise-book'>
+              <div className='the-surprise-book'
+              ref={surpriseBookRef}>
                 <img 
                 src={image}
                 className='rounded-2xl opacity-0 absolute left-15 max-h-[190px]'
                 ref={bookImageRef}
+                onMouseEnter={onImageHover}
+                onMouseLeave={onImageLeave}
                 />
+                {
+                  isImageHovered && toolTip()
+                }
               </div>
             }
             

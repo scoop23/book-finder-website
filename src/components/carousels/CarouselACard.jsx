@@ -47,6 +47,7 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
     if(tooltip && isHovering) {
       const tooltipWidth = tooltip.offsetWidth;
       const left = titleRec.left - (tooltipWidth / 2);
+      // titleRectangle.left + (titleRectangle.width / 2) - (tooltipWidth / 2)
 
       gsap.set(tooltip , { left });
       gsap.to(tooltip , {
