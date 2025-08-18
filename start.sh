@@ -1,6 +1,6 @@
 #!/bin/sh
 
-(cd client && npm run dev) &
+(cd frontend && npm run dev) &
 
 (cd server && npm run dev) &
 
