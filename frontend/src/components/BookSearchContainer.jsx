@@ -158,12 +158,12 @@ const BookSearchContainer = () => {
 
           {state.bookData && (<BookResults data={state.bookData}/>)}
 
-          {state.quoteData && !state.bookData (
+          {state.quoteData && !state.bookData && (
             <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
           )}
 
-          {!state.quoteData && !state.bookData (
-            <Loading />
+          {!state.quoteData && !state.bookData && (
+            <Loading/>
           )}
 
         </div>
