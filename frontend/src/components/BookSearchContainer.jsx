@@ -5,7 +5,9 @@ import SearchBar from "./SearchBar";
 import "../App.css";
 import BookResults from "./BookResults";
 import Loading from "./Loading";
-import MainPage from "./MainPage";
+
+const MainPage = React.lazy(() => import("./MainPage"));
+import { BASE_URL } from "./api/axios.js";
 import {
   fetchBookByAuthor,
   fetchBookByTitle,
@@ -14,10 +16,9 @@ import {
   getGenre,
   fetchRandomBook
 } from "./api/AccessToApi";
-import CarouselA from "./carousels/CarouselA";
-
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
+
 
 const BookSearchContainer = () => {
   const STATE = {
@@ -122,6 +123,7 @@ const BookSearchContainer = () => {
     
     getGenreFromAPI();
   }, [state.genreTag])
+  console.log(BASE_URL);
 
   // debouncing
   // fetchBookByAuthor(apiKey, searchText);

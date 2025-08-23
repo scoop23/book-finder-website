@@ -1,12 +1,26 @@
 import "../../App.css";
 import axios from "axios";
+import { apiGet } from "./axios";
+
 
 export const fetchBookByAuthor = async (searchText) => {
-  const response = await axios.get(
-    `http://localhost:8080/search/author?q=${searchText}`
-  );
-  return response.data;
-};
+  return apiGet(`/search/author?q=${searchText}`);
+}
+
+(endpoint : string , queryKey : string)
+const fetchData = async (endpoint) => {
+  try { 
+    const response = await axiosBase.get(endpoint)
+    return response.data
+  } catch (error) {
+    console.error(error.response.status)
+  }
+  
+}
+
+
+
+
 
 export const fetchBookByAuthorWithTitle = async (author, searchText) => {
   try {
