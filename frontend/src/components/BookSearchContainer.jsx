@@ -16,6 +16,7 @@ import {
   getGenre,
   fetchRandomBook
 } from "./api/AccessToApi";
+import useFetch from "./hooks/useFetch.jsx";
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
 
@@ -83,17 +84,19 @@ const BookSearchContainer = () => {
     return () => clearTimeout(delay); // cleanup debounce
   }, [state.searchText, state.searchType, state.author]); 
 
+ 
+
   useEffect(() => {
-    const getQuote = async () => {
-      try {
-        const response = await fetchQuotes();
-        if (response && response.length > 0) {
-          dispatch({ type : "SET_QUOTE_DATA" , payload : response })
-        }
-      } catch (e) {
-        console.error("Error Fetching Quotes", e);
-      }
-    };
+    // const getQuote = async () => {
+    //   try {
+    //     const response = await fetchQuotes();
+    //     if (response && response.length > 0) {
+    //       dispatch({ type : "SET_QUOTE_DATA" , payload : response })
+    //     }
+    //   } catch (e) {
+    //     console.error("Error Fetching Quotes", e);
+    //   }
+    // };
 
     const getRandomBook = async () => {
       try {
@@ -104,7 +107,7 @@ const BookSearchContainer = () => {
       }
     }
 
-    getQuote();
+    // getQuote();
     getRandomBook()
   }, []);
 
@@ -141,7 +144,7 @@ const BookSearchContainer = () => {
             dispatch={dispatch} // send useReducer dispatch
             state={state} // the state
           />
-          {state.bookData ? (
+          {/* {state.bookData ? (
             <div className="inner-book-result-container p-2 min-w-full flex items-center max-w-[1280px] justify-center">
               <BookResults data={state.bookData} />
             </div>
@@ -151,7 +154,18 @@ const BookSearchContainer = () => {
             <>
               <Loading />
             </>
+          )} */}
+
+          {state.bookData && (<BookResults data={state.bookData}/>)}
+
+          {state.quoteData && !state.bookData (
+            <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
           )}
+
+          {!state.quoteData && !state.bookData (
+            <Loading />
+          )}
+
         </div>
       </div>
     </>

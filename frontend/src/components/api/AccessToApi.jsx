@@ -7,20 +7,6 @@ export const fetchBookByAuthor = async (searchText) => {
   return apiGet(`/search/author?q=${searchText}`);
 }
 
-(endpoint : string , queryKey : string)
-const fetchData = async (endpoint) => {
-  try { 
-    const response = await axiosBase.get(endpoint)
-    return response.data
-  } catch (error) {
-    console.error(error.response.status)
-  }
-  
-}
-
-
-
-
 
 export const fetchBookByAuthorWithTitle = async (author, searchText) => {
   try {
