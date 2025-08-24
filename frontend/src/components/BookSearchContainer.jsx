@@ -1,6 +1,5 @@
 // .. MAIN 
-
-import React, { useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import SearchBar from "./SearchBar";
 import "../App.css";
 import BookResults from "./BookResults";
@@ -14,7 +13,6 @@ import {
   getGenre,
   fetchRandomBook
 } from "./api/AccessToApi";
-import CarouselA from "./carousels/CarouselA";
 
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
@@ -52,6 +50,7 @@ const BookSearchContainer = () => {
     }
   }
   const [state, dispatch] = useReducer(reducer, STATE); //usereducer
+  
 
   useEffect(() => {
     const delay = setTimeout(async () => {
@@ -60,11 +59,11 @@ const BookSearchContainer = () => {
           if (state.searchType[1] === "author") {
             console.log("Fetching Titles with authorname");
             // setBookData(await fetchBookByAuthor(state.searchText));
-            dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByAuthor(state.searchText)})
+            dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByAuthor(state.searchText)});
           } else if (state.searchType[0] === "title") {
             console.log("Fetching titles with titlename");
             // setBookData(await fetchBookByTitle(state.searchText));
-            dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByTitle(state.searchText)})
+            dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByTitle(state.searchText)});
           }
         }
       } else if (
@@ -130,6 +129,7 @@ const BookSearchContainer = () => {
   // TODO: WILL ADD A LANDING/START PAGE?
 
   
+
 
   return (
     <>
