@@ -26,5 +26,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base : "/book-finder-website/"
+  base : "/"
 })
