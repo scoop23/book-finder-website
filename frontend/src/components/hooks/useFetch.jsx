@@ -20,7 +20,7 @@ export default function useFetch(fetchFunction){
       }
     }
     fetchData();
-  });
+  }, [fetchFunction]);
   
-  return { data , isLoading };
+  return { data , isLoading, error };
 }

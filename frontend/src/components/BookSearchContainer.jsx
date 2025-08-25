@@ -1,10 +1,10 @@
 // .. MAIN 
-import { useEffect, useReducer } from "react";
+import { Suspense, useCallback, useEffect, useReducer } from "react";
+import React from "react";
 import SearchBar from "./SearchBar";
 import "../App.css";
 import BookResults from "./BookResults";
 import Loading from "./Loading";
-
 const MainPage = React.lazy(() => import("./MainPage"));
 import { BASE_URL } from "./api/axios.js";
 import {
@@ -15,14 +15,9 @@ import {
   getGenre,
   fetchRandomBook
 } from "./api/AccessToApi";
-<<<<<<< HEAD
-
-=======
 import useFetch from "./hooks/useFetch.jsx";
->>>>>>> 53876b996acc888f10eca813899f9a63cebef1ba
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
-
 
 const BookSearchContainer = () => {
   const STATE = {
@@ -54,22 +49,20 @@ const BookSearchContainer = () => {
       case "SET_GENRE" : { return {...state , genreTag : action.payload}; }
       case "SET_CAROUSELA_DATA" : { return {...state , carouselAData : action.payload};}
       case "SET_RANDOM_BOOK" : { return {...state , randomBook : action.payload}; }
+      default : return state
     }
   }
   const [state, dispatch] = useReducer(reducer, STATE); //usereducer
   
-
   useEffect(() => {
     const delay = setTimeout(async () => {
       if (state.searchType.includes(null)) {
         if (state.searchText.trim() !== "") {
           if (state.searchType[1] === "author") {
             console.log("Fetching Titles with authorname");
-            // setBookData(await fetchBookByAuthor(state.searchText));
             dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByAuthor(state.searchText)});
           } else if (state.searchType[0] === "title") {
             console.log("Fetching titles with titlename");
-            // setBookData(await fetchBookByTitle(state.searchText));
             dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByTitle(state.searchText)});
           }
         }
@@ -88,58 +81,25 @@ const BookSearchContainer = () => {
     return () => clearTimeout(delay); // cleanup debounce
   }, [state.searchText, state.searchType, state.author]); 
 
- 
-
+  const { data : quoteData } = useFetch(fetchQuotes);
+  const { data : randomBookData} = useFetch(fetchRandomBook);
+  const fetchGenre = useCallback(() => getGenre(state.genreTag) , [state.genreTag]);
+  const {data : genreData} = useFetch(fetchGenre);
+  
   useEffect(() => {
-    // const getQuote = async () => {
-    //   try {
-    //     const response = await fetchQuotes();
-    //     if (response && response.length > 0) {
-    //       dispatch({ type : "SET_QUOTE_DATA" , payload : response })
-    //     }
-    //   } catch (e) {
-    //     console.error("Error Fetching Quotes", e);
-    //   }
-    // };
-
-    const getRandomBook = async () => {
-      try {
-        const response = await fetchRandomBook();
-        dispatch({ type : "SET_CAROUSELA_DATA" , payload : response })
-      } catch(err) {
-        console.error("Error Fetching Quotes", err);
-      }
-    }
-
-    // getQuote();
-    getRandomBook()
-  }, []);
-
-  useEffect(() => {
-    const getGenreFromAPI = async () => {
-      try {
-        const response = await getGenre(state.genreTag);
-        dispatch({ type : "SET_GENRE_DATA" ,  payload : response});
-      } catch(err) {
-        if(err.response) {
-          console.error("Data: ", err.response.data);
-          console.error("Status: ", err.response.status);
-        }
-      }
-    }
+    if (quoteData) dispatch({ type : "SET_QUOTE_DATA" , payload : quoteData });
+    if (randomBookData) dispatch({ type : "SET_CAROUSELA_DATA" , payload : randomBookData });
+    if (genreData) dispatch({ type : "SET_GENRE_DATA" , payload : genreData });
     
-    getGenreFromAPI();
-  }, [state.genreTag])
-  console.log(BASE_URL);
+  }, [quoteData , randomBookData, genreData]);
 
+  
+  console.log(BASE_URL);
   // debouncing
   // fetchBookByAuthor(apiKey, searchText);
   // bookApi.fetchBookByTitle(searchText, setBookData);
   // fetchBookByAuthor(searchText); // moved to backend for security
   // TODO: WILL ADD A LANDING/START PAGE?
-
-  
-
 
   return (
     <>
@@ -149,23 +109,14 @@ const BookSearchContainer = () => {
             dispatch={dispatch} // send useReducer dispatch
             state={state} // the state
           />
-          {/* {state.bookData ? (
-            <div className="inner-book-result-container p-2 min-w-full flex items-center max-w-[1280px] justify-center">
-              <BookResults data={state.bookData} />
-            </div>
-          ) : state.quoteData ? (
-              <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
-          ) : (
-            <>
-              <Loading />
-            </>
-          )} */}
 
           {state.bookData && (<BookResults data={state.bookData}/>)}
 
+          <Suspense fallback={<Loading />}>
           {state.quoteData && !state.bookData && (
             <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
           )}
+          </Suspense>
 
           {!state.quoteData && !state.bookData && (
             <Loading/>
