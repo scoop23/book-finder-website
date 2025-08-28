@@ -22,12 +22,15 @@ const BookResults = ({ data }) => {
         </div>
       ) : (
         <>
+        <div className='flex flex-row-reverse w-full text-white'>
+          <span>129 results found in the Akashic Records. </span>
+        </div>
         <div className='main-bar flex gap-4 max-w-[1300px] items-center justify-center '>
           <LeftSide topOneBook={topOneBook}/>
           <RightSide topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
         </div>
 
-        <button className='page-btn border max-w-[100px] p-2 rounded-2xl cursor-pointer hover:bg-gray-500 transition-all duration-250'>PAGE</button>
+        <button className='page-btn border max-w-[100px] p-2 rounded-[40px] cursor-pointer hover:bg-gray-500 transition-all duration-250'></button>
 
         <BookResultsGrid remainingBooks={remainingBooks} />
       </>

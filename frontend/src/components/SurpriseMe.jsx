@@ -212,7 +212,7 @@ const SurpriseMe = ({ state , dispatch }) => {
   
   const toolTip = () => {
     return createPortal(
-      <div className='surprise-me-tooltip text-black bg-primary-dutch-white line-clamp-1 opacity-0 max-w-[900px] p-[5px] rounded-2xl border-1' ref={tooltipRef}
+      <div className='surprise-me-tooltip text-black bg-primary-dutch-white line-clamp-1 opacity-0 max-w-[900px] p-[5px] rounded-2xl border-1 font-inter' ref={tooltipRef}
       style={{
         position : "absolute",
         left : recPosition.x,
@@ -273,10 +273,10 @@ const SurpriseMe = ({ state , dispatch }) => {
   });
 
   return (
-    <div className='surprise-me-wrapper h-full'>
+    <div className='surprise-me-wrapper h-full font-inter'>
       <div className='surprise-me-main flex justify-center items-center h-full flex-col gap-2'>
 
-        <div className='text-white font-avenir'>Have no idea what to read?</div>
+        <div className='text-white'>Have no idea what to read?</div>
 
         <div className='surprise-me bg-zinc-900 w-[250px] h-[230px] rounded-2xl border-1 border-zinc-400'>
 

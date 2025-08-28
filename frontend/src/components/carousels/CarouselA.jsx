@@ -117,11 +117,11 @@ const CarouselA = ({ state }) => {
   };
 
   return (
-    <div className="carousel-wrapper">
+    <div className="carousel-wrapper font-inter">
       <div className="carousel-main flex justify-center items-center">
         <div className="carousel max-w-[470px] h-[400px] flex flex-row gap-2 justify-center items-center">
           <div className="inner-carousel-wrapper flex flex-col justify-center items-center gap-4 w-[480px]">
-            <span className="text-zinc-300 font-satoshi bg-zinc-700 p-2 rounded-2xl shadow-custom border-1">
+            <span className="text-zinc-300 bg-zinc-700 p-2 rounded-2xl shadow-custom border-1">
               Top Popular Books
             </span>
             <div

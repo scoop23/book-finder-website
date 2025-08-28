@@ -58,7 +58,7 @@ const LeftSide = ({topOneBook}) => {
     // Still thinking what to put here :)
     return (
       <div className='flex second-content text-[15px] justify-center h-[100px] items-center'>
-        <button className='see-more-btn bg-primary-indochine rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:-translate-y-1.5 duration-200 transition-all hover:shadow-2xl'><a className='' href={`${dataVolumeInfo.infoLink}`}>See More</a></button>
+        <button className='see-more-btn bg-[#212129] rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:-translate-y-0.5 duration-200 transition-all hover:shadow-2xl text-white'><a className='' href={`${dataVolumeInfo.infoLink}`}>See More</a></button>
       </div>
     )
   }
@@ -66,7 +66,7 @@ const LeftSide = ({topOneBook}) => {
   const Infos = () => {
     return(
         <div className='content-info-wrapper flex flex-col gap-2 max-w-[430px] max-h-[220px] items-baseline'>
-            <span className='content-info text-[20px] p-2 flex flex-col gap-2 font-satoshi'>
+            <span className='content-info text-[20px] p-2 flex flex-col gap-2'>
               <div className='flex justify-between w-[400px] gap-2'>
                 <div className='line-clamp-3'>{title}</div>
                 <div className='flex justify-center'>
@@ -84,7 +84,7 @@ const LeftSide = ({topOneBook}) => {
               {/* <div className='text-[13px'></div> */}
             </span>
             
-            <div className='description text-[15px] p-2  rounded-2xl max-h-[220px] font-satoshi overflow-hidden '>
+            <div className='description text-[15px] p-2  rounded-2xl max-h-[220px] overflow-hidden '>
               {bookDescription}
             </div>
         </div>
@@ -92,7 +92,7 @@ const LeftSide = ({topOneBook}) => {
   }
 
   return (
-      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar p-3 font-satoshi text-2xl max-w-[700px] max-h-[420px] text-black bg-primary-dutch-white rounded-2xl'>
+      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar p-3 font-inter text-2xl max-w-[700px] max-h-[420px] text-black bg-[#40445a] rounded-2xl'>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
           <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 max-h-[250px]'>
             <div className='pic-div max-h-[220px] justify-center flex object-cover'>

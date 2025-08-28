@@ -5,7 +5,7 @@ import SearchBar from "./SearchBar";
 import "../App.css";
 import BookResults from "./BookResults";
 import Loading from "./Loading";
-const MainPage = React.lazy(() => import("./MainPage"));
+const MainPage = React.lazy(() => import("./pages/MainPage.jsx"));
 import { BASE_URL } from "./api/axios.js";
 import {
   fetchBookByAuthor,
@@ -93,8 +93,6 @@ const BookSearchContainer = () => {
     
   }, [quoteData , randomBookData, genreData]);
 
-  
-  console.log(BASE_URL);
   // debouncing
   // fetchBookByAuthor(apiKey, searchText);
   // bookApi.fetchBookByTitle(searchText, setBookData);
@@ -105,6 +103,7 @@ const BookSearchContainer = () => {
     <>
       <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4 ">
         <div className="inner-main w-full max-w-[1280px] min-h-[780px] rounded-[10px] mx-auto p-4">
+          
           <SearchBar
             dispatch={dispatch} // send useReducer dispatch
             state={state} // the state

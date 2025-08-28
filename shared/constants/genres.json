@@ -59,5 +59,9 @@
   "medical" : "bg-[#376299]",
   "railroad engineering" : "bg-[#997d37]",
   "railroad tracks" : "bg-[#cc991d]",
-  "knights and knighthood" : "bg-[#a86832]"
+  "knights and knighthood" : "bg-[#a86832]",
+  "political science" : "bg-[#fc6b03]",
+  "meteorology" : "bg-[#9803fc]",
+  "air" : "bg-[#e0fffe]",
+  "music" : "bg-[#d13674]"
 }    

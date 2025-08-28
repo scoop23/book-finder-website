@@ -14,7 +14,7 @@ const CarouselBCard = forwardRef(({ data, CARDWIDTH, whileHover, offHoverCard} ,
     if (seeMoreBtnRef.current && iconRef.current) {
       gsap.to(seeMoreBtnRef.current, {
         duration: 0.5,
-        width: 100,
+        width: 110,
         ease : 'power1.out'
       })
 
@@ -30,7 +30,7 @@ const CarouselBCard = forwardRef(({ data, CARDWIDTH, whileHover, offHoverCard} ,
     if(seeMoreBtnRef.current && iconRef.current) {
       gsap.to(seeMoreBtnRef.current, {
         duration : 0.5,
-        width : 69,
+        width : 100,
         ease : 'power1.out'
       })
 
@@ -45,7 +45,7 @@ const CarouselBCard = forwardRef(({ data, CARDWIDTH, whileHover, offHoverCard} ,
   
   return (
     <>
-      <div className={`font-satoshi carouselB-card h-[220px] bg-zinc-800 rounded-[20px]  flex flex-col justify-center `}
+      <div className={`font-inter carouselB-card h-[220px] bg-zinc-800 rounded-[20px]  flex flex-col justify-center `}
       style={{
         width : `${CARDWIDTH}px`,
       }} onMouseEnter={whileHover} onMouseLeave={offHoverCard} ref={ref}>
@@ -76,7 +76,7 @@ const CarouselBCard = forwardRef(({ data, CARDWIDTH, whileHover, offHoverCard} ,
 
             <div className=' w-full h-[100px] flex items-end justify-end p-2'> 
               <button className='rounded-2xl flex justify-center gap-2 items-center'>
-                <div className='bg-amber-50 flex rounded-2xl justify-center items-center cursor-pointer' ref={seeMoreBtnRef} style={{ transition : 'width 0.3 ease' }} onMouseEnter={onHover} onMouseLeave={offHover}>
+                <div className='bg-amber-50 flex rounded-2xl justify-center items-center cursor-pointer ' ref={seeMoreBtnRef} style={{ transition : 'width 0.3 ease' , height : "35px" , width : "100px"}} onMouseEnter={onHover} onMouseLeave={offHover}>
                   <div className='text-black text-[12px] rounded-2xl self-center cursor-pointer flex items-center justify-center p-2'>
                     See more.
                   </div>

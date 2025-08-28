@@ -26,9 +26,9 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
   
   const Book2Info = () => {
     return (
-      <div className='content-info2 flex flex-col w-[430px] max-h-[220px] items-baseline'>
+      <div className='content-info2 flex flex-col w-[430px] max-h-[220px] items-baseline font-inter'>
           <div className='flex justify-between w-[430px]'>
-            <div className='font-satoshi title2 max-h-[200px] text-[20px] p-1 flex break-words w-[430px] justify-between '>
+            <div className=' title2 max-h-[200px] text-[20px] p-1 flex break-words w-[430px] justify-between '>
                 <div className='line-clamp-3'>{title2}</div>
               <div className='flex justify-center '>
                 {
@@ -54,7 +54,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
     
     <div className='content-info3 flex flex-col min-w-[430px] max-h-[220px] items-baseline'>
       <div className='flex justify-between w-[430px]'>
-          <div className='font-satoshi title2 max-h-[200px] text-[20px] p-1 flex break-words w-[430px] justify-between '>
+          <div className='font-inter title2 max-h-[200px] text-[20px] p-1 flex break-words w-[430px] justify-between '>
               <div className='line-clamp-2'>{title3}</div>
             <div className='flex justify-center '>
               {
@@ -107,7 +107,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
       <motion.div
         // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
-        <div className='right-sidebar text-black p-4 font-satoshi text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
+        <div className='right-sidebar text-black p-4 text-[100px] max-w-[620px] h-[200px] bg-[#40445a] rounded-2xl flex gap-2 shadow-custom'>
         <div className='flex first-content gap-3 bg-primary-graychateau p-4 rounded-4xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={imglink2 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>
@@ -119,7 +119,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
       </motion.div>
       <motion.div
       >
-        <div className='right-sidebar text-black p-4 font-satoshi text-[100px] max-w-[620px] h-[200px] bg-primary-dutch-white rounded-2xl flex gap-2 shadow-custom'>
+        <div className='right-sidebar text-black p-4 text-[100px] max-w-[620px] h-[200px] bg-[#40445a] rounded-2xl flex gap-2 shadow-custom'>
         <div className='flex first-content gap-3 bg-primary-graychateau p-4 rounded-4xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200'>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={imglink3 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>
