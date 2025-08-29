@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import book_empty from '../assets/book_empty.png';
 import { createPortal } from 'react-dom';
 
-const SurpriseMe = ({ state , dispatch }) => {
+const SurpriseMe = ({ state }) => {
   // ignore this 
   // ---------------------------------------------------
   // get the width and height for boundaries

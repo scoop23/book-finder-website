@@ -3,14 +3,17 @@ import { FaSearch , FaHome } from 'react-icons/fa';
 import { animate } from 'motion';
 import  SearchAuthor  from './SearchAuthor.jsx'
 import { BookSearchContext } from '../context/BookSearchContext.jsx';
+import { Navigate, useNavigate } from 'react-router';
 
 const SearchBar = () => {  
   const { state , dispatch } = useContext(BookSearchContext); // get the context
+  const navigate = useNavigate();
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
   const searchTitle = useRef();
-  
+  const [searchCategory , setSearchCategory] = useState('title');
+
   const { 
     searchType 
   } = state; // get the state destructuring
@@ -32,19 +35,27 @@ const SearchBar = () => {
   }
 
   useEffect(() => {
-  if (searchType.includes("author")) {
-    setClickedSearchAuthor(true);
-  } else {
-    setClickedSearchAuthor(false);
-  }
+    if (searchType.includes("author")) {
+      setClickedSearchAuthor(true);
+      setSearchCategory('author')
+    } else {
+      setClickedSearchAuthor(false);
+    }
 
-  if (searchType.includes("title")) {
-    setClickedSearchTitle(true);
-  } else {
-    setClickedSearchTitle(false);
-  }
-}, [searchType]);
+    if (searchType.includes("title")) {
+      setClickedSearchTitle(true);
+      setSearchCategory('title')
+    } else {
+      setClickedSearchTitle(false);
+    }
 
+    if(searchType.includes("title") && searchType.includes("author")) {
+      setSearchCategory("title-author")
+    }
+
+  }, [searchType]);
+
+  console.log(searchCategory)
 
 function buttonSearchTitle() {
   const element = searchTitle.current;
@@ -123,11 +134,32 @@ function buttonSearchAuthor() {
               defaultValue={""}
               onKeyDown={(e) => {
                 if(e.key === 'Enter'){
-                  dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value })
+                  dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
+                  if(!state.searchType){
+                    console.log("\n Pick a searchType \n");
+                    return;
+                  }
+                  if(e.target.value.trim()){
+                    switch(searchCategory) {
+                      case 'title' : {
+                        navigate(`/search/title?query=${encodeURIComponent(e.target.value)}&page=1`);
+                        break;
+                      }
+                      case 'author' : {
+                        navigate(`/search/author?query=${encodeURIComponent(e.target.value)}&page=1`)
+                        break;
+                      }
+                      case 'title-author' : {
+                        navigate(`/search/title-author?query=${encodeURIComponent(e.target.value)}&page=1`)
+                        break;
+                      }
+                      default : 'title'  
+                    }
+                  }
                 }
               }}
               placeholder={`${searchType.includes("author") && searchType.includes("title") ? "Search Title of Book.. " : "Author/Title a Book.. "}`}
-              />
+              /> 
               <div className='click-search w-[40] h-[40] p-2 cursor-pointer' onClick={() => handleClickSearch()}>
                 <FaSearch />
               </div>
