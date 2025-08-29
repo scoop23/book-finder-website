@@ -5,7 +5,7 @@ const genres = require("../shared/constants/genres.json");
 
 
 const apikey = process.env.API_KEY;
-
+const nyApiKey = process.env.NEW_YORK_TIMES_API;
 async function getTitleByAuthor(query, res) {
 try {
     const response = await axios.get("https://www.googleapis.com/books/v1/volumes", {
@@ -122,7 +122,7 @@ async function getGenre(genre, res) {
         q : `subject:${genre}`,
       }
     });
-
+    
     return res.json(response.data);
   } catch(err) {
     if(err.response) {

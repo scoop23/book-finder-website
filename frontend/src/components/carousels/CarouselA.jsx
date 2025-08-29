@@ -121,7 +121,7 @@ const CarouselA = ({ state }) => {
       <div className="carousel-main flex justify-center items-center">
         <div className="carousel max-w-[470px] h-[400px] flex flex-row gap-2 justify-center items-center">
           <div className="inner-carousel-wrapper flex flex-col justify-center items-center gap-4 w-[480px]">
-            <span className="text-zinc-300 bg-zinc-700 p-2 rounded-2xl shadow-custom border-1">
+            <span className="text-primary-dutch-white text-[15px]  p-3.5 rounded-2xl shadow-custom border-1">
               Top Popular Books
             </span>
             <div

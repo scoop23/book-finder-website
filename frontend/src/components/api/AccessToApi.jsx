@@ -23,10 +23,11 @@ export const fetchBookByAuthorWithTitle = async (author, searchText) => {
 };
 
 export const fetchBookByTitle = async (searchText) => {
-  const response = await axios.get(
-    `http://localhost:8080/search/title?q=${searchText}`
-  );
-  return response.data;
+  // const response = await axios.get(
+  //   `http://localhost:8080/search/title?q=${searchText}`
+  // );
+  // return response.data;
+  return apiGet(`http://localhost:8080/search/title?q=${searchText}`)
 };
 
 // find free api for quotes

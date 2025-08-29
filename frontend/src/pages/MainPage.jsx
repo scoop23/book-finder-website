@@ -1,7 +1,9 @@
-import CarouselA from '../carousels/CarouselA';
-import CarouselB from '../carousels/CarouselB';
-import Quotes from '../ui/Quotes';
-import SurpriseMe from '../SurpriseMe';
+import CarouselA from '../components/carousels/CarouselA';
+import CarouselB from '../components/carousels/CarouselB';
+import Quotes from '../components/ui/Quotes';
+import SurpriseMe from '../components/SurpriseMe';
+
+// [this should be /main]
 
 const MainPage = ({ quoteData, state , dispatch }) => {
   return (
@@ -40,4 +42,4 @@ const MainPage = ({ quoteData, state , dispatch }) => {
   )
 }
 
-export default MainPage
+export default MainPage;

@@ -5,8 +5,7 @@ import SearchBar from "./SearchBar";
 import "../App.css";
 import BookResults from "./BookResults";
 import Loading from "./Loading";
-const MainPage = React.lazy(() => import("./pages/MainPage.jsx"));
-import { BASE_URL } from "./api/axios.js";
+const MainPage = React.lazy(() => import("../pages/MainPage.jsx"));
 import {
   fetchBookByAuthor,
   fetchBookByTitle,
@@ -18,8 +17,10 @@ import {
 import useFetch from "./hooks/useFetch.jsx";
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
+import { BookSearchContext } from "../context/BookSearchContext.jsx";
 
-const BookSearchContainer = () => {
+
+const BookSearchContainer = ({ children }) => {
   const STATE = {
     searchText: "",
     author: "",
@@ -101,29 +102,29 @@ const BookSearchContainer = () => {
 
   return (
     <>
-      <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4 ">
-        <div className="inner-main w-full max-w-[1280px] min-h-[780px] rounded-[10px] mx-auto p-4">
-          
-          <SearchBar
-            dispatch={dispatch} // send useReducer dispatch
-            state={state} // the state
-          />
+    <BookSearchContext.Provider value={{state , dispatch}} > {/* provide context on the children */}
+        <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4 ">
+          <div className="inner-main w-full max-w-[1280px] min-h-[780px] rounded-[10px] mx-auto p-4">
 
-          {state.bookData && (<BookResults data={state.bookData}/>)}
+            {children} {/* gets the children and put it here */}
 
-          <Suspense fallback={<Loading />}>
-          {state.quoteData && !state.bookData && (
-            <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
-          )}
-          </Suspense>
+            {state.bookData && (<BookResults data={state.bookData}/>)}
 
-          {!state.quoteData && !state.bookData && (
-            <Loading/>
-          )}
+            <Suspense fallback={<Loading />}>
+            {state.quoteData && !state.bookData && (
+              <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
+            )}
+            </Suspense>
 
+            {!state.quoteData && !state.bookData && (
+              <Loading/>
+            )}
+
+          </div>
         </div>
-      </div>
+      </BookSearchContext.Provider>
     </>
+    
   );
 };
 

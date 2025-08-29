@@ -14,9 +14,9 @@ const SearchAuthor = ({ dispatch , state, setClickedSearchAuthor}) => {
   }
 
   return (
-    <div className='search-author-input h-[70px] bg-amber-50 rounded-4xl items-center justify-center flex p-4'>
+    <div className='search-author-input h-[70px] bg-amber-50 rounded-4xl items-center justify-center flex p-4 font-inter'>
       <input 
-      className='author-search items-center font-winky outline-0 rounded-2xl'
+      className='author-search items-center outline-0 rounded-2xl'
       placeholder='Author Name..'
       type="text" 
       defaultValue={""}

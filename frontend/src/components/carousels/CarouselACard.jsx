@@ -85,8 +85,8 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
           src={smallThumbnail || book_empty}
           className="max-w-[120px] rounded-[10px] object-cover h-[200px] border-1 border-primary-blackrock"
         />
-        <span 
-          className="title text-[11px] line-clamp-1 cursor-pointer px-2 py-1"  
+        <div 
+          className="title text-[11px] line-clamp-1 cursor-pointer"  
           onMouseEnter={() => titleMessageOnHover()}
           onMouseLeave={() => {
             // console.log('Mouse leave triggered. Moving to:', e.relatedTarget);
@@ -99,7 +99,7 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
           isHovering && hoverTitle() // stationed inside the span because of hover problems
           } 
           
-        </span>
+        </div>
         
       </div>
   )

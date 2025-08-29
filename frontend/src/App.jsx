@@ -1,12 +1,19 @@
 import React from 'react'
 import BookSearchContainer from './components/BookSearchContainer'
 import './App.css'
+import SearchBar from './components/SearchBar'
+import { BrowserRouter, Route, Routes } from "react-router";
+import SearchPage from './pages/SearchPage';
 
 const App = () => {
   return (
-    <div className='p-[10px]'>
-      <BookSearchContainer/>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<SearchPage />}/>
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 

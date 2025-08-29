@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const {getQuotes, getRandomBooks} = require('../util')
 
-
 router.get("/random-quote", async (req , res) => {
   await getQuotes(res);
 });

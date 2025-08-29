@@ -1,13 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { FaSearch , FaHome } from 'react-icons/fa';
 import { animate } from 'motion';
 import  SearchAuthor  from './SearchAuthor.jsx'
+import { BookSearchContext } from '../context/BookSearchContext.jsx';
 
-const SearchBar = ({ dispatch , state }) => {  
+const SearchBar = () => {  
+  const { state , dispatch } = useContext(BookSearchContext); // get the context
+
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
   const searchTitle = useRef();
+
 
 
   const { 
@@ -79,9 +83,9 @@ function buttonSearchTitle() {
 }
 
 // ADD ANIMATION WHEN CLICKED/ENTER
-function searchBarAnimation() {
+// function searchBarAnimation() {
   
-}
+// }
 
 function buttonSearchAuthor() {
   const element = searchAuthor.current
@@ -115,20 +119,20 @@ function buttonSearchAuthor() {
 }
 
   return (
-    <div className='search-bar-wrapper flex flex-col'>
+    <div className='search-bar-wrapper flex flex-col font-inter'>
       
       <div className='outer-search-bar-container p-[20px] max-w-full min-h-[20px] flex justify-between gap-2 '>
         <button className='home-button flex flex-row gap-2 items-center rounded-4xl p-8 border-1 h-[70px] text-amber-100 hover:text-black hover:bg-amber-50 duration-250 transition-all cursor-pointer'><FaHome /></button>
 
         <div className='flex gap-2 buttons-wrapper'>
 
-          <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
+          <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
           onClick={() => buttonSearchTitle()} ref={searchTitle}>Title Search</button>
 
           {!(searchType.includes("title") && searchType.includes("author")) &&
             // opposite of when author and title search are active
             <> 
-              <button className={`${ clickedSearchAuthor ? 'hover:bg-primary-ebony-clay text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'} search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] font-satoshi cursor-pointer hover:shadow-lg `}
+              <button className={`${ clickedSearchAuthor ? 'hover:bg-primary-ebony-clay text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'} search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg `}
               onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Author Search</button> 
             </>
           }
@@ -140,7 +144,7 @@ function buttonSearchAuthor() {
 
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
               <input
-              className={`input-search hidden w-0 rounded-2xl outline-0 font-winky`}
+              className={`input-search hidden w-0 rounded-2xl outline-0 font-inter`}
               type="text"
               defaultValue={""}
               onKeyDown={(e) => {

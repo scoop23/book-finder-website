@@ -7,15 +7,17 @@ import GenreTags from './GenreTags';
 import LeftSide from './ui/LeftSide.jsx'
 import RightSide from './ui/RightSide.jsx';
 
+
+// [this should be /search route]
 const BookResults = ({ data }) => {
-  const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en")
+  const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en") // gets only the volumeInfo with en language
   const entopBooks = filteredLanguage?.slice(0, 3); // ?. - safety check data.items if it exists
   const topOneBook = entopBooks?.[0];
   const topTwoBook = entopBooks?.[1];
   const topThreeBook = entopBooks?.[2];
   const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
   return (
-    <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px]'>
+    <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px] font-inter'>
       {!data.items?.length ? (
         <div className='no-data-books'>
           No Books Found!
