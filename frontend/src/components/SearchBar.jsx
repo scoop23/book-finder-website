@@ -6,14 +6,11 @@ import { BookSearchContext } from '../context/BookSearchContext.jsx';
 
 const SearchBar = () => {  
   const { state , dispatch } = useContext(BookSearchContext); // get the context
-
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
   const searchTitle = useRef();
-
-
-
+  
   const { 
     searchType 
   } = state; // get the state destructuring
@@ -58,13 +55,6 @@ function buttonSearchTitle() {
   }
 
   if (!clickedSearchTitle) {
-
-    // setSearchType((type) => {
-    //   const array = [...type]
-    //   array[0] = 'title'
-    //   return array
-    // });
-
     dispatch({ type : 'SET_SEARCH_TYPE', payload : {index : 0, value : 'title'}});
     setClickedSearchTitle(true);
     
@@ -72,7 +62,6 @@ function buttonSearchTitle() {
     element.classList.add("bg-amber-50", "text-black", "hover:bg-primary-ebony-clay", "hover:text-amber-100");
 
   } else {
-    // setSearchType(prev => prev.map(type => type === 'title' ? null : type));
     dispatch({ type: 'SET_SEARCH_TYPE', payload: { index: 0, value: null } });
 
     setClickedSearchTitle(false)
@@ -95,26 +84,11 @@ function buttonSearchAuthor() {
   }
 
   if(!clickedSearchAuthor) {
-
-    // setSearchType((type) => {
-    //   const array = [...type]
-    //   array[1] = 'author'
-    //   return array
-    // });
-
     dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1 , value : "author"} })
     setClickedSearchAuthor(true);
-
-    // element.classList.remove("hover:bg-amber-50" , "hover:text-black")
-    // element.classList.add("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
   } else {
-
-    // setSearchType(prev => prev.map(type => type === 'author' ? null : type));
     dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : null} })
     setClickedSearchAuthor(false); 
-
-    // element.classList.remove("hover:bg-primary-ebony-clay" , "text-black", "bg-amber-50", "hover:text-amber-100")
-    // element.classList.add("hover:bg-amber-50" , "hover:text-black")
   }
 }
 

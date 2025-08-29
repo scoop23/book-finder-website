@@ -5,7 +5,7 @@ import SearchBar from "./SearchBar";
 import "../App.css";
 import BookResults from "./BookResults";
 import Loading from "./Loading";
-const MainPage = React.lazy(() => import("../pages/MainPage.jsx"));
+const MainPage = React.lazy(() => import("./MainPage.jsx"));
 import {
   fetchBookByAuthor,
   fetchBookByTitle,
@@ -13,8 +13,8 @@ import {
   fetchQuotes,
   getGenre,
   fetchRandomBook
-} from "./api/AccessToApi";
-import useFetch from "./hooks/useFetch.jsx";
+} from "@/api/AccessToApi.jsx";
+import useFetch from "@/hooks/useFetch.jsx";
 // TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
 import { BookSearchContext } from "../context/BookSearchContext.jsx";
@@ -111,9 +111,9 @@ const BookSearchContainer = ({ children }) => {
             {state.bookData && (<BookResults data={state.bookData}/>)}
 
             <Suspense fallback={<Loading />}>
-            {state.quoteData && !state.bookData && (
-              <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
-            )}
+              {state.quoteData && !state.bookData && (
+                <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
+              )}
             </Suspense>
 
             {!state.quoteData && !state.bookData && (

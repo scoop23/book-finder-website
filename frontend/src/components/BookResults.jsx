@@ -10,6 +10,10 @@ import RightSide from './ui/RightSide.jsx';
 
 // [this should be /search route]
 const BookResults = ({ data }) => {
+  if(!data) return (
+    <div>Try Searching</div>
+  )
+  
   const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en") // gets only the volumeInfo with en language
   const entopBooks = filteredLanguage?.slice(0, 3); // ?. - safety check data.items if it exists
   const topOneBook = entopBooks?.[0];
