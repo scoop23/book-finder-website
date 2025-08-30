@@ -105,16 +105,14 @@ const BookSearchContainer = ({ children }) => {
     <BookSearchContext.Provider value={{state , dispatch}} > {/* provide context on the children */}
         <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4 ">
           <div className="inner-main w-full max-w-[1280px] min-h-[780px] rounded-[10px] mx-auto p-4">
-
+            
             {children} {/* gets the children and put it here */}
 
-            {state.bookData && (<BookResults data={state.bookData}/>)}
-
-            <Suspense fallback={<Loading />}>
+            {/* <Suspense fallback={<Loading />}>
               {state.quoteData && !state.bookData && (
                 <MainPage data={state.bookData} quoteData={state.quoteData} state={state} dispatch={dispatch}/>
               )}
-            </Suspense>
+            </Suspense> */}
 
             {!state.quoteData && !state.bookData && (
               <Loading/>

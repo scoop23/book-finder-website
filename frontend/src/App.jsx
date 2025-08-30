@@ -9,6 +9,7 @@ import {
   QueryClient,
   QueryClientProvider
 } from '@tanstack/react-query'
+import MainPage from './components/MainPage.jsx';
 
 const queryClient = new QueryClient()
 
@@ -19,6 +20,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path='search' element={<SearchPage />}>
+              <Route index element={<MainPage />}/>
               <Route path='title' element={<TitlePageResults />}></Route>
               <Route path='author'></Route>
               <Route path='title-author'></Route>
