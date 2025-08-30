@@ -3,12 +3,14 @@ const axios = require("axios")
 require('dotenv').config();
 const genres = require("../shared/constants/genres.json");
 
-
+const GOOGLE_BOOKS_BASE_URL = process.env.GOOGLE_BOOKS_BASE_URL;
 const apikey = process.env.API_KEY;
 const nyApiKey = process.env.NEW_YORK_TIMES_API;
+
+console.log(GOOGLE_BOOKS_BASE_URL)
 async function getTitleByAuthor(query, res) {
 try {
-    const response = await axios.get("https://www.googleapis.com/books/v1/volumes", {
+    const response = await axios.get(GOOGLE_BOOKS_BASE_URL, {
       params : {
         q : `inauthor:${query}`,
         key : apikey
@@ -32,7 +34,7 @@ try {
 
 async function getTitleAndAuthor(arr , res) {
   try {
-    const response = await axios.get("https://www.googleapis.com/books/v1/volumes" , {
+    const response = await axios.get(GOOGLE_BOOKS_BASE_URL , {
       params : {
         q : `intitle:${arr[0]}+inauthor:${arr[1]}`,
         key : apikey,
@@ -80,7 +82,7 @@ async function getRandomBooks(res) {
   const randomKeyword = keywords[randomNum];
   
   try {
-    const response = await axios.get("https://www.googleapis.com/books/v1/volumes" , {
+    const response = await axios.get(GOOGLE_BOOKS_BASE_URL , {
       params : {
         q : `${randomKeyword}`
       }
@@ -97,7 +99,7 @@ async function getRandomBooks(res) {
 
 async function getTitleName(query, res) {
     try {
-      const response = await axios.get("https://www.googleapis.com/books/v1/volumes" , {
+      const response = await axios.get(GOOGLE_BOOKS_BASE_URL, {
         params : {
           q : `intitle:${query}`,
           key : apikey
@@ -117,7 +119,7 @@ async function getTitleName(query, res) {
 
 async function getGenre(genre, res) {
   try {
-    const response = await axios.get("https://www.googleapis.com/books/v1/volumes" , {
+    const response = await axios.get(GOOGLE_BOOKS_BASE_URL , {
       params : {
         q : `subject:${genre}`,
       }

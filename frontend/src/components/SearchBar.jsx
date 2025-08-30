@@ -3,7 +3,7 @@ import { FaSearch , FaHome } from 'react-icons/fa';
 import { animate } from 'motion';
 import  SearchAuthor  from './SearchAuthor.jsx'
 import { BookSearchContext } from '../context/BookSearchContext.jsx';
-import { Navigate, useNavigate } from 'react-router';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {  
   const { state , dispatch } = useContext(BookSearchContext); // get the context
@@ -55,7 +55,6 @@ const SearchBar = () => {
 
   }, [searchType]);
 
-  console.log(searchCategory)
 
 function buttonSearchTitle() {
   const element = searchTitle.current;

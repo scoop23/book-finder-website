@@ -44,8 +44,8 @@ const BookCard = forwardRef(({ bookData } , ref) => {
                         </div>
                       ) : ( 
                         <div>
-                          {authors.map(author => (
-                            <div>{author}</div>
+                          {authors.map((author , index) => (
+                            <div key={index}>{author}</div>
                           ))}
                         </div>
                       )
