@@ -11,8 +11,10 @@ import {
 } from '@tanstack/react-query'
 import MainPage from './components/MainPage.jsx';
 import BookSearchProvider, { BookSearchContext } from './context/BookSearchContext.jsx';
+import AuthorPageResults from './pages/SearchPage/AuthorPageResults/index.jsx';
+import TitleAndAuthorPageResults from './pages/SearchPage/TitleAndAuthorPageResults/index.jsx';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
@@ -21,12 +23,11 @@ const App = () => {
         <BookSearchProvider>  
           <BrowserRouter>
             <Routes>
-              
                 <Route path='search' element={<SearchPage />}>
                   <Route index element={<MainPage />}/>
                   <Route path='title' element={<TitlePageResults />}></Route>
-                  <Route path='author'></Route>
-                  <Route path='title-author'></Route>
+                  <Route path='author' element={<AuthorPageResults />}></Route>
+                  <Route path='title-author' element={<TitleAndAuthorPageResults />}></Route>
                 </Route>
             </Routes>
           </BrowserRouter>

@@ -50,10 +50,10 @@ const BookSearchProvider = ({ children }) => {
         if (state.searchText.trim() !== "") {
           if (state.searchType[1] === "author") {
             console.log("Fetching Titles with authorname");
-            dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByAuthor(state.searchText)});
+            // dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByAuthor(state.searchText)});
           } else if (state.searchType[0] === "title") {
             console.log("Fetching titles with titlename");
-            dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByTitle(state.searchText)});
+            // dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByTitle(state.searchText)});
           }
         }
       } else if (
@@ -65,13 +65,11 @@ const BookSearchProvider = ({ children }) => {
       ) {
         console.log("Fetching titles with matching authorname");
         // setBookData(await fetchBookByAuthorWithTitle(state.author, state.searchText));
-        dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByAuthorWithTitle(state.author , state.searchText)})
+        // dispatch({ type : "SET_BOOK_DATA" , payload : await fetchBookByAuthorWithTitle(state.author , state.searchText)})
       }
     }, 1000);
     return () => clearTimeout(delay); // cleanup debounce
   }, [state.searchText, state.searchType, state.author]);   
-
-  
 
   return (
     <BookSearchContext.Provider value={{ state , dispatch }}>

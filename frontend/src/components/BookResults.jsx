@@ -11,7 +11,7 @@ import Loading from './Loading.jsx';
 
 // [this should be /search route]
 const BookResults = ({ data , isPending }) => {
-  if(isPending) return <Loading />
+  if(isPending) return <Loading /> // if data is pending return loading component
 
   if (!data) {
     return <div>Try Searching</div>
@@ -31,18 +31,18 @@ const BookResults = ({ data , isPending }) => {
         </div>
       ) : (
         <>
-        <div className='flex flex-row-reverse w-full text-white'>
-          <span>129 results found in the Akashic Records. </span>
-        </div>
-        <div className='main-bar flex gap-4 max-w-[1300px] items-center justify-center '>
-          <LeftSide topOneBook={topOneBook}/>
-          <RightSide topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
-        </div>
+          <div className='flex flex-row-reverse w-full text-white'>
+            <span>129 results found in the Akashic Records. </span>
+          </div>
+          <div className='main-bar flex gap-4 max-w-[1300px] items-center justify-center '>
+            <LeftSide topOneBook={topOneBook}/>
+            <RightSide topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
+          </div>
 
-        <button className='page-btn border max-w-[100px] p-2 rounded-[40px] cursor-pointer hover:bg-gray-500 transition-all duration-250'></button>
+          <button className='page-btn border max-w-[100px] p-2 rounded-[40px] cursor-pointer hover:bg-gray-500 transition-all duration-250'></button>
 
-        <BookResultsGrid remainingBooks={remainingBooks} />
-      </>
+          <BookResultsGrid remainingBooks={remainingBooks} />
+        </>
       ) }
     </div>
   );

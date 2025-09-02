@@ -7,7 +7,6 @@ const GOOGLE_BOOKS_BASE_URL = process.env.GOOGLE_BOOKS_BASE_URL;
 const apikey = process.env.API_KEY;
 const nyApiKey = process.env.NEW_YORK_TIMES_API;
 
-console.log(GOOGLE_BOOKS_BASE_URL)
 async function getTitleByAuthor(query, res) {
 try {
     const response = await axios.get(GOOGLE_BOOKS_BASE_URL, {
@@ -16,11 +15,6 @@ try {
         key : apikey
       }
     });
-    
-    // if(response.data) {
-    //   const items = response.data.items;
-    // }
-
     return res.json(response.data);
   } catch(err) {
     console.error('Error fetchinsg data from Google Books API:', err.message);

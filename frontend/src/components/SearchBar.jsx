@@ -106,7 +106,9 @@ function buttonSearchAuthor() {
     <div className='search-bar-wrapper flex flex-col font-inter'>
       
       <div className='outer-search-bar-container p-[20px] max-w-full min-h-[20px] flex justify-between gap-2 '>
-        <button className='home-button flex flex-row gap-2 items-center rounded-4xl p-8 border-1 h-[70px] text-amber-100 hover:text-black hover:bg-amber-50 duration-250 transition-all cursor-pointer'><FaHome /></button>
+        <button className='home-button flex flex-row gap-2 items-center rounded-4xl p-8 border-1 h-[70px] text-amber-100 hover:text-black hover:bg-amber-50 duration-250 transition-all cursor-pointer' onClick={() => {
+          navigate('/search')
+        }}><FaHome /></button>
 
         <div className='flex gap-2 buttons-wrapper'>
 
@@ -145,11 +147,11 @@ function buttonSearchAuthor() {
                         break;
                       }
                       case 'author' : {
-                        navigate(`/search/author?query=${encodeURIComponent(e.target.value)}&page=1`)
+                        navigate(`/search/author?query=${encodeURIComponent(e.target.value)}&page=1`);
                         break;
                       }
                       case 'title-author' : {
-                        navigate(`/search/title-author?query=${encodeURIComponent(e.target.value)}&page=1`)
+                        navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${state.author}&page=1`);
                         break;
                       }
                       default : 'title'  
