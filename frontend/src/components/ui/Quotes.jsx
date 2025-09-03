@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../Loading";
+import LoadingQuotes from "../LoadingQuotes";
 
 const Quotes = ({ quoteData }) => {
   // get quotes from an api
@@ -17,7 +17,7 @@ const Quotes = ({ quoteData }) => {
     }
   }, [quoteData]);
 
-  if (!quote) return <Loading />;
+  if (!quote) return <LoadingQuotes />;
   const { q, a } = quote;
 
 
