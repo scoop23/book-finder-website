@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CodexCross } from './icons/CodexCross'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
@@ -14,6 +14,11 @@ const SearchAuthor = ({ dispatch , state, setClickedSearchAuthor}) => {
     return localStorage.getItem("authorText") || state.author;
   })
 
+  useEffect(() => {
+    localStorage.setItem("authorText" , localAuthorText);
+
+  }, [localAuthorText])
+
   function onSubmitSearch(e) {
   if(e.key === 'Enter'){
       dispatch({ type : "SET_AUTHOR_TEXT" , payload : e.target.value })
@@ -23,6 +28,8 @@ const SearchAuthor = ({ dispatch , state, setClickedSearchAuthor}) => {
       }
 
       if(e.target.value.trim()){
+        setLocalAuthorText(e.target.value)
+
         navigate(`/search/title-author?p1=${encodeURIComponent(state.searchText)}&p2=${state.author}&page=1`);
       }
       console.error("Please Type a Author.")
@@ -44,7 +51,7 @@ const SearchAuthor = ({ dispatch , state, setClickedSearchAuthor}) => {
       className='author-search items-center outline-0 rounded-2xl'
       placeholder='Author Name..'
       type="text" 
-      defaultValue={""}
+      defaultValue={localAuthorText}
       onKeyDown={(e) => onSubmitSearch(e)}
       />
       <div className='rounded-2xl x-icon w-[40px] cursor-pointer' onClick={resetAuthor}>
