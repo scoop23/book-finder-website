@@ -173,6 +173,7 @@ function buttonSearchTitle() {
 
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
               <input
+              required
               className={`input-search hidden w-0 rounded-2xl outline-0 font-inter`}
               type="text"
               defaultValue={localSearchText}
