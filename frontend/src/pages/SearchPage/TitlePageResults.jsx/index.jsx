@@ -18,7 +18,7 @@ const TitlePageResults = () => {
   );
     
   return (
-    <div>
+    <div className='h-full'>
       <BookResults data={data} isPending={isPending}/>
     </div>
   )

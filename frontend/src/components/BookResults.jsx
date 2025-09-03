@@ -10,7 +10,7 @@ import Loading from './Loading.jsx';
 
 
 // [this should be /search route]
-const BookResults = ({ data , isPending }) => {
+const   BookResults = ({ data , isPending }) => {
   if(isPending) return <Loading /> // if data is pending return loading component
 
   if (!data) {

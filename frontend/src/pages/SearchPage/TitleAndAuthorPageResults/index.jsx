@@ -18,11 +18,8 @@ const TitleAndAuthorPageResults = () => {
     page
   )
 
-  console.log(title)
-  console.log(author)
-
   return (
-    <div>
+    <div className='h-full'>
       <BookResults data={data} isPending={isPending}/>
     </div>
   )

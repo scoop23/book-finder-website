@@ -13,6 +13,13 @@ const SearchBar = () => {
   const searchAuthor = useRef()
   const searchTitle = useRef();
   const [searchCategory , setSearchCategory] = useState('title');
+  const [localSearchText , setLocalSearchText] = useState(() => {
+    return localStorage.getItem("searchText") || state.searchText;
+  })
+
+  useEffect(() => {
+    localStorage.setItem("searchText" , localSearchText);
+  }, [localSearchText])
 
   const { 
     searchType 
@@ -86,21 +93,57 @@ function buttonSearchTitle() {
   
 // }
 
-function buttonSearchAuthor() {
-  const element = searchAuthor.current
-  
-  if(!element) {
-    console.log("No ", element)
+  function buttonSearchAuthor() {
+    const element = searchAuthor.current
+    
+    if(!element) {
+      console.log("No ", element)
+    }
+
+    if(!clickedSearchAuthor) {
+      dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1 , value : "author"} })
+      setClickedSearchAuthor(true);
+    } else {
+      dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : null} })
+      setClickedSearchAuthor(false); 
+    }
   }
 
-  if(!clickedSearchAuthor) {
-    dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1 , value : "author"} })
-    setClickedSearchAuthor(true);
-  } else {
-    dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : null} })
-    setClickedSearchAuthor(false); 
+  function onSubmitSearch(e) {
+    if(e.key === 'Enter'){
+      dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
+      setLocalSearchText(e.target.value)
+      if(!state.searchType){
+        console.log("\n Pick a searchType \n");
+        return;
+      }
+
+      if(e.target.value.trim()){
+        switch(searchCategory) {
+          case 'title' : {
+            navigate(`/search/title?query=${encodeURIComponent(e.target.value)}&page=1`);
+            break;
+          }
+          case 'author' : {
+            navigate(`/search/author?query=${encodeURIComponent(e.target.value)}&page=1`);
+            dispatch({ type : "SET_AUTHOR_TEXT", payload : e.target.value });
+            break;
+          }
+          case 'title-author' : {
+            if(!state.author) {
+              console.error("Please Input an Author.");
+              return;
+            }
+            console.log(state.author);
+            navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${state.author}&page=1`);
+            break;
+          }
+          default : 'title'  
+        }
+      }
+    }
   }
-}
+
 
   return (
     <div className='search-bar-wrapper flex flex-col font-inter'>
@@ -132,33 +175,8 @@ function buttonSearchAuthor() {
               <input
               className={`input-search hidden w-0 rounded-2xl outline-0 font-inter`}
               type="text"
-              defaultValue={""}
-              onKeyDown={(e) => {
-                if(e.key === 'Enter'){
-                  dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
-                  if(!state.searchType){
-                    console.log("\n Pick a searchType \n");
-                    return;
-                  }
-                  if(e.target.value.trim()){
-                    switch(searchCategory) {
-                      case 'title' : {
-                        navigate(`/search/title?query=${encodeURIComponent(e.target.value)}&page=1`);
-                        break;
-                      }
-                      case 'author' : {
-                        navigate(`/search/author?query=${encodeURIComponent(e.target.value)}&page=1`);
-                        break;
-                      }
-                      case 'title-author' : {
-                        navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${state.author}&page=1`);
-                        break;
-                      }
-                      default : 'title'  
-                    }
-                  }
-                }
-              }}
+              defaultValue={localSearchText}
+              onKeyDown={(e) => onSubmitSearch(e)}
               placeholder={`${searchType.includes("author") && searchType.includes("title") ? "Search Title of Book.. " : "Author/Title a Book.. "}`}
               /> 
               <div className='click-search w-[40] h-[40] p-2 cursor-pointer' onClick={() => handleClickSearch()}>

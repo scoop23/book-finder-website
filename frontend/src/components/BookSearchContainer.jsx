@@ -1,11 +1,11 @@
 // .. MAIN 
-import { Suspense, useCallback, useContext, useEffect, useReducer } from "react";
+import { Suspense, useCallback, useContext, useEffect } from "react";
 import React from "react";
 import SearchBar from "./SearchBar";
 import "../App.css";
 import BookResults from "./BookResults";
 import Loading from "./Loading";
-const MainPage = React.lazy(() => import("./MainPage.jsx"));
+
 import {
   fetchQuotes,
   getGenre,
@@ -17,9 +17,8 @@ import useFetch from "@/hooks/useFetch.jsx";
 import { BookSearchContext } from "../context/BookSearchContext.jsx";
 
 
-const BookSearchContainer = ({ children }) => {
+const  BookSearchContainer = ({ children }) => {
   const {state , dispatch} = useContext(BookSearchContext);
-
   const { data : quoteData } = useFetch(fetchQuotes);
   const { data : randomBookData} = useFetch(fetchRandomBook);
   const fetchGenre = useCallback(() => getGenre(state.genreTag) , [state.genreTag]);
@@ -42,7 +41,7 @@ const BookSearchContainer = ({ children }) => {
     <>
      {/* provide context on the children */}
         <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4 ">
-          <div className="inner-main w-full max-w-[1280px] min-h-[780px] rounded-[10px] mx-auto p-4">
+          <div className="inner-main w-full max-w-[1280px] min-h-[800px] rounded-[10px] mx-auto p-4">
             
             {children} {/* gets the children and put it here */}
 
