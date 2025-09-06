@@ -1,5 +1,5 @@
-import React from "react";
-import Loading from "../Loading";
+import React, { useEffect, useState } from "react";
+import LoadingQuotes from "../LoadingQuotes";
 
 const Quotes = ({ quoteData }) => {
   // get quotes from an api
@@ -9,9 +9,19 @@ const Quotes = ({ quoteData }) => {
   // } else {
   //   console.log("Not exist yet")
   // }
-  const {q , a} = quoteData[0];
-    
-  return (
+  const [quote , setQuote] = useState(null);
+
+  useEffect(() => {
+  if (quoteData) {
+      setQuote(quoteData[0]); // one quote object
+    }
+  }, [quoteData]);
+
+  if (!quote) return <LoadingQuotes />;
+  const { q, a } = quote;
+
+
+  return quote && (
     <div className="quotes-main flex w-full h-full">
       <div className="quotes-wrapper flex justify-center items-center w-full">
         <div className="quotes-inner bg-zinc-900 w-[565px] h-[265px] rounded-2xl border-1 border-zinc-600 flex gap-2">

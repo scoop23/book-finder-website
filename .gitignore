@@ -25,3 +25,4 @@ dist-ssr
 *.sw?
 server/.env
 client/.git-backup
+client/.git

@@ -12,6 +12,7 @@
 :root {
   --font-monday: 'Monday Feelings';
   --font-fasthin : "Fasthin";
+  height: 100%;
 }
 
 .first-content {

@@ -13,7 +13,8 @@ export const useFetchDataTitleSearch = (queryKey , endpoint , title, page) => {
     return response.data;
   }
 
-  const {isPending, error , data} = useQuery({ queryKey : [queryKey , title, page], queryFn : fetchFunction })
+  const {isPending, error , data} = useQuery({ queryKey : [queryKey , title, page], queryFn : fetchFunction });
 
   return {isPending , error , data};
 }
+

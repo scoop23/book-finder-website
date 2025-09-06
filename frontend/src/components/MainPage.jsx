@@ -2,10 +2,13 @@ import CarouselA from '../components/carousels/CarouselA';
 import CarouselB from '../components/carousels/CarouselB';
 import Quotes from '../components/ui/Quotes';
 import SurpriseMe from '../components/SurpriseMe';
+import { useContext } from 'react';
+import { BookSearchContext } from '../context/BookSearchContext';
 
 // [this should be /main]
 
-const MainPage = ({ quoteData, state , dispatch }) => {
+const MainPage = () => {
+  const {state, dispatch} = useContext(BookSearchContext);
   return (
     <div className='main-page-outer-wrapper flex flex-col gap-4'>
       <div className='search-footer flex px-45 gap-2 text-white'>
@@ -27,7 +30,7 @@ const MainPage = ({ quoteData, state , dispatch }) => {
 
           <div className='inner-main-page flex flex-row max-w-[1300px] gap-4 items-center'>
             <div className='card shadow-2xl border-zinc-400 border-1  min-w-[600px] h-[300px] rounded-2xl grow bg-primary-blackrock'>
-              <Quotes quoteData={quoteData}/>
+              <Quotes quoteData={state.quoteData}/>
             </div>
             <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-2xl grow-0 bg-primary-blackrock'>
               <SurpriseMe state={state} dispatch={dispatch}/>
