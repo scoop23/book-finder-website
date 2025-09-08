@@ -1,6 +1,5 @@
 import { forwardRef } from "react"
 
-
 const Pagination = ({className, ...props}) => (// Main Parent
   <nav
     className={`mx-auto flex justify-center w-full ${className || ' '}`}
@@ -25,7 +24,6 @@ const PageLink = forwardRef(({className , ...props} , ref) => (
   ref={ref}
   />
 ))
-
 
 export {
   Pagination,
