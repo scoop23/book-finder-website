@@ -12,10 +12,14 @@ const SearchBar = () => {
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
   const searchTitle = useRef();
-  const [searchCategory , setSearchCategory] = useState('title');
+  const [searchCategory , setSearchCategory] = useState('');
   const [localSearchText , setLocalSearchText] = useState(() => {
     return localStorage.getItem("searchText") || state.searchText;
   })
+
+  console.log(state.searchType)
+  console.log(searchCategory)
+
 
   useEffect(() => {
     localStorage.setItem("searchText" , localSearchText);
@@ -118,7 +122,7 @@ function buttonSearchTitle() {
         return;
       }
 
-      if(e.target.value.trim()){
+      if(e.target.value.trim() && (state.searchType.includes("title") || state.searchType.includes("author"))){
         switch(searchCategory) {
           case 'title' : {
             navigate(`/search/title?query=${encodeURIComponent(e.target.value)}&page=1`);

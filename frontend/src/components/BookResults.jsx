@@ -7,11 +7,17 @@ import GenreTags from './GenreTags';
 import LeftSide from './ui/LeftSide.jsx'
 import RightSide from './ui/RightSide.jsx';
 import Loading from './Loading.jsx';
+import { BookSearchContext } from '../context/BookSearchContext.jsx';
+import { useContext } from 'react';
 
 
 // [this should be /search route]
 const   BookResults = ({ data , isPending }) => {
+  const { state , dispatch } = useContext(BookSearchContext);
+
   if(isPending) return <Loading /> // if data is pending return loading component
+
+  console.log(data)
 
   if (!data) {
     return <div>Try Searching</div>
@@ -23,6 +29,9 @@ const   BookResults = ({ data , isPending }) => {
   const topTwoBook = entopBooks?.[1];
   const topThreeBook = entopBooks?.[2];
   const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
+
+  const totalPages = 10;
+  
   return (
     <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px] font-inter'>
       {!data.items?.length ? (
@@ -39,7 +48,10 @@ const   BookResults = ({ data , isPending }) => {
             <RightSide topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
           </div>
 
-          <button className='page-btn border max-w-[100px] p-2 rounded-[40px] cursor-pointer hover:bg-gray-500 transition-all duration-250'></button>
+          {/* <button className='page-btn border max-w-[100px] px-[15px] py-[10px] rounded-[15px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center'> 1 </button> */}
+          
+          {/* <SearchPagePaginationResults /> */}
+
 
           <BookResultsGrid remainingBooks={remainingBooks} />
         </>
