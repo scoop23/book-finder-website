@@ -179,11 +179,11 @@ function buttonSearchTitle() {
               defaultValue={localSearchText}
               onKeyDown={(e) => {
                   if(state.searchType[0] === null && state.searchType[1] === null) {
-                    
-                    console.log(state.searchType)
+                    console.log(state.searchType);
                   } else {
                     onSubmitSearch(e);
                   }
+                  console.error("Search Type need to be toggled before searching.");
                   return;
                 }
               }
