@@ -10,6 +10,7 @@ const TitleAndAuthorPageResults = () => {
   const author = searchParams.get("p2");
   const page = searchParams.get("startIndex");
 
+
   const { data , isPending } = useFetchAuthorAndTitle(
     '/search/author-title',
     encodeURIComponent(title + " " + author),
