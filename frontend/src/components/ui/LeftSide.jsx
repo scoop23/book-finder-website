@@ -92,7 +92,7 @@ const LeftSide = ({topOneBook}) => {
   }
 
   return (
-      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar p-3 font-inter text-2xl max-w-[700px] max-h-[420px] text-black bg-[#40445a] rounded-2xl'>
+      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-2.5 font-inter text-2xl max-w-[620px] max-h-[420px] text-black bg-[#40445a] rounded-2xl'>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
           <div className='flex first-content gap-4 bg-primary-graychateau p-4 rounded-4xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 max-h-[250px]'>
             <div className='pic-div max-h-[220px] justify-center flex object-cover'>
