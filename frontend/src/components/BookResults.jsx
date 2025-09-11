@@ -9,15 +9,15 @@ import RightSide from './ui/RightSide.jsx';
 import Loading from './Loading.jsx';
 import { BookSearchContext } from '../context/BookSearchContext.jsx';
 import { useContext } from 'react';
+import SearchPagePaginationResults from './SearchPagePaginationResults.jsx';
 
 
 // [this should be /search route]
-const   BookResults = ({ data , isPending }) => {
+const BookResults = ({ data , isPending }) => {
   const { state , dispatch } = useContext(BookSearchContext);
 
   if(isPending) return <Loading /> // if data is pending return loading component
 
-  console.log(data)
 
   if (!data) {
     return <div>Try Searching</div>
@@ -29,9 +29,8 @@ const   BookResults = ({ data , isPending }) => {
   const topTwoBook = entopBooks?.[1];
   const topThreeBook = entopBooks?.[2];
   const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
+  const totalPages = data?.totalItems;
 
-  const totalPages = 10;
-  
   return (
     <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px] font-inter'>
       {!data.items?.length ? (
@@ -41,7 +40,7 @@ const   BookResults = ({ data , isPending }) => {
       ) : (
         <>
           <div className='flex flex-row-reverse w-full text-white'>
-            <span>129 results found in the Akashic Records. </span>
+            <span>{totalPages} results found in the Akashic Records. </span>
           </div>
           <div className='main-bar flex gap-4 max-w-[1300px] items-center justify-center '>
             <LeftSide topOneBook={topOneBook}/>
@@ -50,7 +49,7 @@ const   BookResults = ({ data , isPending }) => {
 
           {/* <button className='page-btn border max-w-[100px] px-[15px] py-[10px] rounded-[15px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center'> 1 </button> */}
           
-          {/* <SearchPagePaginationResults /> */}
+          <SearchPagePaginationResults totalPages={data?.totalItems}/>
 
 
           <BookResultsGrid remainingBooks={remainingBooks} />

@@ -6,8 +6,8 @@ export const useFetchDataTitleSearch = (queryKey , endpoint , title, page) => {
   async function fetchFunction() {
     const response = await axiosMain.get(endpoint , {
       params : {
-        q : title, // endpoint + ?q="title"
-        startIndex : page // endpoint + ?q="title"&startIndex=page ?
+        q : title, // endpoint + ?q="title" || author
+        page : page // endpoint + ?q="title"&startIndex=page ? send as page in the backend
       }
     }); // http://localhost:8080 + endpoint so could be /search/title
     return response.data;

@@ -25,7 +25,7 @@ const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
             </div>
           )
         })) : (
-          <div className={`unkown-tag bg-[#bfbfbf] rounded-2xl p-2 text-[12px] font-satoshi max-h-[36px] shadow-custom4-first-content text-center w-[130px]`}>
+          <div className={`unkown-tag bg-[#212129] rounded-2xl p-2 text-[12px] font-satoshi max-h-[36px] shadow-custom4-first-content text-center w-[130px] text-white`}>
             Unknown Genre
           </div>
         )

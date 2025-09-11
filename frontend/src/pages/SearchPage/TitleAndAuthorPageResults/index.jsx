@@ -8,7 +8,7 @@ const TitleAndAuthorPageResults = () => {
 
   const title = searchParams.get("p1");
   const author = searchParams.get("p2");
-  const page = searchParams.get("startIndex");
+  const page = searchParams.get("page");
 
 
   const { data , isPending } = useFetchAuthorAndTitle(

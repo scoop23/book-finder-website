@@ -20,8 +20,8 @@ const PaginationContent = forwardRef(({className , ...props}, ref) => (
 const PageLink = forwardRef(({className , ...props} , ref) => (
   <li
   className={`cursor-pointer ${className || ''}`}
-  {...props}
   ref={ref}
+  {...props}
   />
 ))
 

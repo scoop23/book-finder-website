@@ -17,10 +17,6 @@ const SearchBar = () => {
     return localStorage.getItem("searchText") || state.searchText;
   })
 
-  console.log(state.searchType)
-  console.log(searchCategory)
-
-
   useEffect(() => {
     localStorage.setItem("searchText" , localSearchText);
   }, [localSearchText])
@@ -138,7 +134,7 @@ function buttonSearchTitle() {
               console.error("Please Input an Author.");
               return;
             }
-            console.log(state.author);
+            console.log(state.author);  
             navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${state.author}&page=1`);
             break;
           }
