@@ -19,6 +19,7 @@ const PaginationContent = forwardRef(({className , ...props}, ref) => (
 
 const PageLink = forwardRef(({className , ...props} , ref) => (
   <li
+    draggable={false}
     className={`w-10 h-10 flex items-center justify-center ${className || ''}`}
     ref={ref}
     {...props}

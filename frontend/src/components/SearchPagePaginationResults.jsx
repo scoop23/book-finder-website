@@ -64,7 +64,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
     if(pageContentRef.current) {
       gsap.fromTo(
         pageContentRef.current,
-        { autoAlpha : 0, x : 20 },
+        { autoAlpha : 0, x : 30 },
         { autoAlpha : 1, x : 0 }
       );
     }
@@ -73,7 +73,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
       gsap.fromTo(
         paginationButtonArray.current,
         { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.4, stagger: { each : 0.1 , from : 'end'}, ease: "power3.out" }
+        { autoAlpha: 1, y: 0, duration: 0.4, stagger: { each : 0.05 , from : "center"}, ease: "power3.out" }
       );
     }
   }, [page]); // run when page changes
