@@ -17,7 +17,6 @@ const SearchBar = () => {
   const [localSearchText , setLocalSearchText] = useState(() => {
     return localStorage.getItem("searchText") || state.searchText;
   })
-  console.log(state.searchType)
 
   useEffect(() => {
     localStorage.setItem("searchText" , localSearchText);

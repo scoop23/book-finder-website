@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PageLink, Pagination, PaginationContent } from './ui/pagination';
 import { useContext } from 'react';
 import { BookSearchContext } from '../context/BookSearchContext';
+import gsap from 'gsap'
 
 const SearchPagePaginationResults = ({ totalPages }) => {  
   const { state } = useContext(BookSearchContext);
@@ -12,6 +13,8 @@ const SearchPagePaginationResults = ({ totalPages }) => {
 
   const searchQuery = searchParams.get('query'); // gets the ?query="get this"
   const page = Number(searchParams.get('page')) || 1; // gets the page ?page=
+  const paginationButtonArray = useRef([]);
+  const pageContentRef = useRef(null);
 
   // useEffect(() => {
   //   setPageParam(page); // if page change then this will execute
@@ -57,16 +60,38 @@ const SearchPagePaginationResults = ({ totalPages }) => {
     }
   }
 
+  useEffect(() => {
+    if(pageContentRef.current) {
+      gsap.fromTo(
+        pageContentRef.current,
+        { autoAlpha : 0, x : 20 },
+        { autoAlpha : 1, x : 0 }
+      );
+    }
+
+    if (paginationButtonArray.current.length > 0) {
+      gsap.fromTo(
+        paginationButtonArray.current,
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.4, stagger: { each : 0.1 , from : 'end'}, ease: "power3.out" }
+      );
+    }
+  }, [page]); // run when page changes
+
+
 
   return (
     <div className='flex items-center'>
       <Pagination>
-        <PaginationContent>
+        <PaginationContent
+        ref={pageContentRef}
+        > {/* */}
           {/* Button here */}
-          {pages.map((num) => (
+          {pages.map((num , index) => (
             <PageLink
               key={num}
               onClick={() => handlePage(num)}
+              ref={(el) => paginationButtonArray.current[index] = el}
               className={`page-btn max-w-[110px] ${num === page ? 'bg-gray-500 text-black' : ''} px-[15px] py-[10px] rounded-[65px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center text-white bg-[#212129] shadow-custom4-first-content`}
             >
               {num}

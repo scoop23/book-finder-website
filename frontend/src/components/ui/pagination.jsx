@@ -2,7 +2,7 @@ import { forwardRef } from "react"
 
 const Pagination = ({className, ...props}) => (// Main Parent
   <nav
-    className={`mx-auto flex justify-center w-full items-center ${className || ' '}`}
+    className={`mx-auto flex justify-center w-full items-center pr-5 ${className || ' '}`}
     role="navigation"
     aria-label="pagination"
     {...props}
