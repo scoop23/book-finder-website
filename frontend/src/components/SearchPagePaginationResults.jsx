@@ -70,12 +70,15 @@ const SearchPagePaginationResults = ({ totalPages }) => {
     }
 
     if (paginationButtonArray.current.length > 0) {
+      const staggerFrom = (page === 1 || page === 2) ? "start" : "center";
+      // uses the page number rather than the dom node because the dom node will always be truthy.
       gsap.fromTo(
         paginationButtonArray.current,
         { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.4, stagger: { each : 0.05 , from : "center"}, ease: "power3.out" }
+        { autoAlpha: 1, y: 0, duration: 0.4, stagger: { each : 0.05 , from : staggerFrom}, ease: "power3.out" }
+        // also take note. stagger property is very smart and knows the length of the array.
       );
-    }
+    } 
   }, [page]); // run when page changes
 
 
