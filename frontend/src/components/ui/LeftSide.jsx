@@ -20,7 +20,6 @@ const LeftSide = ({topOneBook}) => {
   
 
   useEffect(() => {
-  if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
 
   const tl = gsap.timeline();
     if(dataVolumeInfo) {
@@ -54,11 +53,13 @@ const LeftSide = ({topOneBook}) => {
     
   }
 
+   if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
+
   const AdditionalInfos = () => {
     // Still thinking what to put here :)
     return (
       <div className='flex second-content text-[15px] justify-center h-[100px] items-center'>
-        <button className='see-more-btn bg-[#212129] rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:-translate-y-0.5 duration-200 transition-all hover:shadow-2xl text-white'><a className='' href={`${dataVolumeInfo.infoLink}`}>See More</a></button>
+        <button className='see-more-btn bg-[#212129] rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:-translate-y-0.5 duration-200 transition-all hover:shadow-2xl text-white'><a className='' href={`${dataVolumeInfo?.infoLink || "N/A"}`}>See More</a></button>
       </div>
     )
   }
@@ -80,7 +81,7 @@ const LeftSide = ({topOneBook}) => {
               
               <span className='text-[13px] block '>by {author}</span>
               <span className='text-[13px] block'> Published Date: {dataVolumeInfo?.publishedDate || "No Published Date"}</span> 
-              <span className='text-[13px] block'>Page Count: {dataVolumeInfo.pageCount}</span>
+              <span className='text-[13px] block'>Page Count: {dataVolumeInfo?.pageCount || "N/A"}</span>
               {/* <div className='text-[13px'></div> */}
             </span>
             
@@ -92,7 +93,7 @@ const LeftSide = ({topOneBook}) => {
   }
 
   return (
-      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-2.5 font-inter text-2xl max-w-[620px] max-h-[420px] text-black bg-[#40445a] rounded-2xl'>
+      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-2.5 font-inter text-2xl max-w-[620px] h-[420px] text-black bg-[#40445a] rounded-4xl'>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
           <div className='flex first-content gap-2 bg-primary-graychateau px-4 py-3 rounded-4xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 max-h-[250px]'>
             <div className='pic-div max-h-[220px] justify-center flex object-cover'>

@@ -14,14 +14,15 @@ import SearchPagePaginationResults from './SearchPagePaginationResults.jsx';
 
 // [this should be /search route]
 const BookResults = ({ data , isPending }) => {
-  const { state , dispatch } = useContext(BookSearchContext);
+  const { state } = useContext(BookSearchContext);
 
   if(isPending) return <Loading /> // if data is pending return loading component
 
 
-  if (!data) {
+  if (!data.items) {
     return <div>Try Searching</div>
   }
+
 
   const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en") // gets only the volumeInfo with en language
   const entopBooks = filteredLanguage?.slice(0, 3); // ?. - safety check data.items if it exists
@@ -31,6 +32,10 @@ const BookResults = ({ data , isPending }) => {
   const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
   const totalPages = data?.totalItems;
 
+  if(!topOneBook) {
+    return <div className='text-white'>No book with a title {state.searchText} [INSERT NOT FOUND PICTURE]</div>
+  }
+
   return (
     <div className='main-content text-black flex flex-col gap-6 items-center max-w-[1300px] font-inter'>
       {!data.items?.length ? (
@@ -39,7 +44,7 @@ const BookResults = ({ data , isPending }) => {
         </div>
       ) : (
         <>
-          <div className='flex flex-row-reverse w-full text-white'>
+          <div className='flex flex-row-reverse w-full text-white gap-10 items-center'>
             <span>{totalPages} results found in the Akashic Records. </span>
           </div>
           <div className='main-bar flex gap-4 max-w-[1300px] items-center justify-center '>
@@ -48,9 +53,6 @@ const BookResults = ({ data , isPending }) => {
           </div>
 
           {/* <button className='page-btn border max-w-[100px] px-[15px] py-[10px] rounded-[15px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center'> 1 </button> */}
-          
-          <SearchPagePaginationResults totalPages={data?.totalItems}/>
-
 
           <BookResultsGrid remainingBooks={remainingBooks} />
         </>

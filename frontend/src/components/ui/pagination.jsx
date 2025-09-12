@@ -2,7 +2,7 @@ import { forwardRef } from "react"
 
 const Pagination = ({className, ...props}) => (// Main Parent
   <nav
-    className={`mx-auto flex justify-center w-full ${className || ' '}`}
+    className={`mx-auto flex justify-center w-full items-center ${className || ' '}`}
     role="navigation"
     aria-label="pagination"
     {...props}
@@ -11,7 +11,7 @@ const Pagination = ({className, ...props}) => (// Main Parent
 
 const PaginationContent = forwardRef(({className , ...props}, ref) => (
   <ul
-  className={`flex flex-row items-center gap-1 ${className || ''}`}
+  className={`flex flex-row gap-2 items-center ${className || ''}`}
   ref={ref}
   {...props}
   />
@@ -19,11 +19,12 @@ const PaginationContent = forwardRef(({className , ...props}, ref) => (
 
 const PageLink = forwardRef(({className , ...props} , ref) => (
   <li
-  className={`cursor-pointer ${className || ''}`}
-  ref={ref}
-  {...props}
+    className={`w-10 h-10 flex items-center justify-center ${className || ''}`}
+    ref={ref}
+    {...props}
   />
 ))
+
 
 export {
   Pagination,

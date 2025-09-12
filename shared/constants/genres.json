@@ -4,7 +4,7 @@
   "science" : "bg-[#9129ba]",
   "history" : "bg-[#baa929]",
   "adventure stories" : "bg-[#221fcf]",
-  "social science" : "bg-violet-600", 
+  "social science" : "bg-[#8E24AA]", 
   "religion" : "bg-[#f5c542]",
   "mythology" : "bg-primary-dessertsand",
   "philosophy" : "bg-[#75716b]",
@@ -34,6 +34,7 @@
   "detective and mystery stories" : "bg-[#5336eb]",
   "bible" : "bg-[#b6e632]",
   "young adult fiction" : "bg-[#a9e815]",
+  "young adult nonfiction" : "bg-[#a92815]",
   "law" : "bg-[#5920f5]",
   "hysteria" : "bg-[#f54e20]",
   "industrial management" : "bg-[#bd5437]",
@@ -45,6 +46,7 @@
   "computers" : "bg-[#2642bf]",
   "literary criticism" : "bg-[#59b25b]",
   "science fiction comic books, strips, etc" : "bg-[#b42f28]",
+  "science fiction" : "bg-[#8819e3]",
   "england" : "bg-[#d22c3a]",
   "transportation" : "bg-[#d2e06c]",
   "greek language" : "bg-[#2a8bdc]",
@@ -71,5 +73,7 @@
   "animals" : "bg-[#6E6661]",
   "plane trigonometry" : "bg-[#21c6e5]",
   "theology" : "bg-[#FF2400]",
-  "poets, english" : "bg-[#895129]"
-}    
+  "cooking" : "bg-[#e39c22]",
+  "poets, english" : "bg-[#895129]",
+  "avarice in literature" : "bg-[#98f084]"
+}   

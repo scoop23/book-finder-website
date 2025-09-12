@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import BookResults from '../../../components/BookResults';
 import { useSearchParams } from 'react-router-dom';
 import { useFetchDataTitleSearch } from '@/hooks/useFetchDataTitleSearch';
+import { BookSearchContext } from '../../../context/BookSearchContext';
+import { useEffect } from 'react';
+import SearchPagePaginationResults from '../../../components/SearchPagePaginationResults';
 
 const AuthorPageResults = () => {
+  const { dispatch } = useContext(BookSearchContext);
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('query');
   const pageParams = searchParams.get('page');
@@ -18,7 +22,13 @@ const AuthorPageResults = () => {
     searchQuery,
     pageParams,
   );
-    
+
+  useEffect(() => {
+    if (data) {
+      dispatch({ type: "SET_BOOK_DATA", payload: data });
+    }
+  }, [data, dispatch]);
+
   return (
     <div className='h-full'>
       <BookResults data={data} isPending={isPending}/>

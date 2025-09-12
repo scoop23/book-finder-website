@@ -3,11 +3,12 @@ import { FaSearch , FaHome } from 'react-icons/fa';
 import { animate } from 'motion';
 import  SearchAuthor  from './SearchAuthor.jsx'
 import { BookSearchContext } from '../context/BookSearchContext.jsx';
-import { Navigate, useNavigate } from 'react-router-dom';
-
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import SearchPagePaginationResults from './SearchPagePaginationResults.jsx';
 const SearchBar = () => {  
   const { state , dispatch } = useContext(BookSearchContext); // get the context
   const navigate = useNavigate();
+  const location = useLocation();
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
@@ -16,6 +17,7 @@ const SearchBar = () => {
   const [localSearchText , setLocalSearchText] = useState(() => {
     return localStorage.getItem("searchText") || state.searchText;
   })
+  console.log(state.searchType)
 
   useEffect(() => {
     localStorage.setItem("searchText" , localSearchText);
@@ -144,20 +146,24 @@ function buttonSearchTitle() {
     }
   }
 
+  const isMainPage = location.pathname === '/search'; // is location is /search then return true
 
   return (
     <div className='search-bar-wrapper flex flex-col font-inter'>
-      
+
       <div className='outer-search-bar-container p-[20px] max-w-full min-h-[20px] flex justify-between gap-2 '>
         <button className='home-button flex flex-row gap-2 items-center rounded-4xl p-8 border-1 h-[70px] text-amber-100 hover:text-black hover:bg-amber-50 duration-250 transition-all cursor-pointer' onClick={() => {
           navigate('/search')
         }}><FaHome /></button>
-
         <div className='flex gap-2 buttons-wrapper'>
+          
+          
+          {!isMainPage ? <SearchPagePaginationResults totalPages={state.bookData?.totalItems} /> : '' // if location is /search then !isMainPage will be false, SearchPagePaginationResults will only render if its not /search
+          } 
 
           <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
           onClick={() => buttonSearchTitle()} ref={searchTitle}>Title Search</button>
-
+          
           {!(searchType.includes("title") && searchType.includes("author")) &&
             // opposite of when author and title search are active
             <> 

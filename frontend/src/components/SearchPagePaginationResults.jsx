@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PageLink, Pagination, PaginationContent } from './ui/pagination';
-import { useEffect, useContext, useState } from 'react';
+import { useContext } from 'react';
 import { BookSearchContext } from '../context/BookSearchContext';
 
 const SearchPagePaginationResults = ({ totalPages }) => {  
@@ -9,20 +9,18 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [pageParam , setPageParam] = useState(0);
-  const [searchedQuery, setQuerySearched] = useState('');
 
   const searchQuery = searchParams.get('query'); // gets the ?query="get this"
-  const page = Number(searchParams.get('page')); // gets the page ?page=
+  const page = Number(searchParams.get('page')) || 1; // gets the page ?page=
 
-  useEffect(() => {
-    setPageParam(page); // if page change then this will execute
-  }, [page])
+  // useEffect(() => {
+  //   setPageParam(page); // if page change then this will execute
+  // }, [page])
 
   const pages = [];
   const range = 2;
-  for (let i = Math.max(1 , pageParam - range); i <= Math.min(totalPages ?? 0 , 
-    pageParam + range); i++) { // 
+  for (let i = Math.max(1 , page - range); i <= Math.min(totalPages ?? 0 , 
+    page + range); i++) { // 
     pages.push(i);
   }
 
@@ -61,7 +59,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
 
 
   return (
-    <div className=''>
+    <div className='flex items-center'>
       <Pagination>
         <PaginationContent>
           {/* Button here */}
@@ -69,7 +67,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
             <PageLink
               key={num}
               onClick={() => handlePage(num)}
-              className={`page-btn border max-w-[110px] ${num === page ? 'bg-gray-500 text-black' : ''} px-[15px] py-[10px] rounded-[65px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center text-white bg-[#212129] `}
+              className={`page-btn max-w-[110px] ${num === page ? 'bg-gray-500 text-black' : ''} px-[15px] py-[10px] rounded-[65px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center text-white bg-[#212129] shadow-custom4-first-content`}
             >
               {num}
             </PageLink>
