@@ -8,21 +8,35 @@ import LeftSide from './ui/LeftSide.jsx'
 import RightSide from './ui/RightSide.jsx';
 import Loading from './Loading.jsx';
 import { BookSearchContext } from '../context/BookSearchContext.jsx';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import SearchPagePaginationResults from './SearchPagePaginationResults.jsx';
+import NothingSearch from './ui/NothingSearch.jsx';
 
 
 // [this should be /search route]
 const BookResults = ({ data , isPending }) => {
   const { state } = useContext(BookSearchContext);
+  const [loading , setLoading] = useState(isPending);
 
-  if(isPending) return <Loading /> // if data is pending return loading component
-
-
-  if (!data.items) {
-    return <div>Try Searching</div>
+  function stopLoading() {
+    setTimeout(() => {
+      setLoading(false);
+    }, 100);  
   }
 
+  useEffect(() => {
+    if(isPending) {
+      setLoading(true)
+    }
+  }, [isPending])
+
+  if(loading) return <Loading onFinish={stopLoading} /> // if data is pending return loading component
+  
+  if (!data?.items) {
+    return <NothingSearch />
+  }
+
+  
 
   const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en") // gets only the volumeInfo with en language
   const entopBooks = filteredLanguage?.slice(0, 3); // ?. - safety check data.items if it exists
@@ -44,6 +58,7 @@ const BookResults = ({ data , isPending }) => {
         </div>
       ) : (
         <>
+        {/* {loading && <Loading onFinish={stopLoading}/>} */}
           <div className='flex flex-row-reverse w-full text-white gap-10 items-center'>
             <span>{totalPages} results found in the Akashic Records. </span>
           </div>

@@ -21,7 +21,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   // }, [page])
 
   const pages = [];
-  const range = 2;
+  const range = 3;
   for (let i = Math.max(1 , page - range); i <= Math.min(totalPages ?? 0 , 
     page + range); i++) { // 
     pages.push(i);
@@ -61,13 +61,12 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   }
 
   useEffect(() => {
-    if(pageContentRef.current) {
-      gsap.fromTo(
-        pageContentRef.current,
-        { autoAlpha : 0, x : 30 },
-        { autoAlpha : 1, x : 0 }
-      );
-    }
+    gsap.fromTo(
+      pageContentRef.current,
+      { autoAlpha : 0, x : 30 },
+      { autoAlpha : 1, x : 0 }
+    );
+    
 
     if (paginationButtonArray.current.length > 0) {
       const staggerFrom = (page === 1 || page === 2) ? "start" : "center";
@@ -81,7 +80,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
     } 
   }, [page]); // run when page changes
 
-
+  
 
   return (
     <div className='flex items-center'>

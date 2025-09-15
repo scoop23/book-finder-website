@@ -29,6 +29,8 @@ const AuthorPageResults = () => {
     }
   }, [data, dispatch]);
 
+  
+
   return (
     <div className='h-full'>
       <BookResults data={data} isPending={isPending}/>
