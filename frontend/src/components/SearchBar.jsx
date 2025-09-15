@@ -182,7 +182,16 @@ function buttonSearchTitle() {
               className={`input-search hidden w-0 rounded-2xl outline-0 font-inter`}
               type="text"
               defaultValue={localSearchText}
-              onKeyDown={(e) => onSubmitSearch(e)}
+              onKeyDown={(e) => {
+                  if(state.searchType[0] === null && state.searchType[1] === null) {
+                    console.log(state.searchType);
+                  } else {
+                    onSubmitSearch(e);
+                  }
+                  console.error("Search Type need to be toggled before searching.");
+                  return;
+                }
+              }
               placeholder={`${searchType.includes("author") && searchType.includes("title") ? "Search Title of Book.. " : "Author/Title a Book.. "}`}
               /> 
               <div className='click-search w-[40] h-[40] p-2 cursor-pointer' onClick={() => handleClickSearch()}>

@@ -62,7 +62,7 @@ const CarouselACard = forwardRef(({ data } ,ref) => {
 
   const hoverTitle = () => {
     return createPortal(
-      <div className="fixed w-fit h-fit bg-amber-100 text-[11px] text-black z-2 p-1.5 rounded-2xl border-2 font-inter" ref={titleMessageRef}
+      <div className="fixed w-fit h-fit bg-amber-100 text-[9px] text-black z-2 p-1.5 rounded-2xl border-2 font-inter" ref={titleMessageRef}
       style={{
         opacity : 0,
         left : titleRec.left,

@@ -35,7 +35,7 @@ const MainPage = () => {
             <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-2xl grow-0 bg-primary-blackrock'>
               <SurpriseMe state={state} dispatch={dispatch}/>
             </div>
-            <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-2xl grow-0 bg-primary-blackrock'>
+            <div className='card shadow-2xl border-zinc-400 border-1  w-[600px] h-[300px] rounded-2xl grow-0 backdrop-blur-2xl'>
             </div>
           </div>
           
