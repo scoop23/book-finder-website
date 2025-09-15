@@ -61,18 +61,24 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   }
 
   useEffect(() => {
+
+    if (!pageContentRef.current) return;
+    
     gsap.fromTo(
       pageContentRef.current,
       { autoAlpha : 0, x : 30 },
       { autoAlpha : 1, x : 0 }
     );
     
+    console.log(paginationButtonArray)
 
-    if (paginationButtonArray.current.length > 0) {
+    const buttons = paginationButtonArray.current.filter(Boolean);
+
+    if (buttons.length > 0) {
       const staggerFrom = (page === 1 || page === 2) ? "start" : "center";
       // uses the page number rather than the dom node because the dom node will always be truthy.
       gsap.fromTo(
-        paginationButtonArray.current,
+        buttons,
         { autoAlpha: 0, y: 20 },
         { autoAlpha: 1, y: 0, duration: 0.4, stagger: { each : 0.05 , from : staggerFrom}, ease: "power3.out" }
         // also take note. stagger property is very smart and knows the length of the array.

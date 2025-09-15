@@ -157,7 +157,10 @@ function buttonSearchTitle() {
         <div className='flex gap-2 buttons-wrapper'>
           
           
-          {!isMainPage ? <SearchPagePaginationResults totalPages={state.bookData?.totalItems} /> : '' // if location is /search then !isMainPage will be false, SearchPagePaginationResults will only render if its not /search
+          {!isMainPage ? (
+            <SearchPagePaginationResults totalPages={state.bookData?.totalItems} />
+          )
+           : '' // if location is /search then !isMainPage will be false, SearchPagePaginationResults will only render if its not /search
           } 
 
           <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
