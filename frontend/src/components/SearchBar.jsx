@@ -187,12 +187,12 @@ function buttonSearchTitle() {
               defaultValue={localSearchText}
               onKeyDown={(e) => {
                   if(state.searchType[0] === null && state.searchType[1] === null) {
-                    console.log(state.searchType);
+                    alert("SearchType needs to be toggled")
                   } else {
                     onSubmitSearch(e);
                   }
-                  console.error("Search Type need to be toggled before searching.");
-                  return;
+                  console.log(state.searchType)
+                  console.log("Input something")
                 }
               }
               placeholder={`${searchType.includes("author") && searchType.includes("title") ? "Search Title of Book.. " : "Author/Title a Book.. "}`}

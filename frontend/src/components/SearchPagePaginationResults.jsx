@@ -28,10 +28,18 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   }
 
   function handlePage(num) {
+    if(searchQuery === null || searchQuery === undefined || !searchQuery || searchQuery === 'null') {
+      alert("Input something boy.")
+      return;
+    }
+
     let type = undefined;
     if(state.searchType[0] === null && state.searchType[1] === null) {
       console.error("User needs to toggle a search type.")
+      alert("User needs to toggle a search type.")
       return;
+    } else if (state.searchType.length > 0) {
+      console.log(state.searchType)
     }
     
     // if(searchParams.has('p1') && searchParams.has('p2')) {
@@ -48,13 +56,21 @@ const SearchPagePaginationResults = ({ totalPages }) => {
       } else if (state.searchType[1] === 'author') {
         type = "author";
       }
+
+      
       navigate(
       `/search/${type}?query=${searchQuery}&page=${num}`
       )
     } else {
+      
       console.log("page for author and title")
       const title = searchParams.get('p1');
       const author = searchParams.get('p2');
+
+      if(title === null && author === null) {
+        alert("Please Input title and author");
+        return;
+      }
       navigate(`/search/title-author?p1=${title}&p2=${author}&page=${num}`)
 
     }
