@@ -1,11 +1,6 @@
 import React from 'react'
 import { useReducer, useEffect } from 'react';
 import { createContext } from 'react'
-import {
-  fetchBookByAuthor,
-  fetchBookByTitle,
-  fetchBookByAuthorWithTitle,
-} from "@/api/AccessToApi.jsx";
 
 export const BookSearchContext = createContext(null);
 
@@ -17,7 +12,6 @@ const BookSearchProvider = ({ children }) => {
     bookData: null,
     quoteData: null,
     isLoading: false,
-    mainPageData: null,
     genreData : [],
     genreTag : "Fiction", // default to fiction
     carouselAData : [],

@@ -63,6 +63,8 @@
 
 body{
   background-color: var(--color-primary-ebony-clay);
+  font-family: Inter;
+  /* transition: 1s all; */
 }
 
 .font-monday {

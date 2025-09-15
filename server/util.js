@@ -7,12 +7,14 @@ const GOOGLE_BOOKS_BASE_URL = process.env.GOOGLE_BOOKS_BASE_URL;
 const apikey = process.env.API_KEY;
 const nyApiKey = process.env.NEW_YORK_TIMES_API;
 
-async function getTitleByAuthor(query, res) {
+async function getTitleByAuthor(query, res, page) {
 try {
     const response = await axios.get(GOOGLE_BOOKS_BASE_URL, {
       params : {
         q : `inauthor:${query}`,
-        key : apikey
+        key : apikey,
+        maxResults : 10,
+        startIndex : (page - 1) * 10
       }
     });
     return res.json(response.data);
@@ -26,14 +28,16 @@ try {
   } 
 }
 
-async function getTitleAndAuthor(arr , res) {
+async function getTitleAndAuthor(arr , res , page) {
   try {
     const response = await axios.get(GOOGLE_BOOKS_BASE_URL , {
       params : {
         q : `intitle:${arr[0]}+inauthor:${arr[1]}`,
         key : apikey,
         orderBy : `relevance`,
-        langRestrict : `en` // for some reason doesn't work
+        langRestrict : `en`, // for some reason doesn't work,
+        maxResults : 10,
+        startIndex : (page - 1) * 10
       }
     })
     const url = new URL("https://www.googleapis.com/books/v1/volumes");
@@ -91,12 +95,14 @@ async function getRandomBooks(res) {
   }
 }
 
-async function getTitleName(query, res) {
+async function getTitleName(query, res, page) {
     try {
       const response = await axios.get(GOOGLE_BOOKS_BASE_URL, {
         params : {
           q : `intitle:${query}`,
-          key : apikey
+          key : apikey,
+          maxResults : 10,
+          startIndex : (page - 1) * 10
         }
       })
 

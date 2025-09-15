@@ -8,7 +8,7 @@ const useFetchAuthorAndTitle = (endpoint , queryKey, title , author, page) => {
       params : {
         p1 : title,
         p2 : author,
-        startIndex : page
+        page : page
       }
     })
     return response.data;
