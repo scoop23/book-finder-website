@@ -4,8 +4,6 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 
 const NothingSearch = () => {
-
-
   const imageRef = useRef(null);
 
   useEffect(() => {
