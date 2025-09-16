@@ -4,6 +4,7 @@ import { PageLink, Pagination, PaginationContent } from './ui/pagination';
 import { useContext } from 'react';
 import { BookSearchContext } from '../context/BookSearchContext';
 import gsap from 'gsap'
+import SearchPageNone from './ui/SearchPageNone';
 
 const SearchPagePaginationResults = ({ totalPages }) => {  
   const { state } = useContext(BookSearchContext);
@@ -39,10 +40,9 @@ const SearchPagePaginationResults = ({ totalPages }) => {
       alert("User needs to toggle a search type.")
       return;
     } else if (state.searchType.length > 0) {
-      console.log(state.searchType)
+      // console.log(state.searchType)
     }
-    
-    // if(searchParams.has('p1') && searchParams.has('p2')) {
+        // if(searchParams.has('p1') && searchParams.has('p2')) {
     //   const title = searchParams.get('p1');
     //   const author = searchParams.get('p2');
 
@@ -102,6 +102,14 @@ const SearchPagePaginationResults = ({ totalPages }) => {
     } 
   }, [page]); // run when page changes
 
+
+  if(!state.bookData?.items) {
+    return (
+      <div className='flex justify-center items-center pr-5'>
+        <SearchPageNone />
+      </div>
+    )
+  }
   
 
   return (
