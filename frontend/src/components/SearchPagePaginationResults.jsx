@@ -1,21 +1,24 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PageLink, Pagination, PaginationContent } from './ui/pagination';
 import { useContext } from 'react';
 import { BookSearchContext } from '../context/BookSearchContext';
 import gsap from 'gsap'
 import SearchPageNone from './ui/SearchPageNone';
+import { useLocation } from 'react-router-dom';
 
 const SearchPagePaginationResults = ({ totalPages }) => {  
   const { state } = useContext(BookSearchContext);
-  
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
+  const location = useLocation();
   const searchQuery = searchParams.get('query'); // gets the ?query="get this"
   const page = Number(searchParams.get('page')) || 1; // gets the page ?page=
   const paginationButtonArray = useRef([]);
   const pageContentRef = useRef(null);
+  const paginationRef = useRef(null);
+  const currenPage = useRef(null)
+  const [cameFromNone , setCameFromNone] = useState(false);
 
   // useEffect(() => {
   //   setPageParam(page); // if page change then this will execute
@@ -33,6 +36,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
       alert("Input something boy.")
       return;
     }
+
 
     let type = undefined;
     if(state.searchType[0] === null && state.searchType[1] === null) {
@@ -74,20 +78,51 @@ const SearchPagePaginationResults = ({ totalPages }) => {
       navigate(`/search/title-author?p1=${title}&p2=${author}&page=${num}`)
 
     }
+
+    currenPage.current = page
   }
 
   useEffect(() => {
+    if(sessionStorage.getItem("fromNone") === "true"){
+      setCameFromNone(true);
+      sessionStorage.removeItem("fromNone");
+    }
 
+  }, [location])
+
+  
+
+
+  useEffect(() => {
     if (!pageContentRef.current) return;
     
-    gsap.fromTo(
-      pageContentRef.current,
-      { autoAlpha : 0, x : 30 },
-      { autoAlpha : 1, x : 0 }
-    );
+    if(cameFromNone) {
+      gsap.set(pageContentRef.current , { autoAlpha : 0 , x : 30 });
+      gsap.to(pageContentRef.current, {
+        autoAlpha : 1,
+        x : 0,
+        duration : 0.5,
+        ease : "power3.in",
+      })
+    }
     
-    console.log(paginationButtonArray)
+    setCameFromNone(false)
 
+    if(page > currenPage.current) {
+      gsap.fromTo(
+        pageContentRef.current,
+        { x : 30 },
+        { x : 0 }
+      );
+    } else {
+      gsap.fromTo(
+        pageContentRef.current,
+        { x : -30 },
+        { x : 0 }
+      );
+    }
+    
+    
     const buttons = paginationButtonArray.current.filter(Boolean);
 
     if (buttons.length > 0) {
@@ -100,7 +135,12 @@ const SearchPagePaginationResults = ({ totalPages }) => {
         // also take note. stagger property is very smart and knows the length of the array.
       );
     } 
-  }, [page]); // run when page changes
+
+    return () => {
+      
+    }
+
+  }, [page, cameFromNone]); // run when page changes
 
 
   if(!state.bookData?.items) {
@@ -114,7 +154,8 @@ const SearchPagePaginationResults = ({ totalPages }) => {
 
   return (
     <div className='flex items-center'>
-      <Pagination>
+      <Pagination
+      ref={paginationRef}>
         <PaginationContent
         ref={pageContentRef}
         > {/* */}

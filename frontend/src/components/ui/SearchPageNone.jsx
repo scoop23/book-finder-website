@@ -37,34 +37,29 @@ const SearchPageNone = () => {
       }
     }
   }, []);
-  // useEffect(() => {
-  //   if(isActive) {
-  //     setIsActive(true);
-  //   }
-  // }, [isActive])
-
-  // function goBack() {
-  //   setTimeout(() => {
-  //     navigate(-1);
-  //   }, 500)
-  // }
-function goBack() {
-  if (ButtonRef.current) {
-    gsap.to(ButtonRef.current, {
-      autoAlpha: 0,
-      x: 20,
-      duration: 0.4,
-      ease: "power3.in",
-      onComplete: () => navigate(-1) // navigate only after animation finishes
-    });
-  } 
-}
+  
+  function goBack() {
+    if (ButtonRef.current) {
+      gsap.to(ButtonRef.current, {
+        autoAlpha: 0,
+        x: 40,
+        duration: 0.4,
+        ease: "power3.in",
+        onComplete: () => {
+          setTimeout(() => {
+            sessionStorage.setItem("fromNone", "true");
+            navigate(-1);
+          }, 500)
+        } // navigate only after animation finishes
+      });
+    } 
+  }
 
   return (
     <div>
       {isActive && (
         <button className='page-btn max-w-[110px] px-[15px] py-[10px] rounded-[65px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center text-white bg-[#212129] shadow-custom4-first-content opacity-0' onClick={() => goBack()} ref={ButtonRef}>
-        Go Back
+          Go Back
         </button>
       )}
       
