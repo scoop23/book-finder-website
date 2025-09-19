@@ -46,8 +46,11 @@ const BookResults = ({ data , isPending }) => {
   const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
   const totalPages = data?.totalItems;
 
+  console.log(filteredLanguage)
+  console.log(data?.items)
+
   if(!topOneBook) {
-    return <div className='text-white'>No book with a title {state.searchText} [INSERT NOT FOUND PICTURE]</div>
+    return <div className='text-white'>Well. this is awkward There are no english results on this page.</div>
   }
 
   return (

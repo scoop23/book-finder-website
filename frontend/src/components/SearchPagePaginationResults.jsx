@@ -25,11 +25,13 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   // }, [page])
 
   const pages = [];
-  const range = 3;
-  for (let i = Math.max(1 , page - range); i <= Math.min(totalPages ?? 0 , 
-    page + range); i++) { // 
-    pages.push(i);
+  const range = 2;
+  
+  for (let i = Math.max(1 , page - range); i <= Math.min(totalPages ?? 0 , page + range); i++) {
+    pages.push(i)
   }
+
+
 
   function handlePage(num) {
     if(searchQuery === null || searchQuery === undefined || !searchQuery || searchQuery === 'null') {
@@ -90,9 +92,6 @@ const SearchPagePaginationResults = ({ totalPages }) => {
 
   }, [location])
 
-  
-
-
   useEffect(() => {
     if (!pageContentRef.current) return;
     
@@ -105,7 +104,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
         ease : "power3.in",
       })
     }
-    
+
     setCameFromNone(false)
 
     if(page > currenPage.current) {
@@ -121,7 +120,6 @@ const SearchPagePaginationResults = ({ totalPages }) => {
         { x : 0 }
       );
     }
-    
     
     const buttons = paginationButtonArray.current.filter(Boolean);
 

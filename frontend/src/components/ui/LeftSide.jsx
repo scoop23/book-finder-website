@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/all';  
 import bookImage from '../../assets/book_empty.png';
 import GenreTags from '../../components/GenreTags';
+import Loading from '../Loading';
 
 
 const LeftSide = ({topOneBook}) => {
@@ -17,13 +18,11 @@ const LeftSide = ({topOneBook}) => {
   const bookDescription = topOneBook?.volumeInfo?.description || "No Description";
   const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
   const genre = topOneBook?.volumeInfo?.categories || []
-  
 
   useEffect(() => {
 
   const tl = gsap.timeline();
     if(dataVolumeInfo) {
-
       tl.fromTo(
         ".sidebar",
         { // first instance
@@ -53,7 +52,7 @@ const LeftSide = ({topOneBook}) => {
     
   }
 
-   if(!dataVolumeInfo) return "No Book" // Will change so that it will output in the parent component
+  //  if(!dataVolumeInfo) return "no left book"// Will change so that it will output in the parent component
 
   const AdditionalInfos = () => {
     // Still thinking what to put here :)
