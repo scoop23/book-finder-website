@@ -8,7 +8,6 @@ const BookResultsGrid = ({ remainingBooks }) => {
   const bookCardHTMLArray = useRef([]);
   const { state } = useContext(BookSearchContext);  
   const tl = gsap.timeline();
-  console.log(state.bookData)
   
   useLayoutEffect(() => {
     // bookCardHTMLArray.current.map((element , index) => {

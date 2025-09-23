@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react'
 import { CodexCross } from './icons/CodexCross'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { BookSearchContext } from '../context/BookSearchContext'
 // TODO : WHEN SEARCH BY AUTHOR AND SEARCH BY TITLE IS CLICKED 
 // ADD HIDE THE SEARCH BY AUTHOR BUTTON AND SHOW A INPUT AUTHOR NAME
 
 
 
 // USED THE STATES OF THE PARENT TO CHANGE THE BUTTONS
-const SearchAuthor = ({ dispatch , state, setClickedSearchAuthor}) => {
+const SearchAuthor = ({ dispatch , setClickedSearchAuthor}) => {
+  const { state } = useContext(BookSearchContext)
   const navigate = useNavigate();
   const [localAuthorText, setLocalAuthorText] = useState(() => {
     return localStorage.getItem("authorText") || state.author;
@@ -16,24 +18,21 @@ const SearchAuthor = ({ dispatch , state, setClickedSearchAuthor}) => {
 
   useEffect(() => {
     localStorage.setItem("authorText" , localAuthorText);
-
-  }, [localAuthorText])
+    dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText })
+  }, [localAuthorText, dispatch])
 
   function onSubmitSearch(e) {
-  if(e.key === 'Enter'){
-      dispatch({ type : "SET_AUTHOR_TEXT" , payload : e.target.value })
+    if(e.key === 'Enter'){
+      setLocalAuthorText(e.target.value)
+      console.log("set the author text")
+      
       if(!state.searchText){
         console.error("Please Input some Title.")
-        return;
       }
-
-      if(e.target.value.trim()){
-        setLocalAuthorText(e.target.value)
-
-        navigate(`/search/title-author?p1=${encodeURIComponent(state.searchText)}&p2=${state.author}&page=1`);
-      }
-      console.error("Please Type a Author.")
-      return;
+      
+      console.log("author text exist")
+      navigate(`/search/title-author?p1=${encodeURIComponent(state.searchText)}&p2=${e.target.value}&page=1`);
+      
       
     }
   }

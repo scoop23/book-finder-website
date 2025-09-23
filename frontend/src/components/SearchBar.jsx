@@ -20,7 +20,8 @@ const SearchBar = () => {
 
   useEffect(() => {
     localStorage.setItem("searchText" , localSearchText);
-  }, [localSearchText])
+    dispatch({ type : "SET_SEARCH_TEXT" , payload : localSearchText })
+  }, [localSearchText , dispatch])
 
   const { 
     searchType 
@@ -176,7 +177,7 @@ function buttonSearchTitle() {
           
           {searchType.includes("author") && searchType.includes("title")
             && // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
-            (<SearchAuthor dispatch={dispatch} state={state} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to works
+            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to works
           }
 
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
