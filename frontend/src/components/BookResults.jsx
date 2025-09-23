@@ -36,7 +36,7 @@ const BookResults = ({ data , isPending }) => {
     return <NothingSearch />
   }
 
-  
+  console.log(state)
 
   const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en") // gets only the volumeInfo with en language
   const entopBooks = filteredLanguage?.slice(0, 3); // ?. - safety check data.items if it exists

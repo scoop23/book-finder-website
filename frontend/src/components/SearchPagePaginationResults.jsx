@@ -31,14 +31,11 @@ const SearchPagePaginationResults = ({ totalPages }) => {
     pages.push(i)
   }
 
-
-
   function handlePage(num) {
     if(searchQuery === null || searchQuery === undefined || !searchQuery || searchQuery === 'null') {
       alert("Input something boy.")
       return;
     }
-
 
     let type = undefined;
     if(state.searchType[0] === null && state.searchType[1] === null) {
@@ -62,7 +59,6 @@ const SearchPagePaginationResults = ({ totalPages }) => {
       } else if (state.searchType[1] === 'author') {
         type = "author";
       }
-
       
       navigate(
       `/search/${type}?query=${searchQuery}&page=${num}`
