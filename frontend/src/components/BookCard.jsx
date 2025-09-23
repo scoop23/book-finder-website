@@ -13,7 +13,7 @@ const BookCard = forwardRef(({ bookData } , ref) => {
 
   return (
 
-    <div className="main-bookcard-content max-h-[300px] font-inter">
+    <div className="main-bookcard-content max-h-[300px] font-inter" ref={ref}>
       <div className="content-container rounded-3xl bg-[#40445a]  max-w-[309px] h-[300px] flex flex-col shadow-custom3 overflow-hidden">
         <div className="bookcard-content flex flex-col p-3 gap-2 max-h-full">
           <div className="main-content-card flex gap-2">

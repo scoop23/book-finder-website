@@ -15,7 +15,6 @@ import NothingSearch from './ui/NothingSearch.jsx';
 
 // [this should be /search route]
 const BookResults = ({ data , isPending }) => {
-  const { state } = useContext(BookSearchContext);
   const [loading , setLoading] = useState(isPending);
 
   function stopLoading() {
@@ -36,7 +35,6 @@ const BookResults = ({ data , isPending }) => {
     return <NothingSearch />
   }
 
-  console.log(state)
 
   const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en") // gets only the volumeInfo with en language
   const entopBooks = filteredLanguage?.slice(0, 3); // ?. - safety check data.items if it exists
@@ -45,10 +43,6 @@ const BookResults = ({ data , isPending }) => {
   const topThreeBook = entopBooks?.[2];
   const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
   const totalPages = data?.totalItems;
-
-  console.log(filteredLanguage)
-  console.log(data?.items)
-
   if(!topOneBook) {
     return <div className='text-white'>Well. this is awkward There are no english results on this page.</div>
   }
