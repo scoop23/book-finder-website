@@ -19,15 +19,16 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   const paginationRef = useRef(null);
   const currenPage = useRef(null)
   const [cameFromNone , setCameFromNone] = useState(false);
-
+  const [validPages, setValidPages] = useState(new Set());
   // useEffect(() => {
   //   setPageParam(page); // if page change then this will execute
   // }, [page])
 
   const pages = [];
   const range = 2;
-  
-  for (let i = Math.max(1 , page - range); i <= Math.min(totalPages ?? 0 , page + range); i++) {
+  const myRange =  totalPages / 10
+  const safeTotalPages = Math.max(myRange ?? 0 , 1);
+  for (let i = Math.max(1 , page - range); i <= Math.min(safeTotalPages, page + range); i++) {
     pages.push(i)
   }
 
@@ -136,6 +137,13 @@ const SearchPagePaginationResults = ({ totalPages }) => {
 
   }, [page, cameFromNone]); // run when page changes
 
+  if(!state.bookData?.items?.length){
+    return (
+      <div className='flex justify-center items-center pr-5'>
+        <SearchPageNone />
+      </div>
+    )
+  }
 
   if(!state.bookData?.items) {
     return (
