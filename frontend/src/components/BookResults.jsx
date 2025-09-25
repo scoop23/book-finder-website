@@ -1,9 +1,5 @@
 import { FaStar } from 'react-icons/fa';
 import BookResultsGrid from './BookResultsGrid';
-import { LuStar } from 'react-icons/lu';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MotionPathPlugin } from 'gsap/all';  
-import GenreTags from './GenreTags';
 import LeftSide from './ui/LeftSide.jsx'
 import RightSide from './ui/RightSide.jsx';
 import Loading from './Loading.jsx';
@@ -37,12 +33,16 @@ const BookResults = ({ data , isPending }) => {
 
 
   const filteredLanguage = data.items?.filter(b => b?.volumeInfo.language == "en") // gets only the volumeInfo with en language
-  const entopBooks = filteredLanguage?.slice(0, 3); // ?. - safety check data.items if it exists
+  const entopBooks = data?.items?.slice(0, 3); // ?. - safety check data.items if it exists
   const topOneBook = entopBooks?.[0];
   const topTwoBook = entopBooks?.[1];
   const topThreeBook = entopBooks?.[2];
   const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
   const totalPages = data?.totalItems;
+
+  // totalPages is theoretical aka its sucks
+  console.log(totalPages);
+  
   if(!topOneBook) {
     return <div className='text-white'>Well. this is awkward There are no english results on this page.</div>
   }

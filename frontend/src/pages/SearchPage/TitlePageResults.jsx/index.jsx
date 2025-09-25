@@ -10,7 +10,7 @@ const TitlePageResults = () => {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('query');
   const pageParams = searchParams.get('page');
-  const {dispatch} = useContext(BookSearchContext);
+  const { state, dispatch } = useContext(BookSearchContext);
 
 
   // const {isPending : isPending, data : data} = useFetchData(searchQuery , '/search/title')
@@ -31,7 +31,7 @@ const TitlePageResults = () => {
 
   return (
     <div className='h-full'>
-      <BookResults data={data} isPending={isPending}/>
+      <BookResults data={state.bookData} isPending={isPending}/>
     </div>
   )
 }

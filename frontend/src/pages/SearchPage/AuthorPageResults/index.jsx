@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import SearchPagePaginationResults from '../../../components/SearchPagePaginationResults';
 
 const AuthorPageResults = () => {
-  const { dispatch } = useContext(BookSearchContext);
+  const { state , dispatch } = useContext(BookSearchContext);
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('query');
   const pageParams = searchParams.get('page');
@@ -33,7 +33,7 @@ const AuthorPageResults = () => {
 
   return (
     <div className='h-full'>
-      <BookResults data={data} isPending={isPending}/>
+      <BookResults data={state.bookData} isPending={isPending}/>
     </div>
   )
 }

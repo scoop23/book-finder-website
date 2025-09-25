@@ -19,7 +19,6 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   const paginationRef = useRef(null);
   const currenPage = useRef(null)
   const [cameFromNone , setCameFromNone] = useState(false);
-  const [validPages, setValidPages] = useState(new Set());
   // useEffect(() => {
   //   setPageParam(page); // if page change then this will execute
   // }, [page])
@@ -43,9 +42,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
       console.error("User needs to toggle a search type.")
       alert("User needs to toggle a search type.")
       return;
-    } else if (state.searchType.length > 0) {
-      // console.log(state.searchType)
-    }
+    } 
         // if(searchParams.has('p1') && searchParams.has('p2')) {
     //   const title = searchParams.get('p1');
     //   const author = searchParams.get('p2');

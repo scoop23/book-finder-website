@@ -5,7 +5,7 @@ import BookResults from '../../../components/BookResults';
 import { BookSearchContext } from '../../../context/BookSearchContext';
 
 const TitleAndAuthorPageResults = () => {
-  const {dispatch} = useContext(BookSearchContext);
+  const { state ,dispatch } = useContext(BookSearchContext);
   const [searchParams] = useSearchParams();
 
   const title = searchParams.get("p1");
@@ -29,7 +29,7 @@ const TitleAndAuthorPageResults = () => {
 
   return (
     <div className='h-full'>
-      <BookResults data={data} isPending={isPending}/>
+      <BookResults data={state.bookData} isPending={isPending}/>
     </div>
   )
 }
