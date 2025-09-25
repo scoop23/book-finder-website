@@ -57,19 +57,19 @@ const LeftSide = ({topOneBook}) => {
   const AdditionalInfos = () => {
     // Still thinking what to put here :)
     return (
-      <div className='flex second-content text-[15px] justify-center h-[100px] items-center'>
-        <button className='see-more-btn bg-[#212129] rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:-translate-y-0.5 duration-200 transition-all hover:shadow-2xl text-white'><a className='' href={`${dataVolumeInfo?.infoLink || "N/A"}`}>See More</a></button>
+      <div className='flex second-content text-[15px] justify-center items-center'>
+        {/* <button className='see-more-btn bg-[#212129] rounded-3xl p-5 max-h-[40px] flex justify-center items-center cursor-pointer hover:-translate-y-0.5 duration-200 transition-all hover:shadow-2xl text-white'><a className='' href={`${dataVolumeInfo?.infoLink || "N/A"}`}>See More</a></button> */}
       </div>
     )
   }
 
   const Infos = () => {
     return(
-        <div className='content-info-wrapper flex flex-col gap-2 max-w-[430px] max-h-[220px] items-baseline'>
+        <div className='content-info-wrapper flex flex-col gap-2 items-baseline'>
             <span className='content-info text-[20px] p-2 flex flex-col gap-2'>
-              <div className='flex justify-between w-[400px] gap-2'>
+              <div className='title-genre flex justify-between w-[400px] gap-2'>
                 <div className='line-clamp-3'>{title}</div>
-                <div className='flex justify-center'>
+                <div className='genre flex justify-center'>
                   {
                     <div>
                       <GenreTags genre={genre}/>
@@ -94,9 +94,9 @@ const LeftSide = ({topOneBook}) => {
   return (
     // outer color : --color-base ?
     // inner color : --color-base ?
-      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-2.5 font-inter text-2xl opacity-0 max-w-[620px] h-[420px] text-black bg-[var(--color-base)] rounded-4xl'>
-        <div className='main-content-div flex flex-col justify-start gap-4 p-4 min-h-[400px]'>
-          <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-3 rounded-4xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 max-h-[250px]'>
+      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-2.5 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl max-h-[420px]'>
+        <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
+          <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-3 rounded-4xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 min-h-[370px]'>
             <div className='pic-div max-h-[220px] justify-center flex object-cover'>
               <img src={imglink || bookImage} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
             </div>
