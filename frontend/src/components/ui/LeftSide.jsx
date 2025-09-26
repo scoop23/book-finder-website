@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react'
-import { FaStar } from 'react-icons/fa';
-import { LuStar } from 'react-icons/lu';
-import BookResultsGrid from '../../components/BookResultsGrid';
+import React, { useEffect, useState, useRef } from 'react'
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/all';  
 import bookImage from '../../assets/book_empty.png';
 import GenreTags from '../../components/GenreTags';
-import Loading from '../Loading';
-
+import ActionButtons from '../ActionButtons';
+import { Elastic } from 'gsap';
 
 const LeftSide = ({topOneBook}) => {
   // const { title } = topOneBook.volumeInfo;
@@ -18,6 +15,22 @@ const LeftSide = ({topOneBook}) => {
   const bookDescription = topOneBook?.volumeInfo?.description || "No Description";
   const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
   const genre = topOneBook?.volumeInfo?.categories || []
+  const [hover , setIsHovered] = useState(false);
+  const sideBarRef = useRef(null)
+
+  function onHoverSidebar(likeButtonGroupRef , CircleCxRef) {
+    gsap.to(likeButtonGroupRef.current, {
+      ease : Elastic.easeInOut.config(0.8 , 0.6),
+      duration : 1,
+      onUpdate : () => { // while the tween is animating also run this function at the same time for every frame of the animation, Ultimately making it seamless as if the likeButton icon is the parent of the ellipse.
+        const Cx = Number(CircleCxRef.current.getAttribute('cx'));
+        const Cy = Number(CircleCxRef.current.getAttribute('cy'));
+        gsap.set(likeButtonGroupRef.current , {
+          attr : { transform : `translate(${Cx - 12} , ${Cy - 12})` }
+        })
+      }
+    })
+  }
 
   useEffect(() => {
 
@@ -94,9 +107,10 @@ const LeftSide = ({topOneBook}) => {
   return (
     // outer color : --color-base ?
     // inner color : --color-base ?
-      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-2.5 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl max-h-[420px]'>
+      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl max-h-[420px]' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+        <ActionButtons hover={hover} sideBarRef={sideBarRef}/>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
-          <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-3 rounded-4xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 min-h-[370px]'>
+          <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-3 rounded-4xl shadow-2xl transition-all duration-200 max-h-[370px] relative' ref={sideBarRef}>
             <div className='pic-div max-h-[220px] justify-center flex object-cover'>
               <img src={imglink || bookImage} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
             </div>

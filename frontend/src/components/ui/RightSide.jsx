@@ -54,8 +54,8 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
     
     <div className='content-info3 flex flex-col max-h-[220px] items-baseline'>
       <div className='flex justify-between w-[430px]'>
-          <div className='font-inter title2 max-h-[200px] text-[20px] p-1 flex break-words justify-between '>
-              <div className='line-clamp-2'>{title3}</div>
+          <div className='font-inter title2 max-h-[200px] text-[20px] p-1 flex break-words justify-between w-[430px]'>
+              <div className='title-content3 line-clamp-2'>{title3}</div>
             <div className='right-genre flex justify-center '>
               {
                 <GenreTags genre={genre3} />
