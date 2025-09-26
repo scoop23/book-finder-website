@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { FaStar } from 'react-icons/fa';
 import { LuStar } from 'react-icons/lu';
 import { gsap } from 'gsap';
@@ -7,7 +7,8 @@ import { MotionPathPlugin } from 'gsap/all';
 import bookImage from '../../assets/book_empty.png';
 import GenreTags from '../../components/GenreTags';
 import BookResultsGrid from '../../components/BookResultsGrid';
-import { motion } from 'framer-motion';
+import { hover, motion } from 'framer-motion';
+import ActionButtons from '../ActionButtons';
 const RightSide = ({ topTwoBook , topThreeBook }) => {
   
   const book2VolumeInfo = topTwoBook?.volumeInfo;
@@ -23,7 +24,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
   const author3 = book3VolumeInfo?.authors?.[0] || 'NA';
   const imglink3 = book3VolumeInfo?.imagelinks?.thumbnail || book3VolumeInfo?.imageLinks?.smallThumbnail;
   const genre3 = book3VolumeInfo?.categories || [];
-  
+  const rightSideWidget = useRef(null);
   const Book2Info = () => {
     return (
       <div className='content-info2 flex flex-col max-h-[220px] items-baseline font-inter'>
@@ -101,14 +102,16 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
     });
   } , [book2VolumeInfo, book3VolumeInfo])
 
+  const [hovered , setIsHovered] = useState(false);  
 
   return (
     <div className='right-main-sidebar flex flex-col gap-5 '>
       <motion.div
         // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
-        <div className='right-sidebar text-[var(--color-lighter)] p-4 text-[100px] max-w-[620px] bg-[var(--color-base)] rounded-2xl flex gap-2 shadow-custom opacity-0'>
-        <div className='flex first-content gap-3 bg-[var(--color-dark)] p-4 rounded-4xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200'>
+        <div className='right-sidebar p-4 text-[100px] max-w-[620px] bg-[var(--color-base)] rounded-2xl flex gap-2 shadow-custom opacity-0' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+          <ActionButtons hover={hovered} WidgetRef={rightSideWidget} Ypos={-54}/>
+        <div className='flex first-content gap-3 bg-[var(--color-dark)] p-4 rounded-4xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 text-[var(--color-lighter)]' ref={rightSideWidget}>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={imglink2 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>
           </div>
