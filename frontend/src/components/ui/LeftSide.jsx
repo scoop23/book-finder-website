@@ -18,20 +18,6 @@ const LeftSide = ({topOneBook}) => {
   const [hover , setIsHovered] = useState(false);
   const sideBarRef = useRef(null)
 
-  function onHoverSidebar(likeButtonGroupRef , CircleCxRef) {
-    gsap.to(likeButtonGroupRef.current, {
-      ease : Elastic.easeInOut.config(0.8 , 0.6),
-      duration : 1,
-      onUpdate : () => { // while the tween is animating also run this function at the same time for every frame of the animation, Ultimately making it seamless as if the likeButton icon is the parent of the ellipse.
-        const Cx = Number(CircleCxRef.current.getAttribute('cx'));
-        const Cy = Number(CircleCxRef.current.getAttribute('cy'));
-        gsap.set(likeButtonGroupRef.current , {
-          attr : { transform : `translate(${Cx - 12} , ${Cy - 12})` }
-        })
-      }
-    })
-  }
-
   useEffect(() => {
 
   const tl = gsap.timeline();
@@ -107,7 +93,7 @@ const LeftSide = ({topOneBook}) => {
   return (
     // outer color : --color-base ?
     // inner color : --color-base ?
-      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl max-h-[420px]' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl h-[420px]' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <ActionButtons hover={hover} WidgetRef={sideBarRef} Ypos={-50}/>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
           <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-3 rounded-4xl shadow-2xl transition-all duration-200 max-h-[370px]' ref={sideBarRef}>

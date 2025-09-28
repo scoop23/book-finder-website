@@ -7,16 +7,24 @@ import { transform } from 'motion'
     const CircleCxRef = useRef(null)
     const likeButtonGroupRef = useRef(null)
     const rectRef = useRef(null)
+    const timelineRef = useRef();
     // animate the likButton icon on update because i cant group 
     // likeButton
 
     
 
-    console.log(Ypos)
     useEffect(() => {
+
+      if(timelineRef.current) {
+        timelineRef.current.kill();
+      }
+
+      const tl = gsap.timeline()
+      timelineRef.current = tl
+
       if(hover) {
-        const tl = gsap.timeline()
-        tl.to(likeButtonGroupRef.current , 
+        timelineRef.current = gsap.timeline()
+        timelineRef.current.to(likeButtonGroupRef.current , 
           {
             duration : 1,
             ease : Elastic.easeInOut.config(0.8 , 0.6),
@@ -39,9 +47,10 @@ import { transform } from 'motion'
           { attr: { cx: 10 } },
           { attr: { cy : -8 }, duration: 0.5, ease : Elastic.easeInOut.config(0.05, 0.5) } , '-=1'
         )
+
       } else {
-        gsap.to(CircleCxRef.current , 
-          { 
+        const tl = gsap.timeline();
+        tl.to(CircleCxRef.current , { 
             attr : {cy : 50},
             onUpdate : () => {
               if (!CircleCxRef.current) return; // <-- extra safety
@@ -53,13 +62,18 @@ import { transform } from 'motion'
             }
           }
         )
-        gsap.to(rectRef.current, 
+        .to(rectRef.current, 
           { attr : { y : 22 } , duration : 0.1 , ease : 'power1.in'}
-        )
-        gsap.to(WidgetRef.current , 
+        , '-=1')
+        .to(WidgetRef.current , 
           {duration : 1 , y : 0}
         , '-=2')
       }
+
+      return () => {
+        tl.kill()
+      }
+
     }, [hover, WidgetRef])
 
     // useEffect(() => {
