@@ -1,36 +1,42 @@
   import React, { useEffect , useRef, useState } from 'react'
   import LikeButton from '../ui/LikeButton'
   import gsap, { Elastic } from 'gsap'
-import { transform } from 'motion'
 
-  const ActionButton = ({ hover , WidgetRef , Ypos}) => {
+  const ActionButton = ({ className , hover , WidgetRef , Ypos}) => {
     const CircleCxRef = useRef(null)
     const likeButtonGroupRef = useRef(null)
     const rectRef = useRef(null)
     const timelineRef = useRef();
+    const secondTimelineRef = useRef();
     // animate the likButton icon on update because i cant group 
     // likeButton
 
     useEffect(() => { // set all positon first
       gsap.set(rectRef.current, { attr: { y: 22 } });
       gsap.set(CircleCxRef.current, { attr: { cy: 50 } });
-      gsap.set(WidgetRef.current, { y: 0 });
+      gsap.set(WidgetRef.current, { y: 0 }); // the big square
     }, [WidgetRef]);
 
     useEffect(() => {
 
-      if(timelineRef.current) {
+      if(timelineRef.current && secondTimelineRef.current) {
         timelineRef.current.kill();
+        secondTimelineRef.current.kill();
       }
-
+ 
       const tl = gsap.timeline()
-      timelineRef.current = tl
+      const tl2 = gsap.timeline();
+      timelineRef.current = tl;
+      secondTimelineRef.current = tl2;
 
+      
       if(hover) {
         timelineRef.current = gsap.timeline()
+
         timelineRef.current.to(likeButtonGroupRef.current , 
           {
             duration : 1,
+            opacity : 1,
             ease : Elastic.easeInOut.config(0.8 , 0.6),
             onUpdate : () => {
               const Cx = CircleCxRef.current.getAttribute('cx')
@@ -45,17 +51,17 @@ import { transform } from 'motion'
           { attr : { y : 15 } , duration : 0.5 , ease : Elastic.easeInOut.config(0.05, 0.5)}
         , '-=1')
         .to(WidgetRef.current , 
-          {duration : 1 , y : -5}
+          {duration : 1 , y : -6}
         , '-=2')
-        gsap.fromTo(CircleCxRef.current,
+        .fromTo(CircleCxRef.current, // can't do independent tween here, will ruin the animation.
           { attr: { cx: 10 } },
-          { attr: { cy : -10 }, duration: 0.5, ease : Elastic.easeInOut.config(0.05, 0.5) } , '-=1'
+          { attr: { cy : -15 }, duration: 0.5, ease : Elastic.easeInOut.config(0.05, 0.5) } , '-=1'
         )
 
       } else {
-        const tl = gsap.timeline();
-        tl.to(CircleCxRef.current , { 
-            attr : {cy : 50},
+        secondTimelineRef.current.to(CircleCxRef.current , {
+            duration : 0.9,
+            attr : {cy : 55},
             onUpdate : () => {
               if (!CircleCxRef.current) return; // <-- extra safety
               const Cx = CircleCxRef.current.getAttribute('cx')
@@ -67,15 +73,15 @@ import { transform } from 'motion'
           }
         )
         .to(rectRef.current, 
-          { attr : { y : 22 } , duration : 0.8 , ease : 'power1.in'}
+          { attr : { y : 21 } , duration : 0.25 , ease : 'power1.in'}
         , '-=1')
         .to(WidgetRef.current , 
           {duration : 1 , y : 0}
         , '-=2')
-      }
-
-      return () => {
-        tl.kill()
+        .to(likeButtonGroupRef.current , {
+          duration : 0.4,
+          opacity : 0
+        }, '-=1')
       }
 
     }, [hover, WidgetRef])
@@ -116,17 +122,19 @@ import { transform } from 'motion'
 
     return (
       <>
-        <div className='action-button left-10 flex'
+        <div className={`action-button left-10 flex ${className || ''}`}
         style={{ top : `${Ypos}px` }}> 
 
-          <svg className='group' width={100} height={100} viewBox="10 0 100 100">
+          <svg className='group' width={80} height={75} viewBox="20 0 80 75">
             {/* defs tag is like defining a variable though instead of a variable you define all kinds of things and you can use it by getting the id of the tag you created using url(#someId)*/}
               <defs>
                 <filter id="goo" height="300%" y="-100%">
                   <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 17 -7"/>
+                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 2 17 -7"/> 
+                  {/* original values : 1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 17 -7 */}
                 </filter>
               </defs>
+              {/* this is the goo effect very useful */}
               
             {/* Group both circle and LikeButton */}
             <g transform="translate(50,50)"> {/* moves the group to SVG center */}
