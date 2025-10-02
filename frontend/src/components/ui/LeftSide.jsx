@@ -98,8 +98,8 @@ const LeftSide = ({topOneBook}) => {
     // inner color : --color-base ?
       <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl h-[420px] relative ' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <ActionButtons Ypos={-50.5} hover={hover} className={``}>
-          <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => actionButtonArrayRef.current.push(el)}/>
-          <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => actionButtonArrayRef.current.push(el)}/>
+          <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => actionButtonArrayRef.current[0] = el}/>
+          <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => actionButtonArrayRef.current[1] = el}/>
         </ActionButtons>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
           <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-3 rounded-4xl shadow-2xl transition-all duration-200 max-h-[370px] -z-1' ref={sideBarRef}>
