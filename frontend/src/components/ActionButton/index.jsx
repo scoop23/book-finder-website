@@ -1,8 +1,8 @@
-  import React, { useEffect , useRef, useState } from 'react'
+  import React, { forwardRef, useEffect , useRef, useState } from 'react'
   import LikeButton from '../ui/LikeButton'
   import gsap, { Elastic } from 'gsap'
 
-  const ActionButton = ({ className , hover , WidgetRef , Ypos}) => {
+  const ActionButton = forwardRef(({ className , hover , WidgetRef , Ypos} , ref) => {
     const CircleCxRef = useRef(null)
     const likeButtonGroupRef = useRef(null)
     const rectRef = useRef(null)
@@ -55,7 +55,7 @@
         , '-=2')
         .fromTo(CircleCxRef.current, // can't do independent tween here, will ruin the animation.
           { attr: { cx: 10 } },
-          { attr: { cy : -15 }, duration: 0.5, ease : Elastic.easeInOut.config(0.05, 0.5) } , '-=1'
+          { attr: { cy : -15 }, duration: 0.7, ease : Elastic.easeInOut.config(0.05, 0.5) } , '-=1'
         )
 
       } else {
@@ -123,6 +123,7 @@
     return (
       <>
         <div className={`action-button left-10 flex ${className || ''}`}
+        ref={ref}
         style={{ top : `${Ypos}px` }}> 
 
           <svg className='group' width={80} height={75} viewBox="20 0 80 75">
@@ -154,6 +155,5 @@
         </div>
       </>
     )
-  }
-
+  })
 export default ActionButton;
