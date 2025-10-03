@@ -1,8 +1,7 @@
   import React, { forwardRef, useEffect , useRef, useState } from 'react'
-  import LikeButton from '../ui/LikeButton'
   import gsap, { Elastic } from 'gsap'
 
-  const ActionButton = forwardRef(({ className , hover , WidgetRef , Ypos} , ref) => {
+  const ActionButton = forwardRef(({ className , hover , WidgetRef , Ypos, Icon} , ref) => {
     const CircleCxRef = useRef(null)
     const likeButtonGroupRef = useRef(null)
     const rectRef = useRef(null)
@@ -145,7 +144,8 @@
               </g>
               {/* i placed the groupd LikeButton outside because i dont want it blurry, because of the filter */}
               <g ref={likeButtonGroupRef} transform={`translate(-2, -15)`}>
-                <LikeButton size={24} clickAnimation={onLikeClick}/>
+                {/* <LikeButton size={24} clickAnimation={onLikeClick}/> */}
+                {Icon && <Icon size={24} clickAnimation={onLikeClick} />}
               </g>
             </g>
 

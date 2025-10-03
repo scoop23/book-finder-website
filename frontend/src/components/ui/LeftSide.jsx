@@ -6,7 +6,9 @@ import bookImage from '../../assets/book_empty.png';
 import GenreTags from '../../components/GenreTags';
 import ActionButton from '../ActionButton';
 import { Elastic } from 'gsap';
-import ActionButtons from '../ActionButtons';
+import ActionButtons from '../ActionButtons/ActionButtons.jsx';
+import LikeButton from '../ActionButtons/LikeButton.jsx';
+import BookmarkButton from '../ActionButtons/BookmarkButton.jsx';
 
 const LeftSide = ({topOneBook}) => {
   // const { title } = topOneBook.volumeInfo;
@@ -19,7 +21,11 @@ const LeftSide = ({topOneBook}) => {
   const [hover , setIsHovered] = useState(false);
   const sideBarRef = useRef(null)
   const circleRefArray = useRef([]);
-  const timelineStaggerRef = useRef();
+
+  const widGetArray = [
+    LikeButton,
+    BookmarkButton
+  ]
 
   useEffect(() => {
 
@@ -98,7 +104,7 @@ const LeftSide = ({topOneBook}) => {
     const tl = gsap.timeline();
     tl.fromTo(circleRefArray.current,
       { y: 10, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: "elastic.out(0.5, 0.6)", stagger: 0.2 }
+      { y: 0, opacity: 1, duration: 0.5, ease: "elastic.out(0.5, 0.6)", stagger: 0.5 }
     );
 
     return () => tl.kill();
@@ -110,8 +116,8 @@ const LeftSide = ({topOneBook}) => {
       <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl h-[420px] relative ' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <ActionButtons Ypos={-50.5} hover={hover} className={``}>
           {
-            Array.from({ length : 3 }).map((_ , i) => ( // factory method
-              <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el}/>
+            widGetArray.map((icon , i) => ( // factory method
+              <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el} Icon={icon}/>
             ))
           }
         </ActionButtons>
