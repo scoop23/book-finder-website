@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react'
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/all';  
@@ -18,7 +18,8 @@ const LeftSide = ({topOneBook}) => {
   const genre = topOneBook?.volumeInfo?.categories || []
   const [hover , setIsHovered] = useState(false);
   const sideBarRef = useRef(null)
-  const actionButtonArrayRef = useRef([]);
+  const circleRefArray = useRef([]);
+  const timelineStaggerRef = useRef();
 
   useEffect(() => {
 
@@ -48,7 +49,6 @@ const LeftSide = ({topOneBook}) => {
     
   }, [dataVolumeInfo])
 
-
   function onHover() {
     
   }
@@ -64,7 +64,6 @@ const LeftSide = ({topOneBook}) => {
     )
   }
 
-  console.log(actionButtonArrayRef.current)
   const Infos = () => {
     return(
         <div className='content-info-wrapper flex flex-col gap-2 items-baseline'>
@@ -92,17 +91,32 @@ const LeftSide = ({topOneBook}) => {
         </div>
     )
   }
+  
+  useEffect(() => {
+  if (!hover) return;
+
+    const tl = gsap.timeline();
+    tl.fromTo(circleRefArray.current,
+      { y: 10, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: "elastic.out(0.5, 0.6)", stagger: 0.2 }
+    );
+
+    return () => tl.kill();
+  }, [hover])
 
   return (
     // outer color : --color-base ?
     // inner color : --color-base ?
       <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl h-[420px] relative ' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <ActionButtons Ypos={-50.5} hover={hover} className={``}>
-          <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => actionButtonArrayRef.current[0] = el}/>
-          <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => actionButtonArrayRef.current[1] = el}/>
+          {
+            Array.from({ length : 3 }).map((_ , i) => ( // factory method
+              <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el}/>
+            ))
+          }
         </ActionButtons>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
-          <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-3 rounded-4xl shadow-2xl transition-all duration-200 max-h-[370px] -z-1' ref={sideBarRef}>
+          <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-5 rounded-4xl shadow-2xl transition-all duration-200 max-h-[370px] -z-1' ref={sideBarRef}>
             <div className='pic-div max-h-[220px] justify-center flex object-cover'>
               <img src={imglink || bookImage} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
             </div>
