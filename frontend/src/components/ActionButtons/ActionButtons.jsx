@@ -7,6 +7,7 @@ import { Elastic } from 'gsap';
 
 const ActionButtons = ({ Ypos, hover, sideBarRef, className }) => {
   const circleRefArray = useRef([]);
+
   const widGetArray = [
     LikeButton,
     BookmarkButton
