@@ -6,8 +6,6 @@
     const likeButtonGroupRef = useRef(null)
     const rectRef = useRef(null)
     const svgRef = useRef(null);
-    const timelineRef = useRef();
-    const secondTimelineRef = useRef();
     // animate the likButton icon on update because i cant group 
     // likeButton
 
@@ -17,75 +15,6 @@
       gsap.set(WidgetRef.current, { y: 0 }); // the big square
     }, [WidgetRef]);
 
-    useEffect(() => {
-
-      if(timelineRef.current && secondTimelineRef.current) {
-        timelineRef.current.kill();
-        secondTimelineRef.current.kill();
-      }
- 
-      const tl = gsap.timeline()
-      const tl2 = gsap.timeline();
-      timelineRef.current = tl;
-      secondTimelineRef.current = tl2;
-
-      
-      if(hover) {
-        timelineRef.current = gsap.timeline()
-
-        timelineRef.current.to(likeButtonGroupRef.current , 
-          {
-            duration : 1,
-            opacity : 1,
-            ease : Elastic.easeInOut.config(0.8 , 0.6),
-            onUpdate : () => {
-
-              const Cx = CircleCxRef.current.getAttribute('cx')
-              const Cy = CircleCxRef.current.getAttribute('cy')
-              gsap.set(likeButtonGroupRef.current, {
-                attr : { transform : `translate(${Cx - 12}, ${Cy - 12})` }
-              })
-            } 
-          }
-        )
-        .to(rectRef.current, 
-          { attr : { y : 15 } , duration : 0.5 , ease : Elastic.easeInOut.config(0.05, 0.5)}
-        , '-=1')
-        .to(WidgetRef.current , 
-          {duration : 1 , y : -6}
-        , '-=2')
-        .fromTo(CircleCxRef.current, // can't do independent tween here, will ruin the animation.
-          { attr: { cx: 10 , rx : 0, ry : 0}},
-          { attr: { cy : -15, rx : 30, ry : 30}, duration: 0.7, ease : Elastic.easeInOut.config(0.5, 0.5) } , '-=1'
-        )
-
-      } else {
-        secondTimelineRef.current.to(CircleCxRef.current , {
-            duration : 0.9,
-            attr : {cy : 55},
-            onUpdate : () => {
-              if (!CircleCxRef.current) return; // <-- extra safety
-              const Cx = CircleCxRef.current.getAttribute('cx')
-              const Cy = CircleCxRef.current.getAttribute('cy')
-              gsap.set(likeButtonGroupRef.current, {
-                attr : { transform : `translate(${Cx - 12}, ${Cy - 12})` }
-              })
-            }
-          }
-        )
-        .to(rectRef.current, 
-          { attr : { y : 21 } , duration : 0.25 , ease : 'power1.in'}
-        , '-=1')
-        .to(WidgetRef.current , 
-          {duration : 1 , y : 0}
-        , '-=2')
-        .to(likeButtonGroupRef.current , {
-          duration : 0.4,
-          opacity : 0
-        }, '-=1')
-      }
-
-    }, [hover, WidgetRef])
 
     // useEffect(() => {
     //   gsap.to(likeButtonGroupRef.current, {
@@ -115,8 +44,9 @@
 
     useImperativeHandle(ref , () => ({
       svg : svgRef.current,
+      rect : rectRef.current,
       ellipse : CircleCxRef.current,
-      icon : likeButtonGroupRef.current
+      icon : likeButtonGroupRef.current,
     }), [])
 
     return (

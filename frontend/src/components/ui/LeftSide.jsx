@@ -97,43 +97,13 @@ const LeftSide = ({topOneBook}) => {
             </div>
         </div>
     )
-  }
-  
-  useEffect(() => {
-    if (!hover) return;
-    let ellipse = undefined;
-    const tl = gsap.timeline();
-    // if(circleRefArray.current) {
-    //   ellipse = circleRefArray.current.map(element => (
-    //     element.ellipse
-    //   ))
-    // }
-    // console.log(ellipse)
-
-
-    tl.to(circleRefArray.current.map(el => el.ellipse), {
-      attr: { cy: -15 },
-      duration: 0.6,
-      ease: Elastic.easeInOut.config(0.5, 0.5),
-      stagger: 0.3
-    });
-
-    
-    // tl.fromTo(ellipse,
-    //   { y: 10, opacity: 0 },
-    //   { y: 0, opacity: 1, duration: 0.5, ease: "elastic.out(0.5, 0.6)", stagger: 0.5 }
-    // );
-
-    return () => tl.kill();
-  }, [hover])
-
-  
+  }  
 
   return (
     // outer color : --color-base ?
     // inner color : --color-base ?
       <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl h-[420px] relative ' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-        <ActionButtons Ypos={-50.5} hover={hover} className={``}>
+        <ActionButtons Ypos={-50.5} hover={hover} sideBarRef={sideBarRef} className={``}>
           {
             widGetArray.map((icon , i) => ( // factory method
               <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el} Icon={icon}/>
