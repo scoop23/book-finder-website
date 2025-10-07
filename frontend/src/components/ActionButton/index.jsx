@@ -139,8 +139,8 @@
             {/* Group both circle and LikeButton */}
             <g transform="translate(50,50)"> {/* moves the group to SVG center */}
               <g id='group1' filter='url(#goo)'>
-                <rect ref={rectRef} x={-40} y={20} width={100} height={40} fill="#51536c" />
-                <ellipse ref={CircleCxRef} cx={10} rx={30} ry={30} fill="#51536c" />
+                <rect ref={rectRef} x={-40} y={20} width={100} height={40} fill="#8385a5" />
+                <ellipse ref={CircleCxRef} cx={10} rx={30} ry={30} fill="#8385a5" />
               </g>
               {/* i placed the groupd LikeButton outside because i dont want it blurry, because of the filter */}
               <g ref={likeButtonGroupRef} transform={`translate(-2, -15)`}>
