@@ -1,10 +1,11 @@
-  import React, { forwardRef, useEffect , useRef, useState } from 'react'
+  import React, { forwardRef, useEffect , useImperativeHandle, useRef, useState } from 'react'
   import gsap, { Elastic } from 'gsap'
 
   const ActionButton = forwardRef(({ className , hover , WidgetRef , Ypos, Icon} , ref) => {
     const CircleCxRef = useRef(null)
     const likeButtonGroupRef = useRef(null)
     const rectRef = useRef(null)
+    const svgRef = useRef(null);
     const timelineRef = useRef();
     const secondTimelineRef = useRef();
     // animate the likButton icon on update because i cant group 
@@ -38,12 +39,13 @@
             opacity : 1,
             ease : Elastic.easeInOut.config(0.8 , 0.6),
             onUpdate : () => {
+
               const Cx = CircleCxRef.current.getAttribute('cx')
               const Cy = CircleCxRef.current.getAttribute('cy')
               gsap.set(likeButtonGroupRef.current, {
                 attr : { transform : `translate(${Cx - 12}, ${Cy - 12})` }
               })
-            }
+            } 
           }
         )
         .to(rectRef.current, 
@@ -111,18 +113,16 @@
       )
     }
 
-    // useEffect(() => {
-    //   gsap.set('#ring' , { attr : { cy : 50 } })
-    //   // gsap.fromTo('#ring', 
-    //   //   { attr: { cx: 10 } },
-    //   //   { attr: { cy : -5 }, duration: 1, ease : Elastic.easeInOut.config(0.05, 0.5) }
-    //   // )
-    // }, [])
+    useImperativeHandle(ref , () => ({
+      svg : svgRef.current,
+      ellipse : CircleCxRef.current,
+      icon : likeButtonGroupRef.current
+    }), [])
 
     return (
       <>
         <div className={`action-button left-10 flex ${className || ''}`}
-         ref={ref}
+         ref={svgRef}
         style={{ top : `${Ypos}px` }}> 
 
           <svg className='group' width={80} height={75} viewBox="20 0 80 75">

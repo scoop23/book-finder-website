@@ -20,6 +20,7 @@ const LeftSide = ({topOneBook}) => {
   const genre = topOneBook?.volumeInfo?.categories || []
   const [hover , setIsHovered] = useState(false);
   const sideBarRef = useRef(null)
+
   const circleRefArray = useRef([]);
 
   const widGetArray = [
@@ -99,16 +100,34 @@ const LeftSide = ({topOneBook}) => {
   }
   
   useEffect(() => {
-  if (!hover) return;
-
+    if (!hover) return;
+    let ellipse = undefined;
     const tl = gsap.timeline();
-    tl.fromTo(circleRefArray.current,
-      { y: 10, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, ease: "elastic.out(0.5, 0.6)", stagger: 0.5 }
-    );
+    // if(circleRefArray.current) {
+    //   ellipse = circleRefArray.current.map(element => (
+    //     element.ellipse
+    //   ))
+    // }
+    // console.log(ellipse)
+
+
+    tl.to(circleRefArray.current.map(el => el.ellipse), {
+      attr: { cy: -15 },
+      duration: 0.6,
+      ease: Elastic.easeInOut.config(0.5, 0.5),
+      stagger: 0.3
+    });
+
+    
+    // tl.fromTo(ellipse,
+    //   { y: 10, opacity: 0 },
+    //   { y: 0, opacity: 1, duration: 0.5, ease: "elastic.out(0.5, 0.6)", stagger: 0.5 }
+    // );
 
     return () => tl.kill();
   }, [hover])
+
+  
 
   return (
     // outer color : --color-base ?
