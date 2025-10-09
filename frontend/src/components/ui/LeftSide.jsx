@@ -97,11 +97,11 @@ const LeftSide = ({topOneBook}) => {
     // inner color : --color-base ?
       <div style={{
         boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-      }} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-darker)] h-[420px] relative rounded-2xl' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      }} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-darker)] relative rounded-2xl min-h-[420px] max-h-[420px]' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <ActionButtons Ypos={-50.5} hover={hover} sideBarRef={sideBarRef} className={``}>
         </ActionButtons>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
-          <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-5 rounded-4xl shadow-2xl transition-all duration-200 max-h-[370px] -z-1' ref={sideBarRef}>
+          <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-5 rounded-2xl shadow-2xl transition-all duration-200 max-h-[370px] -z-1' ref={sideBarRef}>
             <div className='pic-div max-h-[220px] justify-center flex object-cover'>
               <img src={imglink || bookImage} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
             </div>

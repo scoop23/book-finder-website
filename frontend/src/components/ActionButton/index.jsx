@@ -11,7 +11,7 @@
 
     useEffect(() => { // set all positon first
       gsap.set(rectRef.current, { attr: { y: 22 } });
-      gsap.set(CircleCxRef.current, { attr: { cy: 50 } });
+      gsap.set(CircleCxRef.current, { attr: { cy: 60 } });
       gsap.set(WidgetRef.current, { y: 0 }); // the big square
     }, [WidgetRef]);
 
@@ -70,7 +70,7 @@
             <g transform="translate(50,50)"> {/* moves the group to SVG center */}
               <g id='group1' filter='url(#goo)'>
                 <rect ref={rectRef} x={-40} y={20} width={100} height={40} fill="#444446" />
-                <ellipse ref={CircleCxRef} cx={10} rx={30} ry={30} fill="#444446" />
+                <ellipse stroke='white' strokeWidth={0.1} ref={CircleCxRef} cx={10} rx={30} ry={30} fill="#444446" />
               </g>
               {/* i placed the groupd LikeButton outside because i dont want it blurry, because of the filter */}
               <g ref={likeButtonGroupRef} transform={`translate(-2, -15)`}>
