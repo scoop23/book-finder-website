@@ -14,7 +14,9 @@ const BookCard = forwardRef(({ bookData } , ref) => {
   return (
 
     <div className="main-bookcard-content max-h-[300px] font-inter" ref={ref}>
-      <div className="content-container rounded-3xl bg-[var(--color-base)]  max-w-[309px] h-[300px] flex flex-col shadow-custom3 overflow-hidden">
+      <div style={{
+        boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
+      }} className="content-container rounded-3xl bg-[var(--color-dark)]  max-w-[309px] h-[300px] flex flex-col   overflow-hidden">
         <div className="bookcard-content flex flex-col p-3 gap-2 max-h-full">
           <div className="main-content-card flex gap-2">
             <div className="flex-shrink-0">
@@ -62,7 +64,9 @@ const BookCard = forwardRef(({ bookData } , ref) => {
           </div>
 
           {/* Description Section */}
-          <div className="sub-content w-full h-[110px] bg-[var(--color-dark)] bg-opacity-40 rounded-2xl p-2 overflow-hidden">
+          <div style={{
+        // boxShadow: 'inset 0 1px 3px #00000030 ,inset 0 2px 4px #00000030'
+      }} className="sub-content w-full h-[110px] bg-[var(--color-dark)] bg-opacity-40 rounded-2xl p-2 overflow-hidden">
             <p className=" text-xs text-[var(--color-lighter)] line-clamp-4 break-words">
               {description || 'No description available.'}
             </p>

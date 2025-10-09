@@ -95,7 +95,9 @@ const LeftSide = ({topOneBook}) => {
   return (
     // outer color : --color-base ?
     // inner color : --color-base ?
-      <div style={{boxShadow : "-18px 20px 25px -16px rgba(0,0,0,0.58)"}} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-base)] rounded-4xl h-[420px] relative ' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <div style={{
+        boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
+      }} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black bg-[var(--color-darker)] h-[420px] relative rounded-2xl' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <ActionButtons Ypos={-50.5} hover={hover} sideBarRef={sideBarRef} className={``}>
         </ActionButtons>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
