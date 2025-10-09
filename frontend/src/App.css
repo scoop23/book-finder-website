@@ -71,7 +71,7 @@
   --color-primary-goldenbrown: #A16D19;
   --color-primary-liver: #544B50;
 
-  --inset-shadow-1 : '0 1px 1px 1px #ffffff30'
+  --inset-shadow-1 : inset 0 1px 1px 0 #ffffff30;
 }
 
 body{

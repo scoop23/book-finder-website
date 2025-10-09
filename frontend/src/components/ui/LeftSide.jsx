@@ -101,7 +101,9 @@ const LeftSide = ({topOneBook}) => {
         <ActionButtons Ypos={-50.5} hover={hover} sideBarRef={sideBarRef} className={``}>
         </ActionButtons>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
-          <div className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-5 rounded-2xl shadow-2xl transition-all duration-200 max-h-[370px] -z-1' ref={sideBarRef}>
+          <div style={{
+            boxShadow : 'var(--inset-shadow-1)'
+          }} className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-5 rounded-2xl shadow-2xl transition-all duration-200 max-h-[370px] -z-1' ref={sideBarRef}>
             <div className='pic-div max-h-[220px] justify-center flex object-cover'>
               <img src={imglink || bookImage} alt="book cover"  className='min-w-[140px] rounded-2xl ring-1'/>
             </div>
