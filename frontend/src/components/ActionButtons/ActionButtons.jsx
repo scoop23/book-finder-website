@@ -59,7 +59,7 @@ const ActionButtons = ({ Ypos, hover, sideBarRef, className }) => {
     } else {
       secondTimelineRef.current.to(ellipses , {
           duration : 0.9,
-          attr : {cy : 55},
+          attr : {cy : 60},
           onUpdate : () => {
             if (!ellipses) return; // <-- extra safety
             ellipses.forEach((ellipse , i) => {
