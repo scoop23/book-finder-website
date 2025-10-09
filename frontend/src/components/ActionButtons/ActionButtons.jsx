@@ -4,6 +4,7 @@ import LikeButton from './LikeButton';
 import BookmarkButton from './BookmarkButton';
 import ActionButton from '../ActionButton';
 import { Elastic } from 'gsap';
+import SeeMoreButton from './SeeMoreButton';
 
 const ActionButtons = ({ Ypos, hover, sideBarRef, className }) => {
   const circleRefArray = useRef([]);
@@ -97,6 +98,7 @@ const ActionButtons = ({ Ypos, hover, sideBarRef, className }) => {
           <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el} Icon={icon}/>
         ))
       }
+      <ActionButton hover={hover} noStroke={true} fill={"#000000"} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[widGetArray.length] = el} Icon={SeeMoreButton}/>
     </div>
   )
 }

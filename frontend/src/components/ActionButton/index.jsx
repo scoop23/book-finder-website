@@ -1,7 +1,7 @@
   import React, { forwardRef, useEffect , useImperativeHandle, useRef, useState } from 'react'
   import gsap, { Elastic } from 'gsap'
 
-  const ActionButton = forwardRef(({ className , hover , WidgetRef , Ypos, Icon} , ref) => {
+  const ActionButton = forwardRef(({ className , noStroke, fill , hover , WidgetRef , Ypos, Icon} , ref) => {
     const CircleCxRef = useRef(null)
     const likeButtonGroupRef = useRef(null)
     const rectRef = useRef(null)
@@ -31,7 +31,7 @@
     // }, []);
 
     function onLikeClick() {
-      const tl = gsap.timeline()
+      const tl = gsap.timeline();
       tl.fromTo(
         CircleCxRef.current,
         { attr: { rx: 0, ry: 0 } },
@@ -69,8 +69,8 @@
             {/* Group both circle and LikeButton */}
             <g transform="translate(50,50)"> {/* moves the group to SVG center */}
               <g id='group1' filter='url(#goo)'>
-                <rect ref={rectRef} x={-40} y={20} width={100} height={40} fill="#444446" />
-                <ellipse stroke='white' strokeWidth={0.1} ref={CircleCxRef} cx={10} rx={30} ry={30} fill="#444446" />
+                <rect ref={rectRef} x={-40} y={20} width={100} height={40} fill='#444446' />
+                <ellipse stroke={`${noStroke ? '' : 'white'}`} strokeWidth={0.1} ref={CircleCxRef} cx={10} rx={30} ry={30} fill={`${fill ? fill : '#444446'}`} />
               </g>
               {/* i placed the groupd LikeButton outside because i dont want it blurry, because of the filter */}
               <g ref={likeButtonGroupRef} transform={`translate(-2, -15)`}>
