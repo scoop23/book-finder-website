@@ -2,9 +2,10 @@ import React from 'react'
 import gsap from 'gsap'
 import { useRef } from 'react'
 
-const SeeMoreButton = ({size = 24 , clickAnimation, ...props}) => {
+const SeeMoreButton = ({size = 40 , clickAnimation, ...props}) => {
   const seeMoreIconRef = useRef(null);
 
+  // when CLICKED navigate() to a book with the ID
   function seeMoreButtonClicked() {
     // gsap.to(seeMoreIconRef.current, {
     //   x : 10,
