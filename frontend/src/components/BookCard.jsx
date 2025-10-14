@@ -1,23 +1,27 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { useState } from 'react';
 import bookImage from '../assets/book_empty.png';
+import ActionButtons from './ActionButtons/ActionButtons';
 
 const BookCard = forwardRef(({ bookData } , ref) => {
   const data = bookData?.volumeInfo;
   const { title, imageLinks, description, publishedDate, authors } = data;
   const [isHovering, setIsHovering] = useState(false);
+  const contentRef = useRef();
+
 
   function hoverSeeMoreButton(){
-    
+
   }
 
   return (
 
     <div className="main-bookcard-content max-h-[300px] font-inter" ref={ref}>
       <div style={{
-        boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-      }} className="content-container rounded-3xl bg-[var(--color-dark)]  max-w-[309px] h-[300px] flex flex-col   overflow-hidden">
-        <div className="bookcard-content flex flex-col p-3 gap-2 max-h-full">
+        // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
+      }} className="content-container rounded-3xl bg-[var(--color-dark)]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() =>setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
+        <ActionButtons Ypos={-64.5} Xpos={18.5} hover={isHovering} sideBarRef={contentRef} className={``}/>
+        <div className="bookcard-content flex flex-col py-4 p-3 gap-2 max-h-full">
           <div className="main-content-card flex gap-2">
             <div className="flex-shrink-0">
               <img

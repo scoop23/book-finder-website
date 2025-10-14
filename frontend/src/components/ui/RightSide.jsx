@@ -117,7 +117,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
         <div style={{
         boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
       }} className='right-sidebar p-4 text-[100px] max-w-[620px] min-h-[200px] max-h-[200px] bg-[var(--color-darker)] rounded-2xl flex gap-2 opacity-0 relative' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-          <ActionButtons Ypos={-55} hover={hovered} sideBarRef={rightSideWidget}/>
+          <ActionButtons Ypos={-53.5} Xpos={30} hover={hovered} sideBarRef={rightSideWidget}/>
         <div style={{
           boxShadow : 'var(--inset-shadow-1)'
         }} className='flex first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 text-[var(--color-lighter)] -z-1' ref={rightSideWidget}>
@@ -134,7 +134,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
         <div style={{
         boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
       }} className='right-sidebar p-4 text-[100px] max-w-[620px] bg-[var(--color-darker)] rounded-2xl flex gap-2 opacity-0 min-h-[200px] max-h-[200px] relative' onMouseEnter={() => setIsSecondButtonHovered(true)} onMouseLeave={() => setIsSecondButtonHovered(false)}>
-           <ActionButtons Ypos={-55} hover={secondButtonHovered} sideBarRef={secondRightSideWidget}/>
+           <ActionButtons Ypos={-53.5} Xpos={30} hover={secondButtonHovered} sideBarRef={secondRightSideWidget}/>
         <div style={{
           boxShadow : 'var(--inset-shadow-1)'
         }} className='flex text-[var(--color-lighter)] first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 -z-1' ref={secondRightSideWidget}>

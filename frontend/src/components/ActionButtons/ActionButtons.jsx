@@ -5,10 +5,11 @@ import BookmarkButton from './BookmarkButton';
 import ActionButton from '../ActionButton';
 import { Elastic } from 'gsap';
 import SeeMoreButton from './SeeMoreButton';
+import { stagger } from 'motion';
 
-const ActionButtons = ({ Ypos, hover, sideBarRef, className }) => {
+const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
   const circleRefArray = useRef([]);
-
+  
   const widGetArray = [
     LikeButton,
     BookmarkButton
@@ -61,6 +62,7 @@ const ActionButtons = ({ Ypos, hover, sideBarRef, className }) => {
       secondTimelineRef.current.to(ellipses , {
           duration : 0.9,
           attr : {cy : 60},
+          ease : Elastic.easeInOut.config(0.7 , 3),
           onUpdate : () => {
             if (!ellipses) return; // <-- extra safety
             ellipses.forEach((ellipse , i) => {
@@ -80,7 +82,7 @@ const ActionButtons = ({ Ypos, hover, sideBarRef, className }) => {
         {duration : 1 , y : 0}
       , '-=2')
       .to(icons , {
-        duration : 0.4,
+        duration : 0.7,
         opacity : 0
       }, '-=1')
     }
@@ -91,11 +93,11 @@ const ActionButtons = ({ Ypos, hover, sideBarRef, className }) => {
     <div className={`action-buttons flex ${className || ''}`}  style={{
       position : 'absolute',
       top : Ypos,
-      left : 60
+      left : Xpos,
     }}>
       {
         widGetArray.map((icon , i) => ( // factory method
-          <ActionButton hover={hover} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el} Icon={icon}/>
+          <ActionButton hover={hover} noStroke={false} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el} Icon={icon}/>
         ))
       }
       <ActionButton hover={hover} noStroke={true} fill={"#000000"} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[widGetArray.length] = el} Icon={SeeMoreButton}/>
