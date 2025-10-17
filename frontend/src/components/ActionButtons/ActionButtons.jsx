@@ -33,7 +33,7 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
     secondTimelineRef.current = tl2;
     if(hover) {
       timelineRef.current.to(icons , {
-          duration : 1,
+          duration : 0.8,
           opacity : 1,
           ease : Elastic.easeInOut.config(0.8 , 0.6),
           onUpdate : () => {
@@ -82,7 +82,7 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
         {duration : 1 , y : 0}
       , '-=2')
       .to(icons , {
-        duration : 0.7,
+        duration : 0.5,
         opacity : 0
       }, '-=1')
     }
