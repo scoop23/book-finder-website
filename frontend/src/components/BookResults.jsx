@@ -4,7 +4,7 @@ import LeftSide from './ui/LeftSide.jsx'
 import RightSide from './ui/RightSide.jsx';
 import Loading from './Loading.jsx';
 import { BookSearchContext } from '../context/BookSearchContext.jsx';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchPagePaginationResults from './SearchPagePaginationResults.jsx';
 import NothingSearch from './ui/NothingSearch.jsx';
 

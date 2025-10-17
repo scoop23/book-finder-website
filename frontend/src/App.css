@@ -9,15 +9,18 @@
   box-sizing: border-box;
 }
 
+
+
 :root {
   --font-monday: 'Monday Feelings';
   --font-fasthin : "Fasthin";
   height: 100%;
-  --color-base:    oklch(0.55 0.05 280); /* medium lavender gray */
-  --color-dark:    oklch(0.45 0.04 280); /* darker muted lavender */
-  --color-darker:  oklch(0.35 0.03 280); /* near-deep lavender gray */
+  --color-base:    oklch(52.711% 0.02051 278.712); /* medium lavender gray */
+  --color-dark:    oklch(38.737% 0.00338 286.054); /* darker muted lavender */
+  --color-darker:  oklch(17.853% 0.00409 285.914); /* near-deep lavender gray */
   --color-light:   oklch(0.65 0.05 280); /* softer pale lavender */
   --color-lighter: oklch(100% 0.00011 271.152); /* very light lavender gray */
+  --color-border-darker: oklch();
 }
 
 .first-content {
@@ -32,9 +35,12 @@
   box-shadow: 0px 10px 11px 8px rgba(0,0,0,0.3);
 }
 
+.right-sidebar {
+  max-height: 200px;   /* default (desktop) */
+}
+
 .first-content:hover{
-  transform: translateY(-3px);
-  box-shadow: 0px 10px 11px 8px rgba(0,0,0,0.3);
+  /* transform: translateY(-3px); */
 }
 
 @theme {
@@ -64,10 +70,12 @@
   --color-primary-blackrock : #343844;
   --color-primary-goldenbrown: #A16D19;
   --color-primary-liver: #544B50;
+
+  --inset-shadow-1 : inset 0 1px 1px 0 #ffffff30;
 }
 
 body{
-  background-color: var(--color-primary-ebony-clay);
+  background-color:  oklch(27.274% 0.00003 271.152);
   font-family: Inter;
   /* transition: 1s all; */
 }
@@ -205,6 +213,64 @@ body{
     @apply bg-background text-foreground;
   }
 }
+
+
+/* for the first result */
+@media (max-width : 375px) {
+  .sidebar {
+    max-width: 350px;
+    max-height: none;
+  }
+  .right-sidebar {
+    max-width: 350px;
+    max-height: none;
+    flex-direction: column;
+  }
+  .first-content {
+    flex-direction: column;
+    max-height: none;
+  }
+  .title2 {
+    flex-direction: column;
+  }
+  .title-genre {
+    flex-direction: column;
+    width: 280px;
+  }
+  .genre {
+    align-self: baseline;
+  }
+  .right-genre {
+    align-self: baseline;
+  }
+  .title-content2 {
+    width: 290px;
+  }
+  .title-content3 {
+    width: 290px;
+  }
+  .grid {
+    gap: 10px;
+  }
+  
+}
+
+@media (max-width : 800px) {
+  .main-bar {
+    flex-direction: column;
+  }
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.bubble-btn {
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.4s ease-out;
+}
+
+
+
 /* 
 @keyframes hover-up-shadow {
   from {

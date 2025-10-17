@@ -18,7 +18,7 @@ import { BookSearchContext } from "../context/BookSearchContext.jsx";
 
 
 const  BookSearchContainer = ({ children }) => {
-  const {state , dispatch} = useContext(BookSearchContext);
+  const { state , dispatch } = useContext(BookSearchContext);
   const { data : quoteData } = useFetch(fetchQuotes);
   const { data : randomBookData} = useFetch(fetchRandomBook);
   const fetchGenre = useCallback(() => getGenre(state.genreTag) , [state.genreTag]);
