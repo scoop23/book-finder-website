@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, forwardRef } from 'react'
 import { CodexCross } from './icons/CodexCross'
 import { useNavigate } from 'react-router-dom'
 import { useState, useContext } from 'react'
@@ -9,7 +9,7 @@ import { BookSearchContext } from '../context/BookSearchContext'
 
 
 // USED THE STATES OF THE PARENT TO CHANGE THE BUTTONS
-const SearchAuthor = ({ dispatch , setClickedSearchAuthor}) => {
+const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => {
   const { state } = useContext(BookSearchContext)
   const navigate = useNavigate();
   const [localAuthorText, setLocalAuthorText] = useState(() => {
@@ -44,7 +44,8 @@ const SearchAuthor = ({ dispatch , setClickedSearchAuthor}) => {
   }
 
   return (
-    <div className='search-author-input h-[70px] bg-amber-50 rounded-4xl items-center justify-center flex p-4 font-inter'>
+    <div className='search-author-input h-[70px] bg-amber-50 rounded-4xl items-center justify-center flex p-4 font-inter'
+    ref={ref}>
       <input 
       required
       className='author-search items-center outline-0 rounded-2xl'
@@ -58,6 +59,6 @@ const SearchAuthor = ({ dispatch , setClickedSearchAuthor}) => {
       </div>
     </div>
   )
-}
+})
 
 export default SearchAuthor

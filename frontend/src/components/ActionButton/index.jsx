@@ -60,7 +60,7 @@
               <defs>
                 <filter id="goo" height="300%" y="-100%">
                   <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 2 17 -7"/> 
+                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 2 18 -7"/> 
                   {/* original values : 1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 17 -7 */}
                 </filter>
               </defs>

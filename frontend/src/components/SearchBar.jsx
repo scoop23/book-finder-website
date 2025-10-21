@@ -13,10 +13,20 @@ const SearchBar = () => {
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
   const searchTitle = useRef();
+  const searchAuthorInputRef = useRef();
   const [searchCategory , setSearchCategory] = useState('');
   const [localSearchText , setLocalSearchText] = useState(() => {
     return localStorage.getItem("searchText") || state.searchText;
   })
+
+  const bothClicked = clickedSearchAuthor && clickedSearchTitle;
+
+  useEffect(() => {
+    console.log(bothClicked)
+    console.log(searchAuthor.current)
+    console.log(searchAuthorInputRef.current)
+  }, [bothClicked])
+
 
   useEffect(() => {
     localStorage.setItem("searchText" , localSearchText);
@@ -84,7 +94,7 @@ function buttonSearchTitle() {
     dispatch({ type: 'SET_SEARCH_TYPE', payload: { index: 0, value: null } });
 
     setClickedSearchTitle(false)
-
+    // TODO: move this to the classname with toggler 'active'
     element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
     element.classList.add("hover:bg-amber-50" , "hover:text-black");
   }
@@ -177,7 +187,7 @@ function buttonSearchTitle() {
           
           {searchType.includes("author") && searchType.includes("title")
             && // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
-            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor}/>) // pass in the states for it to works
+            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorInputRef}/>) // pass in the states for it to works
           }
 
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
