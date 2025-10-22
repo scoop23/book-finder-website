@@ -5,6 +5,9 @@ import  SearchAuthor  from './SearchAuthor.jsx'
 import { BookSearchContext } from '../context/BookSearchContext.jsx';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import SearchPagePaginationResults from './SearchPagePaginationResults.jsx';
+import gsap from 'gsap';
+
+
 const SearchBar = () => {  
   const { state , dispatch } = useContext(BookSearchContext); // get the context
   const navigate = useNavigate();
@@ -13,7 +16,8 @@ const SearchBar = () => {
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
   const searchTitle = useRef();
-  const searchAuthorInputRef = useRef();
+  const searchAuthorbButtonRef = useRef()
+  const [showAuthorButton , setShowAuthorButton] = useState(false);
   const [searchCategory , setSearchCategory] = useState('');
   const [localSearchText , setLocalSearchText] = useState(() => {
     return localStorage.getItem("searchText") || state.searchText;
@@ -24,7 +28,8 @@ const SearchBar = () => {
   useEffect(() => {
     console.log(bothClicked)
     console.log(searchAuthor.current)
-    console.log(searchAuthorInputRef.current)
+    console.log(searchAuthorbButtonRef.current)
+
   }, [bothClicked])
 
 
@@ -75,35 +80,30 @@ const SearchBar = () => {
   }, [searchType]);
 
 
-function buttonSearchTitle() {
-  const element = searchTitle.current;
+  function buttonSearchTitle() {
+    const element = searchTitle.current;
 
-  if (!element) {
-    console.error("Element does not exist.");
-    return;
+    if (!element) {
+      console.error("Element does not exist.");
+      return;
+    }
+
+    if (!clickedSearchTitle) {
+      dispatch({ type : 'SET_SEARCH_TYPE', payload : {index : 0, value : 'title'}});
+      setClickedSearchTitle(true);
+      
+      element.classList.remove("hover:bg-amber-50", "hover:text-black");
+      element.classList.add("bg-amber-50", "text-black", "hover:bg-primary-ebony-clay", "hover:text-amber-100");
+
+    } else {
+      dispatch({ type: 'SET_SEARCH_TYPE', payload: { index: 0, value: null } });
+
+      setClickedSearchTitle(false)
+      // TODO: move this to the classname with toggler 'active'
+      element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
+      element.classList.add("hover:bg-amber-50" , "hover:text-black");
+    }
   }
-
-  if (!clickedSearchTitle) {
-    dispatch({ type : 'SET_SEARCH_TYPE', payload : {index : 0, value : 'title'}});
-    setClickedSearchTitle(true);
-    
-    element.classList.remove("hover:bg-amber-50", "hover:text-black");
-    element.classList.add("bg-amber-50", "text-black", "hover:bg-primary-ebony-clay", "hover:text-amber-100");
-
-  } else {
-    dispatch({ type: 'SET_SEARCH_TYPE', payload: { index: 0, value: null } });
-
-    setClickedSearchTitle(false)
-    // TODO: move this to the classname with toggler 'active'
-    element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
-    element.classList.add("hover:bg-amber-50" , "hover:text-black");
-  }
-}
-
-// ADD ANIMATION WHEN CLICKED/ENTER
-// function searchBarAnimation() {
-  
-// }
 
   function buttonSearchAuthor() {
     const element = searchAuthor.current
@@ -111,14 +111,32 @@ function buttonSearchTitle() {
     if(!element) {
       console.log("No ", element)
     }
+    console.log(clickedSearchAuthor)
+    console.log(clickedSearchTitle)
+
 
     if(!clickedSearchAuthor) {
-      dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1 , value : "author"} })
-      setClickedSearchAuthor(true);
+      if(clickedSearchTitle) {
+        gsap.to(searchAuthor.current, {
+          opacity : 0,
+          duration : 0.2,
+          onComplete : () => {
+            setTimeout(() => {
+              dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1 , value : "author"} })
+              setClickedSearchAuthor(true);
+            }, 200);
+          }
+        })
+      } else {
+        dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : "author"} })
+        setClickedSearchAuthor(true); 
+      }
+      
     } else {
       dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : null} })
       setClickedSearchAuthor(false); 
     }
+    
   }
 
   function onSubmitSearch(e) {
@@ -180,14 +198,14 @@ function buttonSearchTitle() {
           {!(searchType.includes("title") && searchType.includes("author")) &&
             // opposite of when author and title search are active
             <> 
-              <button className={`${ clickedSearchAuthor ? 'hover:bg-primary-ebony-clay text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'} search-author hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg `}
+              <button className={`${ clickedSearchAuthor ? 'hover:bg-primary-ebony-clay text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'} search-author duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg `}
               onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Author Search</button> 
             </>
           }
           
           {searchType.includes("author") && searchType.includes("title")
             && // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
-            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorInputRef}/>) // pass in the states for it to works
+            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorbButtonRef}/>) // pass in the states for it to works
           }
 
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>

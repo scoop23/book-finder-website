@@ -17,7 +17,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   const paginationButtonArray = useRef([]);
   const pageContentRef = useRef(null);
   const paginationRef = useRef(null);
-  const currenPage = useRef(null)
+  const currentPage = useRef(null)
   const [cameFromNone , setCameFromNone] = useState(false);
   // useEffect(() => {
   //   setPageParam(page); // if page change then this will execute
@@ -75,7 +75,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
 
     }
 
-    currenPage.current = page
+    currentPage.current = page
   }
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
 
     setCameFromNone(false)
 
-    if(page > currenPage.current) {
+    if(page > currentPage.current) {
       gsap.fromTo(
         pageContentRef.current,
         { x : 30 },

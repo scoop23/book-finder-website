@@ -48,7 +48,7 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => 
     ref={ref}>
       <input 
       required
-      className='author-search items-center outline-0 rounded-2xl'
+      className='author-search items-center outline-0 rounded-2xl opacity-0'
       placeholder='Author Name..'
       type="text" 
       defaultValue={localAuthorText}
