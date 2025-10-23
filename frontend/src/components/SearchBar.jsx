@@ -17,8 +17,8 @@ const SearchBar = () => {
   const searchAuthor = useRef()
   const searchTitle = useRef();
   const searchAuthorbButtonRef = useRef()
-  const [showAuthorButton , setShowAuthorButton] = useState(false);
   const [searchCategory , setSearchCategory] = useState('');
+  const searchAuthorRefs = useRef(null);
   const [localSearchText , setLocalSearchText] = useState(() => {
     return localStorage.getItem("searchText") || state.searchText;
   })
@@ -26,11 +26,23 @@ const SearchBar = () => {
   const bothClicked = clickedSearchAuthor && clickedSearchTitle;
 
   useEffect(() => {
-    console.log(bothClicked)
-    console.log(searchAuthor.current)
-    console.log(searchAuthorbButtonRef.current)
-
-  }, [bothClicked])
+    if(searchAuthorRefs.current) {
+      const {searchAuthorButtonRef} = searchAuthorRefs.current;
+      // ANIMATE THE INPUT FOR THE AUTHOR AFTER AUTHOR SEARCH BUTTON DISAPPEARS
+      console.log(bothClicked)
+      if(searchAuthorRefs.current && bothClicked) {
+        gsap.fromTo(searchAuthorButtonRef, {
+          opacity : 0,
+          width : 174.41,
+          duration : 0.8,
+        }, {
+          opacity : 1,
+          width : 300,
+          duration : 0.8,
+        })
+      }
+    }
+  }, [bothClicked]);
 
 
   useEffect(() => {
@@ -205,7 +217,7 @@ const SearchBar = () => {
           
           {searchType.includes("author") && searchType.includes("title")
             && // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
-            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorbButtonRef}/>) // pass in the states for it to works
+            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorRefs}/>) // pass in the states for it to works
           }
 
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>

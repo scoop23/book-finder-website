@@ -2,14 +2,18 @@ import BookCard from './BookCard';
 import { useContext, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap'
 import { BookSearchContext } from '../context/BookSearchContext';
+import { useSearchParams } from 'react-router-dom';
 
 const BookResultsGrid = ({ remainingBooks }) => {
   // remainingBooks = an array of data.items;
   const bookCardHTMLArray = useRef([]);
   const { state } = useContext(BookSearchContext);  
   const tl = gsap.timeline();
-  
+  const prevBooks = useRef([]);
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page")
   useLayoutEffect(() => {
+    if(document.hidden) return;
     // bookCardHTMLArray.current.map((element , index) => {
     //   const ctx = gsap.context(() => {
     //     tl.fromTo(bookCardHTMLArray.current[index] , 
@@ -19,6 +23,14 @@ const BookResultsGrid = ({ remainingBooks }) => {
     //   })
     // })
     // DONT NEED .map here because gsap can accept arrays as the first argument in fromTo(element/s , animation_start, animation_end)
+    const e = remainingBooks.filter(
+      b => prevBooks.current.some(prevbook => b.id === prevbook.id)
+    )
+    
+    // const newBooks = remainingBooks.filter(
+    //   b => !prevBooks.current.some(prev => prev.id === b.id)
+    // );
+
     const ctx = gsap.context(() => {
       if(bookCardHTMLArray.current) {
           tl.fromTo(bookCardHTMLArray.current, 
@@ -28,11 +40,13 @@ const BookResultsGrid = ({ remainingBooks }) => {
       }
     });
 
+    prevBooks.current = remainingBooks;
     return (() => {
-      ctx.kill()
+      ctx.kill()  
     })
 
-  }, []);
+  }, [page]);
+  
 
   console.log(state)
 

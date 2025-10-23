@@ -1,7 +1,6 @@
-import React, { useEffect, forwardRef } from 'react'
+import React, { useEffect, forwardRef, useImperativeHandle, useState, useContext, useRef} from 'react'
 import { CodexCross } from './icons/CodexCross'
 import { useNavigate } from 'react-router-dom'
-import { useState, useContext } from 'react'
 import { BookSearchContext } from '../context/BookSearchContext'
 // TODO : WHEN SEARCH BY AUTHOR AND SEARCH BY TITLE IS CLICKED 
 // ADD HIDE THE SEARCH BY AUTHOR BUTTON AND SHOW A INPUT AUTHOR NAME
@@ -15,6 +14,15 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => 
   const [localAuthorText, setLocalAuthorText] = useState(() => {
     return localStorage.getItem("authorText") || state.author;
   })
+  const searchAuthorButtonRef = useRef(null);
+  const searchAuthorInputRef = useRef(null);
+  const XIconRef = useRef(null);
+
+  useImperativeHandle(ref , () => ({
+    searchAuthorButtonRef : searchAuthorButtonRef.current,
+    searchAuthorInputRef : searchAuthorInputRef.current,
+    XIconRef : XIconRef.current
+  }))
 
   useEffect(() => {
     localStorage.setItem("authorText" , localAuthorText);
@@ -33,7 +41,6 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => 
       console.log("author text exist")
       navigate(`/search/title-author?p1=${encodeURIComponent(state.searchText)}&p2=${e.target.value}&page=1`);
       
-      
     }
   }
 
@@ -44,9 +51,10 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => 
   }
 
   return (
-    <div className='search-author-input h-[70px] bg-amber-50 rounded-4xl items-center justify-center flex p-4 font-inter'
-    ref={ref}>
+    <div className='search-author-input h-[70px] bg-amber-50 rounded-4xl items-center justify-center flex p-4 font-inter w-[174.41px]'
+    ref={searchAuthorButtonRef}>
       <input 
+      ref={searchAuthorInputRef}
       required
       className='author-search items-center outline-0 rounded-2xl opacity-0'
       placeholder='Author Name..'
@@ -54,7 +62,7 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => 
       defaultValue={localAuthorText}
       onKeyDown={(e) => onSubmitSearch(e)}
       />
-      <div className='rounded-2xl x-icon w-[40px] cursor-pointer' onClick={resetAuthor}>
+      <div className='rounded-2xl x-icon w-[40px] cursor-pointer' onClick={resetAuthor} ref={XIconRef}>
         <CodexCross />
       </div>
     </div>
