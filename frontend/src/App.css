@@ -20,6 +20,7 @@
   --color-darker:  oklch(17.853% 0.00409 285.914); /* near-deep lavender gray */
   --color-light:   oklch(0.65 0.05 280); /* softer pale lavender */
   --color-lighter: oklch(100% 0.00011 271.152); /* very light lavender gray */
+  --color-mybg: oklch(27.274% 0.00003 271.152);
   --color-border-darker: oklch();
 }
 
@@ -75,7 +76,7 @@
 }
 
 body{
-  background-color:  oklch(27.274% 0.00003 271.152);
+  background-color:  var(--color-mybg);
   font-family: Inter;
   /* transition: 1s all; */
 }

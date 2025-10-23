@@ -11,7 +11,7 @@ const BookCard = forwardRef(({ bookData } , ref) => {
 
 
   function hoverSeeMoreButton(){
-
+    
   }
 
   return (

@@ -51,7 +51,7 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => 
   }
 
   return (
-    <div className='search-author-input h-[70px] bg-amber-50 rounded-4xl items-center justify-center flex p-4 font-inter w-[174.41px]'
+    <div className='search-author-input h-[70px] bg-amber-50 rounded-4xl items-center justify-center flex p-4 font-inter w-[174.41px] opacity-0'
     ref={searchAuthorButtonRef}>
       <input 
       ref={searchAuthorInputRef}

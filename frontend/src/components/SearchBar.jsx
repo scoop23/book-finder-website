@@ -24,23 +24,37 @@ const SearchBar = () => {
   })
 
   const bothClicked = clickedSearchAuthor && clickedSearchTitle;
-
+  
   useEffect(() => {
     if(searchAuthorRefs.current) {
-      const {searchAuthorButtonRef} = searchAuthorRefs.current;
+      const {searchAuthorButtonRef, XIconRef, searchAuthorInputRef} = searchAuthorRefs.current;
       // ANIMATE THE INPUT FOR THE AUTHOR AFTER AUTHOR SEARCH BUTTON DISAPPEARS
+      const tl = gsap.timeline()
       console.log(bothClicked)
       if(searchAuthorRefs.current && bothClicked) {
-        gsap.fromTo(searchAuthorButtonRef, {
+        tl.fromTo(searchAuthorButtonRef, {
           opacity : 0,
           width : 174.41,
-          duration : 0.8,
+          duration : 0.5,
         }, {
           opacity : 1,
           width : 300,
-          duration : 0.8,
-        })
+          duration : 0.5,
+        }).fromTo(XIconRef , {
+          opacity : 0,
+          duration : 0.6
+        }, {
+          opacity : 1,
+          duration : 0.6
+        }).fromTo(searchAuthorInputRef, {
+          opacity : 0,
+          duration : 0.6
+        }, {
+          opacity : 1,
+          duration : 0.6
+        }, "-=0.5")
       }
+      
     }
   }, [bothClicked]);
 
@@ -105,7 +119,7 @@ const SearchBar = () => {
       setClickedSearchTitle(true);
       
       element.classList.remove("hover:bg-amber-50", "hover:text-black");
-      element.classList.add("bg-amber-50", "text-black", "hover:bg-primary-ebony-clay", "hover:text-amber-100");
+      element.classList.add("bg-amber-50", "text-black", "hover:bg-[var(--mycolor-bg)]", "hover:text-amber-100");
 
     } else {
       dispatch({ type: 'SET_SEARCH_TYPE', payload: { index: 0, value: null } });
@@ -210,7 +224,7 @@ const SearchBar = () => {
           {!(searchType.includes("title") && searchType.includes("author")) &&
             // opposite of when author and title search are active
             <> 
-              <button className={`${ clickedSearchAuthor ? 'hover:bg-primary-ebony-clay text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'} search-author duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg `}
+              <button className={`${ clickedSearchAuthor ? 'hover:bg-[var(--mycolor-bg)] text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'} search-author duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg `}
               onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Author Search</button> 
             </>
           }
