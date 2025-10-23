@@ -6,6 +6,8 @@ import { BookSearchContext } from '../context/BookSearchContext.jsx';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import SearchPagePaginationResults from './SearchPagePaginationResults.jsx';
 import gsap from 'gsap';
+// ATTEMPT TO RESTRUCTURE THIS TO SEPERATE COMPONENTS'S
+
 
 
 const SearchBar = () => {  
@@ -16,7 +18,6 @@ const SearchBar = () => {
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
   const searchAuthor = useRef()
   const searchTitle = useRef();
-  const searchAuthorbButtonRef = useRef()
   const [searchCategory , setSearchCategory] = useState('');
   const searchAuthorRefs = useRef(null);
   const [localSearchText , setLocalSearchText] = useState(() => {
@@ -25,39 +26,48 @@ const SearchBar = () => {
 
   const bothClicked = clickedSearchAuthor && clickedSearchTitle;
   
-  useEffect(() => {
-    if(searchAuthorRefs.current) {
-      const {searchAuthorButtonRef, XIconRef, searchAuthorInputRef} = searchAuthorRefs.current;
-      // ANIMATE THE INPUT FOR THE AUTHOR AFTER AUTHOR SEARCH BUTTON DISAPPEARS
-      const tl = gsap.timeline()
-      console.log(bothClicked)
-      if(searchAuthorRefs.current && bothClicked) {
-        tl.fromTo(searchAuthorButtonRef, {
-          opacity : 0,
-          width : 174.41,
-          duration : 0.5,
-        }, {
-          opacity : 1,
-          width : 300,
-          duration : 0.5,
-        }).fromTo(XIconRef , {
-          opacity : 0,
-          duration : 0.6
-        }, {
-          opacity : 1,
-          duration : 0.6
-        }).fromTo(searchAuthorInputRef, {
-          opacity : 0,
-          duration : 0.6
-        }, {
-          opacity : 1,
-          duration : 0.6
-        }, "-=0.5")
-      }
-      
-    }
-  }, [bothClicked]);
+  // useEffect(() => {
+  //   const tl = gsap.timeline();
+  //   if(searchAuthorRefs.current) {
+  //     const {searchAuthorButtonRef, XIconRef, searchAuthorInputRef} = searchAuthorRefs.current;
+  //     // ANIMATE THE INPUT FOR THE AUTHOR AFTER AUTHOR SEARCH BUTTON DISAPPEARS
+  //     if(searchAuthorRefs.current && bothClicked) {
+  //       tl.fromTo(searchAuthorButtonRef, {
+  //         opacity : 0,
+  //         width : 174.41,
+  //         duration : 0.5,
+  //       }, {
+  //         opacity : 1,
+  //         width : 300,
+  //         duration : 0.5,
+  //       }).fromTo(XIconRef , {
+  //         opacity : 0,
+  //         duration : 0.6
+  //       }, {
+  //         opacity : 1,
+  //         duration : 0.6
+  //       }).fromTo(searchAuthorInputRef, {
+  //         opacity : 0,
+  //         duration : 0.6
+  //       }, {
+  //         opacity : 1,
+  //         duration : 0.6
+  //       }, "-=0.5")
+  //     }
+  //   }
+  // }, [bothClicked]);
 
+
+  
+  useEffect(() => {
+    if(searchAuthor.current) {
+      gsap.to(searchAuthor.current, {
+        opacity : 1,
+        duration : 1
+      })
+    }
+  }, [searchAuthor.current])
+  
 
   useEffect(() => {
     localStorage.setItem("searchText" , localSearchText);
@@ -145,12 +155,12 @@ const SearchBar = () => {
       if(clickedSearchTitle) {
         gsap.to(searchAuthor.current, {
           opacity : 0,
-          duration : 0.2,
+          duration : 0.4,
           onComplete : () => {
             setTimeout(() => {
               dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1 , value : "author"} })
               setClickedSearchAuthor(true);
-            }, 200);
+            }, 400);
           }
         })
       } else {
@@ -162,7 +172,6 @@ const SearchBar = () => {
       dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : null} })
       setClickedSearchAuthor(false); 
     }
-    
   }
 
   function onSubmitSearch(e) {
@@ -231,7 +240,7 @@ const SearchBar = () => {
           
           {searchType.includes("author") && searchType.includes("title")
             && // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
-            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorRefs}/>) // pass in the states for it to works
+            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorRefs} clickedSearchAuthor={clickedSearchAuthor} clickedSearchTitle={clickedSearchTitle}/>) // pass in the states for it to works
           }
 
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>

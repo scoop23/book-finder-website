@@ -2,13 +2,14 @@ import React, { useEffect, forwardRef, useImperativeHandle, useState, useContext
 import { CodexCross } from './icons/CodexCross'
 import { useNavigate } from 'react-router-dom'
 import { BookSearchContext } from '../context/BookSearchContext'
+import gsap from 'gsap'
 // TODO : WHEN SEARCH BY AUTHOR AND SEARCH BY TITLE IS CLICKED 
 // ADD HIDE THE SEARCH BY AUTHOR BUTTON AND SHOW A INPUT AUTHOR NAME
 
 
 
 // USED THE STATES OF THE PARENT TO CHANGE THE BUTTONS
-const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => {
+const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSearchAuthor, clickedSearchTitle} , ref) => {
   const { state } = useContext(BookSearchContext)
   const navigate = useNavigate();
   const [localAuthorText, setLocalAuthorText] = useState(() => {
@@ -24,6 +25,8 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => 
     XIconRef : XIconRef.current
   }))
 
+  
+  console.log(clickedSearchAuthor)
   useEffect(() => {
     localStorage.setItem("authorText" , localAuthorText);
     dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText })
@@ -46,8 +49,36 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor} , ref) => 
 
   function resetAuthor() {
     // setSearchType(types => types.map(type => type === 'author' ? null : type))
+    
     dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : null }})
     setClickedSearchAuthor(false)
+    // tl.fromTo(searchAuthorButtonRef.current, {
+    //   opacity : 1,
+    //   duration : 0.6,
+    //   width : 300
+    // }, {
+    //   opacity : 0,
+    //   width : 174.41,
+    //   duration : 0.6,
+    //   onComplete : () => {
+    //     setTimeout(() => {
+    //       dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : null }})
+    //       setClickedSearchAuthor(false)
+    //     }, 200);
+        
+    //   }
+    // })
+    
+      
+    // .to(searchAuthorMainButtonRef.current, {
+    //   opacity : 1,
+    //   duration : 1,
+    //   onComplete : () => {
+    //     setTimeout(() => {
+  
+    //     }, 100);
+    //   }
+    // })
   }
 
   return (
