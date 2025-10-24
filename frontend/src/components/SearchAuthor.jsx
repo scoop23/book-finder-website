@@ -47,8 +47,9 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
 
   function resetAuthor() {
     // setSearchType(types => types.map(type => type === 'author' ? null : type))
+    const tl = gsap.timeline();
     if(clickedSearchAuthor) {
-      gsap.to(searchAuthorButtonRef.current , {
+      tl.to(searchAuthorButtonRef.current , {
         opacity : 0, 
         width :175.41,
         duration : 0.5,

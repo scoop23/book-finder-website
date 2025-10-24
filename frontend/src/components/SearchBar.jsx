@@ -5,7 +5,7 @@ import  SearchAuthor  from './SearchAuthor.jsx'
 import { BookSearchContext } from '../context/BookSearchContext.jsx';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import SearchPagePaginationResults from './SearchPagePaginationResults.jsx';
-import gsap from 'gsap';
+import gsap, { Elastic } from 'gsap';
 // ATTEMPT TO RESTRUCTURE THIS TO SEPERATE COMPONENTS'S
 
 
@@ -82,16 +82,15 @@ const SearchBar = () => {
       tl.fromTo(searchAuthorButtonRef, { opacity: 0, width: 174.41 }, { opacity: 1, width: 300, duration: 0.5 })
         .fromTo(XIconRef, { opacity: 0 }, { opacity: 1, duration: 0.6 })
         .fromTo(searchAuthorInputRef, { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.5");
-    } 
-    
-    else if (searchAuthorBtn.current && !bothClicked) {
+    } else if (searchAuthorBtn.current && !bothClicked) {
       console.log("HEY HEY HEY HEY 1!!!!!!!!!");
       gsap.fromTo(searchAuthorBtn.current, {
         opacity : 0,
-        duration : 0.5
+        duration : 0.3
       }, {
         opacity : 1,
-        duration : 0.5
+        duration : 0.3,
+        ease : Elastic.easeInOut.config(0.9,0.4)
       })
       console.log(searchAuthorBtn.current, "Exists!!")
     } else {
@@ -224,7 +223,8 @@ const SearchBar = () => {
           {!(searchType.includes("title") && searchType.includes("author")) &&
             // opposite of when author and title search are active
             <> 
-              <button className={`search-author ${ clickedSearchAuthor ? 'hover:bg-[var(--mycolor-bg)] text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'}  duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg opacity-0 `}
+              <button className={`search-author ${ clickedSearchAuthor ? 'hover:bg-[var(--mycolor-bg)] text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'}  duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg opacity-0`}
+              // sm:w-[174px] md:w-[250px] lg:w-[300px]
               onClick={() => buttonSearchAuthor()} ref={searchAuthorBtn}>Author Search</button> 
             </>
           }
