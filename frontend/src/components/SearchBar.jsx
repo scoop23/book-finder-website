@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState, useLayoutEffect } from 'react'
 import { FaSearch , FaHome } from 'react-icons/fa';
 import { animate } from 'motion';
 import  SearchAuthor  from './SearchAuthor.jsx'
@@ -16,7 +16,7 @@ const SearchBar = () => {
   const location = useLocation();
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
-  const searchAuthor = useRef()
+  const searchAuthorBtn = useRef()
   const searchTitle = useRef();
   const [searchCategory , setSearchCategory] = useState('');
   const searchAuthorRefs = useRef(null);
@@ -25,49 +25,6 @@ const SearchBar = () => {
   })
 
   const bothClicked = clickedSearchAuthor && clickedSearchTitle;
-  
-  // useEffect(() => {
-  //   const tl = gsap.timeline();
-  //   if(searchAuthorRefs.current) {
-  //     const {searchAuthorButtonRef, XIconRef, searchAuthorInputRef} = searchAuthorRefs.current;
-  //     // ANIMATE THE INPUT FOR THE AUTHOR AFTER AUTHOR SEARCH BUTTON DISAPPEARS
-  //     if(searchAuthorRefs.current && bothClicked) {
-  //       tl.fromTo(searchAuthorButtonRef, {
-  //         opacity : 0,
-  //         width : 174.41,
-  //         duration : 0.5,
-  //       }, {
-  //         opacity : 1,
-  //         width : 300,
-  //         duration : 0.5,
-  //       }).fromTo(XIconRef , {
-  //         opacity : 0,
-  //         duration : 0.6
-  //       }, {
-  //         opacity : 1,
-  //         duration : 0.6
-  //       }).fromTo(searchAuthorInputRef, {
-  //         opacity : 0,
-  //         duration : 0.6
-  //       }, {
-  //         opacity : 1,
-  //         duration : 0.6
-  //       }, "-=0.5")
-  //     }
-  //   }
-  // }, [bothClicked]);
-
-
-  
-  useEffect(() => {
-    if(searchAuthor.current) {
-      gsap.to(searchAuthor.current, {
-        opacity : 1,
-        duration : 1
-      })
-    }
-  }, [searchAuthor.current])
-  
 
   useEffect(() => {
     localStorage.setItem("searchText" , localSearchText);
@@ -115,10 +72,38 @@ const SearchBar = () => {
 
   }, [searchType]);
 
+  useLayoutEffect(() => {
+    const tl = gsap.timeline();
+    const tl2 = gsap.timeline();
+
+    if (searchAuthorRefs.current && bothClicked) {
+      const {searchAuthorButtonRef, XIconRef, searchAuthorInputRef} = searchAuthorRefs.current;
+
+      tl.fromTo(searchAuthorButtonRef, { opacity: 0, width: 174.41 }, { opacity: 1, width: 300, duration: 0.5 })
+        .fromTo(XIconRef, { opacity: 0 }, { opacity: 1, duration: 0.6 })
+        .fromTo(searchAuthorInputRef, { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.5");
+    } 
+    
+    else if (searchAuthorBtn.current && !bothClicked) {
+      console.log("HEY HEY HEY HEY 1!!!!!!!!!");
+      gsap.fromTo(searchAuthorBtn.current, {
+        opacity : 0,
+        duration : 0.5
+      }, {
+        opacity : 1,
+        duration : 0.5
+      })
+      console.log(searchAuthorBtn.current, "Exists!!")
+    } else {
+      console.log(searchAuthorBtn.current , "doenst exist")
+    }
+
+
+  }, [bothClicked]);
 
   function buttonSearchTitle() {
     const element = searchTitle.current;
-
+    
     if (!element) {
       console.error("Element does not exist.");
       return;
@@ -133,41 +118,47 @@ const SearchBar = () => {
 
     } else {
       dispatch({ type: 'SET_SEARCH_TYPE', payload: { index: 0, value: null } });
-
       setClickedSearchTitle(false)
+
+      
+        
       // TODO: move this to the classname with toggler 'active'
       element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
       element.classList.add("hover:bg-amber-50" , "hover:text-black");
     }
   }
 
+
+
   function buttonSearchAuthor() {
-    const element = searchAuthor.current
+    const element = searchAuthorBtn.current
     
     if(!element) {
       console.log("No ", element)
     }
-    console.log(clickedSearchAuthor)
+    console.log("Author Button Search is " , clickedSearchAuthor)
     console.log(clickedSearchTitle)
 
 
-    if(!clickedSearchAuthor) {
+    if(!clickedSearchAuthor) { // if true then !true = false.. was it false before this click if true then invert this and make it true, then if clickedSearchTitle is also true then run this making the bothClicked true..?
       if(clickedSearchTitle) {
-        gsap.to(searchAuthor.current, {
+        const newClickedState = !clickedSearchAuthor && clickedSearchTitle;
+        console.log("search btn and author btn is clicked? :: " , newClickedState)
+        gsap.to(searchAuthorBtn.current, {
           opacity : 0,
-          duration : 0.4,
+          duration : 0.5,
           onComplete : () => {
             setTimeout(() => {
               dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1 , value : "author"} })
               setClickedSearchAuthor(true);
-            }, 400);
+            }, 500);
           }
         })
+
       } else {
         dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : "author"} })
         setClickedSearchAuthor(true); 
       }
-      
     } else {
       dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : null} })
       setClickedSearchAuthor(false); 
@@ -233,8 +224,8 @@ const SearchBar = () => {
           {!(searchType.includes("title") && searchType.includes("author")) &&
             // opposite of when author and title search are active
             <> 
-              <button className={`${ clickedSearchAuthor ? 'hover:bg-[var(--mycolor-bg)] text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'} search-author duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg `}
-              onClick={() => buttonSearchAuthor()} ref={searchAuthor}>Author Search</button> 
+              <button className={`search-author ${ clickedSearchAuthor ? 'hover:bg-[var(--mycolor-bg)] text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'}  duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg opacity-0 `}
+              onClick={() => buttonSearchAuthor()} ref={searchAuthorBtn}>Author Search</button> 
             </>
           }
           

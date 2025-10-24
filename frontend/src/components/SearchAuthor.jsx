@@ -9,7 +9,7 @@ import gsap from 'gsap'
 
 
 // USED THE STATES OF THE PARENT TO CHANGE THE BUTTONS
-const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSearchAuthor, clickedSearchTitle} , ref) => {
+const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSearchAuthor, clickedSearchTitle, searchAuthorBtn} , ref) => {
   const { state } = useContext(BookSearchContext)
   const navigate = useNavigate();
   const [localAuthorText, setLocalAuthorText] = useState(() => {
@@ -24,9 +24,7 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
     searchAuthorInputRef : searchAuthorInputRef.current,
     XIconRef : XIconRef.current
   }))
-
   
-  console.log(clickedSearchAuthor)
   useEffect(() => {
     localStorage.setItem("authorText" , localAuthorText);
     dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText })
@@ -49,9 +47,20 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
 
   function resetAuthor() {
     // setSearchType(types => types.map(type => type === 'author' ? null : type))
+    if(clickedSearchAuthor) {
+      gsap.to(searchAuthorButtonRef.current , {
+        opacity : 0, 
+        width :175.41,
+        duration : 0.5,
+        onComplete : () => {
+          dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : null }});
+          setClickedSearchAuthor(false);
+        }
+      })
+    }
     
-    dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : null }})
-    setClickedSearchAuthor(false)
+    
+    
     // tl.fromTo(searchAuthorButtonRef.current, {
     //   opacity : 1,
     //   duration : 0.6,
