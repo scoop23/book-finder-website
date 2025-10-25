@@ -19,7 +19,6 @@ const NothingSearch = () => {
     <div className="flex justify-center items-center h-[650px] opacity-0" ref={imageRef}>
       <img className="w-fit h-auto p-2 rounded-[100px] " src={image} alt="No results" />
     </div>
-
   )
 }
 

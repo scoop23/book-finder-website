@@ -122,7 +122,7 @@ const CarouselB = ({ state , dispatch }) => {
               style={{
                 boxShadow: "0 0 25px 20px rgba(24, 24, 27, 3)",
               }}
-            ></div>
+            ></div>   
             <div className={`carouselB-main flex h-[250px] overflow-hidden  items-center `} style={{
               boxShadow: `inset 20px 0 20px rgba(24, 24, 27,3),     /* left */
                           inset -20px 0 20px rgba(24, 24, 27,3),    /* right */

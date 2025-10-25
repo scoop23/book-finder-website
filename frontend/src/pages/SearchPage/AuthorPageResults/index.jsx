@@ -11,7 +11,7 @@ const AuthorPageResults = () => {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('query');
   const pageParams = searchParams.get('page');
-
+  
   console.log(searchQuery)
   console.log(pageParams)
 

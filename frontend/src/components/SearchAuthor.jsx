@@ -2,7 +2,7 @@ import React, { useEffect, forwardRef, useImperativeHandle, useState, useContext
 import { CodexCross } from './icons/CodexCross'
 import { useNavigate } from 'react-router-dom'
 import { BookSearchContext } from '../context/BookSearchContext'
-import gsap from 'gsap'
+import gsap, { Elastic } from 'gsap'
 // TODO : WHEN SEARCH BY AUTHOR AND SEARCH BY TITLE IS CLICKED 
 // ADD HIDE THE SEARCH BY AUTHOR BUTTON AND SHOW A INPUT AUTHOR NAME
 
@@ -49,46 +49,26 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
     // setSearchType(types => types.map(type => type === 'author' ? null : type))
     const tl = gsap.timeline();
     if(clickedSearchAuthor) {
-      tl.to(searchAuthorButtonRef.current , {
-        opacity : 0, 
-        width :175.41,
-        duration : 0.5,
-        onComplete : () => {
-          dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : null }});
-          setClickedSearchAuthor(false);
+      
+      tl.to(searchAuthorButtonRef.current, {
+        opacity: 0,
+        width: 175.41,
+        duration: 0.5,
+        onComplete: () => {
+          setTimeout(() => {
+            dispatch({ type: "SET_SEARCH_TYPE", payload: { index: 1, value: null }});
+            setClickedSearchAuthor(false);
+          }, 100); // small delay gives timeline time to continue
         }
       })
+      gsap.to(searchAuthorInputRef.current, {
+        width : 70,
+        duration: 0.5,
+        // ease : Elastic.easeInOut.config(0.5 , 0.6)
+        ease : "power2.out"
+      });
     }
-    
-    
-    
-    // tl.fromTo(searchAuthorButtonRef.current, {
-    //   opacity : 1,
-    //   duration : 0.6,
-    //   width : 300
-    // }, {
-    //   opacity : 0,
-    //   width : 174.41,
-    //   duration : 0.6,
-    //   onComplete : () => {
-    //     setTimeout(() => {
-    //       dispatch({ type : "SET_SEARCH_TYPE" , payload : { index : 1 , value : null }})
-    //       setClickedSearchAuthor(false)
-    //     }, 200);
-        
-    //   }
-    // })
-    
-      
-    // .to(searchAuthorMainButtonRef.current, {
-    //   opacity : 1,
-    //   duration : 1,
-    //   onComplete : () => {
-    //     setTimeout(() => {
   
-    //     }, 100);
-    //   }
-    // })
   }
 
   return (

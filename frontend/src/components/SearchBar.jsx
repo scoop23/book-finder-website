@@ -82,6 +82,11 @@ const SearchBar = () => {
       tl.fromTo(searchAuthorButtonRef, { opacity: 0, width: 174.41 }, { opacity: 1, width: 300, duration: 0.5 })
         .fromTo(XIconRef, { opacity: 0 }, { opacity: 1, duration: 0.6 })
         .fromTo(searchAuthorInputRef, { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.5");
+      // if(!bothClicked) {
+      //   tl
+      //   .fromTo(XIconRef, { opacity: 1 }, { opacity: 0, duration: 0.1 })
+      //   .fromTo(searchAuthorInputRef, { opacity: 1 }, { opacity: 0, duration: 0.1 }, "-=0.5");
+      // }
     } else if (searchAuthorBtn.current && !bothClicked) {
       console.log("HEY HEY HEY HEY 1!!!!!!!!!");
       gsap.fromTo(searchAuthorBtn.current, {
@@ -153,10 +158,6 @@ const SearchBar = () => {
             }, 500);
           }
         })
-
-      } else {
-        dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : "author"} })
-        setClickedSearchAuthor(true); 
       }
     } else {
       dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : null} })
