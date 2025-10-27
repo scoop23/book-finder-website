@@ -53,7 +53,7 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
       tl.to(searchAuthorButtonRef.current, {
         opacity: 0,
         width: 175.41,
-        duration: 0.5,
+        duration: 0.3,
         onComplete: () => {
           setTimeout(() => {
             dispatch({ type: "SET_SEARCH_TYPE", payload: { index: 1, value: null }});
