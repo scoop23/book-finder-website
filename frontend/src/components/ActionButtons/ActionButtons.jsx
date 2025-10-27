@@ -9,7 +9,8 @@ import { stagger } from 'motion';
 
 const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
   const circleRefArray = useRef([]);
-  
+    // TODO : make the sideBarRef a copy of an svg to make goo animation more native
+    // TODO : adjust the settting animation for the blobs
   const widGetArray = [
     LikeButton,
     BookmarkButton
