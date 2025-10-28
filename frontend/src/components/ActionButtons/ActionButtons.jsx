@@ -63,13 +63,14 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
         fill : "#000000"
       }, "-=2")
       .fromTo(ellipses, // can't do independent tween here, will ruin the animation.
-        { attr: { cx: 10 , rx : 0, ry : 0} },
-        { attr: { cy : -20.5, rx : 30, ry : 30} , duration: 0.7, ease : Elastic.easeInOut.config(0.5, 0.5), stagger : 0.1} , '-=1'
+        { attr: { cx: 10 , rx : 0, ry : 0} }, 
+        // CY : -20.5
+        { attr: { cy : -30.5, rx : 30, ry : 30} , duration: 0.7, ease : Elastic.easeInOut.config(0.5, 0.5), stagger : 0.1} , '-=1'
       )
 
     } else {
       secondTimelineRef.current.to(ellipses, {
-          duration : 1,
+          duration : 1.7, // originally 1 but because of some issues i put it to 2
           attr : {cy : 60},
           onUpdate : () => {
             if (!ellipses) return; // <-- extra safety
@@ -85,7 +86,7 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
       )
       .to(ellipses[2] , { // animate only the last ellipse
         fill : "#444444",
-        duration : 0.3
+        duration : 0.5
       }, "-=1")
       .to(rects, 
         { attr : { y : 22 } , duration : 0.5 , ease : 'power1.in'}
@@ -94,9 +95,9 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
         {duration : 0.5 , y : 0} 
       , '-=2')
       .to(icons , {
-        duration : 0.2,
+        duration : 0.8,
         opacity : 0
-      }, '-=1')
+      }, '-=2')
     }
   
   }, [hover])
