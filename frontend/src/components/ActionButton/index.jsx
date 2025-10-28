@@ -13,7 +13,7 @@
 
     useEffect(() => { // set all positon first
       gsap.set(rectRef.current, { attr: { y: 22 } });
-      gsap.set(CircleCxRef.current, { attr: { cy: 60 } });
+      gsap.set(CircleCxRef.current, { attr: { cy: 70 }, fill : "#444444"});
       gsap.set(WidgetRef.current, { y: 0 }); // the big square
       gsap.set(OutlineRef.current,  { attr: { cy: 60 } });
     }, [WidgetRef]);
@@ -64,9 +64,9 @@
             {/* defs tag is like defining a variable though instead of a variable you define all kinds of things and you can use it by getting the id of the tag you created using url(#someId)*/}
               <defs>
                 <filter id="goo" height="300%" y="-100%">
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 2 18 -7"/> 
-                  
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
+                  <feColorMatrix in="blur" mode="matrix" result='goo' values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 2 18 -7"/> 
+                  <feBlend in="SourceGraphic" in2='goo' />
                   {/* original values : 1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 17 -7 */}
                 </filter>
               </defs>

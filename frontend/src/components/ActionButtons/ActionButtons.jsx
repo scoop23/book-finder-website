@@ -31,10 +31,9 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
     const icons = circleRefArray.current.map(el => el.icon);
     const outlines = circleRefArray.current.map(el => el.outline)
     const rectOutlines = circleRefArray.current.map(el => el.rectangleOutline)
-    console.log(rectOutlines)
     const tl = gsap.timeline()
     const tl2 = gsap.timeline();
-
+    
     timelineRef.current = tl;
     secondTimelineRef.current = tl2;
     if(hover) {
@@ -59,9 +58,13 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
       .to(sideBarRef.current , 
         {duration : 1 , y : -6}
       , '-=2')
+      .to(ellipses[2] , { // animate only the last ellipse
+        duration : 0.5,
+        fill : "#000000"
+      }, "-=2")
       .fromTo(ellipses, // can't do independent tween here, will ruin the animation.
         { attr: { cx: 10 , rx : 0, ry : 0} },
-        { attr: { cy : -20.5, rx : 30, ry : 30}, duration: 0.7, ease : Elastic.easeInOut.config(0.5, 0.5), stagger : 0.1} , '-=1'
+        { attr: { cy : -20.5, rx : 30, ry : 30} , duration: 0.7, ease : Elastic.easeInOut.config(0.5, 0.5), stagger : 0.1} , '-=1'
       )
 
     } else {
@@ -80,6 +83,10 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
           }
         }
       )
+      .to(ellipses[2] , { // animate only the last ellipse
+        fill : "#444444",
+        duration : 0.3
+      }, "-=1")
       .to(rects, 
         { attr : { y : 22 } , duration : 0.5 , ease : 'power1.in'}
       , '-=2')

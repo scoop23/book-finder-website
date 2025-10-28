@@ -20,7 +20,7 @@ const BookCard = forwardRef(({ bookData } , ref) => {
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
       }} className="content-container rounded-3xl bg-[var(--color-dark)]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() =>setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
-        <ActionButtons Ypos={-64.5} Xpos={18.5} hover={isHovering} sideBarRef={contentRef} className={``}/>
+        <ActionButtons Ypos={-66} Xpos={18.5} hover={isHovering} sideBarRef={contentRef} className={``}/>
         <div className="bookcard-content flex flex-col py-4 p-3 gap-2 max-h-full">
           <div className="main-content-card flex gap-2">
             <div className="flex-shrink-0">
