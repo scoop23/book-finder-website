@@ -57,10 +57,10 @@
     return (
       <>
         <div className={`action-button left-10 flex ${className || ''}`}
-         ref={svgRef}
+        ref={svgRef}
         style={{ top : `${Ypos}px` }}> 
-
-          <svg className='group' width={80} height={80} viewBox="20 0 80 75">
+        
+          <svg className='group' width={80} height={120} viewBox="20 -20 80 75">
             {/* defs tag is like defining a variable though instead of a variable you define all kinds of things and you can use it by getting the id of the tag you created using url(#someId)*/}
               <defs>
                 <filter id="goo" height="300%" y="-100%">

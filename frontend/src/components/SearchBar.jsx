@@ -75,7 +75,7 @@ const SearchBar = () => {
   useLayoutEffect(() => {
     const tl = gsap.timeline();
     const tl2 = gsap.timeline();
-
+    
     if (searchAuthorRefs.current && bothClicked) {
       const {searchAuthorButtonRef, XIconRef, searchAuthorInputRef} = searchAuthorRefs.current;
 

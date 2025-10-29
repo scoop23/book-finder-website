@@ -86,8 +86,8 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
       )
       .to(ellipses[2] , { // animate only the last ellipse
         fill : "#444444",
-        duration : 0.5
-      }, "-=1")
+        duration : 0.2
+      }, "-=1.5")
       .to(rects, 
         { attr : { y : 22 } , duration : 0.5 , ease : 'power1.in'}
       , '-=2')
