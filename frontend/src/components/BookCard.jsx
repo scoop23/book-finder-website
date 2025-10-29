@@ -19,8 +19,8 @@ const BookCard = forwardRef(({ bookData } , ref) => {
     <div className="main-bookcard-content max-h-[300px] font-inter" ref={ref}>
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-      }} className="content-container rounded-3xl bg-[var(--color-dark)]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() =>setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
-        <ActionButtons Ypos={-105} Xpos={14.5} hover={isHovering} sideBarRef={contentRef} className={``}/>
+      }} className="content-container rounded-2xl bg-[var(--color-dark)]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() =>setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
+        <ActionButtons Ypos={-82.5} Xpos={17.5} hover={isHovering} sideBarRef={contentRef} className={``}/>
         <div className="bookcard-content flex flex-col py-4 p-3 gap-2 max-h-full">
           <div className="main-content-card flex gap-2">
             <div className="flex-shrink-0">
@@ -76,9 +76,9 @@ const BookCard = forwardRef(({ bookData } , ref) => {
             </p>
           </div>
 
-          <button 
-          className='rounded-2xl p-2 bg-[#212129] shadow-2xl cursor-pointer text-white'
-          ref={ref}><a href='#'>See More</a></button>
+          {/* <button 
+          className='rounded-2xl p-2 bg-[#212129] shadow-2xl cursor-pointer text-white z-20'
+          ref={ref}><a href='#'>See More</a></button> */}
         </div>
       </div>
     </div>

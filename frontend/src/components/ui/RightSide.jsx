@@ -114,12 +114,12 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
       <motion.div
         // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
-        <div style={{
+        <div style={{ // bg-[var(--color-darker)]
         boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-      }} className='right-sidebar p-4 text-[100px] max-w-[620px] min-h-[200px] max-h-[200px] bg-[var(--color-darker)] rounded-2xl flex gap-2 opacity-0 relative' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-          <ActionButtons Ypos={-92.5} Xpos={30} hover={hovered} sideBarRef={rightSideWidget}/>
+      }} className='right-sidebar p-4 text-[100px] max-w-[620px] min-h-[200px] max-h-[200px]  rounded-2xl flex gap-2 opacity-0 relative' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+          <ActionButtons Ypos={-70.8} Xpos={30} hover={hovered} sideBarRef={rightSideWidget}/>
         <div style={{
-          boxShadow : 'var(--inset-shadow-1)'
+          // boxShadow : 'var(--inset-shadow-1)'
         }} className='flex first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 text-[var(--color-lighter)] -z-1' ref={rightSideWidget}>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={imglink2 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>
@@ -131,12 +131,12 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
       </motion.div>
       <motion.div
       >
-        <div style={{
+        <div style={{ // bg-[var(--color-darker)]
         boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-      }} className='right-sidebar p-4 text-[100px] max-w-[620px] bg-[var(--color-darker)] rounded-2xl flex gap-2 opacity-0 min-h-[200px] max-h-[200px] relative' onMouseEnter={() => setIsSecondButtonHovered(true)} onMouseLeave={() => setIsSecondButtonHovered(false)}>
-           <ActionButtons Ypos={-92.5} Xpos={30} hover={secondButtonHovered} sideBarRef={secondRightSideWidget}/>
+      }} className='right-sidebar p-4 text-[100px] max-w-[620px] rounded-2xl flex gap-2 opacity-0 min-h-[200px] max-h-[200px] relative' onMouseEnter={() => setIsSecondButtonHovered(true)} onMouseLeave={() => setIsSecondButtonHovered(false)}>
+           <ActionButtons Ypos={-70.8} Xpos={30} hover={secondButtonHovered} sideBarRef={secondRightSideWidget}/>
         <div style={{
-          boxShadow : 'var(--inset-shadow-1)'
+          // boxShadow : 'var(--inset-shadow-1)'
         }} className='flex text-[var(--color-lighter)] first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 -z-1' ref={secondRightSideWidget}>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={imglink3 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>

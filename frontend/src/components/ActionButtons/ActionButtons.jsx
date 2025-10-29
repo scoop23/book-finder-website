@@ -92,7 +92,7 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
         { attr : { y : 22 } , duration : 0.5 , ease : 'power1.in'}
       , '-=2')
       .to(sideBarRef.current , 
-        {duration : 0.5 , y : 0} 
+        {duration : 0.2 , y : 0} 
       , '-=2')
       .to(icons , {
         duration : 0.8,

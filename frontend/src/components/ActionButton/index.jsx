@@ -60,13 +60,19 @@
         ref={svgRef}
         style={{ top : `${Ypos}px` }}> 
         
-          <svg className='group' width={80} height={120} viewBox="20 -20 80 75">
+          <svg className='group' width={80} height={90} viewBox="20 -15 80 75">
             {/* defs tag is like defining a variable though instead of a variable you define all kinds of things and you can use it by getting the id of the tag you created using url(#someId)*/}
               <defs>
                 <filter id="goo" height="300%" y="-100%">
                   <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
                   <feColorMatrix in="blur" mode="matrix" result='goo' values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 2 18 -7"/> 
-                  {/* <feComposite in="SourceGraphic" in2='goo' operator="atop" /> */}
+                  {/* these 2 creates a goo by attempting to increase the contrast of the gaussian blur. it takes the result which is blur then store it in "goo" */}
+                  <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
+                  <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+                  <feOffset in="shadow" dx="1" dy="3" result="shadow" />
+                  <feBlend in2="shadow" in="goo" result="goo" />
+                  
+                  <feBlend in2="goo" in="SourceGraphic" result="mix" />
                   {/* original values : 1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 17 -7 */}
                 </filter>
               </defs>
@@ -75,6 +81,7 @@
             {/* Group both circle and LikeButton */}
             <g transform="translate(50,50)"> {/* moves the group to SVG center */}
               <g id='group1' filter='url(#goo)'>
+                <rect ref={rectRef} x={-40} y={20} width={100} height={40} fill='#444446' />
                 <rect ref={rectRef} x={-40} y={20} width={100} height={40} fill='#444446' />
                 <ellipse ref={CircleCxRef} cx={10} rx={30} ry={30} fill={`${fill ? fill : '#444446'}`} />
               </g>
