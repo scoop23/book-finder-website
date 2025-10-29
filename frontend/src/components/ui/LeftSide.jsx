@@ -99,7 +99,7 @@ const LeftSide = ({topOneBook}) => {
         boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
       }} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black relative rounded-2xl min-h-[420px] max-h-[420px]' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         {/* if you want to adjust this change the Ypos */}
-        <ActionButtons Ypos={-68} Xpos={30} hover={hover} sideBarRef={sideBarRef} className={``}>
+        <ActionButtons Ypos={-65.5} Xpos={30} hover={hover} sideBarRef={sideBarRef} className={``}>
         </ActionButtons>
         <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
           <div style={{
