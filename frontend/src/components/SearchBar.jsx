@@ -15,7 +15,10 @@ const SearchBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
-  const [clickedSearchAuthor, setClickedSearchAuthor] = useState(false);
+  const [clickedSearchAuthor, setClickedSearchAuthor] = useState(() => {
+    const saved = localStorage.getItem("clickedSearchAuthorLocal") || false;
+    return saved === "true"; // returns true, because localstorage only stores strings.
+  });
   const searchAuthorBtn = useRef()
   const searchTitle = useRef();
   const [searchCategory , setSearchCategory] = useState('');
@@ -30,6 +33,11 @@ const SearchBar = () => {
     localStorage.setItem("searchText" , localSearchText);
     dispatch({ type : "SET_SEARCH_TEXT" , payload : localSearchText })
   }, [localSearchText , dispatch])
+
+  useEffect(() => {
+    localStorage.setItem('clickedSearchAuthorLocal' , clickedSearchAuthor)
+    setClickedSearchAuthor(true)
+  }, [clickedSearchAuthor])
 
   const { 
     searchType 
