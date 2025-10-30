@@ -7,7 +7,7 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import SearchPagePaginationResults from './SearchPagePaginationResults.jsx';
 import gsap, { Elastic } from 'gsap';
 // ATTEMPT TO RESTRUCTURE THIS TO SEPERATE COMPONENTS'S
-
+// TODO: WHEN RELOADING THE TAB GET THE PREVIOUS CLICKED SEARCH
 
 
 const SearchBar = () => {  
@@ -158,6 +158,9 @@ const SearchBar = () => {
             }, 500);
           }
         })
+      } else {
+        dispatch({ type : 'SET_SEARCH_TYPE' , payload : { index : 1 , value : "author"} })
+        setClickedSearchAuthor(true);
       }
     } else {
       dispatch({ type : 'SET_SEARCH_TYPE', payload : { index : 1, value : null} })
