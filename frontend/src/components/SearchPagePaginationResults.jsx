@@ -13,6 +13,8 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const searchQuery = searchParams.get('query'); // gets the ?query="get this"
+  const p1 = searchParams.get('p1');
+  const p2 = searchParams.get('p2');
   const page = Number(searchParams.get('page')) || 1; // gets the page ?page=
   const paginationButtonArray = useRef([]);
   const pageContentRef = useRef(null);
@@ -22,7 +24,6 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   // useEffect(() => {
   //   setPageParam(page); // if page change then this will execute
   // }, [page])
-
   const pages = [];
   const range = 2;
   const myRange =  totalPages / 10
@@ -32,17 +33,24 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   }
 
   function handlePage(num) {
-    if(searchQuery === null || searchQuery === undefined || !searchQuery || searchQuery === 'null') {
-      alert("Input something boy.")
-      return;
-    }
+    // if(searchQuery === null || searchQuery === undefined || !searchQuery || searchQuery === 'null') {
+    //   console.log(p1 , p2)
+    //   alert("Input something boy.")
+    //   return;
+    // }
 
     let type = undefined;
+    
     if(state.searchType[0] === null && state.searchType[1] === null) {
       console.error("User needs to toggle a search type.")
       alert("User needs to toggle a search type.")
       return;
     } 
+
+    if(searchQuery === "null") {
+      console.error("input something")
+      return;
+    }
         // if(searchParams.has('p1') && searchParams.has('p2')) {
     //   const title = searchParams.get('p1');
     //   const author = searchParams.get('p2');
@@ -57,10 +65,11 @@ const SearchPagePaginationResults = ({ totalPages }) => {
       } else if (state.searchType[1] === 'author') {
         type = "author";
       }
-      
+
       navigate(
       `/search/${type}?query=${searchQuery}&page=${num}`
       )
+      
     } else {
       
       console.log("page for author and title")

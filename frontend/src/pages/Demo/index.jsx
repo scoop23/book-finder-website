@@ -52,8 +52,12 @@ const DemoPage = () => {
     <div className='w-screen h-screen bg-amber-50'>
       <div className='demo-sidebar w-[400px] h-[400px] bg-amber-300 p-10 '>
         <svg className='group transition-all' width={250} height={250} viewBox="-100 -100 250 250">
-          <g id='g1'>
-            
+          <defs>
+            <filter id='myGoo' width='300%' height='-100%'>
+              <feGaussianBlur in='SourceGraphic' stdDeviation='3' result='blur'/>
+            </filter>  
+          </defs>
+          <g id='g1' filter=''>  
             <ellipse rx={20} ry={20}  fill='#444446' ref={aRef} onMouseEnter={onhover} onMouseLeave={offhover}/>
           </g>
         </svg>

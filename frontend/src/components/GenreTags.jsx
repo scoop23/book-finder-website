@@ -10,6 +10,7 @@ const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
       {
         genreArray.length > 0 ? (
           genreArray.map((genreName , index) => {
+          let genreBuffer = undefined;
           const lowerCasedGenre = genreName?.toLowerCase();
           const tagStyle = genres[lowerCasedGenre] || "#212129";
           let styleHex;
@@ -17,8 +18,19 @@ const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
             styleHex = toHex(tagStyle) || "#212129";
           }
           
-          return (
-            <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-2 px-3 text-[13px] max-h-[45px] shadow  -custom4-first-content text-center flex items-center`} style={{
+          if(genreName.length > 10) {
+            genreBuffer = "Genre Too long";
+          }
+          
+          return genreBuffer ? (
+            <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-7  px-3 text-[13px] max-h-[45px] shadow  -custom4-first-content text-center flex items-center`} style={{
+              backgroundColor : `${styleHex}`,
+              color : 'white'
+            }}>
+              {genreBuffer}
+            </div>
+          ) : (
+            <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-7  px-3 text-[13px] max-h-[45px] shadow  -custom4-first-content text-center flex items-center`} style={{
               backgroundColor : `${styleHex}`,
               color : 'white'
             }}>
