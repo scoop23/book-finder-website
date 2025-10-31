@@ -54,7 +54,9 @@ const SearchBar = () => {
   const { 
     searchType 
   } = state; // get the state destructuring
-
+  const helloFromContextLocal = localStorage.getItem("searchTypeLocalStorage");
+  console.log(helloFromContextLocal)
+  
   function handleClickSearch() {
     const input = document.querySelector('.input-search');
   
@@ -85,7 +87,7 @@ const SearchBar = () => {
     } else {
       setClickedSearchTitle(false);
     }
-    // if state.searchType both includes the former and the latter
+    // if state.searchType both includes the former and the latter.
     if(searchType.includes("title") && searchType.includes("author")) {
       setSearchCategory("title-author")
     }
@@ -212,9 +214,6 @@ const SearchBar = () => {
   }
 
   const isMainPage = location.pathname === '/search'; // is location is /search then return true
-
-  console.log(clickedSearchTitle) 
-  console.log(bothClicked)
 
   return (
     <div className='search-bar-wrapper flex flex-col font-inter'>

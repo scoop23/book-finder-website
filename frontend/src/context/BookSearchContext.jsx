@@ -36,7 +36,11 @@ const BookSearchProvider = ({ children }) => {
       default : return state
     }
   }
-  const [state, dispatch] = useReducer(reducer, STATE); //usereducer
+  const [state, dispatch] = useReducer(reducer, STATE, () => {
+    const savedSearchtype = localStorage.getItem("searchTypeLocalStorage");
+    const saved = JSON.parse(savedSearchtype) || [];
+    return {...STATE , ...saved}
+  }); //usereducer
   
   useEffect(() => {
     const delay = setTimeout(async () => {
@@ -64,6 +68,12 @@ const BookSearchProvider = ({ children }) => {
     }, 1000);
     return () => clearTimeout(delay); // cleanup debounce
   }, [state.searchText, state.searchType, state.author]);   
+
+  useEffect(() => {
+    localStorage.setItem("searchTypeLocalStorage" , JSON.stringify({
+      searchType : state.searchType
+    })); 
+  }, [state.searchType]);
 
   return (
     <BookSearchContext.Provider value={{ state , dispatch }}>

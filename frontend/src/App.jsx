@@ -22,6 +22,7 @@ const App = () => {
         <BookSearchProvider>  
           <BrowserRouter>
             <Routes>
+              {/* preferebly BookSearchProvider here */}
                 <Route path='demo' element={<DemoPage />}></Route>
                 <Route path='search' element={<SearchPage />}>
                   <Route index element={<MainPage />}/>
