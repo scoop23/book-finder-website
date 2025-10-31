@@ -14,11 +14,20 @@ const SearchBar = () => {
   const { state , dispatch } = useContext(BookSearchContext); // get the context
   const navigate = useNavigate();
   const location = useLocation();
-  const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
+  const [clickedSearchTitle, setClickedSearchTitle] = useState(() => {
+    const saved = localStorage.getItem("clickedSearchTitleLocal") || false;
+    return saved === "true"
+  });
+  // const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(() => {
     const saved = localStorage.getItem("clickedSearchAuthorLocal") || false;
     return saved === "true"; // returns true, because localstorage only stores strings.
   });
+
+  useEffect(() => {
+    localStorage.setItem("clickedSearchTitleLocal", clickedSearchTitle);
+    setClickedSearchTitle(true);
+  }, [clickedSearchTitle])
   const searchAuthorBtn = useRef()
   const searchTitle = useRef();
   const [searchCategory , setSearchCategory] = useState('');
@@ -35,9 +44,12 @@ const SearchBar = () => {
   }, [localSearchText , dispatch])
 
   useEffect(() => {
-    localStorage.setItem('clickedSearchAuthorLocal' , clickedSearchAuthor)
-    setClickedSearchAuthor(true)
+    localStorage.setItem('clickedSearchAuthorLocal' , clickedSearchAuthor);
+    setClickedSearchAuthor(true);
+    
   }, [clickedSearchAuthor])
+  
+  
 
   const { 
     searchType 
@@ -73,7 +85,7 @@ const SearchBar = () => {
     } else {
       setClickedSearchTitle(false);
     }
-
+    // if state.searchType both includes the former and the latter
     if(searchType.includes("title") && searchType.includes("author")) {
       setSearchCategory("title-author")
     }
@@ -83,9 +95,10 @@ const SearchBar = () => {
   useLayoutEffect(() => {
     const tl = gsap.timeline();
     const tl2 = gsap.timeline();
-    
+
     if (searchAuthorRefs.current && bothClicked) {
       const {searchAuthorButtonRef, XIconRef, searchAuthorInputRef} = searchAuthorRefs.current;
+      console.log("useLayoutEffect ran", bothClicked, searchAuthorRefs.current);
 
       tl.fromTo(searchAuthorButtonRef, { opacity: 0, width: 174.41 }, { opacity: 1, width: 300, duration: 0.5 })
         .fromTo(XIconRef, { opacity: 0 }, { opacity: 1, duration: 0.6 })
@@ -96,7 +109,6 @@ const SearchBar = () => {
       //   .fromTo(searchAuthorInputRef, { opacity: 1 }, { opacity: 0, duration: 0.1 }, "-=0.5");
       // }
     } else if (searchAuthorBtn.current && !bothClicked) {
-      console.log("HEY HEY HEY HEY 1!!!!!!!!!");
       gsap.fromTo(searchAuthorBtn.current, {
         opacity : 0,
         duration : 0.3
@@ -124,19 +136,9 @@ const SearchBar = () => {
     if (!clickedSearchTitle) {
       dispatch({ type : 'SET_SEARCH_TYPE', payload : {index : 0, value : 'title'}});
       setClickedSearchTitle(true);
-      
-      element.classList.remove("hover:bg-amber-50", "hover:text-black");
-      element.classList.add("bg-amber-50", "text-black", "hover:bg-[var(--mycolor-bg)]", "hover:text-amber-100");
-
     } else {
       dispatch({ type: 'SET_SEARCH_TYPE', payload: { index: 0, value: null } });
       setClickedSearchTitle(false)
-
-      
-        
-      // TODO: move this to the classname with toggler 'active'
-      element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
-      element.classList.add("hover:bg-amber-50" , "hover:text-black");
     }
   }
 
@@ -148,8 +150,6 @@ const SearchBar = () => {
     if(!element) {
       console.log("No ", element)
     }
-    console.log("Author Button Search is " , clickedSearchAuthor)
-    console.log(clickedSearchTitle)
 
 
     if(!clickedSearchAuthor) { // if true then !true = false.. was it false before this click if true then invert this and make it true, then if clickedSearchTitle is also true then run this making the bothClicked true..?
@@ -213,6 +213,9 @@ const SearchBar = () => {
 
   const isMainPage = location.pathname === '/search'; // is location is /search then return true
 
+  console.log(clickedSearchTitle) 
+  console.log(bothClicked)
+
   return (
     <div className='search-bar-wrapper flex flex-col font-inter'>
 
@@ -228,14 +231,32 @@ const SearchBar = () => {
           )
            : '' // if location is /search then !isMainPage will be false, SearchPagePaginationResults will only render if its not /search
           } 
+          {/* this removes the hover effect for the bg and text if you clicked while its off
+          element.classList.remove("hover:bg-amber-50", "hover:text-black");
+          then add the css for when you want to untoggle
+          element.classList.add("bg-amber-50", "text-black", "hover:bg-[var(--mycolor-bg)]", "hover:text-amber-100");
 
-          <button className='search-title hover:bg-amber-50 duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg hover:text-black text-amber-100'
-          onClick={() => buttonSearchTitle()} ref={searchTitle}>Title Search</button>
+          this removes the amber bg and text black if you click it while its on
+          element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
+
+          element.classList.add("hover:bg-amber-50" , "hover:text-black"); */}
           
+          <button className={`search-title 
+          ${clickedSearchTitle 
+            ? ("hover:bg-[var(--mycolor-bg)] bg-amber-50 hover:text-amber-100") 
+            : ("hover:bg-amber-50 hover:text-black text-amber-100")}  
+            duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg`}
+          onClick={() => buttonSearchTitle()} ref={searchTitle}>Title Search</button>
+           
           {!(searchType.includes("title") && searchType.includes("author")) &&
             // opposite of when author and title search are active
             <> 
-              <button className={`search-author ${ clickedSearchAuthor ? 'hover:bg-[var(--mycolor-bg)] text-black bg-amber-50 hover:text-amber-100' : 'hover:bg-amber-50 hover:text-black text-amber-100'}  duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg opacity-0`}
+              <button className={`
+              search-author ${ 
+                clickedSearchAuthor 
+                ? 'hover:bg-[var(--mycolor-bg)] text-black bg-amber-50 hover:text-amber-100' 
+                : 'hover:bg-amber-50 hover:text-black text-amber-100'}
+                  duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg opacity-0`}
               // sm:w-[174px] md:w-[250px] lg:w-[300px]
               onClick={() => buttonSearchAuthor()} ref={searchAuthorBtn}>Author Search</button> 
             </>

@@ -48,6 +48,7 @@ const SearchPagePaginationResults = ({ totalPages }) => {
     } 
 
     if(searchQuery === "null") {
+     
       console.error("input something")
       return;
     }
