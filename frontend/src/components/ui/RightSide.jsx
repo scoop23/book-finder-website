@@ -137,7 +137,7 @@ const RightSide = ({ topTwoBook , topThreeBook }) => {
            <ActionButtons Ypos={-68.5} Xpos={30} hover={secondButtonHovered} sideBarRef={secondRightSideWidget}/>
         <div style={{
           // boxShadow : 'var(--inset-shadow-1)'
-        }} className='flex text-[var(--color-lighter)] first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl shadow-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 -z-1' ref={secondRightSideWidget}>
+        }} className='flex text-[var(--color-lighter)] first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 -z-1' ref={secondRightSideWidget}>
           <div className='pic-div-b2 max-h-[220px] justify-center flex'>
             <img src={imglink3 || bookImage} alt=""  className='min-w-[100px] rounded-2xl ring-1 object-cover'/>
           </div>

@@ -39,7 +39,7 @@ const BookSearchProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, STATE, () => {
     const savedSearchtype = localStorage.getItem("searchTypeLocalStorage");
     const saved = JSON.parse(savedSearchtype) || [];
-    return {...STATE , ...saved}
+    return {...STATE , ...saved} // append the cache only the searchtype
   }); //usereducer
   
   useEffect(() => {
