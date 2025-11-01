@@ -4,7 +4,6 @@
   const ActionButton = forwardRef(({ className , noStroke, fill , hover , WidgetRef , Ypos, Icon} , ref) => {
     const CircleCxRef = useRef(null)
     const likeButtonGroupRef = useRef(null);
-    const refOutlineRef = useRef(null);
     const rectRef = useRef(null)
     const svgRef = useRef(null);
     const OutlineRef = useRef(null);
@@ -15,7 +14,6 @@
       gsap.set(rectRef.current, { attr: { y: 22 } });
       gsap.set(CircleCxRef.current, { attr: { cy: 70 } });
       gsap.set(WidgetRef.current, { y: 0 }); // the big square
-      gsap.set(OutlineRef.current,  { attr: { cy: 60 } });
     }, [WidgetRef]);
 
 
@@ -50,8 +48,6 @@
       rect : rectRef.current,
       ellipse : CircleCxRef.current,
       icon : likeButtonGroupRef.current,
-      outline : OutlineRef.current,
-      rectangleOutline : refOutlineRef.current
     }), [])
 
     return (
@@ -85,11 +81,6 @@
                 <rect ref={rectRef} x={-40} y={20} width={100} height={40} fill='#444446' />
                 <rect ref={rectRef} x={-40} y={20} width={100} height={40} fill='#444446' />
                 <ellipse ref={CircleCxRef} cx={10} rx={30} ry={30} fill={`${fill ? fill : '#444446'}`} />
-              </g>
-              
-              <g stroke="white" strokeWidth="0.5" fill="none">
-                {/* <rect ref={refOutlineRef} x={-40} y={20} width={100} height={40} /> */}
-                <ellipse ref={OutlineRef} cx={10} rx={30} ry={30} />
               </g>
               {/* i placed the groupd LikeButton outside because i dont want it blurry, because of the filter */}
               <g ref={likeButtonGroupRef} transform={`translate(-2, -15)`}>

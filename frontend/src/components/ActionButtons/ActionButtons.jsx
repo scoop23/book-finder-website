@@ -29,8 +29,6 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
     const ellipses = circleRefArray.current.map(el => el.ellipse);
     const rects = circleRefArray.current.map(el => el.rect);
     const icons = circleRefArray.current.map(el => el.icon);
-    const outlines = circleRefArray.current.map(el => el.outline)
-    const rectOutlines = circleRefArray.current.map(el => el.rectangleOutline)
     const tl = gsap.timeline()
     const tl2 = gsap.timeline();
     
