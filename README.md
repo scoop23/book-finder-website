@@ -1,5 +1,5 @@
 ## CUSTOM UI
- - my goal is to understand react UI development although i think these days react ui libraries matters more. but its fun so i will continue built it customly. 
+ - my goal is to understand react UI development although i think these days react ui libraries matters more. but its fun so i will continue to built it customly. 
 
 ## TODO:
  - actions buttons e.g like, bookmark, add to favorites, view details modal
