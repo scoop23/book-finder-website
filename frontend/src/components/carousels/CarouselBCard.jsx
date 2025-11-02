@@ -59,7 +59,7 @@ const CarouselBCard = forwardRef(({ data, CARDWIDTH, whileHover, offHoverCard} ,
               <div className='card-header flex justify-between w-full'>
                 <div className='content-title-header flex justify-between w-full'>
 
-                  <p className='title pt-2 line-clamp-2 break-words text-zinc-400 text-[20px]'>
+                  <p className='title pt-2 pr-2 line-clamp-2 break-words text-zinc-400 text-[20px]'>
                     {title || "N/A"}
                   </p>
 

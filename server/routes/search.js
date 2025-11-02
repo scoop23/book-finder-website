@@ -17,9 +17,11 @@ router.get("/author-title", async (req , res) => {
 });
 
 router.get("/title", async (req , res) => {
+  console.log("hello" , req.method)
   const query = req.query.q; // query is the /api/search?q=(req.query.q)
   const page = parseInt(req.query.page) || 1; // get the page and parseINT
-  await getTitleName(query , res, page); // send in the proxy api
+  const data = await getTitleName(query , res, page); // send in the proxy api
+  res.send(data);
 });
 
-module.exports = router;
+module.exports = router;  

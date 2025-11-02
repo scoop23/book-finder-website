@@ -32,15 +32,16 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
 
   function onSubmitSearch(e) {
     if(e.key === 'Enter'){
-      setLocalAuthorText(e.target.value)
-      console.log("set the author text")
+      console.log(state.searchText);
+      setLocalAuthorText(e.target.value);
       
       if(!state.searchText){
-        console.error("Please Input some Title.")
+        console.error("Please Input some Title.");
+      } else {
+        navigate(`/search/title-author?p1=${encodeURIComponent(state.searchText)}&p2=${e.target.value}&page=1`);
       }
       
-      console.log("author text exist")
-      navigate(`/search/title-author?p1=${encodeURIComponent(state.searchText)}&p2=${e.target.value}&page=1`);
+      
       
     }
   }

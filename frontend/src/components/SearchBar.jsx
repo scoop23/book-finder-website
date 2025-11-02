@@ -100,7 +100,6 @@ const SearchBar = () => {
 
     if (searchAuthorRefs.current && bothClicked) {
       const {searchAuthorButtonRef, XIconRef, searchAuthorInputRef} = searchAuthorRefs.current;
-      console.log("useLayoutEffect ran", bothClicked, searchAuthorRefs.current);
 
       tl.fromTo(searchAuthorButtonRef, { opacity: 0, width: 174.41 }, { opacity: 1, width: 300, duration: 0.5 })
         .fromTo(XIconRef, { opacity: 0 }, { opacity: 1, duration: 0.6 })
@@ -153,7 +152,6 @@ const SearchBar = () => {
       console.log("No ", element)
     }
 
-
     if(!clickedSearchAuthor) { // if true then !true = false.. was it false before this click if true then invert this and make it true, then if clickedSearchTitle is also true then run this making the bothClicked true..?
       if(clickedSearchTitle) {
         const newClickedState = !clickedSearchAuthor && clickedSearchTitle;
@@ -180,6 +178,12 @@ const SearchBar = () => {
 
   function onSubmitSearch(e) {
     if(e.key === 'Enter'){
+      if(state.author && state.searchType.includes("author") && state.searchType.includes("title")) {
+        dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
+        navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(state.author)}&page=1`)
+        return; 
+      }
+
       dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
       setLocalSearchText(e.target.value)
       if(!state.searchType){
@@ -278,8 +282,6 @@ const SearchBar = () => {
                   } else {
                     onSubmitSearch(e);
                   }
-                  console.log(state.searchType)
-                  console.log("Input something")
                 }
               }
               placeholder={`${searchType.includes("author") && searchType.includes("title") ? "Search Title of Book.. " : "Author/Title a Book.. "}`}

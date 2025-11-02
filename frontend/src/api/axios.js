@@ -13,7 +13,11 @@ export const apiGet = async (url)  => {
         const response = await axiosMain.get(url); //   essentially this will be "http://localhost:8080/{url}"
         return response.data;
     } catch (error) {
-        console.error(error.response);
+        if(error.response) {
+            console.error("Data: " , error.response.data);
+            console.error("Status: " , error.response.status);
+            return;
+        };
         return;
     }
 } 

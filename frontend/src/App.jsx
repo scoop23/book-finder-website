@@ -19,6 +19,7 @@ const App = () => {
   return (
     <>
       <QueryClientProvider client={queryClient}>
+        {/* AuthContext */}
         <BookSearchProvider>  
           <BrowserRouter>
             <Routes>

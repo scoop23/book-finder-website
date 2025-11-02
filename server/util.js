@@ -107,6 +107,7 @@ async function getTitleName(query, res, page) {
       })
 
       return res.json(response.data);
+      // return res.send("<h1>HELLO from server </h1>")
       
     } catch(err) {
       if(err.response){
@@ -126,6 +127,7 @@ async function getGenre(genre, res) {
     });
     
     return res.json(response.data);
+    // return res.send("<h1> HELLO from server </h1>")
   } catch(err) {
     if(err.response) {
       console.error("Status: ",err.response.status)
