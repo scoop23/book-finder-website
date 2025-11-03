@@ -28,7 +28,6 @@ const  BookSearchContainer = ({ children }) => {
     if (quoteData) dispatch({ type : "SET_QUOTE_DATA" , payload : quoteData });
     if (randomBookData) dispatch({ type : "SET_CAROUSELA_DATA" , payload : randomBookData });
     if (genreData) dispatch({ type : "SET_GENRE_DATA" , payload : genreData });
-    
   }, [quoteData, randomBookData, genreData ,dispatch]);
 
   // debouncing

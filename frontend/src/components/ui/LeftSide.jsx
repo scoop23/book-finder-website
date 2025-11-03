@@ -67,7 +67,7 @@ const LeftSide = ({topOneBook}) => {
   const Infos = () => {
     return(
         <div className='content-info-wrapper flex flex-col gap-2 items-baseline'>
-            <span className='content-info text-[20px] p-2 flex flex-col gap-2'>
+            <span className='content-info text-[20px] px-2 flex flex-col gap-2'>
               <div className='title-genre flex justify-between w-[400px] gap-2'>
                 <div className='line-clamp-3'>{title}</div>
                 <div className='genre flex justify-center'>
@@ -79,7 +79,7 @@ const LeftSide = ({topOneBook}) => {
                 </div>
               </div>
               
-              <span className='text-[13px] block '>by {author}</span>
+              <span className='text-[13px] block'>by {author}</span>
               <span className='text-[13px] block'> Published Date: {dataVolumeInfo?.publishedDate || "No Published Date"}</span> 
               <span className='text-[13px] block'>Page Count: {dataVolumeInfo?.pageCount || "N/A"}</span>
               {/* <div className='text-[13px'></div> */}

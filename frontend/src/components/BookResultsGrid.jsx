@@ -1,6 +1,6 @@
 import BookCard from './BookCard';
 import { useContext, useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap'
+import gsap, {Elastic} from 'gsap'
 import { BookSearchContext } from '../context/BookSearchContext';
 import { useSearchParams } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ const BookResultsGrid = ({ remainingBooks }) => {
   const prevBooks = useRef([]);
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page")
+
   useLayoutEffect(() => {
     if(document.hidden) return;
     // bookCardHTMLArray.current.map((element , index) => {
@@ -23,9 +24,9 @@ const BookResultsGrid = ({ remainingBooks }) => {
     //   })
     // })
     // DONT NEED .map here because gsap can accept arrays as the first argument in fromTo(element/s , animation_start, animation_end)
-    const e = remainingBooks.filter(
-      b => prevBooks.current.some(prevbook => b.id === prevbook.id)
-    )
+    // const e = remainingBooks.filter(
+    //   b => prevBooks.current.some(prevbook => b.id === prevbook.id)
+    // )
     
     // const newBooks = remainingBooks.filter(
     //   b => !prevBooks.current.some(prev => prev.id === b.id)
@@ -34,8 +35,8 @@ const BookResultsGrid = ({ remainingBooks }) => {
     const ctx = gsap.context(() => {
       if(bookCardHTMLArray.current) {
           tl.fromTo(bookCardHTMLArray.current, 
-          { autoAlpha : 0 , y : 30},
-          { autoAlpha : 1 , y : 0 , duration : 0.4 , ease : "power3.in", stagger : 0.1}
+          { autoAlpha : 0 , y : 30, scale : 0},
+          { autoAlpha : 1 , y : 0 , scale : 1 , duration : 1 , ease : Elastic.easeInOut.config(0.5, 0.5), stagger : 0.1}
         )
       }
     });
