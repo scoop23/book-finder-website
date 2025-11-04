@@ -9,7 +9,6 @@ const BookCard = forwardRef(({ bookData } , ref) => {
   const [isHovering, setIsHovering] = useState(false);
   const contentRef = useRef();
 
-
   function hoverSeeMoreButton(){
     
   }

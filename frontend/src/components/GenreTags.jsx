@@ -23,7 +23,7 @@ const GenreTags = ({ genre }) => { // genre is an array of subjects/genre
           }
           
           return genreBuffer ? (
-            <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-7  px-3 text-[13px] max-h-[45px] shadow  -custom4-first-content text-center flex items-center`} style={{
+            <div key={index} className={`${lowerCasedGenre}-tag ${tagStyle} rounded-2xl p-7  px-3 text-[13px] max-h-[45px] shadow-custom4-first-content text-center flex items-center`} style={{
               backgroundColor : `${styleHex}`,
               color : 'white'
             }}>

@@ -68,11 +68,11 @@ const LeftSide = ({topOneBook}) => {
     return(
         <div className='content-info-wrapper flex flex-col gap-2 items-baseline'>
             <span className='content-info text-[20px] px-2 flex flex-col gap-2'>
-              <div className='title-genre flex justify-between items-center w-[400px] gap-2'>
+              <div className='title-genre flex justify-between items-center w-[400px] gap-1'>
                 <div className='line-clamp-3'>{title}</div>
                 <div className='genre flex justify-center'>
                   {
-                    <div>
+                    <div className=''> 
                       <GenreTags genre={genre}/>
                     </div> 
                   }

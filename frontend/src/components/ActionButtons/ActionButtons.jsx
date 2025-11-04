@@ -61,7 +61,7 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
         fill : "#000000"
       }, "-=2")
       .fromTo(ellipses, // can't do independent tween here, will ruin the animation.
-        { attr: { cx: 10 , rx : 0, ry : 0} }, 
+        { attr: { cx: 10 , rx : 1, ry : 1} }, 
         // CY : -20.5
         { attr: { cy : -30.5, rx : 30, ry : 30} , duration: 0.7, ease : Elastic.easeInOut.config(0.5, 0.5), stagger : 0.1} , '-=1'
       )
@@ -108,7 +108,7 @@ const ActionButtons = ({ Ypos, Xpos,  hover, sideBarRef, className }) => {
     }}>
       {
         widGetArray.map((icon , i) => ( // factory method
-          <ActionButton hover={hover} noStroke={false} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el} Icon={icon}/>
+          <ActionButton key={i} hover={hover} noStroke={false} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el} Icon={icon}/>
         ))
       }
       <ActionButton hover={hover} noStroke={true} fill={"#000000"} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[widGetArray.length] = el} Icon={SeeMoreButton}/>

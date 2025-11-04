@@ -1,5 +1,5 @@
 import BookCard from './BookCard';
-import { useContext, useLayoutEffect, useRef } from 'react';
+import { useContext, useLayoutEffect,useEffect, useRef } from 'react';
 import gsap, {Elastic} from 'gsap'
 import { BookSearchContext } from '../context/BookSearchContext';
 import { useSearchParams } from 'react-router-dom';
@@ -12,9 +12,11 @@ const BookResultsGrid = ({ remainingBooks }) => {
   const prevBooks = useRef([]);
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page")
+useEffect(() => {
+  console.log('Grid re-rendered', remainingBooks.map(b => b.volumeInfo.title));
+}, [remainingBooks]);
 
-  useLayoutEffect(() => {
-    if(document.hidden) return;
+  useLayoutEffect(() => {  
     // bookCardHTMLArray.current.map((element , index) => {
     //   const ctx = gsap.context(() => {
     //     tl.fromTo(bookCardHTMLArray.current[index] , 
@@ -27,7 +29,6 @@ const BookResultsGrid = ({ remainingBooks }) => {
     // const e = remainingBooks.filter(
     //   b => prevBooks.current.some(prevbook => b.id === prevbook.id)
     // )
-    
     // const newBooks = remainingBooks.filter(
     //   b => !prevBooks.current.some(prev => prev.id === b.id)
     // );
@@ -35,21 +36,18 @@ const BookResultsGrid = ({ remainingBooks }) => {
     const ctx = gsap.context(() => {
       if(bookCardHTMLArray.current) {
           tl.fromTo(bookCardHTMLArray.current, 
-          { autoAlpha : 0 , y : 30, scale : 0},
-          { autoAlpha : 1 , y : 0 , scale : 1 , duration : 1 , ease : Elastic.easeInOut.config(0.5, 0.5), stagger : 0.1}
+          { autoAlpha : 0 , y : 30,},
+          { autoAlpha : 1 , y : 0, duration : 1 , ease : Elastic.easeInOut.config(0.5, 0.5), stagger : 0.1}
         )
       }
     });
-
-    prevBooks.current = remainingBooks;
+ prevBooks.current = remainingBooks;
     return (() => {
       ctx.kill()  
     })
 
   }, [page]);
-  
 
-  console.log(state)
 
   return (
     <div className='flex justify-center'>
