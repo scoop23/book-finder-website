@@ -7,7 +7,7 @@ import gsap from 'gsap'
 import SearchPageNone from './ui/SearchPageNone';
 import { useLocation } from 'react-router-dom';
 
-const SearchPagePaginationResults = ({ totalPages }) => {  
+const SearchPagePaginationResults = ({ totalPages,  }) => {  
   const { state } = useContext(BookSearchContext);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -31,14 +31,8 @@ const SearchPagePaginationResults = ({ totalPages }) => {
   for (let i = Math.max(1 , page - range); i <= Math.min(safeTotalPages, page + range); i++) {
     pages.push(i)
   }
-
+  
   function handlePage(num) {
-    // if(searchQuery === null || searchQuery === undefined || !searchQuery || searchQuery === 'null') {
-    //   console.log(p1 , p2)
-    //   alert("Input something boy.")
-    //   return;
-    // }
-
     let type = undefined;
     
     if(state.searchType[0] === null && state.searchType[1] === null) {
@@ -47,19 +41,13 @@ const SearchPagePaginationResults = ({ totalPages }) => {
       return;
     } 
 
-    if(searchQuery === "null") {
-     
-      console.error("input something")
+    console.log(searchQuery)
+    if(searchQuery === "null" || searchQuery === null) {
+      navigate(`/search/title-author?p1=${p1}&p2=${p2}&page=${num}`)
+      console.error("input something")  
       return;
     }
-        // if(searchParams.has('p1') && searchParams.has('p2')) {
-    //   const title = searchParams.get('p1');
-    //   const author = searchParams.get('p2');
-
-    //   navigate(`/search/title-author?p1=${title}&p2=${author}&page=${num}`)
-    // }
     
-    // state.searchType = [null , null]
     if(state.searchType.includes(null)) {
       if(state.searchType[0] === 'title'){
         type = "title";

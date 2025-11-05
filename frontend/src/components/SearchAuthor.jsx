@@ -30,6 +30,10 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
 
   function onSubmitSearch(e) {
     if(e.key === 'Enter'){
+      if(!e.target.value) {
+        console.log("abste")
+        return;
+      }
       console.log(state.searchText);
       setLocalAuthorText(e.target.value);
       
