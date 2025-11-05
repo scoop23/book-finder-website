@@ -19,6 +19,9 @@ const SearchBar = () => {
     return saved === "true"
   });
   // const [clickedSearchTitle, setClickedSearchTitle] = useState(false);
+  const [localAuthorText, setLocalAuthorText] = useState(() => {
+      return localStorage.getItem("authorText") || state.author;
+  })
   const [clickedSearchAuthor, setClickedSearchAuthor] = useState(() => {
     const saved = localStorage.getItem("clickedSearchAuthorLocal") || false;
     return saved === "true"; // returns true, because localstorage only stores strings.
@@ -35,7 +38,7 @@ const SearchBar = () => {
   const [localSearchText , setLocalSearchText] = useState(() => {
     return localStorage.getItem("searchText") || state.searchText;
   })
-
+  const searchBarInputRef = useRef(null);
   const bothClicked = clickedSearchAuthor && clickedSearchTitle;
 
   useEffect(() => {
@@ -43,10 +46,10 @@ const SearchBar = () => {
     dispatch({ type : "SET_SEARCH_TEXT" , payload : localSearchText })
   }, [localSearchText , dispatch])
 
+
   useEffect(() => {
     localStorage.setItem('clickedSearchAuthorLocal' , clickedSearchAuthor);
     setClickedSearchAuthor(true);
-    
   }, [clickedSearchAuthor])
   
   
@@ -96,7 +99,6 @@ const SearchBar = () => {
 
   useLayoutEffect(() => {
     const tl = gsap.timeline();
-    const tl2 = gsap.timeline();
 
     if (searchAuthorRefs.current && bothClicked) {
       const {searchAuthorButtonRef, XIconRef, searchAuthorInputRef} = searchAuthorRefs.current;
@@ -104,11 +106,7 @@ const SearchBar = () => {
       tl.fromTo(searchAuthorButtonRef, { opacity: 0, width: 174.41 }, { opacity: 1, width: 300, duration: 0.5 })
         .fromTo(XIconRef, { opacity: 0 }, { opacity: 1, duration: 0.6 })
         .fromTo(searchAuthorInputRef, { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.5");
-      // if(!bothClicked) {
-      //   tl
-      //   .fromTo(XIconRef, { opacity: 1 }, { opacity: 0, duration: 0.1 })
-      //   .fromTo(searchAuthorInputRef, { opacity: 1 }, { opacity: 0, duration: 0.1 }, "-=0.5");
-      // }
+      
     } else if (searchAuthorBtn.current && !bothClicked) {
       gsap.fromTo(searchAuthorBtn.current, {
         opacity : 0,
@@ -179,8 +177,12 @@ const SearchBar = () => {
   function onSubmitSearch(e) {
     if(e.key === 'Enter'){
       if(state.author && state.searchType.includes("author") && state.searchType.includes("title")) {
+        const unofficialAuthorText = searchAuthorRefs.current.searchAuthorInputRef.value;
         dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
-        navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(state.author)}&page=1`)
+        localStorage.setItem("authorText" , localAuthorText);
+        dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText });
+        // navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(state.author)}&page=1`)
+        navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(unofficialAuthorText)}&page=1`)
         return; 
       }
 
@@ -267,11 +269,12 @@ const SearchBar = () => {
           
           {searchType.includes("author") && searchType.includes("title")
             && // if it includes 2 searchtypes in the searchType array it will initiate search by title and author
-            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorRefs} clickedSearchAuthor={clickedSearchAuthor} clickedSearchTitle={clickedSearchTitle}/>) // pass in the states for it to works
+            (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorRefs} clickedSearchAuthor={clickedSearchAuthor} clickedSearchTitle={clickedSearchTitle} setLocalAuthorText={setLocalAuthorText} localAuthorText={localAuthorText}/>) // pass in the states for it to works
           }
 
             <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
               <input
+              ref={searchBarInputRef}
               required
               className={`input-search hidden w-0 rounded-2xl outline-0 font-inter`}
               type="text"

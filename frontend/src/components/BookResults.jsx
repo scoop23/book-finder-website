@@ -17,7 +17,6 @@ const BookResults = ({ data , isPending }) => {
       setLoading(false);
     }, 100);  
   }
-  console.log('data items length:', data?.items?.length);
 
   useEffect(() => {
     if(isPending) {
@@ -41,7 +40,6 @@ const BookResults = ({ data , isPending }) => {
   const totalPages = data?.totalItems;
 
   // totalPages is theoretical aka its sucks
-  
   if(!topOneBook) {
     return <div className='text-white'>Well. this is awkward There are no english results on this page.</div>
   }
@@ -59,8 +57,8 @@ const BookResults = ({ data , isPending }) => {
             <span>{totalPages} results found in the Akashic Records. </span>
           </div>
           <div className='main-bar flex gap-4 max-w-[1300px] items-center justify-center '>
-            <LeftSide topOneBook={topOneBook}/>
-            <RightSide topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
+            <LeftSide key={topOneBook.volumeInfo.title.split(" ").join("-")} topOneBook={topOneBook}/>
+            <RightSide key={[topTwoBook, topThreeBook].join("-")} topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
           </div>
 
           {/* <button className='page-btn border max-w-[100px] px-[15px] py-[10px] rounded-[15px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center'> 1 </button> */}

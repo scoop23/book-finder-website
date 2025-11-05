@@ -10,7 +10,7 @@
   "philosophy" : "bg-[#75716b]",
   "artists' books" : "bg-pink-400",
   "children's encyclopedias and dictionaries" : "bg-yellow-800",
-  "comics & graphic novels" : "bg-primary-liver",
+  "comics & graphic novels" : "bg-[#534B4F]",
   "unknown genre" : "bg-gray-300",
   "games & activities" : "bg-primary-goldenbrown",
   "biography & autobiography" : "bg-[#346bbf]",
@@ -77,6 +77,5 @@
   "poets, english" : "bg-[#895129]",
   "avarice in literature" : "bg-[#98f084]",
   "philippine fiction" : "bg-[#bd391e]",
-  "magic" : "bg-[#e680ff]",
-  "health & fitness" : "bg-[#00CEC8]"
+  "magic" : "bg-[#e680ff]"
 }   

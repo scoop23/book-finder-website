@@ -9,12 +9,10 @@ import gsap, { Elastic } from 'gsap'
 
 
 // USED THE STATES OF THE PARENT TO CHANGE THE BUTTONS
-const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSearchAuthor, clickedSearchTitle, searchAuthorBtn} , ref) => {
+const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSearchAuthor, clickedSearchTitle, searchAuthorBtn, setLocalAuthorText, localAuthorText} , ref) => {
   const { state } = useContext(BookSearchContext)
   const navigate = useNavigate();
-  const [localAuthorText, setLocalAuthorText] = useState(() => {
-    return localStorage.getItem("authorText") || state.author;
-  })
+  
   const searchAuthorButtonRef = useRef(null);
   const searchAuthorInputRef = useRef(null);
   const XIconRef = useRef(null);
@@ -25,10 +23,10 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
     XIconRef : XIconRef.current
   }))
   
-  useEffect(() => {
-    localStorage.setItem("authorText" , localAuthorText);
-    dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText })
-  }, [localAuthorText, dispatch])
+  // useEffect(() => {
+  //   localStorage.setItem("authorText" , localAuthorText);
+  //   dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText });
+  // }, [localAuthorText, dispatch])
 
   function onSubmitSearch(e) {
     if(e.key === 'Enter'){
@@ -40,8 +38,6 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
       } else {
         navigate(`/search/title-author?p1=${encodeURIComponent(state.searchText)}&p2=${e.target.value}&page=1`);
       }
-      
-      
       
     }
   }
