@@ -65,7 +65,8 @@ const BookResults = ({ data , isPending }) => {
 
           {/* <button className='page-btn border max-w-[100px] px-[15px] py-[10px] rounded-[15px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center'> 1 </button> */}
 
-          <BookResultsGrid key={remainingBooks.map(b => b.id || b.volumeInfo.title).join('-')} remainingBooks={remainingBooks} /> // give this a key for react to trigger the animation again. because react checks if its the same component or not | will it remount it or not, rerendering and remounting aren't the same. in rerendering react checks if the key of the component, if its the same it will simply just rerender it and change its props and doesn't trigger the animation because useEffect and useLayoutEffect only executes on mount and unmount, else if it DOES have a key it remounts it meaning, remove the component and then trigger the animation again. for more info check reconcilliation on react docu, itz a diffing algo
+          <BookResultsGrid key={remainingBooks.map(b => b.id || b.volumeInfo.title).join('-')} remainingBooks={remainingBooks} /> 
+            {/* // give this a key for react to trigger the animation again. because react checks if its the same component or not | will it remount it or not, rerendering and remounting aren't the same. in rerendering react checks if the key of the component, if its the same it will simply just rerender it and change its props and doesn't trigger the animation because useEffect and useLayoutEffect only executes on mount and unmount, else if it DOES have a key it remounts it meaning, remove the component and then trigger the animation again. for more info check reconcilliation on react docu, itz a diffing algo */}
         </>
       ) }
     </div>
