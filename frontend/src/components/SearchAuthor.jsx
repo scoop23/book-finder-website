@@ -9,7 +9,7 @@ import gsap, { Elastic } from 'gsap'
 
 
 // USED THE STATES OF THE PARENT TO CHANGE THE BUTTONS
-const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSearchAuthor, clickedSearchTitle, searchAuthorBtn, setLocalAuthorText, localAuthorText} , ref) => {
+const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSearchAuthor, clickedSearchTitle, searchAuthorBtn, setLocalAuthorText, localAuthorText, localSearchText} , ref) => {
   const { state } = useContext(BookSearchContext)
   const navigate = useNavigate();
   
@@ -27,11 +27,10 @@ const SearchAuthor = forwardRef(({ dispatch , setClickedSearchAuthor, clickedSea
   //   localStorage.setItem("authorText" , localAuthorText);
   //   dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText });
   // }, [localAuthorText, dispatch])
-
   function onSubmitSearch(e) {
     if(e.key === 'Enter'){
       if(!e.target.value) {
-        console.log("abste")
+        console.log("Search Some Author")
         return;
       }
       console.log(state.searchText);

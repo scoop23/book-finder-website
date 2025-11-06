@@ -12,7 +12,6 @@ import {
   fetchRandomBook
 } from "@/api/AccessToApi.jsx";
 import useFetch from "@/hooks/useFetch.jsx";
-// TODO: DISPLAY THE DATA ON THE CAROUSELS
 // TODO: CREATE A STATE FOR A GENRE AND THEN CREATE A GET ROUTE ON THE PROXY BACKEND
 import { BookSearchContext } from "../context/BookSearchContext.jsx";
 
