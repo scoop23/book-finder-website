@@ -212,19 +212,10 @@ const SearchBar = () => {
             const unofficialAuthorText = searchAuthorRefs.current.searchAuthorInputRef.value;
             console.log(unofficialAuthorText)
             dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
-            localStorage.setItem("authorText" , localAuthorText);
+            localStorage.setItem("authorText" , localAuthorText); // set localStorage
             dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText });
-            // navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(state.author)}&page=1`)
             navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(unofficialAuthorText)}&page=1`)
-            // const unofficialAuthorText = searchAuthorRefs.current.searchAuthorInputRef.value;
-            // console.log(unofficialAuthorText)
-            // console.log(state.author)
-            // if(!state.author) {
-            //   console.error("Please Input an Author.");
-            //   return;
-            // }
-            // console.log(state.author);  
-            // navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${state.author}&page=1`);
+            
             break;
           }
           default : 'title'  
