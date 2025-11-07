@@ -12,6 +12,7 @@ import {
   QueryClientProvider
 } from '@tanstack/react-query'
 import DemoPage from './pages/Demo/index.jsx';
+import BookDetailsPage from './pages/BookDetailsPage/index.jsx';
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => {
                   <Route path='title' element={<TitlePageResults />}></Route>
                   <Route path='author' element={<AuthorPageResults />}></Route>
                   <Route path='title-author' element={<TitleAndAuthorPageResults />}></Route>
+                  <Route path="book/:bookid" element={<BookDetailsPage />}></Route>
                 </Route>
             </Routes>
           </BrowserRouter>

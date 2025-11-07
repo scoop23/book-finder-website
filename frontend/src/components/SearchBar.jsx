@@ -179,23 +179,24 @@ const SearchBar = () => {
 
   function onSubmitSearch(e) {
     if(e.key === 'Enter'){
-      if(state.author && state.searchType.includes("author") && state.searchType.includes("title")) {
-        const unofficialAuthorText = searchAuthorRefs.current.searchAuthorInputRef.value;
-        dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
-        localStorage.setItem("authorText" , localAuthorText);
-        dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText });
-        // navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(state.author)}&page=1`)
-        navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(unofficialAuthorText)}&page=1`)
-        return; 
-      }
+      // if(state.searchType.includes("author") && state.searchType.includes("title")) {
+      //   const unofficialAuthorText = searchAuthorRefs.current.searchAuthorInputRef.value;
+      //   console.log(unofficialAuthorText)
+      //   dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
+      //   localStorage.setItem("authorText" , localAuthorText);
+      //   dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText });
+      //   // navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(state.author)}&page=1`)
+      //   navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(unofficialAuthorText)}&page=1`)
+      //   return; 
+      // }
 
       dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
       setLocalSearchText(e.target.value)
       if(!state.searchType){
         console.log("\n Pick a searchType \n");
         return;
-      }
-
+      } 
+      console.log(searchCategory)
       if(e.target.value.trim() && (state.searchType.includes("title") || state.searchType.includes("author"))){
         switch(searchCategory) {
           case 'title' : {
@@ -208,12 +209,22 @@ const SearchBar = () => {
             break;
           }
           case 'title-author' : {
-            if(!state.author) {
-              console.error("Please Input an Author.");
-              return;
-            }
-            console.log(state.author);  
-            navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${state.author}&page=1`);
+            const unofficialAuthorText = searchAuthorRefs.current.searchAuthorInputRef.value;
+            console.log(unofficialAuthorText)
+            dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
+            localStorage.setItem("authorText" , localAuthorText);
+            dispatch({ type : "SET_AUTHOR_TEXT" , payload : localAuthorText });
+            // navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(state.author)}&page=1`)
+            navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(unofficialAuthorText)}&page=1`)
+            // const unofficialAuthorText = searchAuthorRefs.current.searchAuthorInputRef.value;
+            // console.log(unofficialAuthorText)
+            // console.log(state.author)
+            // if(!state.author) {
+            //   console.error("Please Input an Author.");
+            //   return;
+            // }
+            // console.log(state.author);  
+            // navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${state.author}&page=1`);
             break;
           }
           default : 'title'  
