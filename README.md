@@ -7,6 +7,9 @@
 ### TODO:
  - actions buttons e.g like, bookmark, add to favorites, view details modal
  - fix pagination. might replace google books api and use openlibrary api instead.
+ - make a homepage 
+ - make a profilepage
+ - make a bookdetailspage
 
 ### LEARNED / WILL DO:
  - don't just assign class selectors to all divs or whatnot, consider if it will be a id. change it bro.

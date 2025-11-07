@@ -8,7 +8,7 @@ const BookCard = forwardRef(({ bookData } , ref) => {
   const { title, imageLinks, description, publishedDate, authors } = data;
   const [isHovering, setIsHovering] = useState(false);
   const contentRef = useRef();
-
+  console.log(bookData.volumeInfo.categories || "Unknown")
   function hoverSeeMoreButton(){
     
   }
