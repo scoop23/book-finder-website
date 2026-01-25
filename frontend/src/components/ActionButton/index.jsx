@@ -65,7 +65,7 @@
                   {/* these 2 creates a goo by attempting to increase the contrast of the gaussian blur. it takes the result which is blur then store it in "goo" */}
                   <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
                   <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
-                  <feOffset in="shadow" dx="1" dy="3" result="shadow" /> 
+                  <feOffset in="shadow" dx="1" dy="1" result="shadow" /> 
                   {/* only put shadows up top  */}
                   <feBlend in2="shadow" in="goo" result="goo" />
                   

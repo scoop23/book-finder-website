@@ -23,6 +23,7 @@ const App = () => {
         {/* AuthContext */}
         <BookSearchProvider>  
           <BrowserRouter>
+            
             <Routes>
               {/* preferebly BookSearchProvider here */}
                 <Route path='demo' element={<DemoPage />}></Route>

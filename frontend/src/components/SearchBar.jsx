@@ -224,6 +224,7 @@ const SearchBar = () => {
     }
   }
 
+  
   const isMainPage = location.pathname === '/search'; // is location is /search then return true
 
   return (
