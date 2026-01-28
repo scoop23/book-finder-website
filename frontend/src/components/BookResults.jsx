@@ -10,22 +10,22 @@ import NothingSearch from './ui/NothingSearch.jsx';
 
 
 // [this should be /search route]
-const BookResults = ({ data , isPending }) => {
-  const [loading , setLoading] = useState(isPending);
+const BookResults = ({ data, isPending }) => {
+  const [loading, setLoading] = useState(isPending);
   function stopLoading() {
     setTimeout(() => {
       setLoading(false);
-    }, 100);  
+    }, 100);
   }
 
   useEffect(() => {
-    if(isPending) {
+    if (isPending) {
       setLoading(true)
     }
   }, [isPending])
 
-  if(loading) return <Loading onFinish={stopLoading} /> // if data is pending return loading component
-  
+  if (loading) return <Loading onFinish={stopLoading} /> // if data is pending return loading component
+
   if (!data?.items) {
     return <NothingSearch />
   }
@@ -40,7 +40,7 @@ const BookResults = ({ data , isPending }) => {
   const totalPages = data?.totalItems;
 
   // totalPages is theoretical aka its sucks
-  if(!topOneBook) {
+  if (!topOneBook) {
     return <div className='text-white'>Well. this is awkward There are no english results on this page.</div>
   }
 
@@ -52,21 +52,21 @@ const BookResults = ({ data , isPending }) => {
         </div>
       ) : (
         <>
-        {/* {loading && <Loading onFinish={stopLoading}/>} */}
+          {/* {loading && <Loading onFinish={stopLoading}/>} */}
           <div className='flex flex-row-reverse w-full text-white gap-10 items-center'>
             <span>{totalPages} results found in the Akashic Records. </span>
           </div>
           <div className='main-bar flex gap-4 max-w-[1300px] items-center justify-center '>
-            <LeftSide key={topOneBook.volumeInfo.title.split(" ").join("-")} topOneBook={topOneBook}/>
-            <RightSide key={[topTwoBook, topThreeBook].join("-")} topTwoBook={topTwoBook} topThreeBook={topThreeBook}/>
+            <LeftSide key={topOneBook.volumeInfo.title.split(" ").join("-")} topOneBook={topOneBook} />
+            <RightSide key={[topTwoBook, topThreeBook].join("-")} topTwoBook={topTwoBook} topThreeBook={topThreeBook} />
           </div>
 
           {/* <button className='page-btn border max-w-[100px] px-[15px] py-[10px] rounded-[15px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center'> 1 </button> */}
 
-          <BookResultsGrid key={remainingBooks.map(b => b.id || b.volumeInfo.title).join('-')} remainingBooks={remainingBooks} /> 
-            {/* // give this a key for react to trigger the animation again. because react checks if its the same component or not | will it remount it or not, rerendering and remounting aren't the same. in rerendering react checks if the key of the component, if its the same it will simply just rerender it and change its props and doesn't trigger the animation because useEffect and useLayoutEffect only executes on mount and unmount, else if it DOES have a key it remounts it meaning, remove the component and then trigger the animation again. for more info check reconcilliation on react docu, itz a diffing algo */}
+          <BookResultsGrid key={remainingBooks.map(b => b.id || b.volumeInfo.title).join('-')} remainingBooks={remainingBooks} />
+          {/* // give this a key for react to trigger the animation again. because react checks if its the same component or not | will it remount it or not, rerendering and remounting aren't the same. in rerendering react checks if the key of the component, if its the same it will simply just rerender it and change its props and doesn't trigger the animation because useEffect and useLayoutEffect only executes on mount and unmount, else if it DOES have a key it remounts it meaning, remove the component and then trigger the animation again. for more info check reconcilliation on react docu, itz a diffing algo */}
         </>
-      ) }
+      )}
     </div>
   );
 }
