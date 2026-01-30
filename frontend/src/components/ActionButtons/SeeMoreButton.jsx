@@ -1,8 +1,10 @@
 import React from 'react'
 import gsap from 'gsap'
 import { useRef } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
-const SeeMoreButton = ({size = 40 , clickAnimation, ...props}) => {
+const SeeMoreButton = ({ size = 40, clickAnimation, ...props }) => {
   const seeMoreIconRef = useRef(null);
 
   // when CLICKED navigate() to a book with the ID
@@ -11,25 +13,28 @@ const SeeMoreButton = ({size = 40 , clickAnimation, ...props}) => {
     //   x : 10,
     //   duration : 0.5,
     //   onComplete : () => {
-        if(clickAnimation) clickAnimation();
+    if (clickAnimation) clickAnimation();
     //   }
     // });
   }
 
+  console.log("hello")
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" 
-    width={size} 
-    height={size} 
-    viewBox="0 0 1024 1024" 
-    style={{ cursor : 'pointer' }}
-    ref={seeMoreIconRef}
-    onClick={() => seeMoreButtonClicked()}
-    {...props}>
-      {/* Icon from Simple line icons by Sabbir Ahmed - https://github.com/thesabbir/simple-line-icons/blob/master/LICENSE.md */}
-      <path 
-      fill="#ffffff"
-      stroke='black'
-      d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0m0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01m20.368-642.368c-12.496 12.496-12.496 32.752 0 45.248l115.76 115.76H287.68c-17.68 0-32 14.336-32 32s14.32 32 32 32h362.464l-117.76 117.744c-12.496 12.496-12.496 32.752 0 45.248c6.256 6.256 14.432 9.376 22.624 9.376s16.368-3.12 22.624-9.376l189.008-194l-189.008-194c-12.512-12.496-32.752-12.496-45.264 0" /></svg>
+
+    <svg
+      ref={seeMoreIconRef}
+      width={size}
+      height={size}
+      viewBox="256 256 512 512"
+      onClick={() => seeMoreButtonClicked()}
+      style={{ cursor: "pointer" }}
+      {...props}
+    >
+      <path
+        fill={"#ffffff"}
+        d="M512 704c-12.496 0-24.992-4.752-34.336-14.096l-192-192c-18.656-18.656-18.656-48.992 0-67.648s48.992-18.656 67.648 0L512 579.2l158.688-158.688c18.656-18.656 48.992-18.656 67.648 0s18.656 48.992 0 67.648l-192 192c-9.344 9.344-21.84 14.096-34.336 14.096z"
+      />
+    </svg>
   )
 }
 

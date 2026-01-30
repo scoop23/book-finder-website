@@ -7,7 +7,7 @@ import SearchPagePaginationResults from '../../components/SearchPagePaginationRe
 const SearchPage = () => {
   return (
     <BookSearchContainer>
-      <SearchBar/>
+      <SearchBar />
       <Outlet />
     </BookSearchContainer>
   )

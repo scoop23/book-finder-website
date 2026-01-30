@@ -21,19 +21,18 @@ const App = () => {
     <>
       <QueryClientProvider client={queryClient}>
         {/* AuthContext */}
-        <BookSearchProvider>  
+        <BookSearchProvider>
           <BrowserRouter>
-            
             <Routes>
               {/* preferebly BookSearchProvider here */}
-                <Route path='demo' element={<DemoPage />}></Route>
-                <Route path='search' element={<SearchPage />}>
-                  <Route index element={<MainPage />}/>
-                  <Route path='title' element={<TitlePageResults />}></Route>
-                  <Route path='author' element={<AuthorPageResults />}></Route>
-                  <Route path='title-author' element={<TitleAndAuthorPageResults />}></Route>
-                  <Route path="book/:bookid" element={<BookDetailsPage />}></Route>
-                </Route>
+              <Route path='demo' element={<DemoPage />}></Route>
+              <Route path='search' element={<SearchPage />}>
+                <Route index element={<MainPage />} />
+                <Route path='title' element={<TitlePageResults />}></Route>
+                <Route path='author' element={<AuthorPageResults />}></Route>
+                <Route path='title-author' element={<TitleAndAuthorPageResults />}></Route>
+                <Route path="book/:bookid" element={<BookDetailsPage />}></Route>
+              </Route>
             </Routes>
           </BrowserRouter>
         </BookSearchProvider>
