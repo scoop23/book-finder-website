@@ -6,7 +6,6 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const SeeMoreButton = ({ size = 40, clickAnimation, ...props }) => {
   const seeMoreIconRef = useRef(null);
-
   // when CLICKED navigate() to a book with the ID
   function seeMoreButtonClicked() {
     // gsap.to(seeMoreIconRef.current, {

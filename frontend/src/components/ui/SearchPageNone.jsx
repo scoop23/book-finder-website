@@ -1,43 +1,43 @@
-import React, { useEffect , useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 
 const SearchPageNone = () => {
   const navigate = useNavigate();
   const ButtonRef = useRef(null);
-  const [isActive , setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(true);
 
   function onFinish() {
     setIsActive(false);
   }
 
   useEffect(() => {
-    if(ButtonRef.current) {
+    if (ButtonRef.current) {
       gsap.fromTo(
         ButtonRef.current,
-        { autoAlpha : 0 , scale : 0.4 },
-        { autoAlpha : 1 , scale : 1 , duration : 0.4 , ease : "power3.in" }
+        { autoAlpha: 0, scale: 0.4 },
+        { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power3.in" }
       )
     }
   }, [])
 
   useEffect(() => {
     return () => {
-      if(ButtonRef.current) {
+      if (ButtonRef.current) {
         gsap.to(
           ButtonRef.current,
-          { 
-            autoAlpha : 0 , 
-            x : 20 , 
-            duration : 0.4 , 
-            ease : "power3.in", 
-            onComplete : onFinish
+          {
+            autoAlpha: 0,
+            x: 20,
+            duration: 0.4,
+            ease: "power3.in",
+            onComplete: onFinish
           }
         )
       }
     }
   }, []);
-  
+
   function goBack() {
     if (ButtonRef.current) {
       gsap.to(ButtonRef.current, {
@@ -48,11 +48,11 @@ const SearchPageNone = () => {
         onComplete: () => {
           setTimeout(() => {
             sessionStorage.setItem("fromNone", "true");
-            navigate(-1);
+            navigate("/search");
           }, 500)
         } // navigate only after animation finishes
       });
-    } 
+    }
   }
 
   return (
@@ -62,7 +62,7 @@ const SearchPageNone = () => {
           Go Back
         </button>
       )}
-      
+
     </div>
   )
 }
