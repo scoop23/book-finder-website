@@ -20,6 +20,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
   const author2 = book2VolumeInfo?.authors?.[0] || 'Unknown Author';
   const imglink2 = book2VolumeInfo?.imageLinks?.thumbnail || book2VolumeInfo?.imageLinks?.smallThumbnail;
   const genre2 = book2VolumeInfo?.categories || [];
+  const bookId2 = topTwoBook?.id;
 
   const book3VolumeInfo = topThreeBook?.volumeInfo;
   const title3 = book3VolumeInfo?.title;
@@ -29,7 +30,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
   const genre3 = book3VolumeInfo?.categories || [];
   const rightSideWidget = useRef(null);
   const secondRightSideWidget = useRef(null);
-
+  const bookId3 = topThreeBook?.id;
 
   const Book2Info = () => {
     return (
@@ -112,7 +113,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
   const [secondButtonHovered, setIsSecondButtonHovered] = useState(false);
 
   return (
-    <div className='right-main-sidebar flex flex-col gap-5 '>
+    <div className='right-main-sidebar flex flex-col gap-5 select-none'>
       <motion.div
       // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
@@ -139,7 +140,10 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
       >
         <div style={{ // bg-[var(--color-darker)]
           boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-        }} className='right-sidebar p-4 text-[100px] max-w-[620px] rounded-2xl flex gap-2 opacity-0 min-h-[200px] max-h-[200px] relative' onMouseEnter={() => setIsSecondButtonHovered(true)} onMouseLeave={() => setIsSecondButtonHovered(false)}>
+        }} className='right-sidebar p-4 text-[100px] max-w-[620px] rounded-2xl flex gap-2 opacity-0 min-h-[200px] max-h-[200px] relative'
+          onMouseEnter={() => setIsSecondButtonHovered(true)}
+          onMouseLeave={() => setIsSecondButtonHovered(false)}
+        >
           <ActionButtons Ypos={-68.5} Xpos={30} hover={secondButtonHovered} sideBarRef={secondRightSideWidget} />
           <div style={{
             // boxShadow : 'var(--inset-shadow-1)'

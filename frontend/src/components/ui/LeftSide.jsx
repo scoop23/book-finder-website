@@ -20,6 +20,7 @@ const LeftSide = ({ topOneBook }) => {
   const genre = topOneBook?.volumeInfo?.categories || []
   const [hover, setIsHovered] = useState(false);
   const sideBarRef = useRef(null)
+  const bookId = topOneBook?.id;
 
   useEffect(() => {
 
@@ -66,7 +67,7 @@ const LeftSide = ({ topOneBook }) => {
 
   const Infos = () => {
     return (
-      <div className='content-info-wrapper flex flex-col gap-2 items-baseline'>
+      <div className='content-info-wrapper flex flex-col gap-2 items-baseline select-none'>
         <span className='content-info text-[20px] px-2 flex flex-col gap-2'>
           <div className='title-genre flex justify-between items-center w-[400px] gap-1'>
             <div className='line-clamp-3'>{title}</div>
@@ -97,11 +98,15 @@ const LeftSide = ({ topOneBook }) => {
     // inner color : --color-base ?
     <div style={{ //  bg-[var(--color-darker)]
       boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-    }} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black relative rounded-2xl min-h-[420px] max-h-[420px]' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+    }} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black relative rounded-2xl min-h-[420px] max-h-[420px] select-none'
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* if you want to adjust this change the Ypos */}
       <ActionButtons Ypos={-65.5} Xpos={30} hover={hover} sideBarRef={sideBarRef} className={``}>
       </ActionButtons>
-      <div className='main-content-div flex flex-col justify-start gap-4 p-4 '>
+      <div className='main-content-div flex flex-col justify-start gap-4 p-4 '
+      >
         <div style={{
           // boxShadow : 'var(--inset-shadow-1)'
         }} className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-5 rounded-2xl shadow-2xl transition-all duration-200 max-h-[380px] min-h-[380px] -z-1' ref={sideBarRef}>
