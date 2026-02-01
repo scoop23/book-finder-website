@@ -17,7 +17,6 @@ const SeeMoreButton = ({ size = 40, clickAnimation, ...props }) => {
     // });
   }
 
-  console.log("hello")
   return (
 
     <svg
