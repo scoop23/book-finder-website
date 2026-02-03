@@ -19,18 +19,18 @@ const CarouselA = ({ state }) => {
   const sliderRef = useRef();
   const [isHovering, setIsHovering] = useState(false);
   const titleRefArray = useRef([]);
-  const [carouselData, setCarouselData] = useState([]);
+  const [carouselData, setCarouselData] = useState();
 
   useEffect(() => {
     try {
-        if(state.carouselAData) {
-        const firstSixBooks = state.carouselAData?.items.slice(0,6);
+      if (state.carouselAData) {
+        const firstSixBooks = state.carouselAData?.items.slice(0, 6);
         setCarouselData(firstSixBooks);
-      } 
-    } catch(err) {
-      if(err.response) {
-        console.error("Data: " , err.response.data);
-        console.error("Status: " , err.response.status);
+      }
+    } catch (err) {
+      if (err.response) {
+        console.error("Data: ", err.response.data);
+        console.error("Status: ", err.response.status);
       }
     }
   }, [state.carouselAData])
@@ -63,7 +63,7 @@ const CarouselA = ({ state }) => {
   //     </div>
   //   )
   // }
-  
+
   // useEffect(() => {
   //   gsap.set([leftIcon.current , rightIcon.current] , {opacity : 0})
   //   const stop = setInterval(() => {
@@ -116,6 +116,7 @@ const CarouselA = ({ state }) => {
     });
   };
 
+
   return (
     <div className="carousel-wrapper font-inter">
       <div className="carousel-main flex justify-center items-center">
@@ -137,26 +138,26 @@ const CarouselA = ({ state }) => {
                 ref={leftIcon}
               />{" "}
               {/* Left Arrow */}
-              
+
               <div className="carouselA-outer-wrapper w-[400px] overflow-hidden rounded-2xl z-1" draggable={false}>
                 <div className="carouselA-main-wrapper flex flex-row gap-4 transition-all duration-400" ref={sliderRef}>
-                  
+
                   {/* based on the index it moves times 140px horizontally */}
                   {/* CARDS */}
-                  
+
                   {
-                    carouselData?.map((data , index) => (
+                    carouselData?.map((data, index) => (
                       <div key={index}>
-                        <CarouselACard 
+                        <CarouselACard
                           data={data}
                           ref={(element) => titleRefArray.current[index] = element}
-                          // for each 'element' in the ref which will the the parent will send on the child 
-                          // store it on a ref array and set it at that index
+                        // for each 'element' in the ref which will the the parent will send on the child 
+                        // store it on a ref array and set it at that index
                         />
                       </div>
                     ))
                   }
-                  
+
                 </div>
               </div>
 
