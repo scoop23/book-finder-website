@@ -7,6 +7,24 @@ const GOOGLE_BOOKS_BASE_URL = process.env.GOOGLE_BOOKS_BASE_URL;
 const apikey = process.env.API_KEY;
 const nyApiKey = process.env.NEW_YORK_TIMES_API;
 
+async function fetchFromUrl(req, res, url, param = {}) {
+  try {
+    const response = await axios.get(url, {
+      params: param
+    })
+    
+    return res.json(response.data);
+
+  } catch (err) {
+    console.error('Error fetching data :', err.message);
+    if (err.response) {
+      console.error('Status:', err.response.status);
+      console.error('Data:', err.response.data);
+    }
+    res.status(500).json({ error: "FAILED TO FETCH DATA" });
+  }
+}
+
 async function getTitleByAuthor(query, res, page) {
   try {
     const response = await axios.get(GOOGLE_BOOKS_BASE_URL, {
@@ -137,4 +155,4 @@ async function getGenre(genre, res) {
   }
 }
 
-module.exports = { getTitleByAuthor, getTitleName, getTitleAndAuthor, getQuotes, getGenre, getRandomBooks }
+module.exports = { getTitleByAuthor, getTitleName, getTitleAndAuthor, getQuotes, getGenre, getRandomBooks, fetchFromUrl }

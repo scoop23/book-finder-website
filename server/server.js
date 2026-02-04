@@ -16,6 +16,7 @@ app.listen(port, () => {
   console.log("Server started on port " + port);
 });
 
+
 const searchRouter = require('./routes/search');
 const genreRouter = require('./routes/genres');
 const randomsRouter = require('./routes/random')
