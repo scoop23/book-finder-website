@@ -27,6 +27,6 @@ router.get("/OLtitle", async (req, res) => {
   const query = req.query.q;
   const page = parseINT(req.query.page);
   await getBookFromTitle(req, res, query, page);
-}) 
+})
 
 module.exports = router;  

@@ -12,7 +12,7 @@ async function fetchFromUrl(req, res, url, param = {}) {
     const response = await axios.get(url, {
       params: param
     })
-    
+
     return res.json(response.data);
 
   } catch (err) {
@@ -145,13 +145,12 @@ async function getGenre(genre, res) {
     });
     console.log(process.env);
     return res.json(response.data);
-    // return res.send("<h1> HELLO from server </h1>")
   } catch (err) {
     if (err.response) {
       console.error("Status: ", err.response.status)
       console.error("Data: ", err.response.data)
     }
-    res.status(500).json({ error: "FAILED TO FETCH DATA" });
+    res.status(500).json({ error: err.message });
   }
 }
 
