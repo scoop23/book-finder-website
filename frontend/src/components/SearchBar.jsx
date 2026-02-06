@@ -179,7 +179,7 @@ const SearchBar = () => {
 
   function onSubmitSearch(e) {
     if (e.key === 'Enter') {
-
+      
       dispatch({ type: "SET_SEARCH_TEXT", payload: e.target.value });
       setLocalSearchText(e.target.value)
       if (!state.searchType) {
@@ -211,7 +211,7 @@ const SearchBar = () => {
           default: 'title'
         }
       }
-      // if(state.searchType.includes("author") && state.searchType.includes("title")) {
+    // if(state.searchType.includes("author") && state.searchType.includes("title")) {
       //   const unofficialAuthorText = searchAuthorRefs.current.searchAuthorInputRef.value;
       //   console.log(unofficialAuthorText)
       //   dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });
@@ -221,8 +221,10 @@ const SearchBar = () => {
       //   navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(unofficialAuthorText)}&page=1`)
       //   return; 
       // }
+
     }
   }
+
 
   const isMainPage = location.pathname === '/search'; // is location is /search then return true
 

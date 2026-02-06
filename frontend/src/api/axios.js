@@ -14,7 +14,6 @@ export const apiGet = async (url) => {
     return response.data;
   } catch (error) {
     console.error("Axios error", error);
-
     throw error;
   }
 }

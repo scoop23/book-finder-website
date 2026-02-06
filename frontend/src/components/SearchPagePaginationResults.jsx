@@ -7,7 +7,7 @@ import gsap from 'gsap'
 import SearchPageNone from './ui/SearchPageNone';
 import { useLocation } from 'react-router-dom';
 
-const SearchPagePaginationResults = ({ totalPages,  }) => {  
+const SearchPagePaginationResults = ({ totalPages, }) => {
   const { state } = useContext(BookSearchContext);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -20,52 +20,55 @@ const SearchPagePaginationResults = ({ totalPages,  }) => {
   const pageContentRef = useRef(null);
   const paginationRef = useRef(null);
   const currentPage = useRef(null)
-  const [cameFromNone , setCameFromNone] = useState(false);
+  const [cameFromNone, setCameFromNone] = useState(false);
+
   // useEffect(() => {
   //   setPageParam(page); // if page change then this will execute
   // }, [page])
+  //
+  // i think this was a leetcode problem? maximum sliding i forgot.
   const pages = [];
   const range = 2;
-  const myRange =  totalPages / 10
-  const safeTotalPages = Math.max(myRange ?? 0 , 1);
-  for (let i = Math.max(1 , page - range); i <= Math.min(safeTotalPages, page + range); i++) {
+  const myRange = totalPages / 10
+  const safeTotalPages = Math.max(myRange ?? 0, 1);
+  for (let i = Math.max(1, page - range); i <= Math.min(safeTotalPages, page + range); i++) {
     pages.push(i)
   }
-  
+
   function handlePage(num) {
     let type = undefined;
-    
-    if(state.searchType[0] === null && state.searchType[1] === null) {
+
+    if (state.searchType[0] === null && state.searchType[1] === null) {
       console.error("User needs to toggle a search type.")
       alert("User needs to toggle a search type.")
       return;
-    } 
+    }
 
     console.log(searchQuery)
-    if(searchQuery === "null" || searchQuery === null) {
+    if (searchQuery === "null" || searchQuery === null) {
       navigate(`/search/title-author?p1=${p1}&p2=${p2}&page=${num}`)
-      console.error("input something")  
+      console.error("input something")
       return;
     }
-    
-    if(state.searchType.includes(null)) {
-      if(state.searchType[0] === 'title'){
+
+    if (state.searchType.includes(null)) {
+      if (state.searchType[0] === 'title') {
         type = "title";
       } else if (state.searchType[1] === 'author') {
         type = "author";
       }
 
       navigate(
-      `/search/${type}?query=${searchQuery}&page=${num}`
+        `/search/${type}?query=${searchQuery}&page=${num}`
       )
-      
+
     } else {
-      
+
       console.log("page for author and title")
       const title = searchParams.get('p1');
       const author = searchParams.get('p2');
 
-      if(title === null && author === null) {
+      if (title === null && author === null) {
         alert("Please Input title and author");
         return;
       }
@@ -77,7 +80,7 @@ const SearchPagePaginationResults = ({ totalPages,  }) => {
   }
 
   useEffect(() => {
-    if(sessionStorage.getItem("fromNone") === "true"){
+    if (sessionStorage.getItem("fromNone") === "true") {
       setCameFromNone(true);
       sessionStorage.removeItem("fromNone");
     }
@@ -86,33 +89,33 @@ const SearchPagePaginationResults = ({ totalPages,  }) => {
 
   useEffect(() => {
     if (!pageContentRef.current) return;
-    
-    if(cameFromNone) {
-      gsap.set(pageContentRef.current , { autoAlpha : 0 , x : 30 });
+
+    if (cameFromNone) {
+      gsap.set(pageContentRef.current, { autoAlpha: 0, x: 30 });
       gsap.to(pageContentRef.current, {
-        autoAlpha : 1,
-        x : 0,
-        duration : 0.5,
-        ease : "power3.in",
+        autoAlpha: 1,
+        x: 0,
+        duration: 0.5,
+        ease: "power3.in",
       })
     }
 
     setCameFromNone(false)
 
-    if(page > currentPage.current) {
+    if (page > currentPage.current) {
       gsap.fromTo(
         pageContentRef.current,
-        { x : 30 },
-        { x : 0 }
+        { x: 30 },
+        { x: 0 }
       );
     } else {
       gsap.fromTo(
         pageContentRef.current,
-        { x : -30 },
-        { x : 0 }
+        { x: -30 },
+        { x: 0 }
       );
     }
-    
+
     const buttons = paginationButtonArray.current.filter(Boolean);
 
     if (buttons.length > 0) {
@@ -121,18 +124,18 @@ const SearchPagePaginationResults = ({ totalPages,  }) => {
       gsap.fromTo(
         buttons,
         { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.4, stagger: { each : 0.05 , from : staggerFrom}, ease: "power3.out" }
+        { autoAlpha: 1, y: 0, duration: 0.4, stagger: { each: 0.05, from: staggerFrom }, ease: "power3.out" }
         // also take note. stagger property is very smart and knows the length of the array.
       );
-    } 
+    }
 
     return () => {
-      
+
     }
 
   }, [page, cameFromNone]); // run when page changes
 
-  if(!state.bookData?.items?.length){
+  if (!state.bookData?.items?.length) {
     return (
       <div className='flex justify-center items-center pr-5'>
         <SearchPageNone />
@@ -140,24 +143,24 @@ const SearchPagePaginationResults = ({ totalPages,  }) => {
     )
   }
 
-  if(!state.bookData?.items) {
+  if (!state.bookData?.items) {
     return (
       <div className='flex justify-center items-center pr-5'>
         <SearchPageNone />
       </div>
     )
   }
-  
+
 
   return (
     <div className='flex items-center'>
       <Pagination
-      ref={paginationRef}>
+        ref={paginationRef}>
         <PaginationContent
-        ref={pageContentRef}
+          ref={pageContentRef}
         > {/* */}
           {/* Button here */}
-          {pages.map((num , index) => (
+          {pages.map((num, index) => (
             <PageLink
               key={num}
               onClick={() => handlePage(num)}

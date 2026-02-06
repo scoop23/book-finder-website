@@ -13,7 +13,8 @@ export const fetchBookByTitle = async (searchText) => {
 };
 
 export const fetchBookByTitleOL = async (searchText) => {
-  return apiGet(`https://openlibrary.org/search.json?q=${searchText}`);
+  return apiGet(`http://localhost:8080/opensearch/title?q=${searchText}`);
+  //http://localhost:8080/opensearch/title?q=harry
 };
 
 // find free api for quotes

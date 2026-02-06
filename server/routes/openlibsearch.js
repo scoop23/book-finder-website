@@ -1,12 +1,12 @@
 const express = require('express');
-const { getBookFromTitle } = require('./openlibsearch.js');
+const { getBookFromTitle } = require('../openLibUtil.js');
 const router = express.Router();
 
 
 router.get('/title', async (req, res) => {
   const query = req.query.q;
-  const page = req.query.page;
-  await getBookFromTitle(req, res, query,);
+  const page = req.query.page || 1;
+  await getBookFromTitle(req, res, query, page);
 })
 
 

@@ -7,13 +7,13 @@ const GOOGLE_BOOKS_BASE_URL = process.env.GOOGLE_BOOKS_BASE_URL;
 const apikey = process.env.API_KEY;
 const nyApiKey = process.env.NEW_YORK_TIMES_API;
 
-async function fetchFromUrl(req, res, url, param = {}) {
+async function fetchFromUrl(url, param = {}) {
   try {
     const response = await axios.get(url, {
       params: param
     })
 
-    return res.json(response.data);
+    return response.data;
 
   } catch (err) {
     console.error('Error fetching data :', err.message);
@@ -21,7 +21,7 @@ async function fetchFromUrl(req, res, url, param = {}) {
       console.error('Status:', err.response.status);
       console.error('Data:', err.response.data);
     }
-    res.status(500).json({ error: "FAILED TO FETCH DATA" });
+    throw err;
   }
 }
 

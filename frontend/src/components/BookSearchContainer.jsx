@@ -22,23 +22,14 @@ const BookSearchContainer = ({ children }) => {
     queryKey: ["randomQuote"],
     queryFn: fetchQuotes,
     enable: false,
-    retry : 1, // retry once?
-    refetchOnWindowFocus : false,
+    retry: 1, // retry once?
+    refetchOnWindowFocus: false,
   });
-  // const sampleTitleData = useQuery({
-  //   queryKey: ["sampleTitleData"],
-  //   queryFn: fetchBookByTitleOL,
-  //   enable: false,
-  // })
-  //
-  console.log(quoteData.data);
-  // console.log(sampleTitleData.data);
 
   const { data: randomBookData } = useFetch(fetchRandomBook);
   const fetchGenre = useCallback(() => getGenre(state.genreTag), [state.genreTag]);
   const { data: genreData } = useFetch(fetchGenre);
   const [isMobile, setIsMobile] = useState(false);
-
 
   useEffect(() => { // this runs once. after mount.
     const checkMobile = () => { setIsMobile(window.innerWidth < 1185) }; // if window is less than 1185 px then the website is in mobile view.
@@ -48,8 +39,6 @@ const BookSearchContainer = ({ children }) => {
       window.removeEventListener("resize", checkMobile)
     }
   }, [])
-
-  console.log(isMobile); // indicator of mobile view
 
   useEffect(() => {
     if (quoteData.data) dispatch({ type: "SET_QUOTE_DATA", payload: quoteData.data });

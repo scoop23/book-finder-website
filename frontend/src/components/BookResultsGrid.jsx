@@ -13,7 +13,7 @@ const BookResultsGrid = ({ remainingBooks }) => {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page")
 
-  console.log(remainingBooks.map(r => r.id));
+  // console.log(remainingBooks.map(r => r.id));
 
   useLayoutEffect(() => {
     // bookCardHTMLArray.current.map((element , index) => {

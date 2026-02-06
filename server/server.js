@@ -12,9 +12,9 @@ const corsOptions = {
   origin: ["http://localhost:5173", "https://scoop23.github.io", "http://localhost:5174"],
 };
 const limiter = rateLimit({
-  windowMs : 60 * 1000, // 1 min
-  max : 10,
-  message : "Too many Request.."
+  windowMs: 60 * 1000, // 1 min
+  max: 20,
+  message: "Too many Request.."
 })
 
 app.use(cors(corsOptions));
@@ -23,15 +23,14 @@ app.listen(port, () => {
   console.log("Server started on port " + port);
 });
 
-
 const searchRouter = require('./routes/search');
 const genreRouter = require('./routes/genres');
 const randomsRouter = require('./routes/random')
 const openLibRouter = require('./routes/openlibsearch');
 
 app.use('/search', limiter, searchRouter);
-app.use('/genres', limiter, genreRouter);
-app.use('/random', limiter, randomsRouter);
+app.use('/genres', genreRouter);
+app.use('/random', randomsRouter);
 app.use('/opensearch', limiter, openLibRouter);
 
 
