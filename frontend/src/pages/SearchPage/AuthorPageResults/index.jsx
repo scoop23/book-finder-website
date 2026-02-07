@@ -5,20 +5,21 @@ import { useFetchDataTitleSearch } from '@/hooks/useFetchDataTitleSearch';
 import { BookSearchContext } from '../../../context/BookSearchContext';
 import { useEffect } from 'react';
 import SearchPagePaginationResults from '../../../components/SearchPagePaginationResults';
+// TODO: fetch data as author from openlib
 
 const AuthorPageResults = () => {
-  const { state , dispatch } = useContext(BookSearchContext);
+  const { state, dispatch } = useContext(BookSearchContext);
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('query');
   const pageParams = searchParams.get('page');
-  
+
   console.log(searchQuery)
   console.log(pageParams)
 
   // const {isPending : isPending, data : data} = useFetchData(searchQuery , '/search/title')
-  const {data , isPending} = useFetchDataTitleSearch(
+  const { data, isPending } = useFetchDataTitleSearch(
     searchQuery + "Text",
-    "/search/author", 
+    "/search/author",
     searchQuery,
     pageParams,
   );
@@ -29,11 +30,11 @@ const AuthorPageResults = () => {
     }
   }, [data, dispatch]);
 
-  
+
 
   return (
     <div className='h-full'>
-      <BookResults data={state.bookData} isPending={isPending}/>
+      <BookResults data={state.bookData} isPending={isPending} />
     </div>
   )
 }

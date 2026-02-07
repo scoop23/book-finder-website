@@ -4,8 +4,10 @@ import useFetchAuthorAndTitle from '../../../hooks/useFetchAuthorAndTitle';
 import BookResults from '../../../components/BookResults';
 import { BookSearchContext } from '../../../context/BookSearchContext';
 
+//TODO:  fetch data from openlib using authot and title.
+
 const TitleAndAuthorPageResults = () => {
-  const { state ,dispatch } = useContext(BookSearchContext);
+  const { state, dispatch } = useContext(BookSearchContext);
   const [searchParams] = useSearchParams();
 
   const title = searchParams.get("p1");
@@ -13,7 +15,7 @@ const TitleAndAuthorPageResults = () => {
   const page = searchParams.get("page");
 
 
-  const { data , isPending } = useFetchAuthorAndTitle(
+  const { data, isPending } = useFetchAuthorAndTitle(
     '/search/author-title',
     encodeURIComponent(title + " " + author),
     title,
@@ -22,14 +24,14 @@ const TitleAndAuthorPageResults = () => {
   );
 
   useEffect(() => {
-    if(data) {
-      dispatch({ type : "SET_BOOK_DATA" , payload : data })
+    if (data) {
+      dispatch({ type: "SET_BOOK_DATA", payload: data })
     }
-  }, [data , dispatch]);
+  }, [data, dispatch]);
 
   return (
     <div className='h-full'>
-      <BookResults data={state.bookData} isPending={isPending}/>
+      <BookResults data={state.bookData} isPending={isPending} />
     </div>
   )
 }

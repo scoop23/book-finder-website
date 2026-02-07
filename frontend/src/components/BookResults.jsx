@@ -57,7 +57,8 @@ const BookResults = ({ data, isPending }) => {
           </div>
           <div className='main-bar flex gap-4 max-w-[1300px] items-center justify-center '>
             <LeftSide key={topOneBook.title.split(" ").join("-")} topOneBook={topOneBook} />
-            <RightSide key={[topTwoBook, topThreeBook].join("-")} topTwoBook={topTwoBook} topThreeBook={topThreeBook} />
+
+            {topThreeBook && topTwoBook && <RightSide key={[topTwoBook, topThreeBook].join("-")} topTwoBook={topTwoBook} topThreeBook={topThreeBook} />}
           </div>
 
           {/* <button className='page-btn border max-w-[100px] px-[15px] py-[10px] rounded-[15px] cursor-pointer hover:bg-gray-500 transition-all duration-250 text-center'> 1 </button> */}
