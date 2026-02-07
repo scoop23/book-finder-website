@@ -6,7 +6,6 @@ import ActionButtons from '../ActionButtons/ActionButtons.jsx';
 
 const LeftSide = ({ topOneBook }) => {
   // const { title } = topOneBook.volumeInfo;
-  console.log(topOneBook);
   const { title, author_name, key, cover_edition_key, first_publish_year } = topOneBook || {};
   const dataVolumeInfo = topOneBook;
   const bookDescription = topOneBook?.volumeInfo?.description || "No Description";

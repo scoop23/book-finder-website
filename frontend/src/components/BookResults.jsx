@@ -35,7 +35,7 @@ const BookResults = ({ data, isPending }) => {
   const topTwoBook = entopBooks?.[1];
   const topThreeBook = entopBooks?.[2];
   const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
-  const totalPages = data?.totalItems;
+  const totalPages = data?.numFound;
 
   // totalPages is theoretical aka its sucks
   if (!topOneBook) {
