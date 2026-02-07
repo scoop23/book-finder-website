@@ -24,8 +24,8 @@ const TitlePageResults = () => {
   // );
 
   const titleSearchData = useQuery({
-    queryKey: ["titlesearchdata", searchQuery],
-    queryFn: () => fetchBookByTitleOL(searchQuery),
+    queryKey: ["titlesearchdata", searchQuery, pageParams],
+    queryFn: () => fetchBookByTitleOL(searchQuery, pageParams),
     enabled: !!searchQuery,
     retry: 1,
     refetchOnWindowFocus: false,

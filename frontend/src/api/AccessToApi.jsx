@@ -12,8 +12,8 @@ export const fetchBookByTitle = async (searchText) => {
   return apiGet(`http://localhost:8080/search/title?q=${searchText}`);
 };
 
-export const fetchBookByTitleOL = async (searchText) => {
-  return apiGet(`http://localhost:8080/opensearch/title?q=${searchText}`);
+export const fetchBookByTitleOL = async (searchText, page) => {
+  return apiGet(`http://localhost:8080/opensearch/title?q=${searchText}&page=${page}`);
   //http://localhost:8080/opensearch/title?q=harry
 };
 
