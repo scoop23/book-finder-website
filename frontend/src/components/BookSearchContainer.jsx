@@ -26,10 +26,12 @@ const BookSearchContainer = ({ children }) => {
     refetchOnWindowFocus: false,
   });
 
+
   const { data: randomBookData } = useFetch(fetchRandomBook);
   const fetchGenre = useCallback(() => getGenre(state.genreTag), [state.genreTag]);
   const { data: genreData } = useFetch(fetchGenre);
   const [isMobile, setIsMobile] = useState(false);
+
 
   useEffect(() => { // this runs once. after mount.
     const checkMobile = () => { setIsMobile(window.innerWidth < 1185) }; // if window is less than 1185 px then the website is in mobile view.

@@ -12,6 +12,7 @@ import BookmarkButton from '../ActionButtons/BookmarkButton.jsx';
 
 const LeftSide = ({ topOneBook }) => {
   // const { title } = topOneBook.volumeInfo;
+  console.log(topOneBook);
   const dataVolumeInfo = topOneBook?.volumeInfo;
   const title = topOneBook?.volumeInfo?.title;
   const imglink = topOneBook?.volumeInfo?.imageLinks?.thumbnail;

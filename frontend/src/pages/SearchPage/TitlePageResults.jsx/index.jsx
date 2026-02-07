@@ -15,14 +15,13 @@ const TitlePageResults = () => {
   const pageParams = searchParams.get('page');
   const { state, dispatch } = useContext(BookSearchContext);
 
-
   // const {isPending : isPending, data : data} = useFetchData(searchQuery , '/search/title')
-  const { data, isPending } = useFetchDataTitleSearch(
-    searchQuery + "Text",
-    "/search/title",
-    searchQuery,
-    pageParams,
-  );
+  // const { data, isPending } = useFetchDataTitleSearch(
+  //   searchQuery + "Text",
+  //   "/search/title",
+  //   searchQuery,
+  //   pageParams,
+  // );
 
   const titleSearchData = useQuery({
     queryKey: ["titlesearchdata", searchQuery],
@@ -44,12 +43,12 @@ const TitlePageResults = () => {
     if (titleSearchData.data) {
       dispatch({ type: "SET_BOOK_DATA", payload: titleSearchData.data });
     }
-  }, [data, dispatch])
+  }, [titleSearchData.data, dispatch])
 
 
   return (
     <div className='h-full'>
-      <BookResults data={state.bookData} isPending={isPending} />
+      <BookResults data={state.bookData} isPending={titleSearchData.isPending} />
     </div>
   )
 }

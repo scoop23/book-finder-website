@@ -5,7 +5,6 @@ import ActionButtons from './ActionButtons/ActionButtons';
 
 const BookCard = forwardRef(({ bookData }, ref) => {
   const data = bookData;
-  console.log(data)
   // const { title, imageLinks, description, publishedDate, authors, key} = data;
   const { title, cover_edition_key, author_name, first_publish_year } = data;
   const [isHovering, setIsHovering] = useState(false);
@@ -29,7 +28,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
             <div className="flex-shrink-0">
               <img
                 className="rounded-2xl border w-[80px] h-[110px] object-cover"
-                src={`https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` || bookImage}
+                src={cover_edition_key ? `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` : bookImage}
                 alt="Book"
               />
             </div>

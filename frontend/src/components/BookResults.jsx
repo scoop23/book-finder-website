@@ -29,18 +29,13 @@ const BookResults = ({ data, isPending }) => {
     return <NothingSearch />
   }
 
-
-  const filteredLanguage = data?.docs.filter(b => b?.language.includes("eng")) // gets only the volumeInfo with en language
-  console.log(filteredLanguage);
-
+  const filteredLanguage = data?.docs.filter(b => b?.language?.includes("eng")) // gets only the volumeInfo with en language
   const entopBooks = data?.docs?.slice(0, 3); // ?. - safety check data.items if it exists
   const topOneBook = entopBooks?.[0];
   const topTwoBook = entopBooks?.[1];
   const topThreeBook = entopBooks?.[2];
   const remainingBooks = filteredLanguage?.slice(3) || []; // start at index 4
   const totalPages = data?.totalItems;
-
-  console.log(data?.docs)
 
   // totalPages is theoretical aka its sucks
   if (!topOneBook) {
