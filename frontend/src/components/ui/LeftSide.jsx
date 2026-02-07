@@ -1,23 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MotionPathPlugin } from 'gsap/all';
 import bookImage from '../../assets/book_empty.png';
 import GenreTags from '../../components/GenreTags';
-import ActionButton from '../ActionButton';
-import { Elastic } from 'gsap';
 import ActionButtons from '../ActionButtons/ActionButtons.jsx';
-import LikeButton from '../ActionButtons/LikeButton.jsx';
-import BookmarkButton from '../ActionButtons/BookmarkButton.jsx';
 
 const LeftSide = ({ topOneBook }) => {
   // const { title } = topOneBook.volumeInfo;
   console.log(topOneBook);
-  const dataVolumeInfo = topOneBook?.volumeInfo;
-  const title = topOneBook?.volumeInfo?.title;
-  const imglink = topOneBook?.volumeInfo?.imageLinks?.thumbnail;
+  const { title, author_name, key, cover_edition_key, first_publish_year } = topOneBook || {};
+  const dataVolumeInfo = topOneBook;
   const bookDescription = topOneBook?.volumeInfo?.description || "No Description";
-  const author = topOneBook?.volumeInfo?.authors?.[0] || 'No Author';
   const genre = topOneBook?.volumeInfo?.categories || []
   const [hover, setIsHovered] = useState(false);
   const sideBarRef = useRef(null)
@@ -81,8 +73,8 @@ const LeftSide = ({ topOneBook }) => {
             </div>
           </div>
 
-          <span className='text-[13px] block'>by {author}</span>
-          <span className='text-[13px] block'> Published Date: {dataVolumeInfo?.publishedDate || "No Published Date"}</span>
+          <span className='text-[13px] block'>by {author_name}</span>
+          <span className='text-[13px] block'> Published Date: {first_publish_year || "No Published Date"}</span>
           <span className='text-[13px] block'>Page Count: {dataVolumeInfo?.pageCount || "N/A"}</span>
           {/* <div className='text-[13px'></div> */}
         </span>
@@ -112,7 +104,7 @@ const LeftSide = ({ topOneBook }) => {
           // boxShadow : 'var(--inset-shadow-1)'
         }} className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-5 rounded-2xl shadow-2xl transition-all duration-200 max-h-[380px] min-h-[380px] -z-1' ref={sideBarRef}>
           <div className='pic-div max-h-[220px] justify-center flex object-cover'>
-            <img src={imglink || bookImage} alt="book cover" className='min-w-[140px] rounded-2xl ring-1' />
+            <img src={cover_edition_key ? `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` : bookImage} alt="book cover" className='min-w-[140px] rounded-2xl ring-1' />
           </div>
           <Infos />
         </div>
