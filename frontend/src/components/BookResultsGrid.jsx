@@ -12,7 +12,6 @@ const BookResultsGrid = ({ remainingBooks }) => {
   const prevBooks = useRef([]);
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page")
-
   // console.log(remainingBooks.map(r => r.id));
 
   useLayoutEffect(() => {

@@ -4,8 +4,10 @@ import bookImage from '../assets/book_empty.png';
 import ActionButtons from './ActionButtons/ActionButtons';
 
 const BookCard = forwardRef(({ bookData }, ref) => {
-  const data = bookData?.volumeInfo;
-  const { title, imageLinks, description, publishedDate, authors } = data;
+  const data = bookData;
+  console.log(data)
+  // const { title, imageLinks, description, publishedDate, authors, key} = data;
+  const { title, cover_edition_key, author_name, first_publish_year } = data;
   const [isHovering, setIsHovering] = useState(false);
   const contentRef = useRef();
 
@@ -27,7 +29,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
             <div className="flex-shrink-0">
               <img
                 className="rounded-2xl border w-[80px] h-[110px] object-cover"
-                src={imageLinks?.thumbnail || bookImage}
+                src={`https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` || bookImage}
                 alt="Book"
               />
             </div>
@@ -37,12 +39,12 @@ const BookCard = forwardRef(({ bookData }, ref) => {
               <span className="title text-[var(--color-lighter)] font-bold line-clamp-2 break-words">{title}</span>
               <div className="text-xs text-white  flex flex-col">
                 Authors:
-                {authors ? (
+                {author_name ? (
                   <div className='flex flex-col '>
                     {
-                      authors.length > 3 ? (
+                      author_name.length > 3 ? (
                         <div className='flex flex-col'>
-                          {authors.slice(0, 3).join(",")}
+                          {author_name.slice(0, 3).join(",")}
                           <button className='text-blue flex'>
                             <a href='#' className='text-blue-500'>
                               See More Contributors.
@@ -51,7 +53,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
                         </div>
                       ) : (
                         <div>
-                          {authors.map((author, index) => (
+                          {author_name.map((author, index) => (
                             <div key={index}>{author}</div>
                           ))}
                         </div>
@@ -64,7 +66,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
                   </div>
                 )}
               </div>
-              <div className="text-xs text-white ">Published: {publishedDate || 'N/A'}</div>
+              <div className="text-xs text-white ">Published: {first_publish_year || 'N/A'}</div>
             </div>
           </div>
 
@@ -73,7 +75,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
             // boxShadow: 'inset 0 1px 3px #00000030 ,inset 0 2px 4px #00000030'
           }} className="sub-content w-full h-[110px] bg-[var(--color-dark)] bg-opacity-40 rounded-2xl p-2 overflow-hidden">
             <p className=" text-xs text-[var(--color-lighter)] line-clamp-4 break-words">
-              {description || 'No description available.'}
+              {"nothing yet." || 'No description available.'}
             </p>
           </div>
 

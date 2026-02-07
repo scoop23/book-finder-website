@@ -15,9 +15,7 @@ const axiosBase = axios.create({
   timeout: 10000,
 })
 
-
 const myCache = new Map();
-console.log(myCache);
 
 async function getBookFromTitle(req, res, query, page) {
   const cacheKey = `${query}|${page}`; // bind the page and the title/query
@@ -28,7 +26,7 @@ async function getBookFromTitle(req, res, query, page) {
 
     console.log(cacheKey)
 
-    const responseData = await axiosBase.get("/search.json", {
+    const responseData = await axiosBase.get("/search.json", { // binds the /search.json in to the url
       params: { q: query, page }
     })
 
