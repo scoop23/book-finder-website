@@ -17,6 +17,10 @@ export const fetchBookByTitleOL = async (searchText, page) => {
   //http://localhost:8080/opensearch/title?q=harry
 };
 
+export const fetchWorks = async (workId) => {
+  return apiGet(`http://localhost:8080/opensearch/work/workId?q=${workId}`); // something like this?
+}
+
 // find free api for quotes
 export const fetchQuotes = async () => {
   return apiGet(`http://localhost:8080/random/random-quote`);

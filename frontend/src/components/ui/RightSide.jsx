@@ -1,33 +1,26 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { FaStar } from 'react-icons/fa';
-import { LuStar } from 'react-icons/lu';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MotionPathPlugin } from 'gsap/all';
 import bookImage from '../../assets/book_empty.png';
 import GenreTags from '../../components/GenreTags';
-import BookResultsGrid from '../../components/BookResultsGrid';
 import { hover, motion } from 'framer-motion';
-import ActionButton from '../ActionButton';
 import ActionButtons from '../ActionButtons/ActionButtons';
 const RightSide = ({ topTwoBook, topThreeBook }) => {
 
+
+  const { title, author_name, key, cover_edition_key, first_publish_year } = topTwoBook;
+  const { title: title2, author_name: author_name2, key: key2, cover_edition_key: cover_edition_key2, first_publish_year: first_publish_year2 } = topThreeBook;
+
+  const book2VolumeInfo = topTwoBook;
+  const book3VolumeInfo = topThreeBook;
   const rightSideRef = useRef(null);
 
-  const book2VolumeInfo = topTwoBook?.volumeInfo;
-  const title2 = book2VolumeInfo?.title;
   const bookDescription2 = book2VolumeInfo?.description || 'NA';
-  const author2 = book2VolumeInfo?.authors?.[0] || 'Unknown Author';
-  const imglink2 = book2VolumeInfo?.imageLinks?.thumbnail || book2VolumeInfo?.imageLinks?.smallThumbnail;
   const genre2 = book2VolumeInfo?.categories || [];
   const bookId2 = topTwoBook?.id;
 
-  const book3VolumeInfo = topThreeBook?.volumeInfo;
-  const title3 = book3VolumeInfo?.title;
   const bookDescription3 = book3VolumeInfo?.description || 'NA';
-  const author3 = book3VolumeInfo?.authors?.[0] || 'NA';
-  const imglink3 = book3VolumeInfo?.imagelinks?.thumbnail || book3VolumeInfo?.imageLinks?.smallThumbnail;
   const genre3 = book3VolumeInfo?.categories || [];
+
   const rightSideWidget = useRef(null);
   const secondRightSideWidget = useRef(null);
   const bookId3 = topThreeBook?.id;
@@ -37,7 +30,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
       <div className='content-info2 flex flex-col max-h-[220px] items-baseline font-inter'>
         <div className='flex justify-between w-[430px]'>
           <div className=' title2 max-h-[200px] text-[20px] p-1 flex break-words w-[430px] justify-between items-center '>
-            <div className='title-content2 line-clamp-3'>{title2}</div>
+            <div className='title-content2 line-clamp-3'>{title}</div>
             <div className='right-genre flex justify-center '>
               {
                 <GenreTags genre={genre2} />
@@ -47,7 +40,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
         </div>
 
         <span className='text-[13px] block pl-[5px]'>
-          by {author2}
+          by {author_name}
         </span>
 
         <div className='description2 text-[15px] p-2  rounded-2xl max-h-[115px] overflow-hidden '>
@@ -63,7 +56,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
       <div className='content-info3 flex flex-col max-h-[220px] items-baseline'>
         <div className='flex justify-between w-[430px]'>
           <div className='font-inter title2 max-h-[200px] text-[20px] p-1 flex break-words justify-between items-center w-[430px]'>
-            <div className='title-content3 line-clamp-2'>{title3}</div>
+            <div className='title-content3 line-clamp-2'>{title2}</div>
             <div className='right-genre flex justify-center '>
               {
                 <GenreTags genre={genre3} />
@@ -73,7 +66,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
         </div>
 
         <span>
-          <span className='text-[13px] block pl-[6px]'>by {author3}</span>
+          <span className='text-[13px] block pl-[6px]'>by {author_name2}</span>
         </span>
 
         <div className='description3 text-[15px] p-2  rounded-2xl max-h-[115px] overflow-hidden '>
@@ -129,7 +122,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
             // boxShadow : 'var(--inset-shadow-1)'
           }} className='flex first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 text-[var(--color-lighter)] -z-1' ref={rightSideWidget}>
             <div className='pic-div-b2 max-h-[220px] justify-center flex'>
-              <img src={imglink2 || bookImage} alt="" className='min-w-[100px] rounded-2xl ring-1 object-cover' />
+              <img src={cover_edition_key ? `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` : bookImage} alt="" className='min-w-[100px] rounded-2xl ring-1 object-cover' />
             </div>
             <Book2Info />
           </div>
@@ -149,7 +142,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
             // boxShadow : 'var(--inset-shadow-1)'
           }} className='flex text-[var(--color-lighter)] first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 -z-1' ref={secondRightSideWidget}>
             <div className='pic-div-b2 max-h-[220px] justify-center flex'>
-              <img src={imglink3 || bookImage} alt="" className='min-w-[100px] rounded-2xl ring-1 object-cover' />
+              <img src={cover_edition_key2 ? `https://covers.openlibrary.org/b/olid/${cover_edition_key2}-M.jpg` : bookImage} alt="" className='min-w-[100px] rounded-2xl ring-1 object-cover' />
             </div>
             <Book3Info />
           </div>
