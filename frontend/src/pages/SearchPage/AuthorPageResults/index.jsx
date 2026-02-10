@@ -5,6 +5,8 @@ import { useFetchDataTitleSearch } from '@/hooks/useFetchDataTitleSearch';
 import { BookSearchContext } from '../../../context/BookSearchContext';
 import { useEffect } from 'react';
 import SearchPagePaginationResults from '../../../components/SearchPagePaginationResults';
+import { useQuery } from '@tanstack/react-query';
+import { fetchBookByAuthoOL } from '../../../api/AccessToApi';
 // TODO: fetch data as author from openlib
 
 const AuthorPageResults = () => {
@@ -17,20 +19,32 @@ const AuthorPageResults = () => {
   console.log(pageParams)
 
   // const {isPending : isPending, data : data} = useFetchData(searchQuery , '/search/title')
-  const { data, isPending } = useFetchDataTitleSearch(
-    searchQuery + "Text",
-    "/search/author",
-    searchQuery,
-    pageParams,
-  );
+  // const { data, isPending } = useFetchDataTitleSearch(
+  //   searchQuery + "Text",
+  //   "/search/author",
+  //   searchQuery,
+  //   pageParams,
+  // );
 
+  const authorSearchData = useQuery({
+    queryKey: ["authersearchdata", searchQuery, pageParams],
+    queryFn: () => fetchBookByAuthoOL(searchQuery, pageParams),
+    enabled: !!searchQuery,
+    retry: 1,
+    refetchOnWindowFocus: false,
+  });
+
+
+  // useEffect(() => {
+  //   if (data) {
+  //     dispatch({ type: "SET_BOOK_DATA", payload: data });
+  //   }
+  // }, [data, dispatch]);
   useEffect(() => {
-    if (data) {
-      dispatch({ type: "SET_BOOK_DATA", payload: data });
+    if (authorSearchData) {
+      dispatch({ type: "SET_BOOK_DATA", payload: authorSearchData.data })
     }
-  }, [data, dispatch]);
-
-
+  }, [authorSearchData.data, dispatch]);
 
   return (
     <div className='h-full'>

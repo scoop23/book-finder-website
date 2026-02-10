@@ -26,6 +26,10 @@ async function getBookFromTitle(req, res, query, page) {
 
     console.log(cacheKey)
 
+    const openLibEndPoints = {
+
+    }
+
     const responseData = await axiosBase.get("/search.json", { // binds the /search.json in to the url
       params: { q: query, page }
     })
@@ -38,5 +42,6 @@ async function getBookFromTitle(req, res, query, page) {
     return res.status(500).json({ error: err.message });
   }
 }
+
 
 module.exports = { getBookFromTitle };

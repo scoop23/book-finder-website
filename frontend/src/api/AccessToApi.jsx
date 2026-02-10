@@ -17,6 +17,11 @@ export const fetchBookByTitleOL = async (searchText, page) => {
   //http://localhost:8080/opensearch/title?q=harry
 };
 
+export const fetchBookByAuthoOL = async (searchText, page) => {
+  return apiGet(`http://localhost:8080/opensearch/author?q=${searchText}&page=${page}`);
+};
+
+
 export const fetchWorks = async (workId) => {
   return apiGet(`http://localhost:8080/opensearch/work/workId?q=${workId}`); // something like this?
 }
