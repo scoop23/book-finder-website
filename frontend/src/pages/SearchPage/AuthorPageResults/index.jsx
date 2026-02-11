@@ -18,14 +18,6 @@ const AuthorPageResults = () => {
   console.log(searchQuery)
   console.log(pageParams)
 
-  // const {isPending : isPending, data : data} = useFetchData(searchQuery , '/search/title')
-  // const { data, isPending } = useFetchDataTitleSearch(
-  //   searchQuery + "Text",
-  //   "/search/author",
-  //   searchQuery,
-  //   pageParams,
-  // );
-
   const authorSearchData = useQuery({
     queryKey: ["authersearchdata", searchQuery, pageParams],
     queryFn: () => fetchBookByAuthoOL(searchQuery, pageParams),
@@ -34,21 +26,17 @@ const AuthorPageResults = () => {
     refetchOnWindowFocus: false,
   });
 
-
-  // useEffect(() => {
-  //   if (data) {
-  //     dispatch({ type: "SET_BOOK_DATA", payload: data });
-  //   }
-  // }, [data, dispatch]);
   useEffect(() => {
     if (authorSearchData) {
       dispatch({ type: "SET_BOOK_DATA", payload: authorSearchData.data })
     }
   }, [authorSearchData.data, dispatch]);
 
+  console.log(authorSearchData)
+
   return (
     <div className='h-full'>
-      <BookResults data={state.bookData} isPending={isPending} />
+      <BookResults data={state.bookData} isPending={authorSearchData.isPending} />
     </div>
   )
 }

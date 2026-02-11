@@ -17,22 +17,27 @@ const axiosBase = axios.create({
 
 const myCache = new Map();
 
-async function getBookFromTitle(req, res, query, page) {
-  const cacheKey = `${query}|${page}`; // bind the page and the title/query
+async function getBookFromTitle(req, res, query, page, type) {
+  const cacheKey = `${type}|${query}|${page}`; // bind the page and the title/query
   try {
     if (myCache.has(cacheKey)) {
       return res.json(myCache.get(cacheKey));
     }
 
-    console.log(cacheKey)
+    const params = { page };
 
-    const openLibEndPoints = {
-
+    switch (type) {
+      case "title":
+        params.q = query;
+        break;
+      case "author":
+        params.author = query;
+        break;
+      default:
+        return res.status(400).json({ error: "Invalid search type" });
     }
 
-    const responseData = await axiosBase.get("/search.json", { // binds the /search.json in to the url
-      params: { q: query, page }
-    })
+    const responseData = await axiosBase.get("/search.json", { params }) // binds the /search.json in to the url
 
     myCache.set(cacheKey, responseData.data); // store in cache
 
