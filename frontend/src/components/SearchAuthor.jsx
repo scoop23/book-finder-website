@@ -38,7 +38,7 @@ const SearchAuthor = forwardRef(({ dispatch, setClickedSearchAuthor, clickedSear
       if (!state.searchText) {
         console.error("Please Input some Title.");
       } else {
-        navigate(`/search/title-author?p1=${encodeURIComponent(state.searchText)}&p2=${e.target.value}&page=1`);
+        navigate(`/search/title-author?title=${encodeURIComponent(state.searchText)}&author=${e.target.value}&page=1`);
       }
 
     }

@@ -1,13 +1,14 @@
 const express = require('express');
-const { getBookFromTitle } = require('../openLibUtil.js');
+const { getBookFromSearch } = require('../openLibUtil.js');
 const router = express.Router();
 
 
 router.get('/:type', async (req, res) => {
-  const { q, page } = req.query;
+  const { q, page, author } = req.query;
   const { type } = req.params;
+
   console.log("API HIT", req.query, " Requested at  ", new Date().toISOString());
-  await getBookFromTitle(req, res, q, page, type);
+  await getBookFromSearch(req, res, { q, page, type, author });
 })
 
 // router.get('/author', async (req, res) => {

@@ -18,7 +18,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
 
   return (
 
-    <div className="main-bookcard-content max-h-[300px] font-inter select-none" ref={ref}>
+    <div className="main-bookcard-content max-h-[300px] font-inter select-auto" ref={ref}>
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
       }} className="content-container rounded-2xl bg-[var(--color-dark)]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>

@@ -6,7 +6,7 @@ import { BookSearchContext } from '../../../context/BookSearchContext';
 import { useEffect } from 'react';
 import SearchPagePaginationResults from '../../../components/SearchPagePaginationResults';
 import { useQuery } from '@tanstack/react-query';
-import { fetchBookByAuthoOL } from '../../../api/AccessToApi';
+import { fetchBookByAuthorOL } from '../../../api/AccessToApi';
 // TODO: fetch data as author from openlib
 
 const AuthorPageResults = () => {
@@ -20,7 +20,7 @@ const AuthorPageResults = () => {
 
   const authorSearchData = useQuery({
     queryKey: ["authersearchdata", searchQuery, pageParams],
-    queryFn: () => fetchBookByAuthoOL(searchQuery, pageParams),
+    queryFn: () => fetchBookByAuthorOL(searchQuery, pageParams),
     enabled: !!searchQuery,
     retry: 1,
     refetchOnWindowFocus: false,
@@ -32,7 +32,7 @@ const AuthorPageResults = () => {
     }
   }, [authorSearchData.data, dispatch]);
 
-  console.log(authorSearchData)
+  console.log(authorSearchData.data)
 
   return (
     <div className='h-full'>

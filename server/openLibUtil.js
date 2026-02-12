@@ -2,7 +2,6 @@ const axios = require("axios")
 require('dotenv').config();
 const { fetchFromUrl } = require('./util.js');
 
-
 const openLibUrl = process.env.OPEN_LIBRARY_URL;
 const myEmail = process.env.MY_EMAIL;
 
@@ -17,25 +16,29 @@ const axiosBase = axios.create({
 
 const myCache = new Map();
 
-async function getBookFromTitle(req, res, query, page, type) {
-  const cacheKey = `${type}|${query}|${page}`; // bind the page and the title/query
+async function getBookFromSearch(req, res, search) {
+  const cacheKey = `${search.type}|${search.q}|${search.page}`; // bind the page and the title/query
   try {
     if (myCache.has(cacheKey)) {
       return res.json(myCache.get(cacheKey));
     }
 
-    const params = { page };
+    const params = { page: search.page };
 
-    switch (type) {
+    switch (search.type) {
       case "title":
-        params.q = query;
+        params.q = search.q;
         break;
-      case "author":
-        params.author = query;
+      case "author": // if author then { author : query, page }
+        params.author = search.q;
+        break;
+      case "title-author":
+        params.title = search.q;
+        params.author = search.author;
         break;
       default:
         return res.status(400).json({ error: "Invalid search type" });
-    }
+    };
 
     const responseData = await axiosBase.get("/search.json", { params }) // binds the /search.json in to the url
 
@@ -49,4 +52,4 @@ async function getBookFromTitle(req, res, query, page, type) {
 }
 
 
-module.exports = { getBookFromTitle };
+module.exports = { getBookFromSearch };

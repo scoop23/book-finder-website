@@ -31,6 +31,8 @@ const TitlePageResults = () => {
     refetchOnWindowFocus: false,
   })
 
+  console.log(titleSearchData.data)
+
   // useEffect(() => {
   //   if (data) {
   //     dispatch({ type: "SET_BOOK_DATA", payload: data });

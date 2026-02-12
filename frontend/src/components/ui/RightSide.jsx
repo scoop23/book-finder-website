@@ -106,7 +106,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
   const [secondButtonHovered, setIsSecondButtonHovered] = useState(false);
 
   return (
-    <div className='right-main-sidebar flex flex-col gap-5 select-none'>
+    <div className='right-main-sidebar flex flex-col gap-5 select-auto'>
       <motion.div
       // transition={{ type : "spring" , bounce : 0.4 , duration : 1}}
       >
@@ -122,7 +122,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
             // boxShadow : 'var(--inset-shadow-1)'
           }} className='flex first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 text-[var(--color-lighter)] -z-1' ref={rightSideWidget}>
             <div className='pic-div-b2 max-h-[220px] justify-center flex'>
-              <img src={cover_edition_key ? `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` : bookImage} alt="" className='min-w-[100px] rounded-2xl ring-1 object-cover' />
+              <img src={cover_edition_key ? `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` : bookImage} alt="" className='min-w-[100px] rounded-2xl ring-1 object-cover select-none' />
             </div>
             <Book2Info />
           </div>
@@ -142,7 +142,7 @@ const RightSide = ({ topTwoBook, topThreeBook }) => {
             // boxShadow : 'var(--inset-shadow-1)'
           }} className='flex text-[var(--color-lighter)] first-content gap-3 bg-[var(--color-dark)] p-4 rounded-2xl hover:shadow-custom2 hover:-translate-y-1 transition-all duration-200 -z-1' ref={secondRightSideWidget}>
             <div className='pic-div-b2 max-h-[220px] justify-center flex'>
-              <img src={cover_edition_key2 ? `https://covers.openlibrary.org/b/olid/${cover_edition_key2}-M.jpg` : bookImage} alt="" className='min-w-[100px] rounded-2xl ring-1 object-cover' />
+              <img src={cover_edition_key2 ? `https://covers.openlibrary.org/b/olid/${cover_edition_key2}-M.jpg` : bookImage} alt="" className='min-w-[100px] rounded-2xl ring-1 object-cover select-none' />
             </div>
             <Book3Info />
           </div>

@@ -179,7 +179,7 @@ const SearchBar = () => {
 
   function onSubmitSearch(e) {
     if (e.key === 'Enter') {
-      
+
       dispatch({ type: "SET_SEARCH_TEXT", payload: e.target.value });
       setLocalSearchText(e.target.value)
       if (!state.searchType) {
@@ -204,14 +204,14 @@ const SearchBar = () => {
             dispatch({ type: "SET_SEARCH_TEXT", payload: e.target.value });
             localStorage.setItem("authorText", localAuthorText); // set localStorage
             dispatch({ type: "SET_AUTHOR_TEXT", payload: localAuthorText });
-            navigate(`/search/title-author?p1=${encodeURIComponent(e.target.value)}&p2=${encodeURIComponent(unofficialAuthorText)}&page=1`)
+            navigate(`/search/title-author?title=${encodeURIComponent(e.target.value)}&author=${encodeURIComponent(unofficialAuthorText)}&page=1`)
 
             break;
           }
           default: 'title'
         }
       }
-    // if(state.searchType.includes("author") && state.searchType.includes("title")) {
+      // if(state.searchType.includes("author") && state.searchType.includes("title")) {
       //   const unofficialAuthorText = searchAuthorRefs.current.searchAuthorInputRef.value;
       //   console.log(unofficialAuthorText)
       //   dispatch({ type : "SET_SEARCH_TEXT" , payload : e.target.value });

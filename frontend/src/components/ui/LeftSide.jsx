@@ -59,7 +59,7 @@ const LeftSide = ({ topOneBook }) => {
 
   const Infos = () => {
     return (
-      <div className='content-info-wrapper flex flex-col gap-2 items-baseline select-none'>
+      <div className='content-info-wrapper flex flex-col gap-2 items-baseline'>
         <span className='content-info text-[20px] px-2 flex flex-col gap-2'>
           <div className='title-genre flex justify-between items-center w-[400px] gap-1'>
             <div className='line-clamp-3'>{title}</div>
@@ -90,7 +90,7 @@ const LeftSide = ({ topOneBook }) => {
     // inner color : --color-base ?
     <div style={{ //  bg-[var(--color-darker)]
       boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-    }} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black relative rounded-2xl min-h-[420px] max-h-[420px] select-none'
+    }} className='sidebar py-1 font-inter text-2xl opacity-0 max-w-[620px] text-black relative rounded-2xl min-h-[420px] max-h-[420px] select-auto'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -103,7 +103,7 @@ const LeftSide = ({ topOneBook }) => {
           // boxShadow : 'var(--inset-shadow-1)'
         }} className='flex first-content gap-2 bg-[var(--color-dark)] text-[var(--color-lighter)] px-4 py-5 rounded-2xl shadow-2xl transition-all duration-200 max-h-[380px] min-h-[380px] -z-1' ref={sideBarRef}>
           <div className='pic-div max-h-[220px] justify-center flex object-cover'>
-            <img src={cover_edition_key ? `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` : bookImage} alt="book cover" className='min-w-[140px] rounded-2xl ring-1' />
+            <img src={cover_edition_key ? `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` : bookImage} alt="book cover" className='min-w-[140px] rounded-2xl ring-1 select-none' />
           </div>
           <Infos />
         </div>

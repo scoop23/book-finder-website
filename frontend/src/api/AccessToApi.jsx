@@ -17,10 +17,13 @@ export const fetchBookByTitleOL = async (searchText, page) => {
   //http://localhost:8080/opensearch/title?q=harry
 };
 
-export const fetchBookByAuthoOL = async (searchText, page) => {
+export const fetchBookByAuthorOL = async (searchText, page) => {
   return apiGet(`http://localhost:8080/opensearch/author?q=${searchText}&page=${page}`);
 };
 
+export const fetchBookAuthorAndTitleOL = async (searchText, page, author) => {
+  return apiGet(`http://localhost:8080/opensearch/title-author?title=${searchText}&author=${author}&page=${page}`);
+};
 
 export const fetchWorks = async (workId) => {
   return apiGet(`http://localhost:8080/opensearch/work/workId?q=${workId}`); // something like this?
