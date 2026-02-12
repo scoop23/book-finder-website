@@ -27,7 +27,7 @@ async function getBookFromSearch(req, res, search) {
 
     switch (search.type) {
       case "title":
-        params.q = search.q;
+        params.title = search.q;
         break;
       case "author": // if author then { author : query, page }
         params.author = search.q;
