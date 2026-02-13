@@ -29,8 +29,7 @@ const SearchPagePaginationResults = ({ totalPages, }) => {
   // i think this was a leetcode problem? maximum sliding i forgot.
   const pages = [];
   const range = 2;
-  const myRange = totalPages / 10
-  const safeTotalPages = Math.max(myRange ?? 0, 1);
+  const safeTotalPages = Math.max(totalPages ?? 0, 1);
   for (let i = Math.max(1, page - range); i <= Math.min(safeTotalPages, page + range); i++) {
     pages.push(i)
   }

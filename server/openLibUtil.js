@@ -18,12 +18,13 @@ const myCache = new Map();
 
 async function getBookFromSearch(req, res, search) {
   const cacheKey = `${search.type}|${search.q}|${search.page}`; // bind the page and the title/query
+  const limit = 30;
   try {
     if (myCache.has(cacheKey)) {
       return res.json(myCache.get(cacheKey));
     }
 
-    const params = { page: search.page };
+    const params = { page: search.page, limit };
 
     switch (search.type) {
       case "title":

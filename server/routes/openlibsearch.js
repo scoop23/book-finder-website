@@ -11,12 +11,6 @@ router.get('/:type', async (req, res) => {
   await getBookFromSearch(req, res, { q, page, type, author });
 })
 
-// router.get('/author', async (req, res) => {
-//   const { q, page } = req.query;
-//
-//   console.log("API HIT", req.query, " Requested at ", new Date().toISOString());
-// })
-
 router.get("/work/:id", async (req, res) => {
 
 })
