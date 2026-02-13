@@ -239,7 +239,7 @@ const SearchBar = () => {
 
 
           {!isMainPage ? (
-            <SearchPagePaginationResults totalPages={state.bookData?.totalItems} />
+            <SearchPagePaginationResults totalPages={state.bookData?.numFound} />
           )
             : '' // if location is /search then !isMainPage will be false, SearchPagePaginationResults will only render if its not /search
           }

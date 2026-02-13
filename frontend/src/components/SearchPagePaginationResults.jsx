@@ -46,7 +46,7 @@ const SearchPagePaginationResults = ({ totalPages, }) => {
 
     console.log(searchQuery)
     if (searchQuery === "null" || searchQuery === null) {
-      navigate(`/search/title-author?p1=${p1}&p2=${p2}&page=${num}`)
+      navigate(`/search/title-author?title=${p1}&author=${p2}&page=${num}`)
       console.error("input something")
       return;
     }
@@ -65,14 +65,16 @@ const SearchPagePaginationResults = ({ totalPages, }) => {
     } else {
 
       console.log("page for author and title")
-      const title = searchParams.get('p1');
-      const author = searchParams.get('p2');
+      // const title = searchParams.get('p1');
+      // const author = searchParams.get('p2')
+      const title = searchParams.get('title');
+      const author = searchParams.get('author');
 
       if (title === null && author === null) {
         alert("Please Input title and author");
         return;
       }
-      navigate(`/search/title-author?p1=${title}&p2=${author}&page=${num}`)
+      navigate(`/search/title-author?title=${title}&author=${author}&page=${num}`)
 
     }
 
@@ -135,7 +137,7 @@ const SearchPagePaginationResults = ({ totalPages, }) => {
 
   }, [page, cameFromNone]); // run when page changes
 
-  if (!state.bookData?.items?.length) {
+  if (!state.bookData?.numFound) {
     return (
       <div className='flex justify-center items-center pr-5'>
         <SearchPageNone />
@@ -143,7 +145,7 @@ const SearchPagePaginationResults = ({ totalPages, }) => {
     )
   }
 
-  if (!state.bookData?.items) {
+  if (!state.bookData?.docs) {
     return (
       <div className='flex justify-center items-center pr-5'>
         <SearchPageNone />
