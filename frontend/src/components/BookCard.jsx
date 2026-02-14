@@ -1,14 +1,30 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useEffect, useRef } from 'react';
 import { useState } from 'react';
 import bookImage from '../assets/book_empty.png';
 import ActionButtons from './ActionButtons/ActionButtons';
+import { fetchWorks } from '../api/AccessToApi';
+import { useQuery } from '@tanstack/react-query';
 
 const BookCard = forwardRef(({ bookData }, ref) => {
   const data = bookData;
   // const { title, imageLinks, description, publishedDate, authors, key} = data;
-  const { title, cover_edition_key, author_name, first_publish_year } = data;
+  const { title, cover_edition_key, author_name, first_publish_year, key } = data;
   const [isHovering, setIsHovering] = useState(false);
   const contentRef = useRef();
+  const workId = key.split("/")[2];
+  // const [workData, setWorkData] = useState(null);
+
+  const workData = useQuery({
+    queryKey: ["workdata", workId],
+    queryFn: () => fetchWorks(workId),
+    retry: 0,
+    enabled: !!workId,
+    refetchOnWindowFocus: false,
+    cacheTime: 10 * 60 * 1000,
+    staleTime: 5 * 60 * 1000
+  })
+
+  console.log(workData.data);
 
   // console.log(bookData.volumeInfo.categories || "Unknown")
 

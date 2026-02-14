@@ -35,7 +35,6 @@ const TitleAndAuthorPageResults = () => {
     refetchOnWindowFocus: false
   })
 
-  console.log(authorTitleSearchData.data);
 
   useEffect(() => {
     if (authorTitleSearchData.data) {

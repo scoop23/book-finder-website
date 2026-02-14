@@ -52,5 +52,15 @@ async function getBookFromSearch(req, res, search) {
   }
 }
 
+async function getWork(req, res) {
+  const { id } = req.params;
+  try {
+    const response = await axiosBase.get(`/works/${id}.json`);
+    res.send(response.data);
+  } catch (err) {
+    res.status().json({ error: err.message });
+  }
+}
 
-module.exports = { getBookFromSearch };
+
+module.exports = { getBookFromSearch, getWork };

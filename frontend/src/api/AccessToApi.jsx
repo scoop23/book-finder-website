@@ -26,7 +26,7 @@ export const fetchBookAuthorAndTitleOL = async (searchText, page, author) => {
 };
 
 export const fetchWorks = async (workId) => {
-  return apiGet(`http://localhost:8080/opensearch/work/workId?q=${workId}`); // something like this?
+  return apiGet(`http://localhost:8080/opensearch/work/${workId}`); // something like this?
 }
 
 // find free api for quotes

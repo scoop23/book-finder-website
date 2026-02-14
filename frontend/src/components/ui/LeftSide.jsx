@@ -12,7 +12,8 @@ const LeftSide = ({ topOneBook }) => {
   const genre = topOneBook?.volumeInfo?.categories || []
   const [hover, setIsHovered] = useState(false);
   const sideBarRef = useRef(null)
-  const bookId = topOneBook?.id;
+  const bookId = topOneBook?.key;
+  // console.log(bookId.split("/"));
 
   useEffect(() => {
 
