@@ -24,11 +24,21 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     staleTime: 5 * 60 * 1000
   })
 
-  console.log(workData.data);
+  console.log(workData.data?.description?.value);
 
-  // console.log(bookData.volumeInfo.categories || "Unknown")
+  let description = ''
+  const rawDescription = workData.data?.description;
+  if (typeof (rawDescription) === "string") {
+    description = rawDescription;
+  } else if (typeof (rawDescription) === "object") {
+    description = rawDescription.value || '';
+  }
 
   function hoverSeeMoreButton() {
+
+  }
+
+  function handleCardClick() {
 
   }
 
@@ -90,7 +100,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
             // boxShadow: 'inset 0 1px 3px #00000030 ,inset 0 2px 4px #00000030'
           }} className="sub-content w-full h-[110px] bg-[var(--color-dark)] bg-opacity-40 rounded-2xl p-2 overflow-hidden">
             <p className=" text-xs text-[var(--color-lighter)] line-clamp-4 break-words">
-              {"nothing yet." || 'No description available.'}
+              {description || 'No description available.'}
             </p>
           </div>
 

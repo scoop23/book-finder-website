@@ -31,20 +31,11 @@ const TitlePageResults = () => {
     refetchOnWindowFocus: false,
   })
 
-  // useEffect(() => {
-  //   if (data) {
-  //     dispatch({ type: "SET_BOOK_DATA", payload: data });
-  //   }
-  //   // dispatch({ type : "SET_BOOK_DATA" , payload : data});
-  //
-  // }, [data, dispatch])
-
   useEffect(() => {
     if (titleSearchData.data) {
       dispatch({ type: "SET_BOOK_DATA", payload: titleSearchData.data });
     }
   }, [titleSearchData.data, dispatch])
-
 
   return (
     <div className='h-full'>
