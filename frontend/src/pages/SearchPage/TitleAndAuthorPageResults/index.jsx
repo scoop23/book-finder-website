@@ -32,7 +32,9 @@ const TitleAndAuthorPageResults = () => {
     queryFn: () => fetchBookAuthorAndTitleOL(title, page, author),
     enabled: !!(title && author),
     retry: 1,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 10 * 60 * 1000,
   })
 
 

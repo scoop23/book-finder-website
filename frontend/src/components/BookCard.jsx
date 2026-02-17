@@ -4,6 +4,7 @@ import bookImage from '../assets/book_empty.png';
 import ActionButtons from './ActionButtons/ActionButtons';
 import { fetchWorks } from '../api/AccessToApi';
 import { useQuery } from '@tanstack/react-query';
+import { marked } from 'marked';
 
 const BookCard = forwardRef(({ bookData }, ref) => {
   const data = bookData;
@@ -24,15 +25,42 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     staleTime: 5 * 60 * 1000
   })
 
-  console.log(workData.data?.description?.value);
+  function containsLink(tokens) {
+    for (const token of tokens) {
+      if (token.tokens) {
+        console.log(token.tokens)
+      } else {
+        console.log(token)
+      }
+    }
+  }
+
+  function getDescription(text) {
+    const tokens = marked.lexer(text); // parsed the markdown into tokens
+    const hasLink = tokens.some(token => token.type === 'link');
+
+    containsLink(tokens);
+
+    if (hasLink) {
+      return "No Official description.";
+    }
+    // otherwise return text
+    return text;
+  }
+
+
+
+  // console.log(workData.data?.description?.value);
 
   let description = ''
   const rawDescription = workData.data?.description;
   if (typeof (rawDescription) === "string") {
-    description = rawDescription;
+    description = getDescription(rawDescription);
   } else if (typeof (rawDescription) === "object") {
-    description = rawDescription.value || '';
+    description = getDescription(rawDescription.value);
   }
+
+
 
   function hoverSeeMoreButton() {
 
