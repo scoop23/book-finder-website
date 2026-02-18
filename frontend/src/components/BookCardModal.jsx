@@ -1,8 +1,13 @@
 
 
-const BookCardModal = (workData) => {
+const BookCardModal = ({ workData, isModal }) => {
+  console.log(isModal ? "modal is open" : "modal ain't open")
+
+  if (!isModal) return null;
   return (
-    <div></div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+
+    </div>
   )
 }
 

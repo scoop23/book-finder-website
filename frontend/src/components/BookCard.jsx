@@ -5,15 +5,16 @@ import ActionButtons from './ActionButtons/ActionButtons';
 import { fetchWorks } from '../api/AccessToApi';
 import { useQuery } from '@tanstack/react-query';
 import { marked } from 'marked';
+import BookCardModal from './BookCardModal';
 
 const BookCard = forwardRef(({ bookData }, ref) => {
+  const [isModal, setIsModal] = useState(false);
   const data = bookData;
   // const { title, imageLinks, description, publishedDate, authors, key} = data;
   const { title, cover_edition_key, author_name, first_publish_year, key } = data;
   const [isHovering, setIsHovering] = useState(false);
   const contentRef = useRef();
   const workId = key.split("/")[2];
-  // const [workData, setWorkData] = useState(null);
 
   const workData = useQuery({
     queryKey: ["workdata", workId],
@@ -49,12 +50,9 @@ const BookCard = forwardRef(({ bookData }, ref) => {
   function getDescription(text) {
     const tokens = marked.lexer(text); // parsed the markdown into tokens
     const hasLink = containsLink(tokens);
-
     return hasLink ? "No Official Description." : text;
     // otherwise return text
   }
-
-  // console.log(workData.data?.description?.value);
 
   let description = ''
   const rawDescription = workData.data?.description;
@@ -64,18 +62,19 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     description = getDescription(rawDescription.value);
   }
 
+  // console.log(workData.data);
 
   function hoverSeeMoreButton() {
 
   }
 
   function handleCardClick() {
-
+    setIsModal(!isModal)
   }
 
   return (
-
-    <div className="main-bookcard-content max-h-[300px] font-inter select-auto" ref={ref}>
+    <div className="main-bookcard-content max-h-[300px] font-inter select-auto" ref={ref} onClick={() => handleCardClick()}>
+      <BookCardModal workData={workData.data} isModal={isModal} />
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
       }} className="content-container rounded-2xl bg-[var(--color-dark)]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
