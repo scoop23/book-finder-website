@@ -12,8 +12,8 @@ const corsOptions = {
   origin: ["http://localhost:5173", "https://scoop23.github.io", "http://localhost:5174"],
 };
 const limiter = rateLimit({
-  windowMs: 60 * 1000, // 1 min
-  max: 20,
+  windowMs: 15 * 60 * 1000, // 15 min
+  max: 500,
   message: "Too many Request.."
 })
 

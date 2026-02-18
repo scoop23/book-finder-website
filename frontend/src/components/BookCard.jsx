@@ -26,29 +26,33 @@ const BookCard = forwardRef(({ bookData }, ref) => {
   })
 
   function containsLink(tokens) {
+    // recursively goes through every tokens until it finds a type of token.type === "link"
     for (const token of tokens) {
-      if (token.tokens) {
-        console.log(token.tokens)
-      } else {
-        console.log(token)
+      if (token.type === "link") {
+        return true;
+      }
+
+      if (token.tokens && containsLink(token.tokens)) {
+        return true;
+      }
+
+      if (token.items) {
+        for (const item of token.items) {
+          if (item.tokens && containsLink(item.tokens)) {
+            return true;
+          }
+        }
       }
     }
   }
 
   function getDescription(text) {
     const tokens = marked.lexer(text); // parsed the markdown into tokens
-    const hasLink = tokens.some(token => token.type === 'link');
+    const hasLink = containsLink(tokens);
 
-    containsLink(tokens);
-
-    if (hasLink) {
-      return "No Official description.";
-    }
+    return hasLink ? "No Official Description." : text;
     // otherwise return text
-    return text;
   }
-
-
 
   // console.log(workData.data?.description?.value);
 
@@ -59,7 +63,6 @@ const BookCard = forwardRef(({ bookData }, ref) => {
   } else if (typeof (rawDescription) === "object") {
     description = getDescription(rawDescription.value);
   }
-
 
 
   function hoverSeeMoreButton() {
