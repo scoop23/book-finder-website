@@ -73,7 +73,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
   }
 
   return (
-    <div className="main-bookcard-content max-h-[300px] font-inter select-auto" ref={ref} onClick={() => handleCardClick()}>
+    <div className="main-bookcard-content max-h-[300px] font-inter select-auto cursor-pointer" ref={ref} onClick={() => handleCardClick()}>
       <BookCardModal workData={workData.data} isModal={isModal} setIsModal={setIsModal} />
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
