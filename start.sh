@@ -5,3 +5,4 @@
 (cd server && npm run dev) &
 
 wait
+
