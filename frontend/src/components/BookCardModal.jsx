@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import BookModalLayout from "./BookModal/BookModalLayout";
+import BookModalContent from "./BookModal/BookModalContent";
 
 const BookCardModal = ({ workData, isModal, setIsModal }) => {
   return createPortal(
@@ -21,6 +21,8 @@ const BookCardModal = ({ workData, isModal, setIsModal }) => {
         </defs>
       </svg>
       {/* this is the goo effect very useful */}
+
+
       {isModal && (
         <motion.div
           key="modal-overlay"
@@ -31,7 +33,7 @@ const BookCardModal = ({ workData, isModal, setIsModal }) => {
           className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/50"
           onClick={() => setIsModal(false)}
         >
-          <BookModalLayout workData={workData} isModal={isModal} />
+          <BookModalContent workData={workData} isModal={isModal} />
           {/* <motion.div */}
           {/*   key="modal-content" */}
           {/*   initial={{ scale: 0.95, opacity: 0 }} */}
