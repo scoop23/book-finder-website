@@ -29,4 +29,4 @@ router.get("/OLtitle", async (req, res) => {
   await getBookFromTitle(req, res, query, page);
 })
 
-module.exports = router;  
+module.exports = router;
