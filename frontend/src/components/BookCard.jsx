@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef } from 'react';
+import React, { forwardRef, useEffect, useRef, useMemo } from 'react';
 import { useState } from 'react';
 import bookImage from '../assets/book_empty.png';
 import ActionButtons from './ActionButtons/ActionButtons';
@@ -20,7 +20,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     queryKey: ["workdata", workId],
     queryFn: () => fetchWorks(workId),
     retry: 0,
-    enabled: !!workId,
+    enabled: !!workId && isModal,
     refetchOnWindowFocus: false,
     cacheTime: 10 * 60 * 1000,
     staleTime: 5 * 60 * 1000
@@ -54,15 +54,14 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     // otherwise return text
   }
 
-  let description = ''
-  const rawDescription = workData.data?.description;
-  if (typeof (rawDescription) === "string") {
-    description = getDescription(rawDescription);
-  } else if (typeof (rawDescription) === "object") {
-    description = getDescription(rawDescription.value);
-  }
+  const description = useMemo(() => {
+    if (!workData.data) return;
 
-  // console.log(workData.data);
+    const raw = workData.data.description;
+    if (typeof raw === "string") return getDescription(raw);
+    if (typeof raw === "object") return getDescription(raw.value);
+  }, [workData.data])
+
 
   function hoverSeeMoreButton() {
 
@@ -77,7 +76,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
       <BookCardModal workData={workData.data} isModal={isModal} setIsModal={setIsModal} />
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-      }} className="content-container rounded-2xl bg-[var(--color-dark)]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
+      }} className="content-container rounded-2xl bg-[var(--color-dark)] border-[0.5px] border-[#545151]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
         <ActionButtons Ypos={-81.5} Xpos={17.5} hover={isHovering} sideBarRef={contentRef} className={``} />
         <div className="bookcard-content flex flex-col py-4 p-3 gap-2 max-h-full">
           <div className="main-content-card flex gap-2">
