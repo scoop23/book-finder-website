@@ -20,7 +20,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     queryKey: ["workdata", workId],
     queryFn: () => fetchWorks(workId),
     retry: 0,
-    enabled: !!workId && isModal,
+    enabled: !!workId,
     refetchOnWindowFocus: false,
     cacheTime: 10 * 60 * 1000,
     staleTime: 5 * 60 * 1000
