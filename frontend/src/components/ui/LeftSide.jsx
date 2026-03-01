@@ -16,7 +16,6 @@ const LeftSide = ({ topOneBook }) => {
   // console.log(bookId.split("/"));
 
   useEffect(() => {
-
     const tl = gsap.timeline();
     if (dataVolumeInfo) {
       tl.fromTo(
