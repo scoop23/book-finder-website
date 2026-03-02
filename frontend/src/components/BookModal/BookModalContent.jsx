@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const BookModalContent = ({ workData, isModal }) => {
   if (workData && isModal) {
@@ -22,20 +23,23 @@ const BookModalContent = ({ workData, isModal }) => {
         staggerChildren: 0.1
       }
     },
-    exit: { x: 100, opacity: 0, pointerEvents: "none", transition: { duration: 1 } }
+    exit: { scale: 0.7, opacity: 0, pointerEvents: "none", transition: { duration: 1, staggerChildren: 0.1 } }
   }
 
   const secondParentVariant = {
     hidden: { x: -50, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { staggerChildren: 0.1 } },
+    visible: { x: 0, opacity: 1, transition: { duration: 0.5, staggerChildren: 0.1 } },
     exit: {
-      x: 50, opacity: 0,
+      x: 50, opacity: 0, transition: {
+        duration: 0.5,
+        staggerChildren: 0.1
+      }
     }
   }
 
   const secondChildVariant = {
     hidden: { x: -30, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.5, type: "spring" } },
+    visible: { x: 0, opacity: 1, transition: { duration: 1, type: "spring" } },
     exit: { x: -30, opacity: 0 }
   }
 
@@ -66,7 +70,7 @@ const BookModalContent = ({ workData, isModal }) => {
         {
           [1, 2, 3, 4, 5].map((n, i) => {
             return (
-              <motion.div className="bg-white w-full rounded-2xl px-4" key={i}
+              <motion.div className="bg-white w-full rounded-2xl p-4" key={i}
                 variants={
                   secondChildVariant
                 }>

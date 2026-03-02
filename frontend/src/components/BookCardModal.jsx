@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from 'framer-motion';
 import BookModalContent from "./BookModal/BookModalContent";
 
 const BookCardModal = ({ workData, isModal, setIsModal }) => {
@@ -28,7 +28,7 @@ const BookCardModal = ({ workData, isModal, setIsModal }) => {
           key="modal-overlay"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          exit={{ opacity: 0, pointerEvents: "none" }}
           transition={{ duration: 0.3 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/50"
           onClick={() => setIsModal(false)}
