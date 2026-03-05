@@ -7,19 +7,24 @@ const BookModalContent = ({ workData, isModal }) => {
   const titleContainerRef = useRef(null);
   const [isPrimaryHovered, setIsPrimaryHovered] = useState(false);
   const [height, setHeight] = useState(0);
+  const [isPrimaryLong, setIsPrimaryLong] = useState(false);
 
   useLayoutEffect(() => {
-    if (titleContainerRef.current) {
-      setHeight(titleContainerRef.current.scrollHeight);
+    if (primaryContainerRef.current) {
+      setHeight(primaryContainerRef.current.scrollHeight + 20);
+      setIsPrimaryLong(primaryContainerRef.current.offsetHeight >= 672);
     }
+
   }, [isPrimaryHovered])
 
-  console.log(titleContainerRef.current.scrollHeight)
+  function checkHovered() {
+    console.log(isPrimaryLong + " & " + isPrimaryHovered);
+  }
 
   if (workData && isModal) {
     if (typeof (workData?.description) === "object") {
-      console.log("data is a object")
-      console.log(workData?.description?.value)
+      // console.log("data is a object")
+      // console.log(workData?.description?.value)
     }
   }
 
@@ -61,16 +66,14 @@ const BookModalContent = ({ workData, isModal }) => {
     exit: { x: -30, opacity: 0 }
   }
 
-
-
   return (
-    <motion.div className="modal-content flex flex-row w-[1200px] h-[800px] p-4">
+    <motion.div className="modal-content flex flex-row w-[1200px] h-full p-4">
       <motion.div
         variants={parentVariant}
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="primary-container min-w-[700px] h-full rounded-2xl flex flex-col gap-4 justify-start items-center"
+        className="primary-container min-w-[700px] h-full rounded-2xl flex flex-col gap-4 justify-center items-center"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Book main content */}
@@ -80,8 +83,8 @@ const BookModalContent = ({ workData, isModal }) => {
           className="book-content p-4 w-[700px] bg-white rounded-2xl flex flex-row gap-4 overflow-hidden"
           ref={primaryContainerRef}
           animate={{ height: isPrimaryHovered ? height : 400 }}
-          onMouseEnter={() => setIsPrimaryHovered(true)}
-          onMouseLeave={() => setIsPrimaryHovered(false)}
+          onMouseEnter={() => { setIsPrimaryHovered(true); checkHovered() }}
+          onMouseLeave={() => { setIsPrimaryHovered(false); checkHovered() }}
         >
           {coverUrl ? (
             <img
@@ -99,8 +102,7 @@ const BookModalContent = ({ workData, isModal }) => {
               {workData.authors.map((a) => a.name).join(", ")}
             </p>
           )}
-          <div className="title-description flex flex-col gap-2"
-            ref={titleContainerRef}>
+          <div className="title-description flex flex-col gap-2">
             <h2 className="text-xl font-bold">{workData.title}</h2>
             <p className="text-gray-600">{description}</p>
             <div className="subjects flex flex-wrap gap-1">
@@ -137,7 +139,7 @@ const BookModalContent = ({ workData, isModal }) => {
 
       {/* Right / secondary container */}
       <motion.div
-        className="secondary-container flex flex-col px-4 mt-8 w-full h-full gap-4 items-center"
+        className="secondary-container flex flex-col px-4 mt-8 w-full h-full gap-4 items-center justify-start"
         variants={secondParentVariant}
         initial="hidden"
         animate="visible"

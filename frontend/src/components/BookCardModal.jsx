@@ -30,7 +30,7 @@ const BookCardModal = ({ workData, isModal, setIsModal }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, pointerEvents: "none" }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/50"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/50 h-full"
           onClick={() => setIsModal(false)}
         >
           <BookModalContent workData={workData} isModal={isModal} />
