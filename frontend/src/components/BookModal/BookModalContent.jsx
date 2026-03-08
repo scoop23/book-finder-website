@@ -6,19 +6,23 @@ const BookModalContent = ({ workData, isModal }) => {
   const primaryContainerRef = useRef(null);
   const titleContainerRef = useRef(null);
   const [isPrimaryHovered, setIsPrimaryHovered] = useState(false);
-  const [height, setHeight] = useState(0);
+  const [visibleHeight, setVisibleHeight] = useState(400);
   const [isPrimaryLong, setIsPrimaryLong] = useState(false);
 
   useLayoutEffect(() => {
-    if (primaryContainerRef.current) {
-      setHeight(primaryContainerRef.current.scrollHeight + 20);
-      setIsPrimaryLong(primaryContainerRef.current.offsetHeight >= 672);
-    }
+    if (!primaryContainerRef.current) return;
 
-  }, [isPrimaryHovered])
+    const fullHeight = primaryContainerRef.current.scrollHeight + 20;
 
+    // If hovered, height = fullHeight
+    const currentHeight = isPrimaryHovered ? fullHeight : 400;
+    setVisibleHeight(currentHeight);
+
+    // Only consider it "long" if current visible height >= 672
+    setIsPrimaryLong(currentHeight >= 672);
+  }, [isPrimaryHovered, workData]);
   function checkHovered() {
-    console.log(isPrimaryLong + " & " + isPrimaryHovered);
+    // console.log(isPrimaryLong + " & " + isPrimaryHovered);
   }
 
   if (workData && isModal) {
@@ -28,9 +32,9 @@ const BookModalContent = ({ workData, isModal }) => {
     }
   }
 
-  const coverUrl = workData.covers ? `https://covers.openlibrary.org/b/id/${workData.covers[0]}-L.jpg` : null;
-  const description = typeof workData.description === 'object'
-    ? workData.description.value : workData.description || "no description available.";
+  const coverUrl = workData?.covers ? `https://covers.openlibrary.org/b/id/${workData.covers[0]}-L.jpg` : null;
+  const description = typeof workData?.description === 'object'
+    ? workData?.description.value : workData?.description || "no description available.";
 
   const containerVariant = {
     hidden: { scale: 0.8, opacity: 0 },
@@ -82,7 +86,7 @@ const BookModalContent = ({ workData, isModal }) => {
           layout
           className="book-content p-4 w-[700px] bg-white rounded-2xl flex flex-row gap-4 overflow-hidden"
           ref={primaryContainerRef}
-          animate={{ height: isPrimaryHovered ? height : 400 }}
+          animate={{ height: isPrimaryHovered ? visibleHeight : 400 }}
           onMouseEnter={() => { setIsPrimaryHovered(true); checkHovered() }}
           onMouseLeave={() => { setIsPrimaryHovered(false); checkHovered() }}
         >
@@ -128,12 +132,15 @@ const BookModalContent = ({ workData, isModal }) => {
         </motion.div>
 
         <motion.div className="flex flex-row gap-2 rounded-2xl">
-          <motion.div variants={containerVariant} className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
-            Recommended 1
-          </motion.div>
-          <motion.div variants={containerVariant} className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
-            Recommended 2
-          </motion.div>
+          {!isPrimaryLong && <>
+            <motion.div variants={containerVariant} className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
+              Recommended 1
+            </motion.div>
+            <motion.div variants={containerVariant} className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
+              Recommended 2
+            </motion.div>
+          </>
+          }
         </motion.div>
       </motion.div>
 
