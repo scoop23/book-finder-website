@@ -80,7 +80,7 @@ const BookModalContent = ({ workData, isModal }) => {
         animate="visible"
         exit="exit"
         layout
-        className="primary-container min-w-[700px] h-full rounded-2xl flex flex-col gap-4 mt-40 items-center"
+        className="primary-container min-w-[700px] h-full rounded-2xl flex flex-col gap-4 mt-25 items-center"
         onClick={(e) => e.stopPropagation()}
       >
 
