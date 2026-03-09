@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import bookImage from '../../assets/book_empty.png';
 
@@ -13,17 +13,19 @@ const BookModalContent = ({ workData, isModal }) => {
     if (!primaryContainerRef.current) return;
 
     const fullHeight = primaryContainerRef.current.scrollHeight + 20;
-
-    // If hovered, height = fullHeight
+    // const realHeight = Math.ceil(primaryContainerRef.current.getBoundingClientRect().height) + 100;
     const currentHeight = isPrimaryHovered ? fullHeight : 400;
     setVisibleHeight(currentHeight);
 
     // Only consider it "long" if current visible height >= 672
     setIsPrimaryLong(currentHeight >= 672);
   }, [isPrimaryHovered, workData]);
+
+
   function checkHovered() {
     // console.log(isPrimaryLong + " & " + isPrimaryHovered);
   }
+
 
   if (workData && isModal) {
     if (typeof (workData?.description) === "object") {
@@ -71,76 +73,87 @@ const BookModalContent = ({ workData, isModal }) => {
   }
 
   return (
-    <motion.div className="modal-content flex flex-row w-[1200px] h-full p-4">
+    <motion.div className="modal-content flex flex-row w-[1200px] h-full p-4" layout>
       <motion.div
         variants={parentVariant}
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="primary-container min-w-[700px] h-full rounded-2xl flex flex-col gap-4 justify-center items-center"
+        layout
+        className="primary-container min-w-[700px] h-full rounded-2xl flex flex-col gap-4 mt-40 items-center"
         onClick={(e) => e.stopPropagation()}
       >
+
         {/* Book main content */}
-        <motion.div
-          variants={containerVariant}
-          layout
-          className="book-content p-4 w-[700px] bg-white rounded-2xl flex flex-row gap-4 overflow-hidden"
-          ref={primaryContainerRef}
-          animate={{ height: isPrimaryHovered ? visibleHeight : 400 }}
-          onMouseEnter={() => { setIsPrimaryHovered(true); checkHovered() }}
-          onMouseLeave={() => { setIsPrimaryHovered(false); checkHovered() }}
-        >
-          {coverUrl ? (
-            <img
-              src={coverUrl}
+        <motion.div className="flex flex-col gap-2 w-full" layout>
+          <motion.div className="book-content p-4 w-[700px] bg-white rounded-2xl flex flex-row gap-4 overflow-hidden"
+            variants={containerVariant}
+            layout
+            ref={primaryContainerRef}
+            animate={{ height: isPrimaryHovered ? visibleHeight : 400 }}
+            onMouseEnter={() => { setIsPrimaryHovered(true); checkHovered() }}
+            onMouseLeave={() => { setIsPrimaryHovered(false); checkHovered() }}
+          >
+            {coverUrl ? (
+              <img
+                src={coverUrl}
+                alt={workData.title}
+                className="max-w-[300px] h-[250px] object-cover rounded-2xl"
+              />
+            ) : (<img
+              src={bookImage}
               alt={workData.title}
               className="max-w-[300px] h-[250px] object-cover rounded-2xl"
-            />
-          ) : (<img
-            src={bookImage}
-            alt={workData.title}
-            className="max-w-[300px] h-[250px] object-cover rounded-2xl"
-          />)}
-          {workData.authors && (
-            <p className="text-gray-700">
-              {workData.authors.map((a) => a.name).join(", ")}
-            </p>
-          )}
-          <div className="title-description flex flex-col gap-2">
-            <h2 className="text-xl font-bold">{workData.title}</h2>
-            <p className="text-gray-600">{description}</p>
-            <div className="subjects flex flex-wrap gap-1">
-              {
-                workData?.subjects?.length > 6 ? (
-                  workData?.subjects.slice(0, 5).map((sub, i) => (
-                    <button className="genre-btn bg-gray-600 p-2 text-white" key={i}>{sub}</button>
-                  ))
-                ) : (
-                  workData?.subjects?.map((subject, index) => (
-                    <button className="genre-btn bg-gray-600 p-2 text-white" key={index}>{subject}</button>
-                  ))
-                )
-              }
-              {
-                workData?.subjects?.length > 6 && (
-                  <button className="p-2">see more</button>
-                )
-              }
+            />)}
+            {workData.authors && (
+              <p className="text-gray-700">
+                {workData.authors.map((a) => a.name).join(", ")}
+              </p>
+            )}
+            <div className="title-description flex flex-col gap-2">
+              <h2 className="text-xl font-bold">{workData.title}</h2>
+              <p className="text-gray-600">{description}</p>
+              <div className="subjects flex flex-wrap gap-1">
+                {
+                  workData?.subjects?.length > 6 ? (
+                    workData?.subjects.slice(0, 5).map((sub, i) => (
+                      <button className="genre-btn bg-gray-600 p-2 text-white" key={i}>{sub}</button>
+                    ))
+                  ) : (
+                    workData?.subjects?.map((subject, index) => (
+                      <button className="genre-btn bg-gray-600 p-2 text-white" key={index}>{subject}</button>
+                    ))
+                  )
+                }
+                {
+                  workData?.subjects?.length > 6 && (
+                    <button className="p-2 border-2 border-green-800 cursor-pointer">see more genres.</button>
+                  )
+                }
 
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        <motion.div className="flex flex-row gap-2 rounded-2xl">
-          {!isPrimaryLong && <>
-            <motion.div variants={containerVariant} className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
-              Recommended 1
-            </motion.div>
-            <motion.div variants={containerVariant} className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
-              Recommended 2
-            </motion.div>
-          </>
-          }
+          <motion.div className="flex flex-row gap-2 rounded-2xl" layout>
+            <AnimatePresence>
+              {!isPrimaryLong && <motion.div key="recommendations"
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ type: "spring", duration: 0.4 }}
+                className="flex gap-2">
+                <motion.div layout className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
+                  Recommended 1
+                </motion.div>
+                <motion.div layout className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
+                  Recommended 2
+                </motion.div>
+              </motion.div>
+              }
+            </AnimatePresence>
+          </motion.div>
         </motion.div>
       </motion.div>
 

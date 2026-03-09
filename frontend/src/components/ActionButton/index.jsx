@@ -55,8 +55,8 @@ const ActionButton = forwardRef(({ className, noStroke, fill, hover, WidgetRef, 
     <>
       <div className={`action-button left-10 flex ${className || ''}`}
         ref={svgRef}
-        style={{ top: `${Ypos}px` }}>
-
+        style={{ top: `${Ypos}px` }}
+        onClick={(e) => e.stopPropagation()} >
         <svg className='group' width={80} height={90} viewBox="20 -10 80 75">
           {/* defs tag is like defining a variable though instead of a variable you define all kinds of things and you can use it by getting the id of the tag you created using url(#someId)*/}
           <defs>
@@ -91,7 +91,7 @@ const ActionButton = forwardRef(({ className, noStroke, fill, hover, WidgetRef, 
           </g>
         </svg>
 
-      </div>
+      </div >
     </>
   )
 })
