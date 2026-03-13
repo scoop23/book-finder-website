@@ -62,5 +62,16 @@ async function getWork(req, res) {
   }
 }
 
+async function getAuthors(req, res) {
+  const { q } = req.params;
+  try {
+    const response = await axiosBase.get(`/search/authors.json`, { q });
+    res.send(response.data);
+  } catch (err) {
+
+    res.status().json({ error: err.message });
+  }
+}
+
 
 module.exports = { getBookFromSearch, getWork };

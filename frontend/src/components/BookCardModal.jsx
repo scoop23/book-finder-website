@@ -22,7 +22,6 @@ const BookCardModal = ({ workData, isModal, setIsModal }) => {
       </svg>
       {/* this is the goo effect very useful */}
 
-
       {isModal && (
         <motion.div
           key="modal-overlay"
@@ -34,17 +33,6 @@ const BookCardModal = ({ workData, isModal, setIsModal }) => {
           onClick={() => setIsModal(false)}
         >
           <BookModalContent workData={workData} isModal={isModal} />
-          {/* <motion.div */}
-          {/*   key="modal-content" */}
-          {/*   initial={{ scale: 0.95, opacity: 0 }} */}
-          {/*   animate={{ scale: 1, opacity: 1 }} */}
-          {/*   exit={{ scale: 0.95, opacity: 0 }} */}
-          {/*   transition={{ duration: 0.3 }} */}
-          {/*   className="bg-white p-4 rounded shadow-lg" */}
-          {/*   onClick={(e) => e.stopPropagation()} */}
-          {/* > */}
-          {/*   Modal Content Here */}
-          {/* </motion.div> */}
         </motion.div>
       )}
     </AnimatePresence>,

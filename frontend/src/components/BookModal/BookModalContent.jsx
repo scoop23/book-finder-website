@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import bookImage from '../../assets/book_empty.png';
+import ModalContentGenres from "./ModalContentGenres";
+import ContentAuthors from "./ContentAuthors";
 
 const BookModalContent = ({ workData, isModal }) => {
   const primaryContainerRef = useRef(null);
@@ -18,9 +20,10 @@ const BookModalContent = ({ workData, isModal }) => {
     setVisibleHeight(currentHeight);
 
     // Only consider it "long" if current visible height >= 672
-    setIsPrimaryLong(currentHeight >= 672);
+    setIsPrimaryLong(currentHeight >= 648);
   }, [isPrimaryHovered, workData]);
 
+  console.log(visibleHeight)
 
   function checkHovered() {
     // console.log(isPrimaryLong + " & " + isPrimaryHovered);
@@ -105,32 +108,20 @@ const BookModalContent = ({ workData, isModal }) => {
               alt={workData.title}
               className="max-w-[300px] h-[250px] object-cover rounded-2xl"
             />)}
+
             {workData.authors && (
-              <p className="text-gray-700">
-                {workData.authors.map((a) => a.name).join(", ")}
-              </p>
+              <ContentAuthors data={workData.authors} />
             )}
             <div className="title-description flex flex-col gap-2">
               <h2 className="text-xl font-bold">{workData.title}</h2>
               <p className="text-gray-600">{description}</p>
               <div className="subjects flex flex-wrap gap-1">
-                {
-                  workData?.subjects?.length > 6 ? (
-                    workData?.subjects.slice(0, 5).map((sub, i) => (
-                      <button className="genre-btn bg-gray-600 p-2 text-white" key={i}>{sub}</button>
-                    ))
-                  ) : (
-                    workData?.subjects?.map((subject, index) => (
-                      <button className="genre-btn bg-gray-600 p-2 text-white" key={index}>{subject}</button>
-                    ))
-                  )
-                }
+                <ModalContentGenres genresData={workData?.subjects} />
                 {
                   workData?.subjects?.length > 6 && (
                     <button className="p-2 border-2 border-green-800 cursor-pointer">see more genres.</button>
                   )
                 }
-
               </div>
             </div>
           </motion.div>

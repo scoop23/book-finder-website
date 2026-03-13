@@ -11,6 +11,7 @@ const cors = require("cors");
 const corsOptions = {
   origin: ["http://localhost:5173", "https://scoop23.github.io", "http://localhost:5174"],
 };
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 min
   max: 500,
@@ -32,8 +33,6 @@ app.use('/search', limiter, searchRouter);
 app.use('/genres', genreRouter);
 app.use('/random', randomsRouter);
 app.use('/opensearch', limiter, openLibRouter);
-
-
 
 
 
