@@ -18,5 +18,5 @@ export const apiGet = async (url) => {
   }
 }
 
-export default axiosMain;
+export default axiosMain; // shouldn't i just export this?
 

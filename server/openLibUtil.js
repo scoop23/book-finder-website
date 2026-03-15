@@ -63,15 +63,14 @@ async function getWork(req, res) {
 }
 
 async function getAuthors(req, res) {
-  const { q } = req.params;
+  const { authorId } = req.params;
   try {
-    const response = await axiosBase.get(`/search/authors.json`, { q });
+    const response = await axiosBase.get(`/authors/${authorId}.json`);
     res.send(response.data);
   } catch (err) {
-
-    res.status().json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 }
 
 
-module.exports = { getBookFromSearch, getWork };
+module.exports = { getBookFromSearch, getWork, getAuthors };

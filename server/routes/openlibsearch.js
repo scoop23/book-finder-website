@@ -1,5 +1,5 @@
 const express = require('express');
-const { getBookFromSearch, getWork } = require('../openLibUtil.js');
+const { getBookFromSearch, getWork, getAuthors } = require('../openLibUtil.js');
 const router = express.Router();
 
 
@@ -12,5 +12,7 @@ router.get('/:type', async (req, res) => {
 })
 
 router.get("/work/:id", getWork);
+
+router.get(`/authors/:authorId`, getAuthors);
 
 module.exports = router;

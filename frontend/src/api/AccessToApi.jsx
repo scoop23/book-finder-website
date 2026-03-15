@@ -1,47 +1,47 @@
-import { apiGet } from "./axios";
+import axiosMain, { apiGet } from "./axios";
 
 export const fetchBookByAuthor = async (searchText) => {
   return apiGet(`/search/author?q=${searchText}`);
-}
+};
 
 export const fetchBookByAuthorWithTitle = async (author, searchText) => {
   return apiGet(`/search/author-title?p1=${searchText}&p2=${author}`);
-}
+};
 
 export const fetchBookByTitle = async (searchText) => {
-  return apiGet(`http://localhost:8080/search/title?q=${searchText}`);
+  return apiGet(`/search/title?q=${searchText}`);
 };
 
 export const fetchBookByTitleOL = async (searchText, page) => {
-  return apiGet(`http://localhost:8080/opensearch/title?q=${searchText}&page=${page}`);
-  //http://localhost:8080/opensearch/title?q=harry
+  return apiGet(`/opensearch/title?q=${searchText}&page=${page}`);
 };
 
 export const fetchBookByAuthorOL = async (searchText, page) => {
-  return apiGet(`http://localhost:8080/opensearch/author?q=${searchText}&page=${page}`);
+  return apiGet(`/opensearch/author?q=${searchText}&page=${page}`);
 };
 
 export const fetchBookAuthorAndTitleOL = async (searchText, page, author) => {
-  return apiGet(`http://localhost:8080/opensearch/title-author?title=${searchText}&author=${author}&page=${page}`);
+  return apiGet(`/opensearch/title-author?title=${searchText}&author=${author}&page=${page}`);
 };
 
 export const fetchWorks = async (workId) => {
-  return apiGet(`http://localhost:8080/opensearch/work/${workId}`); // something like this?
-}
+  return apiGet(`/opensearch/work/${workId}`);
+};
 
-// find free api for quotes
 export const fetchQuotes = async () => {
-  return apiGet(`http://localhost:8080/random/random-quote`);
+  return apiGet(`/random/random-quote`);
+};
+
+export const fetchAuthors = async (authorId) => {
+  return axiosMain.get(`/opensearch/authors/${authorId}`);
 };
 
 export const getGenre = async (genre) => {
-  if (!genre) {
-    return;
-  }
+  if (!genre) return;
 
-  return apiGet(`http://localhost:8080/genres/${genre}`);
-}
+  return apiGet(`/genres/${genre}`);
+};
 
 export const fetchRandomBook = async () => {
-  return apiGet("http://localhost:8080/random/random-books");
-}
+  return apiGet(`/random/random-books`);
+};

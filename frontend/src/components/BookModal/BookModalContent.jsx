@@ -19,8 +19,8 @@ const BookModalContent = ({ workData, isModal }) => {
     const currentHeight = isPrimaryHovered ? fullHeight : 400;
     setVisibleHeight(currentHeight);
 
-    // Only consider it "long" if current visible height >= 672
-    setIsPrimaryLong(currentHeight >= 648);
+    // Only consider it "long" if current visible height >= 592
+    setIsPrimaryLong(currentHeight >= 592);
   }, [isPrimaryHovered, workData]);
 
   console.log(visibleHeight)
