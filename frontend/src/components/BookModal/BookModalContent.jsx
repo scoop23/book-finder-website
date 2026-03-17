@@ -10,6 +10,7 @@ const BookModalContent = ({ workData, isModal }) => {
   const [isPrimaryHovered, setIsPrimaryHovered] = useState(false);
   const [visibleHeight, setVisibleHeight] = useState(400);
   const [isPrimaryLong, setIsPrimaryLong] = useState(false);
+  const [isEnlarged, setIsEnlarged] = useState(false);
 
   useLayoutEffect(() => {
     if (!primaryContainerRef.current) return;
@@ -25,8 +26,8 @@ const BookModalContent = ({ workData, isModal }) => {
 
   console.log(visibleHeight)
 
+  // console.log(isPrimaryLong + " & " + isPrimaryHovered);
   function checkHovered() {
-    // console.log(isPrimaryLong + " & " + isPrimaryHovered);
   }
 
 
@@ -86,7 +87,6 @@ const BookModalContent = ({ workData, isModal }) => {
         className="primary-container min-w-[700px] h-full rounded-2xl flex flex-col gap-4 mt-25 items-center"
         onClick={(e) => e.stopPropagation()}
       >
-
         {/* Book main content */}
         <motion.div className="flex flex-col gap-2 w-full" layout>
           <motion.div className="book-content p-4 w-[700px] bg-white rounded-2xl flex flex-row gap-4 overflow-hidden"
@@ -114,7 +114,7 @@ const BookModalContent = ({ workData, isModal }) => {
             )}
             <div className="title-description flex flex-col gap-2">
               <h2 className="text-xl font-bold">{workData.title}</h2>
-              <p className="text-gray-600">{description}</p>
+              <p className={`text-gray-600`} >{description}</p>
               <div className="subjects flex flex-wrap gap-1">
                 <ModalContentGenres genresData={workData?.subjects} />
                 {
@@ -150,7 +150,7 @@ const BookModalContent = ({ workData, isModal }) => {
 
       {/* Right / secondary container */}
       <motion.div
-        className="secondary-container flex flex-col px-4 mt-8 w-full h-full gap-4 items-center justify-start"
+        className="secondary-container flex flex-col px-4 mt-25 w-full h-full gap-4 items-center justify-start"
         variants={secondParentVariant}
         initial="hidden"
         animate="visible"
