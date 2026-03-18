@@ -10,6 +10,7 @@ const BookModalContent = ({ workData, isModal }) => {
   const [isPrimaryHovered, setIsPrimaryHovered] = useState(false);
   const [visibleHeight, setVisibleHeight] = useState(400);
   const [isPrimaryLong, setIsPrimaryLong] = useState(false);
+  const [isPrimaryVeryLong, setIsPrimaryVeryLong] = useState(false);
   const [isEnlarged, setIsEnlarged] = useState(false);
 
   useLayoutEffect(() => {
@@ -21,10 +22,13 @@ const BookModalContent = ({ workData, isModal }) => {
     setVisibleHeight(currentHeight);
 
     // Only consider it "long" if current visible height >= 592
-    setIsPrimaryLong(currentHeight >= 592);
+
+    setIsPrimaryLong(currentHeight >= 592); // normal height
+    setIsPrimaryVeryLong(currentHeight >= 768); // ayo why you large bro
   }, [isPrimaryHovered, workData]);
 
   console.log(visibleHeight)
+  console.log(isPrimaryVeryLong)
 
   // console.log(isPrimaryLong + " & " + isPrimaryHovered);
   function checkHovered() {
