@@ -1,13 +1,12 @@
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from 'framer-motion';
 import BookModalContent from "./BookModal/BookModalContent";
+import Loading from "./Loading.jsx";
 
-const BookCardModal = ({ workData, isModal, setIsModal }) => {
+const BookCardModal = ({ workData, isModal, setIsModal, isLoading, isError, refetch }) => {
   return createPortal(
     <AnimatePresence>
-      {/* needs a svg parent */}
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-        {/* defs tag is like defining a variable though instead of a variable you define all kinds of things and you can use it by getting the id of the tag you created using url(#someId)*/}
         <defs>
           <filter id="goo" height="300%" y="-100%">
             <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
@@ -20,7 +19,6 @@ const BookCardModal = ({ workData, isModal, setIsModal }) => {
           </filter>
         </defs>
       </svg>
-      {/* this is the goo effect very useful */}
 
       {isModal && (
         <motion.div
@@ -32,11 +30,23 @@ const BookCardModal = ({ workData, isModal, setIsModal }) => {
           className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/50 h-full"
           onClick={() => setIsModal(false)}
         >
-          <BookModalContent workData={workData} isModal={isModal} />
+          {isLoading && (
+            <div>
+              <div className="text-white text-sm">Loading...</div>
+            </div>
+          )}
+          {isError && (
+            <div>
+              <div className="text-red-400 text-sm">Failed to load book details. Try again later.</div>
+              <button className="" onClick={(e) => { refetch(), e.stopPropagation() }}>retry.</button>
+            </div>
+          )}
+          {workData && (
+            <BookModalContent workData={workData} isModal={isModal} />
+          )}
         </motion.div>
       )}
     </AnimatePresence>,
     document.body
   );
-};
-export default BookCardModal;
+}; export default BookCardModal;

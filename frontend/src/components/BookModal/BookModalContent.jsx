@@ -6,11 +6,9 @@ import ContentAuthors from "./ContentAuthors";
 
 const BookModalContent = ({ workData, isModal }) => {
   const primaryContainerRef = useRef(null);
-  const titleContainerRef = useRef(null);
   const [isPrimaryHovered, setIsPrimaryHovered] = useState(false);
   const [visibleHeight, setVisibleHeight] = useState(400);
-  const [isPrimaryLong, setIsPrimaryLong] = useState(false);
-  const [isPrimaryVeryLong, setIsPrimaryVeryLong] = useState(false);
+  const [size, setSize] = useState();
   const [isEnlarged, setIsEnlarged] = useState(false);
 
   useLayoutEffect(() => {
@@ -23,17 +21,20 @@ const BookModalContent = ({ workData, isModal }) => {
 
     // Only consider it "long" if current visible height >= 592
 
-    setIsPrimaryLong(currentHeight >= 592); // normal height
-    setIsPrimaryVeryLong(currentHeight >= 768); // ayo why you large bro
   }, [isPrimaryHovered, workData]);
 
+  const isPrimaryLong = visibleHeight >= 576;
+  const isPrimaryVeryLong = visibleHeight >= 768;
+  const isLarge = visibleHeight >= 800;
   console.log(visibleHeight)
-  console.log(isPrimaryVeryLong)
+
+  const computedHeight = isPrimaryHovered
+    ? (isLarge ? visibleHeight : visibleHeight)
+    : (isLarge ? visibleHeight : 400)
 
   // console.log(isPrimaryLong + " & " + isPrimaryHovered);
   function checkHovered() {
   }
-
 
   if (workData && isModal) {
     if (typeof (workData?.description) === "object") {
@@ -80,8 +81,10 @@ const BookModalContent = ({ workData, isModal }) => {
     exit: { x: -30, opacity: 0 }
   }
 
+  console.log(computedHeight)
+
   return (
-    <motion.div className="modal-content flex flex-row w-[1200px] h-full p-4" layout>
+    <motion.div className="modal-content flex flex-row w-[1200px] h-full p-4">
       <motion.div
         variants={parentVariant}
         initial="hidden"
@@ -97,27 +100,34 @@ const BookModalContent = ({ workData, isModal }) => {
             variants={containerVariant}
             layout
             ref={primaryContainerRef}
-            animate={{ height: isPrimaryHovered ? visibleHeight : 400 }}
+            animate={{
+              height: computedHeight,
+              y: isPrimaryVeryLong ? -40 : isLarge ? -100 : 0,
+              width: isLarge ? 1000 : undefined
+            }}
+            transition={{ duration: 0.2 }}
             onMouseEnter={() => { setIsPrimaryHovered(true); checkHovered() }}
             onMouseLeave={() => { setIsPrimaryHovered(false); checkHovered() }}
           >
-            {coverUrl ? (
-              <img
-                src={coverUrl}
-                alt={workData.title}
+            <div className="flex flex-col items-center">
+              {coverUrl ? (
+                <img
+                  src={coverUrl}
+                  alt={workData?.title}
+                  className="max-w-[300px] h-[250px] object-cover rounded-2xl"
+                />
+              ) : (<img
+                src={bookImage}
+                alt={workData?.title}
                 className="max-w-[300px] h-[250px] object-cover rounded-2xl"
-              />
-            ) : (<img
-              src={bookImage}
-              alt={workData.title}
-              className="max-w-[300px] h-[250px] object-cover rounded-2xl"
-            />)}
+              />)}
 
-            {workData.authors && (
-              <ContentAuthors data={workData.authors} />
-            )}
+              {workData?.authors && (
+                <ContentAuthors data={workData.authors} />
+              )}
+            </div>
             <div className="title-description flex flex-col gap-2">
-              <h2 className="text-xl font-bold">{workData.title}</h2>
+              <h2 className="text-xl font-bold">{workData?.title}</h2>
               <p className={`text-gray-600`} >{description}</p>
               <div className="subjects flex flex-wrap gap-1">
                 <ModalContentGenres genresData={workData?.subjects} />
@@ -137,7 +147,7 @@ const BookModalContent = ({ workData, isModal }) => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ type: "spring", duration: 0.4 }}
+                transition={{ type: "spring", duration: 0.2 }}
                 className="flex gap-2">
                 <motion.div layout className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
                   Recommended 1

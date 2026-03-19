@@ -54,11 +54,18 @@ async function getBookFromSearch(req, res, search) {
 
 async function getWork(req, res) {
   const { id } = req.params;
+  console.log(id)
   try {
     const response = await axiosBase.get(`/works/${id}.json`);
     res.send(response.data);
   } catch (err) {
-    res.status().json({ error: err.message });
+    const status = err.response?.status || 500;
+    return res.status(status).json({
+      error: status === 503
+        ? 'OpenLib is busy, please try again'
+        : 'Something Went Wrong'
+    })
+
   }
 }
 

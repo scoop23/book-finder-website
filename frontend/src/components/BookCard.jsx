@@ -20,9 +20,9 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     queryKey: ["workdata", workId],
     queryFn: () => fetchWorks(workId),
     retry: 0,
-    enabled: !!workId,
+    enabled: !!workId && isModal,
     refetchOnWindowFocus: false,
-    cacheTime: 10 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
     staleTime: 5 * 60 * 1000
   })
 
@@ -71,10 +71,30 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     setIsModal(!isModal)
   }
 
+  console.log(workData)
+
+  const mockWorkData = {
+    title: "Harry Potter and the Goblet of Fire",
+    description: "The fourth book in the Harry Potter franchise...",
+    covers: [12059372],
+    subjects: ["Fantasy", "Magic", "School"],
+    authors: [{ author: { key: "/authors/OL23919A" } }]
+  }
+
   return (
     <div className="main-bookcard-content max-h-[300px] font-inter select-auto cursor-pointer" ref={ref} onClick={() => handleCardClick()}
       style={{ pointerEvents: !isModal ? "auto" : "none" }}>
-      <BookCardModal workData={workData.data} isModal={isModal} setIsModal={setIsModal} />
+      {isModal &&
+        <BookCardModal
+          workData={workData.data}
+          isModal={isModal}
+          setIsModal={setIsModal}
+          isLoading={workData.isPending}
+          isError={workData.isError}
+          refetch={workData.refetch}
+        />
+      }
+
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
       }} className="content-container rounded-2xl bg-[var(--color-dark)] border-[0.5px] border-[#545151]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>

@@ -10,11 +10,26 @@ export const axiosMain = axios.create({
 
 export const apiGet = async (url) => {
   try {
-    const response = await axiosMain.get(url); //   essentially this will be "http://localhost:8080/{url}"
+    const response = await axiosMain.get(url);
     return response.data;
   } catch (error) {
-    console.error("Axios error", error);
-    throw error;
+    if (error.response) {
+      console.error("⁉ Server Responded with Error");
+      console.error('Status: ', error.response.status);
+      console.error("Data:", error.response.data);
+      console.error("Headers:", error.response.headers);
+
+      // ✅ throw a plain Error with a readable message
+      throw new Error(error.response.data?.error || `Server error: ${error.response.status}`);
+
+    } else if (error.request) {
+      console.error("❌ No response received:");
+      throw new Error("No response from server. Check your connection.");
+
+    } else {
+      console.error("❌ Request setup error:");
+      throw new Error(error.message || "Something went wrong.");
+    }
   }
 }
 
