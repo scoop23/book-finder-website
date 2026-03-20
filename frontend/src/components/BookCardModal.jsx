@@ -26,9 +26,9 @@ const BookCardModal = ({ workData, isModal, setIsModal, isLoading, isError, refe
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, pointerEvents: "none" }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.5 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/50 h-full"
-          onClick={() => setIsModal(false)}
+          onClick={() => setIsModal()}
         >
           {isLoading && (
             <div>
@@ -38,10 +38,10 @@ const BookCardModal = ({ workData, isModal, setIsModal, isLoading, isError, refe
           {isError && (
             <div>
               <div className="text-red-400 text-sm">Failed to load book details. Try again later.</div>
-              <button className="" onClick={(e) => { refetch(), e.stopPropagation() }}>retry.</button>
+              <button className="cursor-pointer text-white" onClick={(e) => { refetch(); e.stopPropagation() }}>retry.</button>
             </div>
           )}
-          {workData && (
+          {workData && !isError && (
             <BookModalContent workData={workData} isModal={isModal} />
           )}
         </motion.div>

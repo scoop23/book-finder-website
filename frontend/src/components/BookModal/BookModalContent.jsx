@@ -19,11 +19,11 @@ const BookModalContent = ({ workData, isModal }) => {
     const currentHeight = isPrimaryHovered ? fullHeight : 400;
     setVisibleHeight(currentHeight);
 
-    // Only consider it "long" if current visible height >= 592
+    // Only consider it "long" if current visible height >= 568
 
   }, [isPrimaryHovered, workData]);
 
-  const isPrimaryLong = visibleHeight >= 576;
+  const isPrimaryLong = visibleHeight >= 568;
   const isPrimaryVeryLong = visibleHeight >= 768;
   const isLarge = visibleHeight >= 800;
   console.log(visibleHeight)
@@ -42,10 +42,23 @@ const BookModalContent = ({ workData, isModal }) => {
       // console.log(workData?.description?.value)
     }
   }
-
+  let description = '';
   const coverUrl = workData?.covers ? `https://covers.openlibrary.org/b/id/${workData.covers[0]}-L.jpg` : null;
-  const description = typeof workData?.description === 'object'
+  const rawDescription = typeof workData?.description === 'object'
     ? workData?.description.value : workData?.description || "no description available.";
+
+  if (rawDescription.split("Contains:")) {
+    const unformattedDescription = rawDescription.split("Contains:");
+    description = unformattedDescription[0];
+    if (!description || description === '') {
+      description = unformattedDescription[1].trim();
+      const plainEntries = [...description.matchAll(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g)];
+
+      console.log(plainEntries)
+    }
+  }
+
+
 
   const containerVariant = {
     hidden: { scale: 0.8, opacity: 0 },
@@ -109,7 +122,7 @@ const BookModalContent = ({ workData, isModal }) => {
             onMouseEnter={() => { setIsPrimaryHovered(true); checkHovered() }}
             onMouseLeave={() => { setIsPrimaryHovered(false); checkHovered() }}
           >
-            <div className="flex flex-col items-center">
+            <div className="cover-authors gap-4 flex flex-col items-center">
               {coverUrl ? (
                 <img
                   src={coverUrl}
@@ -128,7 +141,7 @@ const BookModalContent = ({ workData, isModal }) => {
             </div>
             <div className="title-description flex flex-col gap-2">
               <h2 className="text-xl font-bold">{workData?.title}</h2>
-              <p className={`text-gray-600`} >{description}</p>
+              <p className={`text-gray-600`} >{rawDescription || description}</p>
               <div className="subjects flex flex-wrap gap-1">
                 <ModalContentGenres genresData={workData?.subjects} />
                 {

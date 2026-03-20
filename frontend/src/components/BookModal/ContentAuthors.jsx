@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchAuthors } from "../../api/AccessToApi";
 import { useQueries, useQuery } from "@tanstack/react-query";
+import { AnimatePresence } from 'framer-motion';
 
 const ContentAuthors = ({ data }) => {
+  const [isButton, setIsButton] = useState(false);
   console.log(data);
   const authorKeys = data.map((a) => {
     const raw = a.author.key.split('/');
@@ -15,7 +17,7 @@ const ContentAuthors = ({ data }) => {
       queryKey: ["author", authorKey],
       queryFn: () => fetchAuthors(authorKey),
       enabled: !!authorKey,
-      staleTime: 5 * 60 * 1000
+      staleTime: 5 * 60 * 1000,
     }))
   });
 
@@ -24,22 +26,21 @@ const ContentAuthors = ({ data }) => {
 
   if (isLoading) return <div>Loading authors...</div>;
   if (isError) return <div>Failed to load authors.</div>;
-  // const authorData = useQuery({
-  //   queryKey: ["titlesearchdata", authorId],
-  //   queryFn: () => fetchBookByTitleOL(searchQuery, pageParams),
-  //   enabled: !!searchQuery,
-  //   retry: 1,
-  //   refetchOnWindowFocus: false,
-  //   staleTime: 5 * 60 * 1000,
-  //   cacheTime: 10 * 60 * 1000,
-  // })
+
   return (
-    <div className="authors text-gray-700">
-      {authorQueries.map((q, index) => {
-        const authorName = q.data?.data?.name || "Unknown Author";
-        return <div key={index}>{authorName}</div>;
-      })}
-    </div>
+    <AnimatePresence>
+      <button onClick={() => setIsButton(!isButton)} className="rounded-2xl bg-violet-600 text-white p-2">Authors</button>
+      {isButton && (
+        <div className="authors text-gray-700">
+          {authorQueries.map((q, index) => {
+            const authorName = q.data?.data?.name || "Unknown Author";
+            return <div key={index}>{authorName}</div>;
+          })}
+        </div>
+      )
+      }
+
+    </AnimatePresence>
   )
 }
 

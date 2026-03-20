@@ -81,14 +81,16 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     authors: [{ author: { key: "/authors/OL23919A" } }]
   }
 
+  console.log(isModal)
+
   return (
     <div className="main-bookcard-content max-h-[300px] font-inter select-auto cursor-pointer" ref={ref} onClick={() => handleCardClick()}
       style={{ pointerEvents: !isModal ? "auto" : "none" }}>
-      {isModal &&
+      {
         <BookCardModal
           workData={workData.data}
           isModal={isModal}
-          setIsModal={setIsModal}
+          setIsModal={handleCardClick}
           isLoading={workData.isPending}
           isError={workData.isError}
           refetch={workData.refetch}
