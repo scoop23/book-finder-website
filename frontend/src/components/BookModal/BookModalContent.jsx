@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import bookImage from '../../assets/book_empty.png';
 import ModalContentGenres from "./ModalContentGenres";
 import ContentAuthors from "./ContentAuthors";
+import DescriptionWithLinks from "./DescriptionWithLinks";
 
 const BookModalContent = ({ workData, isModal }) => {
   const primaryContainerRef = useRef(null);
@@ -47,18 +48,25 @@ const BookModalContent = ({ workData, isModal }) => {
   const rawDescription = typeof workData?.description === 'object'
     ? workData?.description.value : workData?.description || "no description available.";
 
+  let links = [];
+  // get the links if it exists
   if (rawDescription.split("Contains:")) {
     const unformattedDescription = rawDescription.split("Contains:");
     description = unformattedDescription[0];
     if (!description || description === '') {
-      description = unformattedDescription[1].trim();
-      const plainEntries = [...description.matchAll(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g)];
-
-      console.log(plainEntries)
+      const tempDescription = unformattedDescription[1].trim();
+      const plainEntries = [...tempDescription.matchAll(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g)];
+      links = plainEntries.map(entry => {
+        return ({
+          title: entry[1],
+          url: entry[2]
+        })
+      })
     }
+  } else {
+    console.error("No links present.")
+    // maybe? this is an assumption that links are only after the word 'Contains:'
   }
-
-
 
   const containerVariant = {
     hidden: { scale: 0.8, opacity: 0 },
@@ -141,7 +149,8 @@ const BookModalContent = ({ workData, isModal }) => {
             </div>
             <div className="title-description flex flex-col gap-2">
               <h2 className="text-xl font-bold">{workData?.title}</h2>
-              <p className={`text-gray-600`} >{rawDescription || description}</p>
+              <p className={`text-gray-600`} >{description}</p>
+              {links && <DescriptionWithLinks matches={links} />}
               <div className="subjects flex flex-wrap gap-1">
                 <ModalContentGenres genresData={workData?.subjects} />
                 {
