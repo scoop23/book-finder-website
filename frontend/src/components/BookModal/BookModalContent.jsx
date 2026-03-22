@@ -48,23 +48,37 @@ const BookModalContent = ({ workData, isModal }) => {
     ? workData?.description.value : workData?.description || "no description available.";
 
   let links = [];
+  const getLinks = () => /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
+  const unformattedDescription = rawDescription.split("Contains:");
+
+  console.log(rawDescription)
   // get the links if it exists
+  // if possible let this be a function?
   if (rawDescription.includes("Contains:")) {
-    const unformattedDescription = rawDescription.split("Contains:");
-    description = unformattedDescription[0];
     if (!description || description === '') {
       console.log("hey")
       const tempDescription = unformattedDescription[1].trim();
-      const plainEntries = [...tempDescription.matchAll(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g)];
+      const plainEntries = [...tempDescription.matchAll(getLinks())];
       links = plainEntries.map(entry => {
         return ({
           title: entry[1],
           url: entry[2]
-        })
-      })
+        });
+      });
     }
+  } else if (getLinks().test(rawDescription)) {
+    console.log("HOTDOG")
+    const plainEntries = [...rawDescription.matchAll(getLinks())];
+    links = plainEntries.map(entry => {
+      return ({
+        title: entry[1],
+        url: entry[2]
+      });
+    });
   } else {
+    description = unformattedDescription[0];
   }
+
   console.log(description)
 
   const containerVariant = {
