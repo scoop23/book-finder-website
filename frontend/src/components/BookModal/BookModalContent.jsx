@@ -9,8 +9,7 @@ const BookModalContent = ({ workData, isModal }) => {
   const primaryContainerRef = useRef(null);
   const [isPrimaryHovered, setIsPrimaryHovered] = useState(false);
   const [visibleHeight, setVisibleHeight] = useState(400);
-  const [size, setSize] = useState();
-  const [isEnlarged, setIsEnlarged] = useState(false);
+  const [showLinks, setShowLinks] = useState(false);
 
   useLayoutEffect(() => {
     if (!primaryContainerRef.current) return;
@@ -22,7 +21,7 @@ const BookModalContent = ({ workData, isModal }) => {
 
     // Only consider it "long" if current visible height >= 568
 
-  }, [isPrimaryHovered, workData]);
+  }, [isPrimaryHovered, workData, showLinks]);
 
   const isPrimaryLong = visibleHeight >= 568;
   const isPrimaryVeryLong = visibleHeight >= 768;
@@ -67,6 +66,8 @@ const BookModalContent = ({ workData, isModal }) => {
     console.error("No links present.")
     // maybe? this is an assumption that links are only after the word 'Contains:'
   }
+
+  console.log(description)
 
   const containerVariant = {
     hidden: { scale: 0.8, opacity: 0 },
@@ -150,7 +151,7 @@ const BookModalContent = ({ workData, isModal }) => {
             <div className="title-description flex flex-col gap-2">
               <h2 className="text-xl font-bold">{workData?.title}</h2>
               <p className={`text-gray-600`} >{description}</p>
-              {links && <DescriptionWithLinks matches={links} />}
+              {links.length > 1 && <DescriptionWithLinks setShowLinks={setShowLinks} showLinks={showLinks} matches={links} setIsPrimaryHovered={setIsPrimaryHovered} />}
               <div className="subjects flex flex-wrap gap-1">
                 <ModalContentGenres genresData={workData?.subjects} />
                 {

@@ -5,7 +5,6 @@ import { AnimatePresence } from 'framer-motion';
 
 const ContentAuthors = ({ data }) => {
   const [isButton, setIsButton] = useState(false);
-  console.log(data);
   const authorKeys = data.map((a) => {
     const raw = a.author.key.split('/');
     const authorKey = raw[2]
