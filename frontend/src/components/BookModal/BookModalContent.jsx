@@ -49,10 +49,11 @@ const BookModalContent = ({ workData, isModal }) => {
 
   let links = [];
   // get the links if it exists
-  if (rawDescription.split("Contains:")) {
+  if (rawDescription.includes("Contains:")) {
     const unformattedDescription = rawDescription.split("Contains:");
     description = unformattedDescription[0];
     if (!description || description === '') {
+      console.log("hey")
       const tempDescription = unformattedDescription[1].trim();
       const plainEntries = [...tempDescription.matchAll(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g)];
       links = plainEntries.map(entry => {
@@ -63,10 +64,7 @@ const BookModalContent = ({ workData, isModal }) => {
       })
     }
   } else {
-    console.error("No links present.")
-    // maybe? this is an assumption that links are only after the word 'Contains:'
   }
-
   console.log(description)
 
   const containerVariant = {
@@ -151,7 +149,7 @@ const BookModalContent = ({ workData, isModal }) => {
             <div className="title-description flex flex-col gap-2">
               <h2 className="text-xl font-bold">{workData?.title}</h2>
               <p className={`text-gray-600`} >{description}</p>
-              {links.length > 1 && <DescriptionWithLinks setShowLinks={setShowLinks} showLinks={showLinks} matches={links} setIsPrimaryHovered={setIsPrimaryHovered} />}
+              {links.length > 1 && <DescriptionWithLinks setShowLinks={setShowLinks} showLinks={showLinks} matches={links} setIsPrimaryHovered={setIsPrimaryHovered} isPrimaryHovered={isPrimaryHovered} />}
               <div className="subjects flex flex-wrap gap-1">
                 <ModalContentGenres genresData={workData?.subjects} />
                 {

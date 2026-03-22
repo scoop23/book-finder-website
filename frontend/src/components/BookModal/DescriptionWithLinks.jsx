@@ -1,19 +1,37 @@
 import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const DescriptionWithLinks = ({ setShowLinks, showLinks, matches, setIsPrimaryHovered }) => {
+const DescriptionWithLinks = ({ setShowLinks, showLinks, matches, setIsPrimaryHovered, isPrimaryHovered }) => {
   const [page, setPage] = useState(1);
   const pagedLinks = matches.slice((page - 1) * 10, page * 10);
-  console.log(pagedLinks)
+  console.log(page)
+
+  useEffect(() => {
+    if (!isPrimaryHovered) {
+      setPage(1)
+    }
+  }, [isPrimaryHovered])
 
   return (
     <motion.div className="links flex flex-col gap-2">
-      <button className="text-blue-400 flex flex-wrap cursor-pointer"
-        onClick={() => {
-          const isOpening = !showLinks;
-          setShowLinks(isOpening);
-          setIsPrimaryHovered(isOpening);
-        }}>Works</button>
+      <div className="buttons flex justify-between">
+        <button className="text-blue-400 flex flex-wrap cursor-pointer"
+          onClick={() => {
+            const isOpening = !showLinks;
+            setShowLinks(isOpening);
+            setIsPrimaryHovered(isOpening);
+          }}>Works</button>
+        {showLinks &&
+          <div className="page-options">
+            <button onClick={() => setPage(page => Math.max(1, page - 1))}>
+              prev page
+            </button>
+            <button onClick={() => setPage(page => Math.min(pagedLinks.length, page + 1))}>
+              next page
+            </button>
+          </div>
+        }
+      </div>
       <AnimatePresence>
         {showLinks &&
           pagedLinks.map((matchedLink, index) => {
@@ -32,7 +50,7 @@ const DescriptionWithLinks = ({ setShowLinks, showLinks, matches, setIsPrimaryHo
           })
         }
       </AnimatePresence>
-    </motion.div>
+    </motion.div >
   )
 }
 
