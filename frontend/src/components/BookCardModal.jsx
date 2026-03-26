@@ -4,6 +4,13 @@ import BookModalContent from "./BookModal/BookModalContent";
 import Loading from "./Loading.jsx";
 
 const BookCardModal = ({ workData, isModal, setIsModal, isLoading, isError, refetch }) => {
+  const mockWorkData = {
+    title: "The Adventures of Sherlock Holmes",
+    covers: [12059372],
+    description: "The Adventures of Sherlock Holmes is a collection of twelve short stories by Arthur Conan Doyle, first published on 14 October 1892. It contains the earliest short stories featuring the consulting detective Sherlock Holmes, which had been published in twelve monthly issues of The Strand Magazine from July 1891 to June 1892. The stories are collected in the same sequence, which is not supported by any fictional chronology. The only characters common to all twelve are Holmes and Dr. Watson and all are related in first-person narrative from Watson's point of view. Contains: [Scandal in Bohemia](https://openlibrary.org/works/OL14930611W) [Red-headed League](https://openlibrary.org/works/OL14930336W) [Case of Identity](https://openlibrary.org/works/OL14929939W) [Boscombe Valley Mystery](https://openlibrary.org/works/OL18495288W) [Five Orange Pips](https://openlibrary.org/works/OL1518120W) [Man with the Twisted Lip](https://openlibrary.org/works/OL14930258W) [Adventure of the Blue Carbuncle](https://openlibrary.org/works/OL1518317W) [Adventure of the Speckled Band](https://openlibrary.org/works/OL262561W)",
+    authors: [{ author: { key: "/authors/OL23919A" } }],
+    subjects: ["Mystery", "Detective", "Fiction", "Classic Literature", "British Literature", "Short Stories", "Crime", "Victorian Era", "London"]
+  }
   return createPortal(
     <AnimatePresence>
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>

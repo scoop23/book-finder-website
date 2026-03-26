@@ -11,25 +11,25 @@ const BookModalContent = ({ workData, isModal }) => {
   const [visibleHeight, setVisibleHeight] = useState(400);
   const [showLinks, setShowLinks] = useState(false);
 
+  let scrollWidth = ''
   useLayoutEffect(() => {
     if (!primaryContainerRef.current) return;
-
     const fullHeight = primaryContainerRef.current.scrollHeight + 20;
+    scrollWidth = primaryContainerRef.current.scrollWidth;
     // const realHeight = Math.ceil(primaryContainerRef.current.getBoundingClientRect().height) + 100;
     const currentHeight = isPrimaryHovered ? fullHeight : 400;
     setVisibleHeight(currentHeight);
-
-    // Only consider it "long" if current visible height >= 568
-
+    // Only consider it "long" if current visible height >= 556
   }, [isPrimaryHovered, workData, showLinks]);
 
-  const isPrimaryLong = visibleHeight >= 568;
+  const isPrimaryLong = visibleHeight >= 556;
   const isPrimaryVeryLong = visibleHeight >= 768;
   const isLarge = visibleHeight >= 800;
-  console.log(visibleHeight)
+  // console.log(visibleHeight)
+  console.log(scrollWidth)
 
   const computedHeight = isPrimaryHovered
-    ? (isLarge ? visibleHeight : visibleHeight)
+    ? (isLarge ? 800 : visibleHeight)
     : (isLarge ? visibleHeight : 400)
 
   // console.log(isPrimaryLong + " & " + isPrimaryHovered);
@@ -50,8 +50,6 @@ const BookModalContent = ({ workData, isModal }) => {
   let links = [];
   const getLinks = () => /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
   const unformattedDescription = rawDescription.split("Contains:");
-
-  console.log(rawDescription)
   // get the links if it exists
   // if possible let this be a function?
   if (rawDescription.includes("Contains:")) {
