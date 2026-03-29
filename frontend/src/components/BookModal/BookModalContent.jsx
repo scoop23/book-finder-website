@@ -65,7 +65,6 @@ const BookModalContent = ({ workData, isModal }) => {
       });
     }
   } else if (getLinks().test(rawDescription)) {
-    console.log("HOTDOG")
     const plainEntries = [...rawDescription.matchAll(getLinks())];
     links = plainEntries.map(entry => {
       return ({

@@ -3,12 +3,16 @@ import { createPortal } from "react-dom";
 import { fetchAuthors } from "../../api/AccessToApi";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from 'framer-motion';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ContentAuthors = ({ data }) => {
   const [isButton, setIsButton] = useState(false);
   const authorBtnRef = useRef(null);
   const authorKeys = data.map((a) => {
-    const raw = a.author.key.split('/');
+    let raw = a.author?.key.split('/');
+    if (!raw) {
+      raw = a.key.split('/')
+    }
     const authorKey = raw[2]
     return authorKey;
   })
@@ -16,7 +20,7 @@ const ContentAuthors = ({ data }) => {
   useEffect(() => {
     if (!authorBtnRef.current) return;
     const rect = authorBtnRef.current.getBoundingClientRect();
-    console.log(rect.x);
+    console.log(rect);
   }, []);
 
   const authorQueries = useQueries({
@@ -43,6 +47,7 @@ const ContentAuthors = ({ data }) => {
           ref={authorBtnRef}>
           Authors
         </button>
+
         {isButton && createPortal(
           <div className="authors inset-0 text-gray-700 flex flex-col fixed h-[300px] w-[300px] bg-amber-50 z-51"
             style={{
@@ -55,7 +60,7 @@ const ContentAuthors = ({ data }) => {
         )
         }
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence >
   )
 }
 
