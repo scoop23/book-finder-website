@@ -42,6 +42,7 @@ const BookModalContent = ({ workData, isModal }) => {
       // console.log(workData?.description?.value)
     }
   }
+
   let description = '';
   const coverUrl = workData?.covers ? `https://covers.openlibrary.org/b/id/${workData.covers[0]}-L.jpg` : null;
   const rawDescription = typeof workData?.description === 'object'
@@ -63,6 +64,7 @@ const BookModalContent = ({ workData, isModal }) => {
           url: entry[2]
         });
       });
+      description = unformattedDescription[0].trim();
     }
   } else if (getLinks().test(rawDescription)) {
     const plainEntries = [...rawDescription.matchAll(getLinks())];
@@ -72,8 +74,10 @@ const BookModalContent = ({ workData, isModal }) => {
         url: entry[2]
       });
     });
+    console.log(unformattedDescription[0].trim());
+    // description = unformattedDescription[0].trim();
   } else {
-    description = unformattedDescription[0];
+    description = unformattedDescription[0].trim();
   }
 
   console.log(description)
@@ -133,7 +137,7 @@ const BookModalContent = ({ workData, isModal }) => {
             ref={primaryContainerRef}
             animate={{
               height: computedHeight,
-              y: isPrimaryVeryLong ? -40 : isLarge ? -100 : 0,
+              y: isPrimaryVeryLong ? -40 : isLarge ? -600 : 0,
               width: isLarge ? 1000 : undefined
             }}
             transition={{ duration: 0.2 }}
@@ -160,7 +164,14 @@ const BookModalContent = ({ workData, isModal }) => {
             <div className="title-description flex flex-col gap-2">
               <h2 className="text-xl font-bold">{workData?.title}</h2>
               <p className={`text-gray-600`} >{description}</p>
-              {links.length > 1 && <DescriptionWithLinks setShowLinks={setShowLinks} showLinks={showLinks} matches={links} setIsPrimaryHovered={setIsPrimaryHovered} isPrimaryHovered={isPrimaryHovered} />}
+              {links.length > 1 &&
+                <DescriptionWithLinks
+                  setShowLinks={setShowLinks}
+                  showLinks={showLinks}
+                  matches={links}
+                  setIsPrimaryHovered={setIsPrimaryHovered}
+                  isPrimaryHovered={isPrimaryHovered}
+                />}
               <div className="subjects flex flex-wrap gap-1">
                 <ModalContentGenres genresData={workData?.subjects} />
                 {
