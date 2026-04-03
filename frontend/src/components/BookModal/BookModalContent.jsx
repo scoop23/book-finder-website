@@ -4,6 +4,10 @@ import bookImage from '../../assets/book_empty.png';
 import ModalContentGenres from "./ModalContentGenres";
 import ContentAuthors from "./ContentAuthors";
 import DescriptionWithLinks from "./DescriptionWithLinks";
+import Recommendations from "./Recommendations";
+import ModalButtons from "./ModalButtons";
+import { parseDescription } from "./utils";
+import { parentVariant, secondChildVariant, secondParentVariant, containerVariant } from "./variants";
 
 const BookModalContent = ({ workData, isModal }) => {
   const primaryContainerRef = useRef(null);
@@ -12,6 +16,7 @@ const BookModalContent = ({ workData, isModal }) => {
   const [showLinks, setShowLinks] = useState(false);
 
   let scrollWidth = ''
+
   useLayoutEffect(() => {
     if (!primaryContainerRef.current) return;
     const fullHeight = primaryContainerRef.current.scrollHeight + 20;
@@ -36,6 +41,7 @@ const BookModalContent = ({ workData, isModal }) => {
   function checkHovered() {
   }
 
+  // ??
   if (workData && isModal) {
     if (typeof (workData?.description) === "object") {
       // console.log("data is a object")
@@ -43,79 +49,12 @@ const BookModalContent = ({ workData, isModal }) => {
     }
   }
 
-  let description = '';
-  const coverUrl = workData?.covers ? `https://covers.openlibrary.org/b/id/${workData.covers[0]}-L.jpg` : null;
+  const coverUrl = workData?.covers ? `https://covers.openlibrary.org/b/id/${workData.covers[0]}-L.jpg` : undefined;
+
   const rawDescription = typeof workData?.description === 'object'
     ? workData?.description.value : workData?.description || "no description available.";
 
-  let links = [];
-  const getLinks = () => /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
-  const unformattedDescription = rawDescription.split("Contains:");
-  // get the links if it exists
-  // if possible let this be a function?
-  if (rawDescription.includes("Contains:")) {
-    if (!description || description === '') {
-      console.log("hey")
-      const tempDescription = unformattedDescription[1].trim();
-      const plainEntries = [...tempDescription.matchAll(getLinks())];
-      links = plainEntries.map(entry => {
-        return ({
-          title: entry[1],
-          url: entry[2]
-        });
-      });
-      description = unformattedDescription[0].trim();
-    }
-  } else if (getLinks().test(rawDescription)) {
-    const plainEntries = [...rawDescription.matchAll(getLinks())];
-    links = plainEntries.map(entry => {
-      return ({
-        title: entry[1],
-        url: entry[2]
-      });
-    });
-    console.log(unformattedDescription[0].trim());
-    // description = unformattedDescription[0].trim();
-  } else {
-    description = unformattedDescription[0].trim();
-  }
-
-  console.log(description)
-
-  const containerVariant = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { duration: 0.3, type: "spring" } },
-    exit: { scale: 0.7, opacity: 0, }
-  }
-
-  const parentVariant = {
-    hidden: { x: -100, opacity: 0 },
-    visible: {
-      x: 0, opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    },
-    exit: { scale: 0.7, opacity: 0, pointerEvents: "none", transition: { duration: 1, staggerChildren: 0.1 } }
-  }
-
-  const secondParentVariant = {
-    hidden: { x: -50, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.5, staggerChildren: 0.1 } },
-    exit: {
-      x: 50, opacity: 0, transition: {
-        duration: 0.5,
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const secondChildVariant = {
-    hidden: { x: -30, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 1, type: "spring" } },
-    exit: { x: -30, opacity: 0 }
-  }
-
+  const { description, links } = parseDescription(rawDescription)
   console.log(computedHeight)
 
   return (
@@ -185,20 +124,25 @@ const BookModalContent = ({ workData, isModal }) => {
 
           <motion.div className="flex flex-row gap-2 rounded-2xl" layout>
             <AnimatePresence>
-              {!isPrimaryLong && <motion.div key="recommendations"
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ type: "spring", duration: 0.2 }}
-                className="flex gap-2">
+              {!isPrimaryLong &&
+                <motion.div key="recommendations"
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ type: "spring", duration: 0.2 }}
+                  className="flex gap-2">
+                  <Recommendations /> {/*   */}
+                  {/*
                 <motion.div layout className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
                   Recommended 1
                 </motion.div>
                 <motion.div layout className="additions bg-white recom-container w-[350px] h-[250px] rounded-2xl">
                   Recommended 2
                 </motion.div>
-              </motion.div>
+
+                */}
+                </motion.div>
               }
             </AnimatePresence>
           </motion.div>
@@ -213,15 +157,7 @@ const BookModalContent = ({ workData, isModal }) => {
         animate="visible"
         exit="exit"
       >
-        {[1, 2, 3, 4, 5].map((n, i) => (
-          <motion.div
-            key={i}
-            className="bg-white w-full rounded-2xl p-4"
-            variants={secondChildVariant}
-          >
-            Extra content {n}
-          </motion.div>
-        ))}
+        <ModalButtons />
       </motion.div>
     </motion.div >
   );

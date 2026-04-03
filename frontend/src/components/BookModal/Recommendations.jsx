@@ -1,16 +1,20 @@
+import { motion } from "framer-motion";
+
 const Recommendations = ({ recommendationData }) => {
   console.log(recommendationData);
 
   if (!recommendationData || recommendationData.length === 0) {
     return (
-      <div className="flex flex-col gap-2 w-full">
-        {[1, 2, 3].map((n) => (
-          <div
+      <motion.div layout className="flex gap-2 max-w-[700px]">
+        {[1, 2].map((n) => (
+          <motion.div
+            layout
             key={n}
-            className="w-full h-[96px] bg-white rounded-2xl animate-pulse"
-          />
+            className="h-[250px] w-[350px] bg-white rounded-2xl animate-pulse"
+          >
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     );
   }
 

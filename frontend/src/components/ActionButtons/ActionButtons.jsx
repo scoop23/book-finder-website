@@ -42,6 +42,7 @@ const ActionButtons = ({ Ypos, Xpos, hover, sideBarRef, className }) => {
     const sideBarTl = gsap.timeline({ paused: true });
     gsap.set(sideBarRef.current, { willChange: "transform" })
 
+    // first timeline
     tl.to(icons, {
       duration: 0.7,
       opacity: 1,
@@ -69,6 +70,7 @@ const ActionButtons = ({ Ypos, Xpos, hover, sideBarRef, className }) => {
         // CY : -20.5
         { attr: { cy: -30.5, rx: 30, ry: 30 }, duration: 0.65, ease: Elastic.easeInOut.config(0.5, 0.5), stagger: 0.1, immediateRender: false }, '-=1'
       )
+    // 2nd timeline/ seperate animation
     sideBarTl.to(sideBarRef.current,
       { y: -6, duration: 0.5, ease: 'power2.out' }
     )

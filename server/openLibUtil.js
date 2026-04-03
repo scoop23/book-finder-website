@@ -11,7 +11,7 @@ const axiosBase = axios.create({
     "User-Agent": `BookFinderWeb/1.0 (${myEmail})`,
     "Accept": "application/json"
   },
-  timeout: 10000,
+  timeout: 30000, // bumped it up to 30 seconds
 })
 
 const myCache = new Map();

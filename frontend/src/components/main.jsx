@@ -24,3 +24,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
+// this component is no really used. just testing something

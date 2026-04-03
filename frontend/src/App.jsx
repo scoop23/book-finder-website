@@ -13,6 +13,10 @@ import {
 } from '@tanstack/react-query'
 import DemoPage from './pages/Demo/index.jsx';
 import BookDetailsPage from './pages/BookDetailsPage/index.jsx';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCoffee, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
+library.add(faCoffee, faHome, faUser);
+
 
 const queryClient = new QueryClient();
 
