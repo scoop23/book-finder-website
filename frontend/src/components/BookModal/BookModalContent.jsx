@@ -151,7 +151,7 @@ const BookModalContent = ({ workData, isModal }) => {
 
       {/* Right / secondary container */}
       <motion.div
-        className="secondary-container flex flex-col px-4 mt-25 w-full h-full gap-4 items-center justify-start"
+        className="secondary-container flex flex-col px-4 mt-25  h-full gap-4 items-center justify-start"
         variants={secondParentVariant}
         initial="hidden"
         animate="visible"

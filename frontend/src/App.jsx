@@ -14,9 +14,9 @@ import {
 import DemoPage from './pages/Demo/index.jsx';
 import BookDetailsPage from './pages/BookDetailsPage/index.jsx';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCoffee, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
-library.add(faCoffee, faHome, faUser);
+import { faCoffee, faHome, faUser, faAngleLeft, faAngleRight, faHeart, faBookmark, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 
+library.add(faCoffee, faHome, faUser, faAngleLeft, faAngleRight, faHeart, faBookmark, faArrowRightToBracket);
 
 const queryClient = new QueryClient();
 
