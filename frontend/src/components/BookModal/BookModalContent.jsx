@@ -30,18 +30,15 @@ const BookModalContent = ({ workData, isModal }) => {
   const isPrimaryLong = visibleHeight >= 556;
   const isPrimaryVeryLong = visibleHeight >= 768;
   const isLarge = visibleHeight >= 800;
-  // console.log(visibleHeight)
-  console.log(scrollWidth)
+  console.log(scrollWidth);
 
   const computedHeight = isPrimaryHovered
     ? (isLarge ? 800 : visibleHeight)
     : (isLarge ? visibleHeight : 400)
 
-  // console.log(isPrimaryLong + " & " + isPrimaryHovered);
   function checkHovered() {
   }
 
-  // ??
   if (workData && isModal) {
     if (typeof (workData?.description) === "object") {
       // console.log("data is a object")
@@ -54,8 +51,8 @@ const BookModalContent = ({ workData, isModal }) => {
   const rawDescription = typeof workData?.description === 'object'
     ? workData?.description.value : workData?.description || "no description available.";
 
-  const { description, links } = parseDescription(rawDescription)
-  console.log(computedHeight)
+  const { description, links } = parseDescription(rawDescription);
+  console.log(computedHeight);
 
   return (
     <motion.div className="modal-content flex flex-row w-[1200px] h-full p-4">

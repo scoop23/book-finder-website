@@ -5,6 +5,7 @@ const DescriptionWithLinks = ({ setShowLinks, showLinks, matches, setIsPrimaryHo
   const [page, setPage] = useState(1);
   const pagedLinks = matches.slice((page - 1) * 10, page * 10);
   console.log(page)
+  console.log(matches)
 
   useEffect(() => {
     if (!isPrimaryHovered) {
