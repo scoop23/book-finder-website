@@ -26,4 +26,4 @@ const ModalButtons = () => {
   )
 }
 
-export default ModalButtons
+export default ModalButtons;

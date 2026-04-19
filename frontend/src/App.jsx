@@ -15,6 +15,7 @@ import DemoPage from './pages/Demo/index.jsx';
 import BookDetailsPage from './pages/BookDetailsPage/index.jsx';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCoffee, faHome, faUser, faAngleLeft, faAngleRight, faHeart, faBookmark, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import HomePage from './pages/HomePage/index.jsx';
 
 library.add(faCoffee, faHome, faUser, faAngleLeft, faAngleRight, faHeart, faBookmark, faArrowRightToBracket);
 
@@ -30,6 +31,7 @@ const App = () => {
             <Routes>
               {/* preferebly BookSearchProvider here */}
               <Route path='demo' element={<DemoPage />}></Route>
+              <Route path='home' element={<HomePage />}></Route>
               <Route path='search' element={<SearchPage />}>
                 <Route index element={<MainPage />} />
                 <Route path='title' element={<TitlePageResults />}></Route>

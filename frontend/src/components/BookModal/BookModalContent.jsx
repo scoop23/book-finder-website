@@ -27,7 +27,7 @@ const BookModalContent = ({ workData, isModal }) => {
     // Only consider it "long" if current visible height >= 556
   }, [isPrimaryHovered, workData, showLinks]);
 
-  const isPrimaryLong = visibleHeight >= 556;
+  const isPrimaryLong = visibleHeight >= 552;
   const isPrimaryVeryLong = visibleHeight >= 768;
   const isLarge = visibleHeight >= 800;
   console.log(scrollWidth);
