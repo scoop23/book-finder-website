@@ -3,7 +3,7 @@ import HomePageMain from "../../components/Homepage/HomePageMain";
 
 const HomePage = () => {
   return (
-    < div >
+    < div className="w-fit items-center">
       <HomePageMain />
     </div >
   )

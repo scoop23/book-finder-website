@@ -7,10 +7,10 @@ const NothingSearch = () => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    if(imageRef.current) {
-      gsap.fromTo(imageRef.current, 
-        { autoAlpha : 0 },
-        { autoAlpha : 1 , duration : 0.4 , ease : "power3.in" }
+    if (imageRef.current) {
+      gsap.fromTo(imageRef.current,
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.4, ease: "power3.in" }
       )
     }
   }, [])

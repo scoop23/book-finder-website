@@ -43,7 +43,7 @@ const ContentAuthors = ({ data }) => {
       <motion.div className="flex flex-col">
         <button
           onClick={() => setIsButton(!isButton)}
-          className="rounded-2xl bg-violet-600 text-white p-2"
+          className="bg-secondary-amberLike rounded-[6px] text-white p-2"
           ref={authorBtnRef}>
           Authors
         </button>

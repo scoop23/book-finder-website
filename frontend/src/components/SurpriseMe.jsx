@@ -26,12 +26,12 @@ const SurpriseMe = ({ state }) => {
       Z
   `
   function SvgExample({ sizeWidth, sizeHeight }) {
-    const outerD = outerBoxFn(sizeWidth , sizeHeight)
-    const innerD = innerBoxFn(sizeWidth , sizeHeight)
+    const outerD = outerBoxFn(sizeWidth, sizeHeight)
+    const innerD = innerBoxFn(sizeWidth, sizeHeight)
     return (
       <svg className='absolute' viewBox='0 0 300 300' width="230" height="200">
-        
-          {/* <path
+
+        {/* <path
             className="outer-box"
             d="M 10 160 L 160 140 L 140 210 L 0 210 Z"
             fill="white"
@@ -41,7 +41,7 @@ const SurpriseMe = ({ state }) => {
           d={outerD}
           fill="white"
         />
-        <path 
+        <path
           className='inner-box'
           d={innerD}
           fill='black'
@@ -56,26 +56,26 @@ const SurpriseMe = ({ state }) => {
   const canvasRef = useRef();
   const clickMeRef = useRef();
   const particleRef = useRef([]);
-  const [stopId , setStopId] = useState(null);
+  const [stopId, setStopId] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
   const youShouldReadRef = useRef()
-  const [randomBook , setRandomBook] = useState([]);
+  const [randomBook, setRandomBook] = useState([]);
   const bookImageRef = useRef();
-  const [isImageHovered , setIsImageHovered] = useState(false);
-  const [recPosition , setRecPosition] = useState({ x : 0 , y : 0})
+  const [isImageHovered, setIsImageHovered] = useState(false);
+  const [recPosition, setRecPosition] = useState({ x: 0, y: 0 })
   const tooltipRef = useRef();
   const surpriseBookRef = useRef();
 
   function createParticle(canvas) {
     const particle = {
-      x : Math.random() * canvas.width, // start from a random position inside the canvas width
-      y : canvas.height, // start at the height of the canvas 
-      radius : Math.random() * 1 + 3, // random radius
-      vx : (Math.random() - 0.5) * 2, // random horizontal velocity
-      vy : -(Math.random() * 0.8) * 3, // random vertical velocity negative because negative nums are upwards
-      alpha : 2,
-      lifetime : 100,
-      maxLifetime : 200
+      x: Math.random() * canvas.width, // start from a random position inside the canvas width
+      y: canvas.height, // start at the height of the canvas 
+      radius: Math.random() * 1 + 3, // random radius
+      vx: (Math.random() - 0.5) * 2, // random horizontal velocity
+      vy: -(Math.random() * 0.8) * 3, // random vertical velocity negative because negative nums are upwards
+      alpha: 2,
+      lifetime: 100,
+      maxLifetime: 200
     }
     particle.vy *= 0.5;
     return particle;
@@ -83,10 +83,10 @@ const SurpriseMe = ({ state }) => {
 
   function drawParticles(ctx, canvas) {
     let particlesArray = particleRef.current;
-    ctx.clearRect(0,0, canvas.width , canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     particlesArray.forEach(p => {
       ctx.beginPath();
-      ctx.arc(p.x , p.y , p.radius ,0 ,Math.PI * 2);
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       // ctx.rect(p.x , p.y , 30 ,20);
       ctx.fillStyle = `rgba(255,40,20,${p.alpha})`;
       ctx.fill();
@@ -94,7 +94,7 @@ const SurpriseMe = ({ state }) => {
       ctx.shadowBlur = 20
       ctx.shadowOffSetX = 0
       ctx.shadowOffSetY = 0
-      
+
       p.x += p.vx;
       p.y += p.vy;
       p.alpha -= 0.01;
@@ -107,16 +107,16 @@ const SurpriseMe = ({ state }) => {
   function onMouseEnterCanvas() {
     const particleArray = particleRef.current;
     const canvas = canvasRef.current;
-    const clickMe = clickMeRef.current; 
+    const clickMe = clickMeRef.current;
 
-    if(clickMe) {
-      gsap.to(clickMe ,{
-        duration : 0.2,
-        opacity : 1,
+    if (clickMe) {
+      gsap.to(clickMe, {
+        duration: 0.2,
+        opacity: 1,
       })
     }
 
-    if(stopId && isClicked) {
+    if (stopId && isClicked) {
       return;
     } // return if hovered again
 
@@ -128,10 +128,10 @@ const SurpriseMe = ({ state }) => {
 
   function onMouseLeaveCanvas() {
     const clickMe = clickMeRef.current
-    if(clickMe) {
-        gsap.to(clickMe ,{
-        duration : 0.2,
-        opacity : 0
+    if (clickMe) {
+      gsap.to(clickMe, {
+        duration: 0.2,
+        opacity: 0
       })
     }
 
@@ -147,26 +147,26 @@ const SurpriseMe = ({ state }) => {
 
     setTimeout(() => {
       setIsClicked(true);
-    }, 500)  
-    gsap.to(clickMe , {
-      duration : 0.1,
-      opacity : 0,
+    }, 500)
+    gsap.to(clickMe, {
+      duration: 0.1,
+      opacity: 0,
     })
 
 
-    if(wrapper && canvas) {
-      tl.to(wrapper , {
-        backgroundColor : "white",
-        duration : 1,
-        borderRadius : '15px',
-        onComplete : () => {
+    if (wrapper && canvas) {
+      tl.to(wrapper, {
+        backgroundColor: "white",
+        duration: 1,
+        borderRadius: '15px',
+        onComplete: () => {
           clearInterval(stopId);
           gsap.to(clickMe, {
-            visibility : 'hidden'
+            visibility: 'hidden'
           })
           setTimeout(() => {
             gsap.to(canvas, {
-              visibility : 'hidden',
+              visibility: 'hidden',
             });
           }, 500)
         }
@@ -180,44 +180,44 @@ const SurpriseMe = ({ state }) => {
 
     function animate() {
       drawParticles(ctx, canvas); // renders every particles in the array and remove particles below opacity of 0. all the while reducing its alpha value
-      requestAnimationFrame(animate); 
+      requestAnimationFrame(animate);
     }
 
     animate();
   }, [])
 
   useEffect(() => {
-    if(state.carouselAData){
-        setRandomBook(state.carouselAData?.items?.[7]);
+    if (state.carouselAData) {
+      setRandomBook(state.carouselAData?.items?.[7]);
     }
   }, [state.carouselAData])
 
   useEffect(() => {
     const tl = gsap.timeline();
-      if(youShouldReadRef.current && isClicked) {
-        tl.to(youShouldReadRef.current, {
-          duration : 1,
-          opacity : 1,
-          y : -56,
-        }).to(bookImageRef.current , {
-          opacity : 1,
-          y : -60,
-          border : '1px solid black'
-        })
-      }
+    if (youShouldReadRef.current && isClicked) {
+      tl.to(youShouldReadRef.current, {
+        duration: 1,
+        opacity: 1,
+        y: -56,
+      }).to(bookImageRef.current, {
+        opacity: 1,
+        y: -60,
+        border: '1px solid black'
+      })
+    }
   }, [isClicked])
 
   const image = randomBook?.volumeInfo?.imageLinks?.smallThumbnail || book_empty;
   const title = randomBook?.volumeInfo?.title || "N/A";
-  
+
   const toolTip = () => {
     return createPortal(
       <div className='surprise-me-tooltip text-black bg-primary-dutch-white line-clamp-1 opacity-0 max-w-[900px] p-[5px] rounded-2xl border-1 font-inter' ref={tooltipRef}
-      style={{
-        position : "absolute",
-        left : recPosition.x,
-        top : recPosition.y - 30
-      }}>
+        style={{
+          position: "absolute",
+          left: recPosition.x,
+          top: recPosition.y - 30
+        }}>
         {title}
       </div>,
       document.body
@@ -225,28 +225,28 @@ const SurpriseMe = ({ state }) => {
   }
 
   function onImageHover() {
-    if(!bookImageRef.current) {
-     return;
+    if (!bookImageRef.current) {
+      return;
     }
     setIsImageHovered(true);
     const rectOfWrapper = SurpriseMeWrapper.current.getBoundingClientRect();
     setRecPosition({
-      x : rectOfWrapper.left + (rectOfWrapper.width / 2) + window.scrollX, 
+      x: rectOfWrapper.left + (rectOfWrapper.width / 2) + window.scrollX,
       // set the left edge to the middle of the wrapper by adding half the width of the surpriseMeWrapper
-      y : rectOfWrapper.y + window.scrollY
+      y: rectOfWrapper.y + window.scrollY
     })
     console.log(rectOfWrapper.left + " plus " + rectOfWrapper.width / 2 + " is equals to: " + recPosition.x)
     gsap.killTweensOf(tooltipRef.current);
   }
 
   function onImageLeave() {
-    if(tooltipRef.current) {
-        gsap.killTweensOf(tooltipRef.current); // before doing anything kill remaining tweens 
-        gsap.to(tooltipRef.current, {
-        duration : 0.5,
-        opacity : 0,
-        y : 0,
-        onComplete : () => {
+    if (tooltipRef.current) {
+      gsap.killTweensOf(tooltipRef.current); // before doing anything kill remaining tweens 
+      gsap.to(tooltipRef.current, {
+        duration: 0.5,
+        opacity: 0,
+        y: 0,
+        onComplete: () => {
           setIsImageHovered(false);
         }
       })
@@ -254,18 +254,18 @@ const SurpriseMe = ({ state }) => {
   }
 
   useEffect(() => {
-    if(tooltipRef.current && isImageHovered) {
+    if (tooltipRef.current && isImageHovered) {
       const widthOfTooltip = tooltipRef.current.getBoundingClientRect().width; // get the width of the tooltip
       const middlePoint = recPosition.x;
       const left = middlePoint - (widthOfTooltip / 2);
 
       console.log("Now pointing to " + middlePoint + "px which is the middle of the wrapper " + "then we subtract it to half the width of the tooltip which is " + left);
-      gsap.set(tooltipRef.current ,{ left });
+      gsap.set(tooltipRef.current, { left });
 
       gsap.to(tooltipRef.current, {
-        opacity : 1,
-        duration : 0.5,
-        y : -10
+        opacity: 1,
+        duration: 0.5,
+        y: -10
       })
       // subtract the middle point which is the recPosition.x or the const left to the
       // half the width of the tooltip to center the tooltip beneath the surpriseWrapper
@@ -276,33 +276,33 @@ const SurpriseMe = ({ state }) => {
     <div className='surprise-me-wrapper h-full font-inter'>
       <div className='surprise-me-main flex justify-center items-center h-full flex-col gap-2'>
 
-        <div className='text-white'>Have no idea what to read?</div>
+        <div className='text-white text-[13px] font-light'>Have no idea what to read?</div>
 
-        <div className='surprise-me bg-zinc-900 w-[250px] h-[230px] rounded-2xl border-1 border-zinc-400'>
+        <div className='surprise-me bg-zinc-900 w-[250px] h-[230px] rounded-2xl border-1 border-white/[0.06]'>
 
           <div className='inner-main flex flex-col w-full h-full justify-center items-center cursor-pointer relative' onMouseEnter={onMouseEnterCanvas} onMouseLeave={onMouseLeaveCanvas} ref={SurpriseMeWrapper}>
             <canvas ref={canvasRef} id='my-canvas' className='absolute rounded-2xl' width={245} height={229} onClick={() => onClick()}></canvas>
             {/* <SvgExample sizeWidth={200} sizeHeight={100}/> */}
             <div className='you-should-read absolute top-15 opacity-0 ' ref={youShouldReadRef}>
               You Should Read
-            </div> 
+            </div>
 
-            { isClicked && 
+            {isClicked &&
               <div className='the-surprise-book'
-              ref={surpriseBookRef}>
-                <img 
-                src={image}
-                className='rounded-2xl opacity-0 absolute left-15 max-h-[190px]'
-                ref={bookImageRef}
-                onMouseEnter={onImageHover}
-                onMouseLeave={onImageLeave}
+                ref={surpriseBookRef}>
+                <img
+                  src={image}
+                  className='rounded-2xl opacity-0 absolute left-15 max-h-[190px]'
+                  ref={bookImageRef}
+                  onMouseEnter={onImageHover}
+                  onMouseLeave={onImageLeave}
                 />
                 {
                   isImageHovered && toolTip()
                 }
               </div>
             }
-            
+
             <div className='click-me text-white text-[30px] opacity-0  duration-500 select-none' draggable={false} ref={clickMeRef}>
               Click me!
             </div>

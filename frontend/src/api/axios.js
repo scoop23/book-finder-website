@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const BASE_URL = import.meta.env.VITE_SERVER_URL;
-// assuming BASE_URL is http://localhost:8080
+// assuming BASE_URL is http://localhost:8085
 
 export const axiosMain = axios.create({
   baseURL: BASE_URL || import.meta.env.VITE_SERVER_URL || "http://localhost:8080",

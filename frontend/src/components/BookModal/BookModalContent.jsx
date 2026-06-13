@@ -14,6 +14,7 @@ const BookModalContent = ({ workData, isModal }) => {
   const [isPrimaryHovered, setIsPrimaryHovered] = useState(false);
   const [visibleHeight, setVisibleHeight] = useState(400);
   const [showLinks, setShowLinks] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   let scrollWidth = ''
 
@@ -54,6 +55,9 @@ const BookModalContent = ({ workData, isModal }) => {
   const { description, links } = parseDescription(rawDescription);
   console.log(computedHeight);
 
+  useEffect(() => {
+  }, [])
+
   return (
     <motion.div className="modal-content flex flex-row w-[1200px] h-full p-4">
       <motion.div
@@ -82,11 +86,18 @@ const BookModalContent = ({ workData, isModal }) => {
           >
             <div className="cover-authors gap-4 flex flex-col items-center">
               {coverUrl ? (
-                <img
-                  src={coverUrl}
-                  alt={workData?.title}
-                  className="max-w-[300px] h-[250px] object-cover rounded-2xl"
-                />
+                <motion.div className="w-[165px] h-[250px] flex-shrink">
+                  <motion.img
+                    src={coverUrl}
+                    alt={workData?.title}
+                    className="img max-w-[165px] h-[250px] object-cover rounded-2xl"
+                    onLoad={() => setIsImageLoaded(true)}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={isImageLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                  />
+                </motion.div>
               ) : (<img
                 src={bookImage}
                 alt={workData?.title}
@@ -99,7 +110,7 @@ const BookModalContent = ({ workData, isModal }) => {
             </div>
             <div className="title-description flex flex-col gap-2">
               <h2 className="text-xl font-bold">{workData?.title}</h2>
-              <p className={`text-gray-600`} >{description}</p>
+              <p className={`text-gray-600 font-light tracking-tight `} >{description}</p>
               {links.length > 1 &&
                 <DescriptionWithLinks
                   setShowLinks={setShowLinks}
@@ -112,7 +123,7 @@ const BookModalContent = ({ workData, isModal }) => {
                 <ModalContentGenres genresData={workData?.subjects} />
                 {
                   workData?.subjects?.length > 6 && (
-                    <button className="p-2 border-2 border-green-800 cursor-pointer">see more genres.</button>
+                    <button className="p-2 border-2 border-green-800 uppercase tracking-[2px] text-[11px] cursor-pointer">see more genres.</button>
                   )
                 }
               </div>
@@ -144,10 +155,10 @@ const BookModalContent = ({ workData, isModal }) => {
             </AnimatePresence>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </motion.div >
 
       {/* Right / secondary container */}
-      <motion.div
+      < motion.div
         className="secondary-container flex flex-col px-4 mt-25  h-full gap-4 items-center justify-start"
         variants={secondParentVariant}
         initial="hidden"
@@ -155,7 +166,7 @@ const BookModalContent = ({ workData, isModal }) => {
         exit="exit"
       >
         <ModalButtons />
-      </motion.div>
+      </motion.div >
     </motion.div >
   );
 };

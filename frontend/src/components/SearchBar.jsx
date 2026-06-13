@@ -229,12 +229,14 @@ const SearchBar = () => {
   const isMainPage = location.pathname === '/search'; // is location is /search then return true
 
   return (
-    <div className='search-bar-wrapper flex flex-col font-inter'>
+    <div className='search-bar-wrapper flex flex-col '>
 
       <div className='outer-search-bar-container p-[20px] max-w-full min-h-[20px] flex justify-between gap-2 '>
-        <button className='home-button flex flex-row gap-2 items-center rounded-4xl p-8 border-1 h-[70px] text-amber-100 hover:text-black hover:bg-amber-50 duration-250 transition-all cursor-pointer' onClick={() => {
-          navigate('/search')
-        }}><FaHome /></button>
+        <button className='home-button flex flex-row gap-2 items-center rounded-[6px] p-8 border-1 h-[70px] text-amber-100 hover:text-black hover:bg-amber-50 duration-250 transition-all cursor-pointer'
+
+          onClick={() => {
+            navigate('/search')
+          }}><FaHome /></button>
         <div className='flex gap-2 buttons-wrapper'>
 
 
@@ -246,7 +248,7 @@ const SearchBar = () => {
           {/* this removes the hover effect for the bg and text if you clicked while its off
           element.classList.remove("hover:bg-amber-50", "hover:text-black");
           then add the css for when you want to untoggle
-          element.classList.add("bg-amber-50", "text-black", "hover:bg-[var(--mycolor-bg)]", "hover:text-amber-100");
+          element.classList.add("bg-amber-50", "text-black", "hover:bg-[var(--myc<img src="https://app.adreform.com/storage/attachments/exp/BAh7CEkiCGdpZAY6BkVUSSJMZ2lkOi8vYWQtcmVmb3JtL0FkL2I0ZGI3ZDZhLWYzOWItNGQ1Ni05ZmEwLTkzN2RlOWIyOTllMD9leHBpcmVzX2luPTcyMDAGOwBUSSIMcHVycG9zZQY7AFRJIg1leHBpcmluZwY7AFRJIg9leHBpcmVzX2F0BjsAVEkiHTIwMjYtMDYtMDlUMDk6MjE6MDEuOTc1WgY7AFQ=--da0e16604406df07adfd3fd6105866969de10d19/preview_image" style="display:block; margin-left:auto; margin-right: auto; margin-top: 15px; margin-bottom: 15px; padding-top: 10px; padding-bottom: 10px;">olor-bg)]", "hover:text-amber-100");
 
           this removes the amber bg and text black if you click it while its on
           element.classList.remove("bg-amber-50","text-black", "hover:bg-primary-ebony-clay", "hover:bg-amber-50");
@@ -255,9 +257,10 @@ const SearchBar = () => {
 
           <button className={`search-title 
           ${clickedSearchTitle
-              ? ("hover:bg-[var(--mycolor-bg)] bg-amber-50 hover:text-amber-100")
-              : ("hover:bg-amber-50 hover:text-black text-amber-100")}  
-            duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg`}
+              ? ("hover:bg-[var(--mycolor-bg)] bg-secondary-amberLike hover:text-amber-100")
+              : ("hover:bg-secondary-amberLike hover:text-[var(--mycolor-bg)] text-amber-100")}  
+            duration-250  transition-all flex justify-center items-center border-1 border-[var(--mycolor-bg)] rounded-[6px] p-8 h-[70px] cursor-pointer hover:shadow-lg font-light
+            uppercase text-[14px]`}
             onClick={() => buttonSearchTitle()} ref={searchTitle}>Title Search
           </button>
 
@@ -266,9 +269,10 @@ const SearchBar = () => {
             <>
               <button className={`
               search-author ${clickedSearchAuthor
-                  ? 'hover:bg-[var(--mycolor-bg)] text-black bg-amber-50 hover:text-amber-100'
-                  : 'hover:bg-amber-50 hover:text-black text-amber-100'}
-                  duration-250 transition-all flex justify-center items-center border-1 rounded-4xl p-8 h-[70px] cursor-pointer hover:shadow-lg opacity-0`}
+                  ? 'hover:bg-[var(--mycolor-bg)] text-black bg-secondary-amberLike hover:text-amber-100'
+                  : 'hover:bg-secondary-amberLike hover:text-[var(--mycolor-bg)] text-amber-100'}
+                  duration-250 transition-all flex justify-center items-center border-1 border-[var(--mycolor-bg)] rounded-[6px] p-8 h-[70px] cursor-pointer hover:shadow-lg opacity-0 font-light
+                uppercase text-[14px]`}
                 // sm:w-[174px] md:w-[250px] lg:w-[300px]
                 onClick={() => buttonSearchAuthor()} ref={searchAuthorBtn}>Author Search</button>
             </>
@@ -279,11 +283,12 @@ const SearchBar = () => {
             (<SearchAuthor dispatch={dispatch} setClickedSearchAuthor={setClickedSearchAuthor} ref={searchAuthorRefs} clickedSearchAuthor={clickedSearchAuthor} clickedSearchTitle={clickedSearchTitle} setLocalAuthorText={setLocalAuthorText} localAuthorText={localAuthorText} />) // pass in the states for it to works
           }
 
-          <div className='inner-search flex flex-row gap-2 items-center rounded-4xl p-4 bg-amber-50 h-[70px] justify-center'>
+          <div className='inner-search flex flex-row gap-2 items-center rounded-[6px] p-4 bg-secondary-amberLike h-[70px] justify-center font-light'
+          >
             <input
               ref={searchBarInputRef}
               required
-              className={`input-search hidden w-0 rounded-2xl outline-0 font-inter`}
+              className={`input-search hidden w-0 rounded-2xl outline-0`}
               type="text"
               defaultValue={localSearchText}
               onKeyDown={(e) => {

@@ -2,14 +2,14 @@ import { toHex } from "../../../../shared/constants/genres.jsx";
 import { useRef } from "react";
 import gsap from "gsap";
 
-const CarouselGenres = ({ genres, dispatch, setGenreColor}) => {
+const CarouselGenres = ({ genres, dispatch, setGenreColor }) => {
   const arrGenreCardRef = useRef([]);
   const myGenres = Object.keys(genres) // get keys
-  const availableGenres = myGenres.slice(0,5); // get 6 genres
+  const availableGenres = myGenres.slice(0, 5); // get 6 genres
   const myCapitalizedGenres = availableGenres.map(g => {
     const capitalizedG = g[0].toUpperCase() + g.slice(1)
-    for (let i = 0 ; i < capitalizedG.length; i++) {
-      if(capitalizedG[i] === ' ') {
+    for (let i = 0; i < capitalizedG.length; i++) {
+      if (capitalizedG[i] === ' ') {
         const noSpace = capitalizedG.split(' ')
         return noSpace
       }
@@ -20,7 +20,7 @@ const CarouselGenres = ({ genres, dispatch, setGenreColor}) => {
   function genreClick(genre) {
     let temp = ''
     let modGenre = ''
-    if(Array.isArray(genre)) {
+    if (Array.isArray(genre)) {
       temp = genre.join(' ');
       modGenre = temp.toLowerCase();
     } else {
@@ -28,29 +28,31 @@ const CarouselGenres = ({ genres, dispatch, setGenreColor}) => {
     }
     const genreColorHex = genres[modGenre]; // get the color
     setGenreColor(genreColorHex);
-    dispatch({ type : "SET_GENRE"  , payload : genre});
+    dispatch({ type: "SET_GENRE", payload: genre });
   }
 
-  function onHover(index , theGenre) {
-  let hexColor = toHex(genres[theGenre]);
-  hexColor = hexColor.toLowerCase();
-    if(arrGenreCardRef.current[index]) {
+  function onHover(index, theGenre) {
+    let hexColor = toHex(genres[theGenre]);
+    hexColor = hexColor.toLowerCase();
+    if (arrGenreCardRef.current[index]) {
       gsap.to(arrGenreCardRef.current[index], {
-        duration : 0.4,
-        y : -5,
-        boxShadow : `0px 5px 10px 4px ${hexColor}` 
+        duration: 0.6,
+        y: -5,
+        boxShadow: ` 0 8px 10px -6px  ${hexColor}`,
+        border: "1px solid " + hexColor
       })
     }
   }
 
-  function offHover(index , theGenre) {
+  function offHover(index, theGenre) {
     let hexColor = toHex(genres[theGenre]);
     hexColor = hexColor.toLowerCase();
-    if(arrGenreCardRef.current[index]) {
+    if (arrGenreCardRef.current[index]) {
       gsap.to(arrGenreCardRef.current[index], {
-        duration : 0.4,
-        y : 0,
-        boxShadow : `0px 0px 0px 0px ${hexColor}` 
+        duration: 0.6,
+        y: 0,
+        boxShadow: `0px 0px 0px 0px ${hexColor}`,
+        border: "none"
       })
     }
   }
@@ -58,7 +60,7 @@ const CarouselGenres = ({ genres, dispatch, setGenreColor}) => {
   return myCapitalizedGenres.map((genre, index) => {
     let theGenre = ''
     let lowerCasedGenre = ''
-    if(Array.isArray(genre)) {
+    if (Array.isArray(genre)) {
       let joinedArrayGenre = genre.join(' ');
       lowerCasedGenre = joinedArrayGenre.toLowerCase();
       theGenre = genre[0]
@@ -66,16 +68,15 @@ const CarouselGenres = ({ genres, dispatch, setGenreColor}) => {
       theGenre = genre
       lowerCasedGenre = theGenre.toLowerCase()
     }
-    
 
     return (
-      <div 
-      className={`genre-tag w-[80px] h-[24px] rounded-4xl bg-[#272730] text-white cursor-pointer px-2 py-3.5 text-[13px] text-center flex justify-center items-center font-inter`}
-      onClick={() => genreClick(genre)}
-      ref={(el) => (arrGenreCardRef.current[index] = el)}
-      onMouseEnter={() => onHover(index , lowerCasedGenre)}
-      onMouseLeave={() => offHover(index , lowerCasedGenre)}
-      key={index}
+      <div
+        className={`genre-tag w-[80px] h-[24px] rounded-[6px] font-light bg-zinc-900 text-white cursor-pointer px-2 py-3.5 text-[12px] text-center flex justify-center items-center font-inter`}
+        onClick={() => genreClick(genre)}
+        ref={(el) => (arrGenreCardRef.current[index] = el)}
+        onMouseEnter={() => onHover(index, lowerCasedGenre)}
+        onMouseLeave={() => offHover(index, lowerCasedGenre)}
+        key={index}
       >
         {theGenre}
       </div>

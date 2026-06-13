@@ -1,16 +1,31 @@
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from 'framer-motion';
 import BookModalContent from "./BookModal/BookModalContent";
+import { useQuery } from "@tanstack/react-query";
 import Loading from "./Loading.jsx";
+import { fetchWorks } from "@/api/AccessToApi.jsx";
 
-const BookCardModal = ({ workData, isModal, setIsModal, isLoading, isError, refetch }) => {
-  const mockWorkData = {
-    title: "The Adventures of Sherlock Holmes",
-    covers: [12059372],
-    description: "The Adventures of Sherlock Holmes is a collection of twelve short stories by Arthur Conan Doyle, first published on 14 October 1892. It contains the earliest short stories featuring the consulting detective Sherlock Holmes, which had been published in twelve monthly issues of The Strand Magazine from July 1891 to June 1892. The stories are collected in the same sequence, which is not supported by any fictional chronology. The only characters common to all twelve are Holmes and Dr. Watson and all are related in first-person narrative from Watson's point of view. Contains: [Scandal in Bohemia](https://openlibrary.org/works/OL14930611W) [Red-headed League](https://openlibrary.org/works/OL14930336W) [Case of Identity](https://openlibrary.org/works/OL14929939W) [Boscombe Valley Mystery](https://openlibrary.org/works/OL18495288W) [Five Orange Pips](https://openlibrary.org/works/OL1518120W) [Man with the Twisted Lip](https://openlibrary.org/works/OL14930258W) [Adventure of the Blue Carbuncle](https://openlibrary.org/works/OL1518317W) [Adventure of the Speckled Band](https://openlibrary.org/works/OL262561W)",
-    authors: [{ author: { key: "/authors/OL23919A" } }],
-    subjects: ["Mystery", "Detective", "Fiction", "Classic Literature", "British Literature", "Short Stories", "Crime", "Victorian Era", "London"]
-  }
+const BookCardModal = ({ isModal, setIsModal, workId }) => {
+  // const mockWorkData = {
+  //   title: "The Adventures of Sherlock Holmes",
+  //   covers: [12059372],
+  //   description: "The Adventures of Sherlock Holmes is a collection of twelve short stories by Arthur Conan Doyle, first published on 14 October 1892. It contains the earliest short stories featuring the consulting detective Sherlock Holmes, which had been published in twelve monthly issues of The Strand Magazine from July 1891 to June 1892. The stories are collected in the same sequence, which is not supported by any fictional chronology. The only characters common to all twelve are Holmes and Dr. Watson and all are related in first-person narrative from Watson's point of view. Contains: [Scandal in Bohemia](https://openlibrary.org/works/OL14930611W) [Red-headed League](https://openlibrary.org/works/OL14930336W) [Case of Identity](https://openlibrary.org/works/OL14929939W) [Boscombe Valley Mystery](https://openlibrary.org/works/OL18495288W) [Five Orange Pips](https://openlibrary.org/works/OL1518120W) [Man with the Twisted Lip](https://openlibrary.org/works/OL14930258W) [Adventure of the Blue Carbuncle](https://openlibrary.org/works/OL1518317W) [Adventure of the Speckled Band](https://openlibrary.org/works/OL262561W)",
+  //   authors: [{ author: { key: "/authors/OL23919A" } }],
+  //   subjects: ["Mystery", "Detective", "Fiction", "Classic Literature", "British Literature", "Short Stories", "Crime", "Victorian Era", "London"]
+  // }
+  const trueWorkId = workId.split("/")[2];
+  console.log(trueWorkId);
+
+  const workData = useQuery({
+    queryKey: ["workdata", trueWorkId],
+    queryFn: () => fetchWorks(trueWorkId),
+    retry: 0,
+    enabled: !!trueWorkId && isModal,
+    refetchOnWindowFocus: false,
+    gcTime: 10 * 60 * 1000,
+    staleTime: 5 * 60 * 1000
+  })
+
   return createPortal(
     <AnimatePresence>
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
@@ -35,21 +50,21 @@ const BookCardModal = ({ workData, isModal, setIsModal, isLoading, isError, refe
           exit={{ opacity: 0, pointerEvents: "none" }}
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/50 h-full"
-          onClick={() => setIsModal()}
+          onClick={() => setIsModal(!isModal)}
         >
-          {isLoading && (
+          {workData.isPending && (
             <div>
               <div className="text-white text-sm">Loading...</div>
             </div>
           )}
-          {isError && (
+          {workData.isError && (
             <div>
               <div className="text-red-400 text-sm">Failed to load book details. Try again later.</div>
-              <button className="cursor-pointer text-white" onClick={(e) => { refetch(); e.stopPropagation() }}>retry.</button>
+              <button className="cursor-pointer uppercase tracking-tight text-[11px] text-white" onClick={(e) => { refetch(); e.stopPropagation() }}>retry.</button>
             </div>
           )}
-          {workData && !isError && (
-            <BookModalContent workData={workData} isModal={isModal} />
+          {workData && !workData.isError && (
+            <BookModalContent workData={workData.data} isModal={isModal} />
           )}
         </motion.div>
       )}

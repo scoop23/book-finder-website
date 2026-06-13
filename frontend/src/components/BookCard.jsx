@@ -6,8 +6,9 @@ import { fetchWorks } from '../api/AccessToApi';
 import { useQuery } from '@tanstack/react-query';
 import { marked } from 'marked';
 import BookCardModal from './BookCardModal';
+import DivActionButton from './ActionButtons/DivActionButton';
 
-const BookCard = forwardRef(({ bookData }, ref) => {
+const BookCard = forwardRef(({ isBookModal, setIsBookModal, bookData, OnHover, onSelect }, ref) => {
   const [isModal, setIsModal] = useState(false);
   const data = bookData;
   // const { title, imageLinks, description, publishedDate, authors, key} = data;
@@ -19,12 +20,9 @@ const BookCard = forwardRef(({ bookData }, ref) => {
   const workData = useQuery({
     queryKey: ["workdata", workId],
     queryFn: () => fetchWorks(workId),
-    retry: 0,
-    enabled: !!workId && isModal,
-    refetchOnWindowFocus: false,
-    gcTime: 10 * 60 * 1000,
-    staleTime: 5 * 60 * 1000
-  })
+    staleTime: 5 * 60 * 1000,
+  });
+
 
   function containsLink(tokens) {
     // recursively goes through every tokens until it finds a type of token.type === "link"
@@ -68,10 +66,14 @@ const BookCard = forwardRef(({ bookData }, ref) => {
   }
 
   function handleCardClick() {
-    setIsModal(!isModal)
+    // setIsModal(!isModal)
+    setIsBookModal(!isBookModal);
+    if (typeof onSelect === "function") onSelect();
   }
 
-  console.log(workData)
+
+  // console.log(workData)
+
 
   const mockWorkData = {
     title: "Harry Potter and the Goblet of Fire",
@@ -81,32 +83,55 @@ const BookCard = forwardRef(({ bookData }, ref) => {
     authors: [{ author: { key: "/authors/OL23919A" } }]
   }
 
-  console.log(isModal)
+  // console.log(isModal)
 
   return (
-    <div className="main-bookcard-content max-h-[300px] font-inter select-auto cursor-pointer" ref={ref} onClick={() => handleCardClick()}
-      style={{ pointerEvents: !isModal ? "auto" : "none" }}>
-      {
-        <BookCardModal
-          workData={workData.data}
-          isModal={isModal}
-          setIsModal={handleCardClick}
-          isLoading={workData.isPending}
-          isError={workData.isError}
-          refetch={workData.refetch}
-        />
-      }
+    <div
+      tabIndex={isBookModal ? -1 : 0}
+      role="button"
+      className="main-bookcard-content max-h-[300px] font-inter select-auto cursor-pointer relative"
+      ref={ref}
+      onClick={() => handleCardClick()}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleCardClick();
+        }
+      }}
+      onMouseEnter={OnHover}
+      style={{ pointerEvents: !isBookModal ? "auto" : "none" }}
+    >
+      {/* { */}
+      {/*   <BookCardModal */}
+      {/*     workData={workData.data} */}
+      {/*     isModal={isModal} */}
+      {/*     setIsModal={handleCardClick} */}
+      {/*     isLoading={workData.isPending} */}
+      {/*     isError={workData.isError} */}
+      {/*     refetch={workData.refetch} */}
+      {/*   /> */}
+      {/* } */}
+
+      {/* goo layer */}
+      <ActionButtons Ypos={-81.5} Xpos={17.5} hover={isHovering} sideBarRef={contentRef} className={``} />
+      <DivActionButton />
 
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
-      }} className="content-container rounded-2xl bg-[var(--color-dark)] border-[0.5px] border-[#545151]  max-w-[309px] h-[300px] flex flex-col transition-all relative" ref={contentRef} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
-        <ActionButtons Ypos={-81.5} Xpos={17.5} hover={isHovering} sideBarRef={contentRef} className={``} />
+        // background: "#191920"
+        background: "#191920",
+        // background: "linear-gradient(308deg,rgba(39, 39, 51, 1) 0%, rgba(25, 25, 32, 1) 75%)",
+      }} className="content-container rounded-2xl border-1 border-white/[0.06] max-w-[309px] h-[300px] flex flex-col transition-all "
+        ref={contentRef}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
         <div className="bookcard-content flex flex-col py-4 p-3 gap-2 max-h-full">
           <div className="main-content-card flex gap-2">
             <div className="flex-shrink-0">
               <img
                 className="rounded-2xl border w-[80px] h-[110px] object-cover"
-                src={cover_edition_key ? `https://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg` : bookImage}
+                src={workData?.data?.covers?.length ? `https://covers.openlibrary.org/b/id/${workData.data.covers[0]}-L.jpg` : bookImage}
                 alt="Book"
               />
             </div>
@@ -150,7 +175,7 @@ const BookCard = forwardRef(({ bookData }, ref) => {
           {/* Description Section */}
           <div style={{
             // boxShadow: 'inset 0 1px 3px #00000030 ,inset 0 2px 4px #00000030'
-          }} className="sub-content w-full h-[110px] bg-[var(--color-dark)] bg-opacity-40 rounded-2xl p-2 overflow-hidden">
+          }} className="sub-content w-full h-[110px] bg-opacity-40 rounded-2xl p-2 overflow-hidden">
             <p className=" text-xs text-[var(--color-lighter)] line-clamp-4 break-words">
               {description || 'No description available.'}
             </p>

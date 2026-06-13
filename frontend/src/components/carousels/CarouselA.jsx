@@ -122,11 +122,11 @@ const CarouselA = ({ state }) => {
       <div className="carousel-main flex justify-center items-center">
         <div className="carousel max-w-[470px] h-[400px] flex flex-row gap-2 justify-center items-center">
           <div className="inner-carousel-wrapper flex flex-col justify-center items-center gap-4 w-[480px]">
-            <span className="text-white text-[15px]  p-3.5 rounded-2xl bg-[#212129]">
+            <span className="text-[14px] p-3.5 rounded-2xl text-[#c9a96e]">
               Top Popular Books
             </span>
             <div
-              className="carousel flex flex-row items-center w-[480px] h-[270px] bg-zinc-900 rounded-2xl p-1.5 border-zinc-600 border-1"
+              className="carousel flex flex-row items-center w-[480px] h-[270px] bg-zinc-900 rounded-2xl p-1.5 border-white/[0.06] border-1"
               ref={carRef}
               onMouseEnter={handleHover}
               onMouseLeave={handleOnLeave}

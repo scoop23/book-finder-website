@@ -70,12 +70,18 @@ const SearchAuthor = forwardRef(({ dispatch, setClickedSearchAuthor, clickedSear
   }
 
   return (
-    <div className='search-author-input h-[70px] bg-amber-50 rounded-4xl items-center justify-center flex p-4 font-inter w-[174.41px] opacity-0'
+    <div className='search-author-input h-[70px] rounded-[6px] items-center justify-center flex p-4 font-inter w-[174.41px] opacity-0'
+      style={{
+        background: "linear-gradient(135deg, #191920 20%, #7412c9 100%)",
+        minHeight: "38px",
+        padding: "20px",
+      }}
       ref={searchAuthorButtonRef}>
       <input
         ref={searchAuthorInputRef}
         required
-        className='author-search items-center outline-0 rounded-2xl opacity-0'
+        className='author-search items-center outline-0 rounded-2xl opacity-0 text-gray-500 placeholder:text-white/[0.5] placeholder:uppercase placeholder:text-[14px] placeholder:tracking-tight
+        pl-2 placeholder:font-light'
         placeholder='Author Name..'
         type="text"
         defaultValue={localAuthorText}

@@ -1,7 +1,6 @@
 // .. MAIN 
 import { Suspense, useCallback, useContext, useEffect, useState } from "react";
 import "../App.css";
-
 import {
   fetchQuotes,
   getGenre,
@@ -12,7 +11,6 @@ import useFetch from "@/hooks/useFetch.jsx";
 // TODO: WILL ADD A LANDING/START PAGE?
 import { BookSearchContext } from "../context/BookSearchContext.jsx";
 import { useQuery } from "@tanstack/react-query";
-import { fetchBookByTitleOL } from "../api/AccessToApi.jsx";
 
 const BookSearchContainer = ({ children }) => {
   const { state, dispatch } = useContext(BookSearchContext);
@@ -53,7 +51,7 @@ const BookSearchContainer = ({ children }) => {
   return (
     <>
       {/* provide context on the children */}
-      <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4 ">
+      <div className="main-container flex flex-col justify-center items-center w-full h-full gap-4">
         <div className="inner-main w-full max-w-[1280px] min-h-[800px] rounded-[10px] mx-auto p-4">
 
           {children} {/* gets the children and put it here */}

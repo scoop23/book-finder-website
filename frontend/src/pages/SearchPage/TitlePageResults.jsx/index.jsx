@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import BookResults from '@/components/BookResults';
 import { useSearchParams } from 'react-router-dom';
 import { useFetchDataTitleSearch } from '@/hooks/useFetchDataTitleSearch';
 import SearchPagePaginationResults from '../../../components/SearchPagePaginationResults';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { BookSearchContext } from '../../../context/BookSearchContext';
 import { useQuery } from '@tanstack/react-query';
 import { fetchBookByTitleOL } from '../../../api/AccessToApi';
@@ -14,14 +14,7 @@ const TitlePageResults = () => {
   const searchQuery = searchParams.get('query');
   const pageParams = searchParams.get('page');
   const { state, dispatch } = useContext(BookSearchContext);
-
-  // const {isPending : isPending, data : data} = useFetchData(searchQuery , '/search/title')
-  // const { data, isPending } = useFetchDataTitleSearch(
-  //   searchQuery + "Text",
-  //   "/search/title",
-  //   searchQuery,
-  //   pageParams,
-  // );
+  const [isLoading, setIsLoading] = useState(false);
 
   const titleSearchData = useQuery({
     queryKey: ["titlesearchdata", searchQuery, pageParams],
@@ -33,7 +26,9 @@ const TitlePageResults = () => {
     gcTime: 10 * 60 * 1000,
   })
 
+
   useEffect(() => {
+    console.log(titleSearchData);
     if (titleSearchData.data) {
       dispatch({ type: "SET_BOOK_DATA", payload: titleSearchData.data });
     }

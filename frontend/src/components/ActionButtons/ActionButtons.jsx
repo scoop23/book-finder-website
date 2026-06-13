@@ -95,6 +95,7 @@ const ActionButtons = ({ Ypos, Xpos, hover, sideBarRef, className }) => {
     <div className={`action-buttons flex ${className || ''}`} style={{
       position: 'absolute',
       top: Ypos,
+      filter: 'url(#goo)',
       left: Xpos,
     }}>
       {
@@ -102,7 +103,7 @@ const ActionButtons = ({ Ypos, Xpos, hover, sideBarRef, className }) => {
           <ActionButton key={i} hover={hover} noStroke={false} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[i] = el} Icon={icon} />
         ))
       }
-      <ActionButton hover={hover} noStroke={true} fill={"#000000"} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[widGetArray.length] = el} Icon={SeeMoreButton} />
+      <ActionButton hover={hover} noStroke={true} fill={"#191920"} WidgetRef={sideBarRef} Ypos={-50} ref={(el) => circleRefArray.current[widGetArray.length] = el} Icon={SeeMoreButton} />
     </div>
   )
 }

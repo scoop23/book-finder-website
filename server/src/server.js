@@ -5,7 +5,7 @@ const express = require("express");
 const rateLimit = require("express-rate-limit");
 
 const app = express();
-const port = 8080;
+const port = 8085;
 const cors = require("cors");
 
 const corsOptions = {
@@ -33,6 +33,5 @@ app.use('/search', limiter, searchRouter);
 app.use('/genres', genreRouter);
 app.use('/random', randomsRouter);
 app.use('/opensearch', limiter, openLibRouter);
-
 
 
