@@ -6,29 +6,27 @@ const DivActionButton = () => {
         filter: "url(#goo)",
         position: "absolute",
         inset: 0,
-        background: "red",
+        background: "lightgreen",
       }}>
 
       <div
         className="card-blob"
         style={{
           position: "absolute",
-          width: "30px",
-          height: "25px",
           borderRadius: 16,
           background: "#191920",
         }}
       />
 
       <div
-        className="favorite-blob"
+        className="favorite-blob transition-all duration-200"
         style={{
           position: "absolute",
           width: 60,
           height: 60,
           borderRadius: "50%",
-          background: "red",
-          left: -20,
+          background: "#191920",
+          left: -30,
           top: 100,
         }}>
       </div>

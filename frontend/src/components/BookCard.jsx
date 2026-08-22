@@ -119,9 +119,8 @@ const BookCard = forwardRef(({ isBookModal, setIsBookModal, bookData, OnHover, o
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
         // background: "#191920"
-        background: "#191920",
         // background: "linear-gradient(308deg,rgba(39, 39, 51, 1) 0%, rgba(25, 25, 32, 1) 75%)",
-      }} className="content-container rounded-2xl border-1 border-white/[0.06] max-w-[309px] h-[300px] flex flex-col transition-all "
+      }} className="content-container rounded-2xl  max-w-[309px] h-[300px] flex flex-col transition-all z-10 bg-transparent"
         ref={contentRef}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}

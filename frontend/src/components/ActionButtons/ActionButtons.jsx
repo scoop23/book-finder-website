@@ -95,7 +95,6 @@ const ActionButtons = ({ Ypos, Xpos, hover, sideBarRef, className }) => {
     <div className={`action-buttons flex ${className || ''}`} style={{
       position: 'absolute',
       top: Ypos,
-      filter: 'url(#goo)',
       left: Xpos,
     }}>
       {

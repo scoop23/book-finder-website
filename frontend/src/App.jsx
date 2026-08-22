@@ -16,6 +16,7 @@ import BookDetailsPage from './pages/BookDetailsPage/index.jsx';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCoffee, faHome, faUser, faAngleLeft, faAngleRight, faHeart, faBookmark, faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import HomePage from './pages/HomePage/index.jsx';
+import GooDefs from './components/ui/GooDefs.jsx';
 
 library.add(faCoffee, faHome, faUser, faAngleLeft, faAngleRight, faHeart, faBookmark, faArrowRightToBracket);
 
@@ -25,6 +26,7 @@ const App = () => {
   return (
     <>
       <QueryClientProvider client={queryClient}>
+        <GooDefs />
         {/* AuthContext */}
         <BookSearchProvider>
           <BrowserRouter>
