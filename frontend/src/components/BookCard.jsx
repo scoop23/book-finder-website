@@ -113,19 +113,25 @@ const BookCard = forwardRef(({ isBookModal, setIsBookModal, bookData, OnHover, o
       {/* } */}
 
       {/* goo layer */}
-      <ActionButtons Ypos={-81.5} Xpos={17.5} hover={isHovering} sideBarRef={contentRef} className={``} />
-      <DivActionButton />
+      {/* <ActionButtons Ypos={-81.5} Xpos={17.5} hover={isHovering} sideBarRef={contentRef} className={``} /> */}
+      <DivActionButton hover={isHovering} setIsHovering={setIsHovering} />
 
       <div style={{
         // boxShadow: 'inset 0 1px 3px #ffffff30, 0 2px 4px #00000030, 0 2px 5px #00000015'
         // background: "#191920"
         // background: "linear-gradient(308deg,rgba(39, 39, 51, 1) 0%, rgba(25, 25, 32, 1) 75%)",
-      }} className="content-container rounded-2xl  max-w-[309px] h-[300px] flex flex-col transition-all z-10 bg-transparent"
+      }} className="content-container rounded-[16px] max-w-[309px] h-[300px] flex flex-col transition-all z-10 bg-transparent"
         ref={contentRef}
         onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
+        onMouseLeave={(e) => {
+          if (e.relatedTarget?.closest?.("[data-goo-ui]")) {
+            console.log(e.relatedTarget?.closest?.("[data-goo-ui]"))
+          }
+
+          setIsHovering(false)
+        }}
       >
-        <div className="bookcard-content flex flex-col py-4 p-3 gap-2 max-h-full">
+        <div className="bookcard-content flex flex-col py-4 p-3 gap-2 max-h-full rounded-[16px] bg-transparent">
           <div className="main-content-card flex gap-2">
             <div className="flex-shrink-0">
               <img

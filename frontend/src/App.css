@@ -15,11 +15,12 @@
   height: 100%;
   --color-base:    oklch(52.711% 0.02051 278.712); /* medium lavender gray */
   --color-dark:    oklch(38.737% 0.00338 286.054); /* darker muted lavender */
-  --color-darker:  oklch(17.853% 0.00409 285.914); /* near-deep lavender gray */
+  /* --color-darker:  oklch(17.853% 0.00409 285.914); /* near-deep lavender gray */ 
+  --color-darker : #22222e;
   --color-light:   oklch(0.65 0.05 280); /* softer pale lavender */
   --color-lighter: oklch(100% 0.00011 271.152); /* very light lavender gray */
   /* --color-mybg: oklch(27.274% 0.00003 271.152); */
-  --color-mybg: #0f0f12;
+  --color-mybg: #10101a;
   --color-border-darker: oklch();
 }
 

@@ -28,19 +28,6 @@ const BookCardModal = ({ isModal, setIsModal, workId }) => {
 
   return createPortal(
     <AnimatePresence>
-      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
-        <defs>
-          <filter id="goo" height="300%" y="-100%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" result="goo" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 2 18 -7" />
-            <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
-            <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
-            <feOffset in="shadow" dx="1" dy="1" result="shadow" />
-            <feBlend in2="shadow" in="goo" result="goo" />
-            <feBlend in2="goo" in="SourceGraphic" result="mix" />
-          </filter>
-        </defs>
-      </svg>
 
       {isModal && (
         <motion.div
