@@ -8,7 +8,7 @@ const DivActionButton = ({ hover, setIsHovering }) => {
       data-goo-ui
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={(e) => {
-        if (e.relatedTarget?.closest?.("[data-goo-ui]")) return;
+        if (e.relatedTarget?.closest?.("[data-goo-ui]")) return; // favorite-blob is a relatedtarget an is also the closest with the data-goo-ui // favorite-blob is a relatedtarget an is also the closest with the data-goo-ui.
         setIsHovering(false);
       }}
       style={{
@@ -20,37 +20,34 @@ const DivActionButton = ({ hover, setIsHovering }) => {
         zIndex: -10,
       }}>
 
-      <div
-        className="card-blob"
-        style={{
-          position: "absolute",
-          borderRadius: 16,
-          background: "#22222e",
-        }}
-      />
 
       <div
-        className="favorite-blob transition-all duration-200"
+        className="blob-group"
         data-goo-ui
-        onClick={(e) => {
-          e.stopPropagation()
-        }}
+        onClick={(e) => e.stopPropagation()}          // ← once HERE, not per-blob
         style={{
           position: "absolute",
-          width: 60,
-          height: 60,
-          borderRadius: "50%",
-          background: "#22222e",
-          left: 30,
-          top: hover ? -75 : 10,
+          left: 13,
+          top: hover ? -90 : 10,                      // ← animate the GROUP, blobs stay put inside
+          display: "flex",
+          gap: 20,
+          padding: 12,                                // ← extends bounds 12px around everything
           transition: "0.3s all ease",
-        }}>
-      </div>
+        }}
+      >
+        <div
+          className="favorite-blob transition-all duration-200"
+          data-goo-ui
+          onClick={(e) => {
+            e.stopPropagation()
+          }}>
+        </div>
 
-      <div className="bookmark-blob" />
+        <div className="bookmark-blob"></div>
 
-      <div className="share-blob" />
+        <div className="share-blob"></div>
 
+      </div >
     </div >
   )
 }

@@ -23,6 +23,12 @@
   --color-mybg: #10101a;
   --color-border-darker: oklch();
 }
+.blob-group > div {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #22222e;
+}
 
 @font-face {
   font-family: courier new;
